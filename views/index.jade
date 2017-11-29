@@ -1,5 +1,106 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html(lang='en')
+  head
+    title Ordine dei Medici Caserta
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
+    script(src='javascripts/tether.min.js')
+    script(src='javascripts/jquery.min.js')
+    script(src='javascripts/popper.min.js')
+    script(src='javascripts/bootstrap.min.js')
+    script(type='text/javascript', async='').
+        function bs_input_file() {
+            $(".input-file").before(
+                function() {
+                    if ( ! $(this).prev().hasClass('input-ghost') ) {
+                        var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+                        element.attr("name",$(this).attr("name"));
+                        element.change(function(){
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function(){
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function(){
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor","pointer");
+                        $(this).find('input').mousedown(function() {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+        $(function() {
+            bs_input_file();
+        });
+  body
+    nav.navbar.navbar-expand-sm.bg-warning.navbar-light
+      ul.navbar-nav
+        li.nav-item.active
+          a.nav-link(href='#') Home
+        li.nav-item
+          a.nav-link(href='#') Gestione Utenti
+        li.nav-item
+          a.nav-link(href='#') Creazione Eventi
+        li.nav-item
+          a.nav-link(href='#') Invia Notifiche
+    .container-fluid
+      .row
+        .col-md-12.form-group
+          label.col-sm-4.control-label(for='titoloEvento') Titolo Evento
+          .input-group
+            span.input-group-addon
+              i.fa.fa-briefcase(aria-hidden='true')
+            input#titoloEvento.form-control(type='text', name='titoloEvento', placeholder='Titolo')
+      .row
+        .col-md-12.form-group
+          label.col-sm-4.control-label(for='sottotitoloEvento') Sottotitolo Evento
+          .input-group
+            span.input-group-addon
+              i.fa.fa-briefcase(aria-hidden='true')
+            input#sottotitoloEvento.form-control(type='text', name='sottotitoloEvento', placeholder='Sottotitolo')
+      .row
+        .col-md-6.form-group
+          label.col-sm-4.control-label(for='dataEvento') Data Evento:
+          #datetimepickerDataIntervento.input-group.date
+            span.input-group-addon
+              i.fa.fa-calendar(aria-hidden='true')
+            input#dataEvento.form-control(type='text')
+        .col-md-6.form-group
+          label.col-sm-4.control-label(for='luogoEvento') Luogo Evento:
+          .input-group
+            span.input-group-addon
+              i.fa.fa-map-marker(aria-hidden='true')
+            input#luogoEvento.form-control(type='text', name='luogoEvento', placeholder='Inserisci luogo evento')
+      .row
+        .col-md-6.form-group
+          label.col-sm-4.control-label(for='informazioniEvento') Informazioni (CFU, note ecc.):
+          .input-group
+            textarea#informazioniEvento.form-control(name='informazioniEvento')
+        .col-md-6.form-group
+          label.col-sm-4.control-label(for='relatoriEvento') Relatori:
+          .input-group
+            textarea#relatoriEvento.form-control(name='relatoriEvento')
+      .row
+        .col-md-12.form-group
+          label.col-sm-4.control-label(for='descrizioneEvento') Informazioni (CFU, note ecc.):
+          .input-group
+            textarea#descrizioneEvento.form-control(name='descrizioneEvento')
+      .row
+        .col-md-6.form-group
+          form(method='POST', action='#', enctype='multipart/form-data')
+            .input-group.input-file(name='fotoEvento')
+              span.input-group-btn
+                button.btn.btn-default.btn-choose(type='button')
+                  | Scegli:
+              input.form-control(type='text', placeholder='Choose a file...')
+              span.input-group-btn
+                button.btn.btn-warning.btn-reset(type='button')
+                  | Salva!

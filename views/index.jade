@@ -3,13 +3,18 @@ html(lang='en')
   head
     title Ordine dei Medici Caserta
     meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
+    meta(name='viewport', content='width=device-width')
+    link(href='stylesheets/bootstrap-datetimepicker.css', rel='stylesheet')
     link(rel='stylesheet', href='font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
     script(src='javascripts/tether.min.js')
     script(src='javascripts/jquery.min.js')
     script(src='javascripts/popper.min.js')
     script(src='javascripts/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js')
+    script(src='javascripts/bootstrap-datetimepicker.min.js')
     script(type='text/javascript', async='').
         function bs_input_file() {
             $(".input-file").before(
@@ -43,6 +48,7 @@ html(lang='en')
   body
     nav.navbar.navbar-expand-sm.bg-warning.navbar-light
       ul.navbar-nav
+       block contenutoNav
         li.nav-item.active
           a.nav-link(href='#') Home
         li.nav-item
@@ -51,6 +57,7 @@ html(lang='en')
           a.nav-link(href='#') Creazione Eventi
         li.nav-item
           a.nav-link(href='#') Invia Notifiche
+    br
     .container-fluid
       .row
         .col-md-12.form-group
@@ -69,7 +76,7 @@ html(lang='en')
       .row
         .col-md-6.form-group
           label.col-sm-4.control-label(for='dataEvento') Data Evento:
-          #datetimepickerDataIntervento.input-group.date
+          #datetimepickerDataEvento.input-group.date
             span.input-group-addon
               i.fa.fa-calendar(aria-hidden='true')
             input#dataEvento.form-control(type='text')
@@ -104,3 +111,5 @@ html(lang='en')
               span.input-group-btn
                 button.btn.btn-warning.btn-reset(type='button')
                   | Salva!
+  block myScript
+    script(src="javascripts/controllers/indexController.js")

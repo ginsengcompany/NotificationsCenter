@@ -12,6 +12,9 @@ var index = require('./routes/index');
 var creaEvento = require('./routes/creaEvento');
 var assegnaEvento = require('./routes/assegnaEvento');
 var salvaEvento = require('./app/routes/salvaEvento');
+var getEventi  = require('./app/routes/getEventi');
+var cercaMatricola  = require('./app/routes/cercaMatricola');
+var getMedici = require('./app/routes/getMedici');
 
 var app = express();
 var con = postgres(app);
@@ -46,6 +49,10 @@ app.use('/home', index);
 app.use('/creaEvento', creaEvento);
 app.use('/salvaEvento', salvaEvento);
 app.use('/assegnaEvento', assegnaEvento);
+app.use('/getEventi', getEventi);
+app.use('/cercaMatricola', cercaMatricola);
+app.use('/getMedici', getMedici);
+
 
 
 // catch 404 and forward to error handler

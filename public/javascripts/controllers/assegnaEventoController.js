@@ -1,23 +1,14 @@
 $("#tabellaMedici").bootgrid({
     ajax: true,
-    post: function ()
-    {
-        /* To accumulate custom parameter with the request object */
-        return {
-            id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-        };
+    ajaxSettings: {
+        method: "GET",
+        cache: false
     },
-    url: "/api/data/basic",
+    url: "/getMedici",
     selection: true,
     multiSelect: true,
     rowSelect: true,
-    keepSelection: true,
-    formatters: {
-        "link": function(column, row)
-        {
-            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-        }
-    }
+    keepSelection: true
 }).on("selected.rs.jquery.bootgrid", function(e, rows)
 {
     var rowIds = [];
@@ -38,30 +29,21 @@ $("#tabellaMedici").bootgrid({
 
 $("#tabellaEventi").bootgrid({
     ajax: true,
-    post: function ()
-    {
-        /* To accumulate custom parameter with the request object */
-        return {
-            id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-        };
+    ajaxSettings: {
+        method: "GET",
+        cache: false
     },
-    url: "/api/data/basic",
+    url: "/getEventi",
     selection: true,
     multiSelect: true,
     rowSelect: true,
-    keepSelection: true,
-    formatters: {
-        "link": function(column, row)
-        {
-            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-        }
-    }
+    keepSelection: true
 }).on("selected.rs.jquery.bootgrid", function(e, rows)
 {
     var rowIds = [];
     for (var i = 0; i < rows.length; i++)
     {
-        rowIds.push(rows[i].id);
+        rowIds.push(rows[i]._id);
     }
     alert("Select: " + rowIds.join(","));
 }).on("deselected.rs.jquery.bootgrid", function(e, rows)
@@ -69,7 +51,7 @@ $("#tabellaEventi").bootgrid({
     var rowIds = [];
     for (var i = 0; i < rows.length; i++)
     {
-        rowIds.push(rows[i].id);
+        rowIds.push(rows[i]._id);
     }
     alert("Deselect: " + rowIds.join(","));
 });

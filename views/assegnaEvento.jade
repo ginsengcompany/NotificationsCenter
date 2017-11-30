@@ -6,10 +6,12 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(rel='stylesheet', href='stylesheets/jquery.bootgrid.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+        script(src='javascripts/jquery.bootgrid.js')
 
     body(style='padding-top: 75px;')
         block myNav
@@ -38,22 +40,30 @@ html(lang='en')
 
             .row
                 .col-sm-6
-                    table#tabellaMedici.table.table-condensed.table-hover.table-striped
+                    table#tabellaMedici.table.table-condensed.table-hover.table-striped(width="100%", cellspacing="0" ,data-toggle='bootgrid', data-ajax='true')
                         thead
                             tr
-                                th(data-column-id='id', data-type='numeric', data-identifier='true') ID
-                                th(data-column-id='sender') Sender
-                                th(data-column-id='received', data-order='desc') Received
-                                th(data-column-id='link', data-formatter='link', data-sortable='false') Link
+                                th(data-column-id='_id', data-type='numeric', data-identifier='true') ID
+                                th(data-column-id='cognome', data-type='text') Cognome
+                                th(data-column-id='nome', data-type='text') Nome
+                                th(data-column-id='token', data-type='text') Link
+                                th(data-column-id='specializzazione', data-type='text') Specializzazione
+                                th(data-column-id='citta', data-type='text') Città
+                                th(data-column-id='mail', data-type='text') E-mail
 
                 .col-sm-6
-                    table#tabellaEventi.table.table-condensed.table-hover.table-striped
+                    table#tabellaEventi.table.table-condensed.table-hover.table-striped(width="100%", cellspacing="0" ,data-toggle='bootgrid', data-ajax='true')
                         thead
                             tr
-                                th(data-column-id='id', data-type='numeric', data-identifier='true') ID
-                                th(data-column-id='sender') Sender
-                                th(data-column-id='received', data-order='desc') Received
-                                th(data-column-id='link', data-formatter='link', data-sortable='false') Link
+                                th(data-column-id='_id', data-type='numeric', data-identifier='true') ID
+                                th(data-column-id='titolo', data-type='text') Titolo
+                                th(data-column-id='sottotitolo', data-type='text') Sottotitolo
+                                th(data-column-id='data') Data
+                                th(data-column-id='luogo', data-type='text') Luogo
+                                th(data-column-id='informazioni', data-type='text') Informazioni
+                                th(data-column-id='relatori', data-type='text') Relatori
+                                th(data-column-id='descrizione', data-type='text') Descrizione
+                                th(data-column-id='immagine') Immagine
         br
         .container-fluid
             button.btn.btn-primary.pull-right(onclick='salvaDati();') Submit

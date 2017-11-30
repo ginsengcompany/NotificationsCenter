@@ -9,7 +9,8 @@ var now = require('moment');
 var postgres = require("./config/postgres");
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var creaEvento = require('./routes/creaEvento');
+var salvaEvento = require('./app/routes/salvaEvento');
 
 var app = express();
 var con = postgres(app);
@@ -40,7 +41,9 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/', index);
-app.use('/users', users);
+app.use('/home', index);
+app.use('/creaEvento', creaEvento);
+app.use('/salvaEvento', salvaEvento);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

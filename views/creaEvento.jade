@@ -1,0 +1,107 @@
+doctype html
+html(lang='en')
+    head
+        title Ordine Medici Caserta
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+
+    body(style='padding-top: 75px;')
+        block myNav
+        nav.navbar.navbar-default.navbar-fixed-top
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/home') Ordine Medici Caserta
+                #navbar.navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li.active
+                            a(href='/creaEvento') Creazione Evento
+                        li
+                            a(href='/about') About
+                        li
+                            a(href='/contact') Contact
+        block myContainer
+        .container-fluid
+            .jumbotron
+                .row
+                    h1 Creazione Evento
+            .row
+                .col-sm-12
+                    // Titolo evento
+                    .row
+                        .col-sm-12.form-group
+                            label.cols-sm-2.control-label(for='titoloEvento') Titolo Evento
+                            .cols-sm-10
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-briefcase(aria-hidden='true')
+                                    input#titoloEvento.form-control(type='text', placeholder='Titolo evento')
+                    // Sottotitolo
+                    .row
+                        .col-sm-12.form-group
+                            label.cols-sm-2.control-label(for='sottotitoloEvento') Sottotitolo Evento
+                            .cols-sm-10
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-briefcase(aria-hidden='true')
+                                    input#sottotitoloEvento.form-control(type='text', placeholder='Sottotitolo evento')
+                    .row
+                        // Data Evento
+                        .col-sm-6.form-group
+                            label.cols-sm-2.control-label(for='dataEvento')
+                                | Dal giorno:
+                            #datetimepicker1.input-group.date
+                                span.input-group-addon
+                                    span.glyphicon-calendar.glyphicon
+                                input#dataEvento.form-control(type='text')
+
+                        // Luogo Evento
+                        .col-sm-6.form-group
+                            label.cols-sm-2.control-label(for='luogoEvento') Luogo Evento
+                            .cols-sm-10
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-map-marker(aria-hidden='true')
+                                    input#luogoEvento.form-control(type='text', placeholder='Luogo evento')
+                    .row
+                        // Informazioni evento
+                        .col-sm-6.form-group
+                            label.cols-sm-2.control-label(for='informazioniEvento') Informazioni Evento (CFU, note, ecc.):
+                            textarea#informazioniEvento.form-control(rows='1', maxlength='500')
+                        // Relatori evento
+                        .col-sm-6.form-group
+                            label.cols-sm-2.control-label(for='relatoriEvento') Relatori Evento:
+                            textarea#relatoriEvento.form-control(rows='1', maxlength='500')
+                    .row
+                        // Descrizione evento
+                        .col-sm-12.form-group
+                            label.cols-sm-2.control-label(for='descrizioneEvento') Descrizione Evento:
+                            textarea#descrizioneEvento.form-control(rows='1', maxlength='2000')
+                    // Carica immagini evento da pc
+                    .row
+                        .col-sm-6
+                            label.cols-sm-2.control-label(for='caricaFoto') Carica Immagine da PC
+                            .input-group.input-file()
+                                span.input-group-addon
+                                    i.fa.fa-file-image-o.fa(aria-hidden='true')
+                                span.input-group-btn
+                                    button.btn.btn-default.btn-choose(type='button') Seleziona
+                                input#caricaFoto.form-control(type='text', placeholder='Carica immagini da PC...')
+                                span.input-group-btn
+                                    button.btn.btn-warning.btn-reset(type='button') Reset
+        br
+        .container-fluid
+              button.btn.btn-primary.pull-right(onclick='salvaDati();') Submit
+        br
+    block myScript
+        script(src="javascripts/controllers/creaEventoController.js")

@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Bootstrap Example
+        title Ordine Medici Caserta
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -10,45 +10,9 @@ html(lang='en')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-        script(type='text/javascript').
-            function bs_input_file() {
-                $(".input-file").before(
-                    function() {
-                        if ( ! $(this).prev().hasClass('input-ghost') ) {
-                            var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
-                            element.attr("name",$(this).attr("name"));
-                            element.change(function(){
-                                element.next(element).find('input').val((element.val()).split('\\\').pop());
-                            });
-                            $(this).find("button.btn-choose").click(function(){
-                                element.click();
-                            });
-                            $(this).find("button.btn-reset").click(function(){
-                                element.val(null);
-                                $(this).parents(".input-file").find('input').val('');
-                            });
-                            $(this).find('input').css("cursor","pointer");
-                            $(this).find('input').mousedown(function() {
-                                $(this).parents('.input-file').prev().click();
-                                return false;
-                            });
-                            return element;
-                        }
-                    }
-                );
-            }
-            $(function() {
-                bs_input_file();
-            });
-        script(type='text/javascript').
-            $(function() {
-                $('#datetimepicker1').datetimepicker();
-                $('#datetimepicker2').datetimepicker();
-                $('#inizioRicovero').datetimepicker();
-                $('#fineRicovero').datetimepicker();
-                $('#datetimepickerDataIntervento').datetimepicker();
-            });
+
     body(style='padding-top: 75px;')
+        block myNav
         nav.navbar.navbar-default.navbar-fixed-top
             .container-fluid
                 .navbar-header
@@ -57,82 +21,19 @@ html(lang='en')
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href='#') Project name
+                    a.navbar-brand(href='/home') Ordine Medici Caserta
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
-                        li.active
-                            a(href='#') Home
                         li
-                            a(href='#about') About
+                            a(href='/creaEvento') Creazione Evento
                         li
-                            a(href='#contact') Contact
+                            a(href='/about') About
+                        li
+                            a(href='/contact') Contact
+        block myContainer
         .container-fluid
             .jumbotron
                 .row
-                    h1 Creazione Evento
-            .row
-                form
-                    .col-sm-12
-                        // Titolo evento
-                        .row
-                            .col-sm-12.form-group
-                                label.cols-sm-2.control-label(for='titoloEvento') Titolo Evento
-                                .cols-sm-10
-                                    .input-group
-                                        span.input-group-addon
-                                            i.fa.fa-briefcase(aria-hidden='true')
-                                        input#titoloEvento.form-control(type='text', placeholder='Titolo evento')
-                        // Sottotitolo
-                        .row
-                            .col-sm-12.form-group
-                                label.cols-sm-2.control-label(for='sottotitoloEvento') Sottotitolo Evento
-                                .cols-sm-10
-                                    .input-group
-                                        span.input-group-addon
-                                            i.fa.fa-briefcase(aria-hidden='true')
-                                        input#sottotitoloEvento.form-control(type='text', placeholder='Sottotitolo evento')
-                        .row
-                            // Data Evento
-                            .col-sm-6.form-group
-                                label.cols-sm-2.control-label(for='dataEvento')
-                                    | Dal giorno:
-                                #datetimepicker1.input-group.date
-                                    input#dataEvento.form-control(type='text')
-                                    span.input-group-addon
-                                        span.glyphicon-calendar.glyphicon
-                            // Luogo Evento
-                            .col-sm-6.form-group
-                                label.cols-sm-2.control-label(for='luogoEvento') Luogo Evento
-                                .cols-sm-10
-                                    .input-group
-                                        span.input-group-addon
-                                            i.fa.fa-map-marker(aria-hidden='true')
-                                        input#luogoEvento.form-control(type='text', placeholder='Luogo evento')
-                        .row
-                            // Informazioni evento
-                            .col-sm-6.form-group
-                                label.cols-sm-2.control-label(for='informazioniEvento') Informazioni Evento (CFU, note, ecc.):
-                                textarea#informazioniEvento.form-control(rows='1', maxlength='500')
-                            // Relatori evento
-                            .col-sm-6.form-group
-                                label.cols-sm-2.control-label(for='relatoriEvento') Relatori Evento:
-                                textarea#relatoriEvento.form-control(rows='1', maxlength='500')
-                        .row
-                            // Descrizione evento
-                            .col-sm-12.form-group
-                                label.cols-sm-2.control-label(for='descrizioneEvento') Descrizione Evento:
-                                textarea#descrizioneEvento.form-control(rows='1', maxlength='2000')
-                        // Carica immagini evento da pc
-                        .row
-                            .col-sm-6
-                                form(method='POST', action='#', enctype='multipart/form-data')
-                                    .form-group
-                                        label.cols-sm-2.control-label(for='caricaFoto') Carica Immagine da PC
-                                        .input-group.input-file(name='Fichier1')
-                                            span.input-group-addon
-                                                i.fa.fa-file-image-o.fa(aria-hidden='true')
-                                            span.input-group-btn
-                                                button.btn.btn-default.btn-choose(type='button') Seleziona
-                                            input#caricaFoto.form-control(type='text', accept='image/*', placeholder='Carica immagini da PC...')
-                                            span.input-group-btn
-                                                button.btn.btn-warning.btn-reset(type='button') Reset
+                    h1 Benvenuto in Ordine Medici Caserta
+    block myScript
+        script(src="javascripts/controllers/indexController.js")

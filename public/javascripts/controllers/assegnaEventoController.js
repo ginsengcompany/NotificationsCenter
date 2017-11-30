@@ -11,6 +11,7 @@ $("#tabellaMedici").bootgrid({
     keepSelection: true
 }).on("selected.rs.jquery.bootgrid", function(e, rows)
 {
+    $('[data-toggle="tooltip"]').tooltip();
     var rowIds = [];
     for (var i = 0; i < rows.length; i++)
     {
@@ -19,6 +20,7 @@ $("#tabellaMedici").bootgrid({
     alert("Select: " + rowIds.join(","));
 }).on("deselected.rs.jquery.bootgrid", function(e, rows)
 {
+    $('[data-toggle="tooltip"]').tooltip();
     var rowIds = [];
     for (var i = 0; i < rows.length; i++)
     {
@@ -40,6 +42,7 @@ $("#tabellaEventi").bootgrid({
     keepSelection: true
 }).on("selected.rs.jquery.bootgrid", function(e, rows)
 {
+    $('[data-toggle="tooltip"]').tooltip();
     var rowIds = [];
     for (var i = 0; i < rows.length; i++)
     {
@@ -48,6 +51,7 @@ $("#tabellaEventi").bootgrid({
     alert("Select: " + rowIds.join(","));
 }).on("deselected.rs.jquery.bootgrid", function(e, rows)
 {
+    $('[data-toggle="tooltip"]').tooltip();
     var rowIds = [];
     for (var i = 0; i < rows.length; i++)
     {

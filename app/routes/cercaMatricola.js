@@ -24,9 +24,9 @@ router.post('/',function (req, res, next) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
         if(final.length>0){
-            return res.json(final);
+            return res.send(true);
         }else{
-            return res.json({'Errore':'medico non trovato'});
+            return res.send(false);
         }
 
         client.end();

@@ -15,36 +15,7 @@ html(lang='en')
     script(src='javascripts/bootstrap.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js')
     script(src='javascripts/bootstrap-datetimepicker.min.js')
-    script(type='text/javascript', async='').
-        function bs_input_file() {
-            $(".input-file").before(
-                function() {
-                    if ( ! $(this).prev().hasClass('input-ghost') ) {
-                        var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
-                        element.attr("name",$(this).attr("name"));
-                        element.change(function(){
-                            element.next(element).find('input').val((element.val()).split('\\').pop());
-                        });
-                        $(this).find("button.btn-choose").click(function(){
-                            element.click();
-                        });
-                        $(this).find("button.btn-reset").click(function(){
-                            element.val(null);
-                            $(this).parents(".input-file").find('input').val('');
-                        });
-                        $(this).find('input').css("cursor","pointer");
-                        $(this).find('input').mousedown(function() {
-                            $(this).parents('.input-file').prev().click();
-                            return false;
-                        });
-                        return element;
-                    }
-                }
-            );
-        }
-        $(function() {
-            bs_input_file();
-        });
+
   body
     nav.navbar.navbar-expand-sm.bg-warning.navbar-light
       ul.navbar-nav

@@ -10,6 +10,7 @@ var postgres = require("./config/postgres");
 
 var index = require('./routes/index');
 var creaEvento = require('./routes/creaEvento');
+var assegnaEvento = require('./routes/assegnaEvento');
 var salvaEvento = require('./app/routes/salvaEvento');
 
 var app = express();
@@ -44,6 +45,8 @@ app.use('/', index);
 app.use('/home', index);
 app.use('/creaEvento', creaEvento);
 app.use('/salvaEvento', salvaEvento);
+app.use('/assegnaEvento', assegnaEvento);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -35,6 +35,25 @@ html(lang='en')
             .jumbotron
                 .row
                     h1 Assegna Evento
+
+            .row
+                .col-sm-6
+                    table#tabellaMedici.table.table-condensed.table-hover.table-striped
+                        thead
+                            tr
+                                th(data-column-id='id', data-type='numeric', data-identifier='true') ID
+                                th(data-column-id='sender') Sender
+                                th(data-column-id='received', data-order='desc') Received
+                                th(data-column-id='link', data-formatter='link', data-sortable='false') Link
+
+                .col-sm-6
+                    table#tabellaEventi.table.table-condensed.table-hover.table-striped
+                        thead
+                            tr
+                                th(data-column-id='id', data-type='numeric', data-identifier='true') ID
+                                th(data-column-id='sender') Sender
+                                th(data-column-id='received', data-order='desc') Received
+                                th(data-column-id='link', data-formatter='link', data-sortable='false') Link
         br
         .container-fluid
             button.btn.btn-primary.pull-right(onclick='salvaDati();') Submit

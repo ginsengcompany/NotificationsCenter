@@ -27,6 +27,8 @@ html(lang='en')
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li
+                            a(href='/aggiungiContatto') Aggiungi Medico
+                        li
                             a(href='/creaEvento') Creazione Evento
                         li.active
                             a(href='/assegnaEvento') Assegna Evento
@@ -43,29 +45,29 @@ html(lang='en')
                     table#tabellaMedici.table.table-condensed.table-hover.table-striped(width="100%", cellspacing="0" , data-toggle='bootgrid', data-ajax='true')
                         thead
                             tr
-                                th(data-column-id='_id', data-type='numeric', data-identifier='true', data-width="5%") ID
-                                th(data-column-id='cognome', data-type='text') Cognome
-                                th(data-column-id='nome', data-type='text') Nome
-                                th(data-column-id='specializzazione', data-type='text') Specializzazione
-                                th(data-column-id='citta', data-type='text') Città
-                                th(data-column-id='mail', data-type='text') E-mail
+                                th(data-column-id='_id', data-type='numeric', data-identifier='true', data-width="7%" , data-formatter="_id" , data-visible="false") ID
+                                th(data-column-id='matricola', data-type='text', data-formatter="matricola") Matricola
+                                th(data-column-id='cognome', data-type='text', data-formatter="cognome") Cognome
+                                th(data-column-id='nome', data-type='text', data-formatter="nome") Nome
+                                th(data-column-id='specializzazione', data-type='text', data-formatter="specializzazione") Specializzazione
+                                th(data-column-id='citta', data-type='text', data-formatter="citta") Città
+                                th(data-column-id='mail', data-type='text', data-formatter="mail") E-mail
 
                 .col-sm-6
                     table#tabellaEventi.table.table-condensed.table-hover.table-striped(width="100%", cellspacing="0" , data-toggle='bootgrid', data-ajax='true')
                         thead
                             tr
-                                th(data-column-id='_id', data-type='numeric', data-identifier='true', data-width="5%") ID
-                                th(data-column-id='titolo', data-type='text') Titolo
-                                th(data-column-id='sottotitolo', data-type='text') Sottotitolo
-                                th(data-column-id='data') Data
-                                th(data-column-id='luogo', data-type='text') Luogo
-                                th(data-column-id='informazioni', data-type='text') Informazioni
-                                th(data-column-id='relatori', data-type='text') Relatori
-                                th(data-column-id='descrizione', data-type='text') Descrizione
-                                th(data-column-id='immagine') Immagine
+                                th(data-column-id='_id', data-type='numeric', data-identifier='true', data-width="7%" , data-formatter="_id", data-visible="false") ID
+                                th(data-column-id='titolo', data-type='text' , data-formatter="titolo") Titolo
+                                th(data-column-id='sottotitolo', data-type='text', data-formatter="sottotitolo") Sottotitolo
+                                th(data-column-id='data', data-formatter="data") Data
+                                th(data-column-id='luogo', data-type='text', data-formatter="luogo") Luogo
+                                th(data-column-id='informazioni', data-type='text', data-formatter="informazioni") Informazioni
+                                th(data-column-id='relatori', data-type='text', data-formatter="relatori") Relatori
+                                th(data-column-id='descrizione', data-type='text', data-formatter="descrizione") Descrizione
         br
         .container-fluid
-            button.btn.btn-primary.pull-right(onclick='salvaDati();') Submit
+            button.btn.btn-primary.pull-right(onclick='salvaDati();') Assegna
         br
     block myScript
         script(src="javascripts/controllers/assegnaEventoController.js")

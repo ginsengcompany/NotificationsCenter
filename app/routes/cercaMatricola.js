@@ -10,7 +10,7 @@ var connectionPostgres = function () {
 router.post('/',function (req, res, next) {
     var matricola = req.body.matricola;
 
-    var queryPostMatricola = "SELECT * FROM tb_medici_iscritti WHERE _id='"+ matricola +"'";
+    var queryPostMatricola = "SELECT * FROM tb_medici_iscritti WHERE matricola='"+ matricola +"'";
 
     var client = connectionPostgres();
 

@@ -12,6 +12,7 @@ var index = require('./routes/index');
 var creaEvento = require('./routes/creaEvento');
 var assegnaEvento = require('./routes/assegnaEvento');
 var gestioneNotifiche = require('./routes/gestioneNotifiche');
+var aggiungiContatto = require('./routes/aggiungiContatto');
 var salvaEvento = require('./app/routes/salvaEvento');
 var getEventi  = require('./app/routes/getEventi');
 var cercaMatricola  = require('./app/routes/cercaMatricola');
@@ -54,6 +55,7 @@ app.use('/getEventi', getEventi);
 app.use('/cercaMatricola', cercaMatricola);
 app.use('/getMedici', getMedici);
 app.use('/gestioneNotifiche', gestioneNotifiche);
+app.use('/aggiungiContatto', aggiungiContatto);
 
 
 

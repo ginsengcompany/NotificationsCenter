@@ -1,0 +1,74 @@
+doctype html
+html(lang='en')
+    head
+        title Bootstrap Example
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+    body(style='padding-top: 75px;')
+        nav.navbar.navbar-default.navbar-fixed-top
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='#') Project name
+                #navbar.navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li.active
+                            a(href='#') Home
+                        li
+                            a(href='#about') About
+                        li
+                            a(href='#contact') Contact
+        .container-fluid
+            .jumbotron
+                .row
+                    h1 Aggiungi Iscritto
+            .row
+                form
+                    .row
+                        .col-md-4.form-group
+                            label.col-sm-4.control-label(for='nome') Nome
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-address-card(aria-hidden='true')
+                                input#nome.form-control(type='text', name='nome', placeholder='Nome')
+                        .col-md-4.form-group
+                            label.col-sm-4.control-label(for='cognome') Cognome
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-address-card(aria-hidden='true')
+                                input#cognome.form-control(type='text', name='cognome', placeholder='cognome')
+                        .col-md-4.form-group
+                            label.col-sm-4.control-label(for='specializzazione') Specializzazione
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-user-md(aria-hidden='true')
+                                input#specializzazione.form-control(type='text', name='specializzazione', placeholder='Specializzazione')
+                    .row
+                        .col-md-4.form-group
+                            label.col-sm-4.control-label(for='provincia') Provincia
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-map-marker(aria-hidden='true')
+                                input#provincia.form-control(type='text', name='provincia', placeholder='Provincia')
+                        .col-md-4.form-group
+                            label.col-sm-4.control-label(for='mail') Mail
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-envelope-o(aria-hidden='true')
+                                input#mail.form-control(type='text', name='mail', placeholder='e-mail')
+                        .col-md-4.form-group
+                            label.col-sm-4.control-label(for='matricola') Matricola
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-id-badge(aria-hidden='true')
+                                input#matricola.form-control(type='text', name='matricola', placeholder='Matricola')

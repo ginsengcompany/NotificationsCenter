@@ -23,6 +23,12 @@ function salvaDati() {
         contentType: 'application/json',
         success: function(data) {
             alert('Inserimento effettuato con Successo!');
+            $('#nome').val('');
+            $('#cognome').val('');
+            $('#specializzazione').val('');
+            $('#provincia').val('');
+            $('#mail').val('');
+            $('#matricola').val('');
         },
         faliure: function(data) {
             alert('Inserire tutti i CAMPI!');

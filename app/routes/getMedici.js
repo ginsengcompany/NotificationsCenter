@@ -23,9 +23,7 @@ router.get('/',function (req, res, next) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
         var jsonFinale = {
-            "current": 1,
-            "rowCount": final.length,
-            "rows": final
+            "data": final
         };
         return res.json(jsonFinale);
         client.end();

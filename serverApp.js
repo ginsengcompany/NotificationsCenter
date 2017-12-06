@@ -19,6 +19,7 @@ var cercaMatricola  = require('./app/routes/cercaMatricola');
 var getMedici = require('./app/routes/getMedici');
 var getRisposte = require('./app/routes/getRisposte');
 var salvaContatto = require('./app/routes/salvaContatto');
+var salvaToken = require('./app/routes/salvaToken');
 
 var app = express();
 var con = postgres(app);
@@ -60,6 +61,7 @@ app.use('/gestioneNotifiche', gestioneNotifiche);
 app.use('/aggiungiContatto', aggiungiContatto);
 app.use('/getRisposte', getRisposte);
 app.use('/salvaContatto', salvaContatto);
+app.use('/salvaToken', salvaToken);
 
 
 // catch 404 and forward to error handler

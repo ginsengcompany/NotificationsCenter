@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var postgresConnection = require('../../config/postgres');
-var moment = require('moment');
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -9,10 +8,23 @@ var connectionPostgres = function () {
 
 router.post('/',function (req, res, next) {
     var matricola = req.body.matricola;
-
-    var queryPostMatricola = "SELECT * FROM tb_medici_iscritti WHERE matricola='"+ matricola +"'";
+    var token = req.body.token;
 
     var client = connectionPostgres();
+
+    if(token!==null||token!==''||token!==undefined){
+
+        var queryPostToken = "UPDATE tb_medici_iscritti SET token='"+token+"' WHERE matricola='"+ matricola +"'";
+
+        const query = client.query(queryPostToken);
+
+        query.on("row", function (row, result) {
+            result.addRow(row);
+        });
+
+    }
+
+    var queryPostMatricola = "SELECT * FROM tb_medici_iscritti WHERE matricola='"+ matricola +"'";
 
     const query = client.query(queryPostMatricola);
 

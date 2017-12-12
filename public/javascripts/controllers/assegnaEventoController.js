@@ -59,7 +59,6 @@ $(document).ready(function() {
                 "data":           null,
                 "defaultContent": ''
             },
-            { "data": "_id" , "visible": false},
             { "data": "titolo" },
             { "data": "sottotitolo" },
             { "data": "data" , "render": function (data) {
@@ -70,7 +69,8 @@ $(document).ready(function() {
             { "data": "luogo", "visible": false },
             { "data": "informazioni", "visible": false },
             { "data": "relatori", "visible": false },
-            { "data": "descrizione", "visible": false }
+            { "data": "descrizione", "visible": false },
+            { "data": "_id" , "visible": false}
         ]
     } );
 
@@ -118,7 +118,7 @@ $(document).ready(function() {
 function salvaDati(){
 
     console.log(arrayMedici);
-    console.log(arrayEventi);
+    var idEvento=arrayEventi[0];
 
     /*var FCM = require('fcm-node');
     var serverKey = 'YOURSERVERKEYHERE'; //put your server key here

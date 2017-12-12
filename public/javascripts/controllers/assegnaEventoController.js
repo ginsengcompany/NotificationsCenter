@@ -115,50 +115,34 @@ $(document).ready(function() {
 
 } );
 
-function salvaDati(){
+var sendMessage = function(device, message){
+    var restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
+    var appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
 
-    console.log(arrayMedici);
-    var idEvento=arrayEventi[0];
-
-    /*var FCM = require('fcm-node');
-    var serverKey = 'YOURSERVERKEYHERE'; //put your server key here
-    var fcm = new FCM(serverKey);
-
-    var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
-        to: 'registration_token',
-        collapse_key: 'your_collapse_key',
-
-        notification: {
-            title: 'Title of your push notification',
-            body: 'Body of your push notification'
-        },
-
-        data: {  //you can send only notification or only data(or include both)
-            my_key: 'my value',
-            my_another_key: 'my another value'
-        }
-    };
-
-    fcm.send(message, function(err, response){
-        if (err) {
-            console.log("Something has gone wrong!");
-        } else {
-            console.log("Successfully sent with response: ", response);
-        }
-    });*/
-
-    /*$.ajax({
-        url: '/assegnaEvento',
+    $.ajax({
+        url: 'https://onesignal.com/api/v1/notifications',
         type: 'POST',
-        data: JSON.stringify(''),
+        data: JSON.stringify({
+            'app_id': appID,
+            'small_icon' : 'icon',
+            'large_icon' : 'icon',
+            'contents': {en: message},
+            'include_player_ids': Array.isArray(device) ? device : [device]
+        }),
         cache: false,
         contentType: 'application/json',
+        authorization: "Basic " + restKey,
         success: function(data) {
-            alert('Assegnazione effettuata con Successo!');
+            console.log(data);
         },
         faliure: function(data) {
-            alert('Inserire tutti i CAMPI!');
+            console.error('Error:', data.errors);
         }
-    });*/
+    });
+}
 
+function salvaDati(){
+    console.log(arrayMedici);
+    var idEvento=arrayEventi[0];
+    sendMessage('b2fc9a1c-c468-4044-a029-86f30ee956ce', 'Hello!');
 }

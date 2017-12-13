@@ -1,5 +1,5 @@
-var arrayMedici =[];
-var arrayEventi =[];
+var arrayMedici = {};
+var arrayEventi = {};
 
 function format ( d ) {
     // `d` is the original data object for the row
@@ -25,8 +25,9 @@ function format ( d ) {
 
 $(document).ready(function() {
 
-    var tabMedici = $('#tabellaMedici').DataTable( {
+     tabMedici = $('#tabellaMedici').DataTable( {
         ajax: "/getMedici",
+        responsive: true,
         ajaxSettings: {
             method: "GET",
             cache: false
@@ -46,8 +47,9 @@ $(document).ready(function() {
         $(this).toggleClass('selected');
     } );
 
-    var tabEventi = $('#tabellaEventi').DataTable( {
+     tabEventi = $('#tabellaEventi').DataTable( {
         ajax: "/getEventi",
+        responsive: true,
         ajaxSettings: {
             method: "GET",
             cache: false
@@ -61,16 +63,21 @@ $(document).ready(function() {
             },
             { "data": "titolo" },
             { "data": "sottotitolo" },
+            { "data": "luogo", "visible": false },
             { "data": "data" , "render": function (data) {
                 var date = new Date(data);
                 var month = date.getMonth() + 1;
                 return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
             }},
-            { "data": "luogo", "visible": false },
+            { "data": "data_fine" , "render": function (data) {
+                var date = new Date(data);
+                var month = date.getMonth() + 1;
+                return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+            }, "visible": false},
             { "data": "informazioni", "visible": false },
             { "data": "relatori", "visible": false },
-            { "data": "descrizione", "visible": false },
-            { "data": "_id" , "visible": false}
+            { "data": "descrizione", "visible": false }
+
         ]
     } );
 
@@ -100,22 +107,81 @@ $(document).ready(function() {
         }
     } );
 
-    $('#SalvaDati').click(function () {
-        var ids = $.map(tabMedici.rows('.selected').data(), function (item) {
-            return item['_id'];
-        });
-        arrayMedici.push(ids);
-        //alert(tabEventi.rows('.selected').data().length + ' row(s) selected');
-        var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
-            return item['_id'];
-        });
-        arrayEventi.push(ids1);
-        //alert(tabEventi.rows('.selected').data().length + ' row(s) selected');
+});
+
+
+var successMessage = function(idMedico,idEvento){
+
+    var successMessageDati = {
+        "idMedico" : idMedico,
+        "idEvento" : idEvento,
+        "stato": true,
+        "confermato": false,
+        "eliminato": false
+    };
+
+    $.ajax({
+        url: '/salvaStatoNotifiche',
+        type: 'POST',
+        data: JSON.stringify(successMessageDati),
+        cache: false,
+        contentType: 'application/json',
+        success: function(data) {
+            if(data.errore===true){
+
+                $("#myModal").on("show", function() {
+                    $("#myModal a.btn").on("click", function(e) {
+                        console.log("button pressed");
+                        $("#myModal").modal('hide');
+                    });
+                });
+                $("#myModal").on("hide", function() {
+                    $("#myModal a.btn").off("click");
+                });
+
+                $("#myModal").on("hidden", function() {
+                    $("#myModal").remove();
+                });
+
+                $("#myModal").modal({
+                    "backdrop"  : "static",
+                    "keyboard"  : true,
+                    "show"      : true
+                });
+            }
+            else{
+                $(".progress-bar").animate({width: "100%"}, 2000);
+                $("#myModal1").on("show", function() {
+                    $("#myModal1 a.btn").on("click", function(e) {
+                        console.log("button pressed");
+                        $("#myModal1").modal('hide');
+                    });
+                });
+                $("#myModal1").on("hide", function() {
+                    $("#myModal1 a.btn").off("click");
+                });
+
+                $("#myModal1").on("hidden", function() {
+                    $("#myModal1").remove();
+                });
+
+                $("#myModal1").modal({
+                    "backdrop"  : "static",
+                    "keyboard"  : true,
+                    "show"      : true
+                });
+                $(".progress-bar").animate({width: "0%"}, 1000);
+            }
+
+        },
+        faliure: function(data) {
+            console.log('Errore!');
+        }
     });
 
-} );
+};
 
-var sendMessage = function(device, message){
+var sendMessage = function(device, message,idMedico,idEvento){
     var restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
     var appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
 
@@ -133,16 +199,30 @@ var sendMessage = function(device, message){
         contentType: 'application/json',
         authorization: "Basic " + restKey,
         success: function(data) {
+            successMessage(idMedico,idEvento);
             console.log(data);
         },
         faliure: function(data) {
             console.error('Error:', data.errors);
         }
     });
-}
+};
+
 
 function salvaDati(){
-    console.log(arrayMedici);
-    var idEvento=arrayEventi[0];
-    sendMessage('b2fc9a1c-c468-4044-a029-86f30ee956ce', 'Hello!');
+
+    var ids = $.map(tabMedici.rows('.selected').data(), function (item) {
+        return item;
+    });
+    arrayMedici = ids;
+
+    var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+        return item;
+    });
+    arrayEventi = ids1;
+
+    for(var i=0; i<arrayMedici.length; i++){
+        sendMessage(arrayMedici[i].token, 'Hai un nuovo Evento entra subito nell`app per scoprire!',arrayMedici[i]._id,arrayEventi[i]._id);
+    }
+
 }

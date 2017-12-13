@@ -22,7 +22,27 @@ function salvaDati() {
         cache: false,
         contentType: 'application/json',
         success: function(data) {
-            alert('Inserimento effettuato con Successo!');
+
+            $("#myModal").on("show", function() {
+                $("#myModal a.btn").on("click", function(e) {
+                    console.log("button pressed");
+                    $("#myModal").modal('hide');
+                });
+            });
+            $("#myModal").on("hide", function() {
+                $("#myModal a.btn").off("click");
+            });
+
+            $("#myModal").on("hidden", function() {
+                $("#myModal").remove();
+            });
+
+            $("#myModal").modal({
+                "backdrop"  : "static",
+                "keyboard"  : true,
+                "show"      : true
+            });
+
             $('#nome').val('');
             $('#cognome').val('');
             $('#specializzazione').val('');
@@ -31,7 +51,25 @@ function salvaDati() {
             $('#matricola').val('');
         },
         faliure: function(data) {
-            alert('Inserire tutti i CAMPI!');
+            $("#myModal1").on("show", function() {
+                $("#myModal1 a.btn").on("click", function(e) {
+                    console.log("button pressed");
+                    $("#myModal1").modal('hide');
+                });
+            });
+            $("#myModal1").on("hide", function() {
+                $("#myModal1 a.btn").off("click");
+            });
+
+            $("#myModal1").on("hidden", function() {
+                $("#myModal1").remove();
+            });
+
+            $("#myModal1").modal({
+                "backdrop"  : "static",
+                "keyboard"  : true,
+                "show"      : true
+            });
         }
     });
 }

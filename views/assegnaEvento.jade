@@ -40,8 +40,28 @@ html(lang='en')
                 .row
                     h1 Assegna Evento
 
+            #myModal.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h1 Medico già notificato!
+                        // dialog buttons
+                        .modal-footer
+
+            #myModal1.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h1 Notifica inviata con Successo!
+                        // dialog buttons
+                        .modal-footer
+
             .row
-                .col-sm-6
+                .col-sm-6.table-responsive
                     table#tabellaMedici.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
                             tr
@@ -53,7 +73,7 @@ html(lang='en')
                                 th Provincia
                                 th Mail
 
-                .col-sm-6
+                .col-sm-6.table-responsive
                     table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
                             tr
@@ -61,7 +81,8 @@ html(lang='en')
                                 th Titolo
                                 th Sottotitolo
                                 th Luogo
-                                th Data
+                                th Data Inizio
+                                th Data Fine
                                 th Informazioni
                                 th Relatori
                                 th Descrizione
@@ -69,6 +90,13 @@ html(lang='en')
         br
         .container-fluid
             button#SalvaDati.btn.btn-primary.pull-right(onclick='salvaDati();') Assegna
+            br
+            br
+            br
+            .row
+                .col-xs-12.col-sm-12.progress-container
+                    .progress.progress-striped.active
+                        .progress-bar.progress-bar-success(style='width:0%')
         br
     block myScript
         script(src="javascripts/controllers/assegnaEventoController.js")

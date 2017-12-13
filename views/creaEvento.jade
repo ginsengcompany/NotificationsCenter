@@ -37,6 +37,27 @@ html(lang='en')
             .jumbotron
                 .row
                     h1 Creazione Evento
+
+            #myModal.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h1 Creazione Effettuata con Successo!
+                        // dialog buttons
+                        .modal-footer
+
+            #myModal1.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h1 Inserire tutti i campi!
+                        // dialog buttons
+                        .modal-footer
+
             .row
                 .col-sm-12
                     // Titolo evento
@@ -58,17 +79,24 @@ html(lang='en')
                                         i.fa.fa-briefcase(aria-hidden='true')
                                     input#sottotitoloEvento.form-control(type='text', placeholder='Sottotitolo evento')
                     .row
-                        // Data Evento
-                        .col-sm-6.form-group
+                        // Data Evento inizio
+                        .col-sm-4.form-group
                             label.cols-sm-2.control-label(for='dataEvento')
                                 | Dal giorno:
                             #datetimepicker1.input-group.date
                                 span.input-group-addon
                                     span.glyphicon-calendar.glyphicon
                                 input#dataEvento.form-control(type='text')
-
+                        // Data Evento fine
+                        .col-sm-4.form-group
+                            label.cols-sm-2.control-label(for='dataEvento')
+                                | Al giorno:
+                            #datetimepicker2.input-group.date
+                                span.input-group-addon
+                                    span.glyphicon-calendar.glyphicon
+                                input#dataEventoFine.form-control(type='text')
                         // Luogo Evento
-                        .col-sm-6.form-group
+                        .col-sm-4.form-group
                             label.cols-sm-2.control-label(for='luogoEvento') Luogo Evento
                             .cols-sm-10
                                 .input-group
@@ -103,7 +131,7 @@ html(lang='en')
                                     button.btn.btn-warning.btn-reset(type='button') Reset
         br
         .container-fluid
-              button.btn.btn-primary.pull-right(onclick='salvaDati();') Submit
+              button.btn.btn-primary.pull-right(onclick='salvaDati();') Crea
         br
     block myScript
         script(src="javascripts/controllers/creaEventoController.js")

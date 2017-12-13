@@ -11,20 +11,24 @@ router.post('/',function (req, res, next) {
     var datiEvento = req.body;
     var dataInizio = datiEvento.data.date;
     var dataIni = moment(dataInizio).format();
+    var dataFine = datiEvento.dataFine.date;
+    var dataFin = moment(dataFine).format();
 
     var queryPostEvento = "INSERT INTO tb_landing_evento " +
-        "(titolo, sottotitolo, data, luogo, informazioni, relatori, descrizione, immagine)" +
+        "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, immagine)" +
         "VALUES (" +
-        "'" + datiEvento.titolo        +"', " +
-        "'" + datiEvento.sottotitolo   +"', " +
+        "'" + datiEvento.titolo.replace("'", "`")        +"', " +
+        "'" + datiEvento.sottotitolo.replace("'", "`")      +"', " +
         "'" + dataIni                  +"', " +
-        "'" + datiEvento.luogo         +"', " +
-        "'" + datiEvento.informazioni  +"', " +
-        "'" + datiEvento.relatori      +"', " +
-        "'" + datiEvento.descrizione      +"', " +
-        "'" + datiEvento.immagine   +"')";
+        "'" + dataFin                  +"', " +
+        "'" + datiEvento.luogo.replace("'", "`")            +"', " +
+        "'" + datiEvento.informazioni.replace("'", "`")     +"', " +
+        "'" + datiEvento.relatori.replace("'", "`")         +"', " +
+        "'" + datiEvento.descrizione.replace("'", "`")      +"', " +
+        "'" + datiEvento.immagine.replace("'", "`")      +"')";
 
     var client = connectionPostgres();
+
 
     const query = client.query(queryPostEvento);
 

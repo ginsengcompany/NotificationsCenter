@@ -20,6 +20,10 @@ var getMedici = require('./app/routes/getMedici');
 var getRisposte = require('./app/routes/getRisposte');
 var salvaContatto = require('./app/routes/salvaContatto');
 var salvaToken = require('./app/routes/salvaToken');
+var getEventiById = require('./app/routes/getEventiById');
+var salvaStatoNotifiche = require('./app/routes/salvaStatoNotifiche');
+var getNotifiche = require('./app/routes/getNotifiche');
+var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
 
 var app = express();
 var con = postgres(app);
@@ -62,6 +66,11 @@ app.use('/aggiungiContatto', aggiungiContatto);
 app.use('/getRisposte', getRisposte);
 app.use('/salvaContatto', salvaContatto);
 app.use('/salvaToken', salvaToken);
+app.use('/getEventiById', getEventiById);
+app.use('/salvaStatoNotifiche',salvaStatoNotifiche);
+app.use('/getNotifiche',getNotifiche);
+app.use('/setEliminatoConfermato',setEliminatoConfermato);
+
 
 
 // catch 404 and forward to error handler

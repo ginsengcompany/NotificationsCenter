@@ -21,7 +21,8 @@ html(lang='en')
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href='/home') Ordine Medici Caserta
+                    img.navbar-brand(src='images/medici.png', alt='Company Logo', width='50', height='50')
+                    a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li
@@ -36,6 +37,24 @@ html(lang='en')
         .container-fluid
             .jumbotron
                 .row
-                    h1 Benvenuto in Ordine Medici Caserta
+                    h1 Benvenuto in Ordine Medici Caserta Notifications
+             .row
+                 .bd-example
+                     img.img-fluid(style='width: 20%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/medici.png')
+             .row
+                 h4(align='center') Powered by Ak12 srl.
+                 .bd-example
+                     img.img-fluid(style='width: 20%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ak12.png')
+
+    br
+    br
+    br
+    nav.navbar.navbar-default.navbar-fixed-bottom
+        .container-fluid
+            br
+            p.copyright.pull-right
+                | © 2017 Ordine Medici Caserta Notifications -
+                a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
+                img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
     block myScript
         script(src="javascripts/controllers/indexController.js")

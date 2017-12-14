@@ -1,6 +1,6 @@
 var datiLogin = {
-    'email' : '' ,
-    'password' : ''
+    'email' : undefined ,
+    'password' : undefined
 };
 
 function loginEffettuatoConSuccesso(){
@@ -15,8 +15,6 @@ function loginEffettuatoConSuccesso(){
         cache: false,
         contentType: 'application/json',
         success: function(data) {
-
-            window.location.href('/home?'+data.token)
 
         },
         faliure: function(data) {

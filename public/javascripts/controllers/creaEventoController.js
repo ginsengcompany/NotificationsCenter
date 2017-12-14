@@ -35,15 +35,15 @@ $(function() {
 });
 
 var datiEvento = {
-    'titolo' : '' ,
-    'sottotitolo' : '' ,
-    'data' : '' ,
-    'dataFine' : '' ,
-    'luogo' : '' ,
-    'informazioni' : '' ,
-    'relatori' : '' ,
-    'descrizione' : '' ,
-    'immagine' : ''
+    'titolo' : undefined ,
+    'sottotitolo' : undefined ,
+    'data' : undefined ,
+    'dataFine' : undefined ,
+    'luogo' : undefined ,
+    'informazioni' : undefined ,
+    'relatori' : undefined ,
+    'descrizione' : undefined ,
+    'immagine' : undefined
 };
 
 function encodeImageFileAsURL(element) {
@@ -179,8 +179,6 @@ var editor; // use a global for the submit and return data rendering in the exam
         }
     });
 })();
-
-
 
 $(document).ready(function() {
     editor = new $.fn.dataTable.Editor( {

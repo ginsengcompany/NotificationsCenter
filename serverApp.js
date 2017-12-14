@@ -26,7 +26,7 @@ var salvaStatoNotifiche = require('./app/routes/salvaStatoNotifiche');
 var getNotifiche = require('./app/routes/getNotifiche');
 var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
 var getUpdateEventi = require('./app/routes/getUpdateEventi');
-var authController = require('./public/javascripts/controllers/authController');
+var authRegister = require('./app/routes/authRegister');
 
 
 var app = express();
@@ -75,7 +75,7 @@ app.use('/salvaStatoNotifiche',salvaStatoNotifiche);
 app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
 app.use('/getUpdateEventi',getUpdateEventi);
-app.use('/authController',authController);
+app.use('/authRegister',authRegister);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

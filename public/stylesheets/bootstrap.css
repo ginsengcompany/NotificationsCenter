@@ -4866,7 +4866,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 }
 
 .navbar-default {
-    background-color: #f0ad4e;
+    background-color: #ff9600;
     border-color: #ec971f
 }
 
@@ -4894,7 +4894,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
     color: #555;
-    background-color: #ec971f;
+    background-color: #ffb739a3;
 }
 
 .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:focus, .navbar-default .navbar-nav > .disabled > a:hover {
@@ -5352,7 +5352,7 @@ a.badge:focus, a.badge:hover {
     padding-bottom: 30px;
     margin-bottom: 30px;
     color: inherit;
-    background-color: #eee
+    background-color: #ffb739a3
 }
 
 .jumbotron .h1, .jumbotron h1 {

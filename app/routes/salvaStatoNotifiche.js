@@ -29,9 +29,11 @@ router.post('/',function (req, res, next) {
     });
 
     query.on('error', function() {
-        var queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+datiStatoNotifica.eliminato+"', confermato='"+datiStatoNotifica.confermato+"' WHERE _id_medico='"+ datiStatoNotifica.idMedico +"' AND _id_evento='"+datiStatoNotifica.idEvento+"'";
 
-        const query = client.query(queryPostEliminatoConfermato);
+        var queryPostEliminatoConfermato1 = "SELECT * FROM tb_stato_notifiche WHERE eliminato=true AND confermato=false";
+
+        const query = client.query(queryPostEliminatoConfermato1);
+
         query.on("row", function (row, result) {
             result.addRow(row);
         });
@@ -39,9 +41,29 @@ router.post('/',function (req, res, next) {
         query.on("end", function (result) {
             var myOjb = JSON.stringify(result.rows, null, "    ");
             var final = JSON.parse(myOjb);
-            return res.json(final);
+
+
+
+            if(final.length>0){
+                var queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato=false, confermato=false WHERE _id="+ final[0]._id;
+                const query = client.query(queryPostEliminatoConfermato);
+                query.on("row", function (row, result) {
+                    result.addRow(row);
+                });
+
+                query.on("end", function (result) {
+                    var myOjb = JSON.stringify(result.rows, null, "    ");
+                    var final = JSON.parse(myOjb);
+                    return res.json(final);
+                });
+            }
+            else{
+                return res.json({errore:true});
+            }
+
             client.end();
         });
+
     });
 
     query.on("end", function (result) {

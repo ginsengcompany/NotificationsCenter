@@ -9,6 +9,7 @@ var now = require('moment');
 var postgres = require("./config/postgres");
 
 var index = require('./routes/index');
+var login = require('./routes/login');
 var creaEvento = require('./routes/creaEvento');
 var assegnaEvento = require('./routes/assegnaEvento');
 var gestioneNotifiche = require('./routes/gestioneNotifiche');
@@ -25,6 +26,8 @@ var salvaStatoNotifiche = require('./app/routes/salvaStatoNotifiche');
 var getNotifiche = require('./app/routes/getNotifiche');
 var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
 var getUpdateEventi = require('./app/routes/getUpdateEventi');
+var authController = require('./public/javascripts/controllers/authController');
+
 
 var app = express();
 var con = postgres(app);
@@ -56,6 +59,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/', index);
 app.use('/home', index);
+app.use('/login', login);
 app.use('/creaEvento', creaEvento);
 app.use('/salvaEvento', salvaEvento);
 app.use('/assegnaEvento', assegnaEvento);
@@ -72,9 +76,7 @@ app.use('/salvaStatoNotifiche',salvaStatoNotifiche);
 app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
 app.use('/getUpdateEventi',getUpdateEventi);
-
-
-
+app.use('/authController',authController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

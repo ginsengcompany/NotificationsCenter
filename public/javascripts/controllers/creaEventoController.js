@@ -55,7 +55,7 @@ function encodeImageFileAsURL(element) {
     reader.readAsDataURL(file);
 }
 
-function salvaDati(){
+function salvaDati() {
 
     datiEvento.titolo = $('#titoloEvento').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento').val();
@@ -66,64 +66,94 @@ function salvaDati(){
     datiEvento.relatori = $('#relatoriEvento').val();
     datiEvento.descrizione = $('#descrizioneEvento').val();
 
-    $.ajax({
-        url: '/salvaEvento',
-        type: 'POST',
-        data: JSON.stringify(datiEvento),
-        cache: false,
-        contentType: 'application/json',
-        success: function(data) {
+    if (
+        (datiEvento.titolo === null || datiEvento.titolo === undefined || datiEvento.titolo === '') ||
+        (datiEvento.sottotitolo === null || datiEvento.sottotitolo === undefined || datiEvento.sottotitolo === '') ||
+        (datiEvento.data === null || datiEvento.data === undefined || datiEvento.data === '') ||
+        (datiEvento.dataFine === null || datiEvento.dataFine === undefined || datiEvento.dataFine === '') ||
+        (datiEvento.luogo === null || datiEvento.luogo === undefined || datiEvento.luogo === '') ||
+        (datiEvento.informazioni === null || datiEvento.informazioni === undefined || datiEvento.informazioni === '') ||
+        (datiEvento.relatori === null || datiEvento.relatori === undefined || datiEvento.relatori === '') ||
+        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '')
+    ) {
+        $("#myModal1").on("show", function () {
+            $("#myModal1 a.btn").on("click", function (e) {
+                console.log("button pressed");
+                $("#myModal1").modal('hide');
+            });
+        });
+        $("#myModal1").on("hide", function () {
+            $("#myModal1 a.btn").off("click");
+        });
 
-            $("#myModal").on("show", function() {
-                $("#myModal a.btn").on("click", function(e) {
-                    console.log("button pressed");
-                    $("#myModal").modal('hide');
+        $("#myModal1").on("hidden", function () {
+            $("#myModal1").remove();
+        });
+
+        $("#myModal1").modal({
+            "backdrop": "static",
+            "keyboard": true,
+            "show": true
+        });
+    }
+    else {
+        $.ajax({
+            url: '/salvaEvento',
+            type: 'POST',
+            data: JSON.stringify(datiEvento),
+            cache: false,
+            contentType: 'application/json',
+            success: function (data) {
+                $("#myModal").on("show", function () {
+                    $("#myModal a.btn").on("click", function (e) {
+                        console.log("button pressed");
+                        $("#myModal").modal('hide');
+                    });
                 });
-            });
-            $("#myModal").on("hide", function() {
-                $("#myModal a.btn").off("click");
-            });
-
-            $("#myModal").on("hidden", function() {
-                $("#myModal").remove();
-            });
-
-            $("#myModal").modal({
-                "backdrop"  : "static",
-                "keyboard"  : true,
-                "show"      : true
-            });
-
-            $('#titoloEvento').val('');
-            $('#sottotitoloEvento').val('');
-            $('#luogoEvento').val('');
-            $('#informazioniEvento').val('');
-            $('#relatoriEvento').val('');
-            $('#descrizioneEvento').val('');
-        },
-        faliure: function(data) {
-            $("#myModal1").on("show", function() {
-                $("#myModal1 a.btn").on("click", function(e) {
-                    console.log("button pressed");
-                    $("#myModal1").modal('hide');
+                $("#myModal").on("hide", function () {
+                    $("#myModal a.btn").off("click");
                 });
-            });
-            $("#myModal1").on("hide", function() {
-                $("#myModal1 a.btn").off("click");
-            });
 
-            $("#myModal1").on("hidden", function() {
-                $("#myModal1").remove();
-            });
+                $("#myModal").on("hidden", function () {
+                    $("#myModal").remove();
+                });
 
-            $("#myModal1").modal({
-                "backdrop"  : "static",
-                "keyboard"  : true,
-                "show"      : true
-            });
-        }
-    });
+                $("#myModal").modal({
+                    "backdrop": "static",
+                    "keyboard": true,
+                    "show": true
+                });
 
+                $('#titoloEvento').val('');
+                $('#sottotitoloEvento').val('');
+                $('#luogoEvento').val('');
+                $('#informazioniEvento').val('');
+                $('#relatoriEvento').val('');
+                $('#descrizioneEvento').val('');
+            },
+            faliure: function (data) {
+                $("#myModal1").on("show", function () {
+                    $("#myModal1 a.btn").on("click", function (e) {
+                        console.log("button pressed");
+                        $("#myModal1").modal('hide');
+                    });
+                });
+                $("#myModal1").on("hide", function () {
+                    $("#myModal1 a.btn").off("click");
+                });
+
+                $("#myModal1").on("hidden", function () {
+                    $("#myModal1").remove();
+                });
+
+                $("#myModal1").modal({
+                    "backdrop": "static",
+                    "keyboard": true,
+                    "show": true
+                });
+            }
+        });
+    }
 }
 
 var editor; // use a global for the submit and return data rendering in the examples

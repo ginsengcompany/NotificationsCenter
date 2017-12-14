@@ -1,21 +1,22 @@
-var datiEvento = {
+var datiLogin = {
     'email' : '' ,
     'password' : ''
 };
 
 function loginEffettuatoConSuccesso(){
 
-    datiEvento.email = $('#titoloEvento').val();
-    datiEvento.password = $('#sottotitoloEvento').val();
+    datiLogin.email = $('#inputEmail').val();
+    datiLogin.password = $('#inputPassword').val();
 
     $.ajax({
-        url: '/authController/register',
-        type: 'GET',
-        data: JSON.stringify(datiEvento),
+        url: '/authRegister',
+        type: 'POST',
+        data: JSON.stringify(datiLogin),
         cache: false,
         contentType: 'application/json',
         success: function(data) {
 
+            window.location.href('/home?'+data.token)
 
         },
         faliure: function(data) {

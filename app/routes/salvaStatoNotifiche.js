@@ -29,7 +29,19 @@ router.post('/',function (req, res, next) {
     });
 
     query.on('error', function() {
-        return res.json({errore:true});
+        var queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+datiStatoNotifica.eliminato+"', confermato='"+datiStatoNotifica.confermato+"' WHERE _id_medico='"+ datiStatoNotifica.idMedico +"' AND _id_evento='"+datiStatoNotifica.idEvento+"'";
+
+        const query = client.query(queryPostEliminatoConfermato);
+        query.on("row", function (row, result) {
+            result.addRow(row);
+        });
+
+        query.on("end", function (result) {
+            var myOjb = JSON.stringify(result.rows, null, "    ");
+            var final = JSON.parse(myOjb);
+            return res.json(final);
+            client.end();
+        });
     });
 
     query.on("end", function (result) {

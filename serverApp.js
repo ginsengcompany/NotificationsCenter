@@ -24,6 +24,7 @@ var getEventiById = require('./app/routes/getEventiById');
 var salvaStatoNotifiche = require('./app/routes/salvaStatoNotifiche');
 var getNotifiche = require('./app/routes/getNotifiche');
 var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
+var getUpdateEventi = require('./app/routes/getUpdateEventi');
 
 var app = express();
 var con = postgres(app);
@@ -70,6 +71,8 @@ app.use('/getEventiById', getEventiById);
 app.use('/salvaStatoNotifiche',salvaStatoNotifiche);
 app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
+app.use('/getUpdateEventi',getUpdateEventi);
+
 
 
 

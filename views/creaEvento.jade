@@ -6,10 +6,17 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(rel='stylesheet', href='stylesheets/editor.dataTables.min.css')
+        link(rel='stylesheet', href='stylesheets/jquery.dataTables.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+        script(src='javascripts/datatables.min.js')
+        script(src='javascripts/dataTables.editor.min.js')
+        script(src='javascripts/dataTables.buttons.min.js')
+
+
 
     body(style='padding-top: 75px;')
         block myNav
@@ -34,6 +41,7 @@ html(lang='en')
                             a(href='/gestioneNotifiche') Gestione Notifiche
         block myContainer
         .container-fluid
+
             .jumbotron
                 .row
                     h1 Creazione Evento
@@ -129,9 +137,29 @@ html(lang='en')
                                 input#caricaFoto.form-control(type='text', placeholder='Carica immagini da PC...')
                                 span.input-group-btn
                                     button.btn.btn-warning.btn-reset(type='button') Reset
-        br
-        .container-fluid
-              button.btn.btn-primary.pull-right(onclick='salvaDati();') Crea
+            br
+            .container-fluid
+                button.btn.btn-primary.btn-block.pull-right(onclick='salvaDati();') Crea
+            br
+            .jumbotron
+                .row
+                    h1 Modifica Evento
+
+            .row
+                .col-sm-12
+                    table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                        thead
+                            tr
+                                th
+                                th Titolo
+                                th Sottotitolo
+                                th Luogo
+                                th Data Inizio
+                                th Data Fine
+                                th Informazioni
+                                th Relatori
+                                th Descrizione
+
         br
     block myScript
         script(src="javascripts/controllers/creaEventoController.js")

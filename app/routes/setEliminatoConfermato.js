@@ -11,20 +11,19 @@ router.post('/',function (req, res, next) {
     var datiEliminatoConfermato = req.body;
     var eliminato = datiEliminatoConfermato.eliminato;
     var confermato = datiEliminatoConfermato.confermato;
-    var idMedico = datiEliminatoConfermato.idMedico;
-    var idEvento = datiEliminatoConfermato.idMedico;
+    var idMedico = datiEliminatoConfermato._id_medico;
+    var idEvento = datiEliminatoConfermato._id_evento;
     var queryPostEliminatoConfermato = '';
 
-    if(eliminato===true&&confermato===null){
+    if(eliminato===true&&confermato===false){
 
         queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+eliminato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
 
-    }else if(eliminato===null&&confermato===true){
+    }else if(eliminato===false&&confermato===true){
 
         queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
 
     }
-
 
     var client = connectionPostgres();
 
@@ -34,10 +33,14 @@ router.post('/',function (req, res, next) {
         result.addRow(row);
     });
 
+    query.on('error', function() {
+        return res.json(false);
+    });
+
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
-        return res.json(final);
+        return res.json(true);
         client.end();
     });
 });

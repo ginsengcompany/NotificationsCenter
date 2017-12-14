@@ -30,7 +30,7 @@ $(document).ready(function() {
                     return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non confermato<img class="manImg" src="../../images/delete.png"></img></span>';
                 }
                 if (data===true) {
-                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Confermato<img class="manImg" src="../../images/delete.png"></img></span>';
+                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Confermato<img class="manImg" src="../../images/check.png"></img></span>';
                 }
             }},
             { "data": "eliminato" , "render": function (data) {
@@ -39,7 +39,7 @@ $(document).ready(function() {
                     return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Eliminato<img class="manImg" src="../../images/delete.png"></img></span>';
                 }
                 if (data===true) {
-                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Eliminato<img class="manImg" src="../../images/delete.png"></img></span>';
+                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Eliminato<img class="manImg" src="../../images/check.png"></img></span>';
                 }
             }}
         ]

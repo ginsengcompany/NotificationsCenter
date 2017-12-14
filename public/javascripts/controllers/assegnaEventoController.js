@@ -1,9 +1,22 @@
 var arrayMedici = {};
 var arrayEventi = {};
 
+
+function render (data) {
+    var date = new Date(data);
+    var month = date.getMonth() + 1;
+    return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+}
+
+
+
 function format ( d ) {
     // `d` is the original data object for the row
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+        '<td>Data Fine:</td>'+
+        '<td>'+render(d.data_fine)+'</td>'+
+        '</tr>'+
         '<tr>'+
         '<td>Luogo:</td>'+
         '<td>'+d.luogo+'</td>'+

@@ -57,9 +57,8 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/', index);
+app.use('/', login);
 app.use('/home', index);
-app.use('/login', login);
 app.use('/creaEvento', creaEvento);
 app.use('/salvaEvento', salvaEvento);
 app.use('/assegnaEvento', assegnaEvento);

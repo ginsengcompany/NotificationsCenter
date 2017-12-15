@@ -14,12 +14,20 @@ var connectionPostgres = function () {
 
 router.post('/', function(req, res) {
 
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     var datiRegistrazione = req.body;
+    var email = datiRegistrazione.email;
+    var password = datiRegistrazione.password;
+
+    if(email===''||password===''){
+
+        email=null;
+        password=null;
+
+    }
 
     var client = connectionPostgres();
 
-    var queryAutenticazione = "SELECT COUNT (*) FROM tb_admin WHERE email='"+datiRegistrazione.email+"' AND password='"+hashedPassword+"'";
+    var queryAutenticazione = "SELECT COUNT (*) FROM tb_admin WHERE email='"+email+"' AND password='"+password+"'";
     const query = client.query(queryAutenticazione);
 
     query.on("row", function (row, result) {
@@ -34,21 +42,20 @@ router.post('/', function(req, res) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
 
-        if(final.length===1){
+        if(final[0].count==="1"){
 
             var token = jwt.sign(1, config.secret, {
 
             });
 
-            return res.json({ auth: true, token: token });
-
-        }else{
+            return res.json({auth: true,token: token });
+        }else if(final[0].count==="0"){
 
             var queryRegistrazione = "INSERT INTO tb_admin " +
                 "(email, password)" +
                 "VALUES (" +
-                "'" + datiRegistrazione.email   +"', " +
-                "'" + hashedPassword  +"')";
+                "'" + email   +"', " +
+                "'" + password  +"')";
 
             const query = client.query(queryRegistrazione);
 
@@ -66,10 +73,11 @@ router.post('/', function(req, res) {
                     //expiresIn: 86400 // expires in 24 hours
                 });
                 res.json({ auth: true, token: token });
-                client.end();
             });
 
         }
+
+        client.end();
 
     });
 

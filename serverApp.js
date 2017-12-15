@@ -10,6 +10,7 @@ var postgres = require("./config/postgres");
 
 var index = require('./routes/index');
 var login = require('./routes/login');
+var modificaEvento = require('./routes/modificaEvento');
 var creaEvento = require('./routes/creaEvento');
 var assegnaEvento = require('./routes/assegnaEvento');
 var gestioneNotifiche = require('./routes/gestioneNotifiche');
@@ -76,6 +77,7 @@ app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
 app.use('/getUpdateEventi',getUpdateEventi);
 app.use('/authRegister',authRegister);
+app.use('/modificaEvento',modificaEvento);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -30,10 +30,19 @@ html(lang='en')
                     ul.nav.navbar-nav
                         li
                             a(href='/aggiungiContatto') Aggiungi Medico
-                        li
-                            a(href='/creaEvento') Creazione Evento
-                        li
-                            a(href='/assegnaEvento') Assegna Evento
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Gestione Eventi
+                                span.caret
+                            ul.dropdown-menu
+                              li
+                                a(href='/creaEvento') Creazione Evento
+                              li.divider(role='separator')
+                              li
+                                a(href='/modificaEvento') Modifica Evento
+                              li.divider(role='separator')
+                              li
+                                a(href='/assegnaEvento') Assegna Evento
                         li.active
                             a(href='/gestioneNotifiche') Gestione Notifiche
         block myContainer

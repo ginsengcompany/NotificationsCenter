@@ -35,10 +35,19 @@ html(lang='en')
                     ul.nav.navbar-nav
                         li
                             a(href='/aggiungiContatto') Aggiungi Medico
-                        li.active
-                            a(href='/creaEvento') Creazione Evento
-                        li
-                            a(href='/assegnaEvento') Assegna Evento
+                        li.dropdown.active
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Gestione Eventi
+                                span.caret
+                            ul.dropdown-menu
+                                li.active
+                                    a(href='/creaEvento') Creazione Evento
+                                li.divider(role='separator')
+                                li
+                                    a(href='/modificaEvento') Modifica Evento
+                                li.divider(role='separator')
+                                li
+                                    a(href='/assegnaEvento') Assegna Evento
                         li
                             a(href='/gestioneNotifiche') Gestione Notifiche
         block myContainer
@@ -142,25 +151,6 @@ html(lang='en')
             br
             .container-fluid
                 button.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Crea
-            br
-            .jumbotron
-                .row
-                    h1 Modifica Evento
-
-            .row
-                .col-sm-12
-                    table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
-                        thead
-                            tr
-                                th
-                                th Titolo
-                                th Sottotitolo
-                                th Luogo
-                                th Data Inizio
-                                th Data Fine
-                                th Informazioni
-                                th Relatori
-                                th Descrizione
 
         br
         br

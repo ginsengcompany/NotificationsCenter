@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Ordine Medici Caserta
+        title Ordine Medici Caserta Notifications
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -13,6 +13,7 @@ html(lang='en')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
         script(src='javascripts/datatables.min.js')
+        script(src='javascripts/dataTables.select.min.js')
 
     body(style='padding-top: 75px;')
         block myNav
@@ -46,6 +47,9 @@ html(lang='en')
                                     a(href='/assegnaEvento') Assegna Evento
                         li
                             a(href='/gestioneNotifiche') Gestione Notifiche
+                    ul.nav.navbar-nav.navbar-right
+                        li.active
+                            a(href='/logout') Logout
         block myContainer
         .container-fluid
             .jumbotron
@@ -101,6 +105,8 @@ html(lang='en')
 
             br
             .container-fluid
+                button#SelezionaTutti.btn.btn-warning.btn-lg.pull-left(onclick='selezionaTutti();') Seleziona Tutti
+                button#DeselezionaTutti.btn.btn-warning.btn-lg.pull-left(onclick='deselezionaTutti();') Deseleziona Tutti
                 button#SalvaDati.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Assegna
                 br
                 br

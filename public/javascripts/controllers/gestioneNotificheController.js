@@ -2,6 +2,7 @@ $(document).ready(function() {
 
    var tabNotifiche = $('#tabellaNotifiche').DataTable( {
         ajax: "/getNotifiche",
+        responsive: true,
         ajaxSettings: {
             method: "GET",
             cache: false

@@ -1,24 +1,19 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-var config = require('../../config/configAuth');
 var postgresConnection = require('../../config/postgres');
+
 
 var connectionPostgres = function () {
     return postgresConnection();
 };
 
-router.post('/', function(req, res) {
+router.post('/', function(req, res, next) {
 
     var datiRegistrazione = req.body;
     var email = datiRegistrazione.email;
     var password = datiRegistrazione.password;
 
-    if(email===''||password===''){
+    if(email==='\' or \'\'=\''||password==='\' or \'\'=\''){
 
         email=null;
         password=null;
@@ -27,7 +22,7 @@ router.post('/', function(req, res) {
 
     var client = connectionPostgres();
 
-    var queryAutenticazione = "SELECT COUNT (*) FROM tb_admin WHERE email='"+email+"' AND password='"+password+"'";
+    var queryAutenticazione = "SELECT * FROM tb_admin WHERE email='"+email+"' AND password='"+password+"'";
     const query = client.query(queryAutenticazione);
 
     query.on("row", function (row, result) {
@@ -41,48 +36,36 @@ router.post('/', function(req, res) {
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
+        var jsonFinale = {
+            "data": final
+        };
 
-        if(final[0].count==="1"){
+        if(jsonFinale.data.length===1){
 
-            var token = jwt.sign(1, config.secret, {
+            require('crypto').randomBytes(48, function(err, buffer) {
+                var token = buffer.toString('hex');
+
+                return res.json({errore:false,id:token});
 
             });
 
-            return res.json({auth: true,token: token });
-        }else if(final[0].count==="0"){
 
-            var queryRegistrazione = "INSERT INTO tb_admin " +
-                "(email, password)" +
-                "VALUES (" +
-                "'" + email   +"', " +
-                "'" + password  +"')";
 
-            const query = client.query(queryRegistrazione);
+        }else if(jsonFinale.data.length===0){
 
-            query.on("row", function (row, result) {
-                result.addRow(row);
-            });
-
-            query.on('error', function() {
-                return res.json(false);
-            });
-
-            query.on("end", function (err, user) {
-                // create a token
-                var token = jwt.sign(1, config.secret, {
-                    //expiresIn: 86400 // expires in 24 hours
-                });
-                res.json({ auth: true, token: token });
-            });
+            return res.json({errore:true});
 
         }
 
-        client.end();
 
+        client.end();
     });
 
 
 
+
 });
+
+
 
 module.exports = router;

@@ -5,16 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var now = require('moment');
+var session = require('express-session');
 
 var postgres = require("./config/postgres");
 
-var index = require('./routes/index');
-var login = require('./routes/login');
-var modificaEvento = require('./routes/modificaEvento');
-var creaEvento = require('./routes/creaEvento');
-var assegnaEvento = require('./routes/assegnaEvento');
-var gestioneNotifiche = require('./routes/gestioneNotifiche');
-var aggiungiContatto = require('./routes/aggiungiContatto');
 var salvaEvento = require('./app/routes/salvaEvento');
 var getEventi  = require('./app/routes/getEventi');
 var cercaMatricola  = require('./app/routes/cercaMatricola');
@@ -38,7 +32,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname,'public/images','favicon.ico')));
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -47,27 +41,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
-//
-//app.all('/server/*', function (req, res) {
-//
-//    var forwardPath = '/';
-//    req.url = forwardPath + req.url.split('/').slice(2).join('/'); // rimuove '/webhospital/';
-//    var proxyOptions = {host: 'localhost', port: 3009};
-//    return proxy.proxyRequest(req, res, proxyOptions);
-//});
+app.use(session({secret: "Shh, its a secret!"}));
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/', login);
-app.use('/home', index);
-app.use('/creaEvento', creaEvento);
+
+
+function checkAuth (req, res, next) {
+
+    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto') && (!req.session || !req.session.authenticated)) {
+        res.render('login', { status: 403 });
+        return;
+    }
+
+    next();
+}
+
+app.use(checkAuth);
+
+require('./routes/routes.js')(app);
+
 app.use('/salvaEvento', salvaEvento);
-app.use('/assegnaEvento', assegnaEvento);
 app.use('/getEventi', getEventi);
 app.use('/cercaMatricola', cercaMatricola);
 app.use('/getMedici', getMedici);
-app.use('/gestioneNotifiche', gestioneNotifiche);
-app.use('/aggiungiContatto', aggiungiContatto);
 app.use('/getRisposte', getRisposte);
 app.use('/salvaContatto', salvaContatto);
 app.use('/salvaToken', salvaToken);
@@ -77,7 +75,7 @@ app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
 app.use('/getUpdateEventi',getUpdateEventi);
 app.use('/authRegister',authRegister);
-app.use('/modificaEvento',modificaEvento);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -85,7 +83,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
 // error handlers
 
 // development error handler

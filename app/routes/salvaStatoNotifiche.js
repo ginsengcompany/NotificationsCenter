@@ -30,7 +30,7 @@ router.post('/',function (req, res, next) {
 
     query.on('error', function() {
 
-        var queryPostEliminatoConfermato1 = "SELECT * FROM tb_stato_notifiche WHERE eliminato=true AND confermato=false";
+        var queryPostEliminatoConfermato1 = "SELECT * FROM tb_stato_notifiche WHERE eliminato=true AND confermato=false OR confermato=true AND _id_medico="+datiStatoNotifica.idMedico;
 
         const query = client.query(queryPostEliminatoConfermato1);
 

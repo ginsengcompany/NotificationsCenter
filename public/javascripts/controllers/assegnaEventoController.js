@@ -122,6 +122,15 @@ $(document).ready(function() {
 
 });
 
+function  selezionaTutti() {
+    tabMedici.rows().select();
+}
+
+function deselezionaTutti(){
+    tabMedici.rows().deselect();
+}
+
+
 
 var successMessage = function(idMedico,idEvento){
 

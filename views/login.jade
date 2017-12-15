@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Ordine Medici Caserta
+        title Ordine Medici Caserta Notifications
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -20,6 +20,17 @@ html(lang='en')
                 .jumbotron
                     .row
                         h1(align="center") Login - Ordine Medici Caserta Notifications
+
+                #myModal1.modal.fade
+                    .modal-dialog
+                        .modal-content
+                            // dialog body
+                            .modal-body
+                                button.close(type='button', data-dismiss='modal') ×
+                                h1 Impossibile Accedere Utente non Autorizzato!
+                            // dialog buttons
+                            .modal-footer
+
                 .card.card-container
                     img#logoOrdine.img-responsive(src='images/medici.png', style='margin:0 auto;')
                     br

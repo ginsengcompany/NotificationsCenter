@@ -40,11 +40,35 @@ html(lang='en')
                               li.divider(role='separator')
                               li
                                 a(href='/modificaEvento') Modifica Evento
-                              li.divider(role='separator')
-                              li
-                                a(href='/assegnaEvento') Assegna Evento
-                        li.active
-                            a(href='/gestioneNotifiche') Gestione Notifiche
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Gestione Invii
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/assegnaEvento') Notifica via App
+                                li.divider(role='separator')
+                                li
+                                    a(href='/') Notifica via SMS
+                                li.divider(role='separator')
+                                li
+                                    a(href='/gestioneEmail') Notifica via E-mail
+                        li.dropdown.active
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Gestione Notifiche
+                                span.caret
+                            ul.dropdown-menu
+                                li.active
+                                    a(href='/gestioneNotifiche') Tabulato Invii App
+                                li.divider(role='separator')
+                                li
+                                    a(href='/gestioneApp') Tabulato App Scaricate
+                                li.divider(role='separator')
+                                li
+                                    a(href='/') Tabulato Invii SMS
+                                li.divider(role='separator')
+                                li
+                                    a(href='/tabEmail') Tabulato Invii E-mail
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -52,7 +76,7 @@ html(lang='en')
         .container-fluid
             .jumbotron
                 .row
-                    h1 Gestione Notifiche
+                    h1 Tabulato Invii
 
             .row
                 .col-sm-12

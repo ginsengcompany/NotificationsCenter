@@ -4,7 +4,9 @@ var datiContatto = {
     'specializzazione' : undefined,
     'provincia' : undefined,
     'mail' : undefined,
-    'matricola' : undefined
+    'matricola' : undefined,
+    'numero_telefono' : undefined,
+    'pec' : undefined
 };
 
 function salvaDati() {
@@ -14,6 +16,8 @@ function salvaDati() {
     datiContatto.provincia = $('#provincia').val();
     datiContatto.mail = $('#mail').val();
     datiContatto.matricola = $('#matricola').val();
+    datiContatto.numero_telefono = $('#telefono').val();
+    datiContatto.pec = $('#pec').val();
 
     if (
         (datiContatto.nome === null || datiContatto.nome === undefined || datiContatto.nome === '' || datiContatto.nome === "") ||
@@ -21,7 +25,9 @@ function salvaDati() {
         (datiContatto.specializzazione === null || datiContatto.specializzazione === undefined || datiContatto.specializzazione === '' || datiContatto.specializzazione === "") ||
         (datiContatto.provincia === null || datiContatto.provincia === undefined || datiContatto.provincia === '' || datiContatto.provincia === "") ||
         (datiContatto.mail === null || datiContatto.mail === undefined || datiContatto.mail === '' || datiContatto.mail === "") ||
-        (datiContatto.matricola === null || datiContatto.matricola === undefined || datiContatto.matricola === '' || datiContatto.matricola === "")
+        (datiContatto.matricola === null || datiContatto.matricola === undefined || datiContatto.matricola === '' || datiContatto.matricola === "") ||
+        (datiContatto.numero_telefono === null || datiContatto.numero_telefono === undefined || datiContatto.numero_telefono === '' || datiContatto.numero_telefono === "") ||
+        (datiContatto.pec === null || datiContatto.pec === undefined || datiContatto.pec === '' || datiContatto.pec === "")
     ) {
         $("#myModal1").on("show", function () {
             $("#myModal1 a.btn").on("click", function (e) {

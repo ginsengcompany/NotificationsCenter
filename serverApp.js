@@ -22,6 +22,12 @@ var getNotifiche = require('./app/routes/getNotifiche');
 var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
 var getUpdateEventi = require('./app/routes/getUpdateEventi');
 var authRegister = require('./app/routes/authRegister');
+var getMediciEmail = require('./app/routes/getMediciEmail');
+var getMediciPec = require('./app/routes/getMediciPec');
+var getMediciSms = require('./app/routes/getMediciSms');
+var sendEmail = require('./app/routes/sendEmail');
+var salvaStatoEmail = require('./app/routes/salvaStatoEmail');
+var getNotificheEmail = require('./app/routes/getNotificheEmail');
 
 
 var app = express();
@@ -75,6 +81,13 @@ app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
 app.use('/getUpdateEventi',getUpdateEventi);
 app.use('/authRegister',authRegister);
+app.use('/getMediciPec',getMediciPec);
+app.use('/getMediciSms',getMediciSms);
+app.use('/getMediciEmail',getMediciEmail);
+app.use('/sendEmail',sendEmail);
+app.use('/salvaStatoEmail',salvaStatoEmail);
+app.use('/getNotificheEmail',getNotificheEmail);
+
 
 
 // catch 404 and forward to error handler

@@ -52,7 +52,7 @@ $(document).ready(function() {
             { "data": "nome" },
             { "data": "specializzazione" },
             { "data": "provincia" },
-            { "data": "mail" }
+            { "data": "token" }
         ]
     } );
 

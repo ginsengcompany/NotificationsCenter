@@ -11,14 +11,16 @@ router.post('/',function (req, res, next) {
     var datiContatto = req.body;
 
     var queryPostContatto = "INSERT INTO tb_medici_iscritti " +
-        "(nome, cognome, specializzazione, provincia, mail, matricola)" +
+        "(nome, cognome, specializzazione, provincia, mail, matricola, numero_telefono, pec)" +
         "VALUES (" +
         "'" + datiContatto.nome        +"', " +
         "'" + datiContatto.cognome   +"', " +
         "'" + datiContatto.specializzazione         +"', " +
         "'" + datiContatto.provincia  +"', " +
         "'" + datiContatto.mail      +"', " +
-        "'" + datiContatto.matricola   +"')";
+        "'" + datiContatto.matricola      +"', " +
+        "'" + datiContatto.nuemro_telefono      +"', " +
+        "'" + datiContatto.pec   +"')";
 
     var client = connectionPostgres();
 

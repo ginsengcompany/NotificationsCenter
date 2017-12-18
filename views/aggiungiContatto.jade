@@ -36,11 +36,35 @@ html(lang='en')
                                 li.divider(role='separator')
                                 li
                                     a(href='/modificaEvento') Modifica Evento
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Gestione Invii
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/assegnaEvento') Notifica via App
                                 li.divider(role='separator')
                                 li
-                                    a(href='/assegnaEvento') Assegna Evento
-                        li
-                            a(href='/gestioneNotifiche') Gestione Notifiche
+                                    a(href='/') Notifica via SMS
+                                li.divider(role='separator')
+                                li
+                                    a(href='/gestioneEmail') Notifica via E-mail
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Gestione Notifiche
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/gestioneNotifiche') Tabulato Invii App
+                                li.divider(role='separator')
+                                li
+                                    a(href='/gestioneApp') Tabulato App Scaricate
+                                li.divider(role='separator')
+                                li
+                                    a(href='/') Tabulato Invii SMS
+                                li.divider(role='separator')
+                                li
+                                    a(href='/tabEmail') Tabulato Invii E-mail
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -48,7 +72,7 @@ html(lang='en')
         .container-fluid
             .jumbotron
                 .row
-                    h1 Aggiungi Iscritto
+                    h1 Aggiungi Medico
 
             #myModal.modal.fade
                 .modal-dialog
@@ -117,9 +141,26 @@ html(lang='en')
                                         i.fa.fa-list-ol(aria-hidden='true')
                                     input#matricola.form-control(type='text', name='matricola', placeholder='Matricola')
                     .row
+                        .col-md-4.form-group
+                            label.cols-sm-2.control-label(for='telefono') Numero di Telefono
+                            .cols-sm-10
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-phone(aria-hidden='true')
+                                    input#telefono.form-control(type='text', name='telefono', placeholder='Numero di Telefono')
+                        .col-md-4.form-group
+                            label.cols-sm-4.control-label(for='pec') PEC
+                            .cols-sm-10
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-envelope-o(aria-hidden='true')
+                                    input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
+                    .row
                         br
                         .container-fluid
                             button.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Inserisci
+            br
+            br
             br
         nav.navbar.navbar-default.navbar-fixed-bottom
             .container-fluid

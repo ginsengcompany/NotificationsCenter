@@ -28,6 +28,7 @@ var getMediciSms = require('./app/routes/getMediciSms');
 var sendEmail = require('./app/routes/sendEmail');
 var salvaStatoEmail = require('./app/routes/salvaStatoEmail');
 var getNotificheEmail = require('./app/routes/getNotificheEmail');
+var sendSms = require('./app/routes/sendSms');
 
 
 var app = express();
@@ -56,7 +57,8 @@ app.use(bodyParser.json());
 
 function checkAuth (req, res, next) {
 
-    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto') && (!req.session || !req.session.authenticated)) {
+    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto' || req.url === '/gestioneApp' || req.url === '/gestioneEmail' || req.url === '/tabEmail' || req.url === '/gestioneSms')
+        && (!req.session || !req.session.authenticated)) {
         res.render('login', { status: 403 });
         return;
     }
@@ -87,6 +89,7 @@ app.use('/getMediciEmail',getMediciEmail);
 app.use('/sendEmail',sendEmail);
 app.use('/salvaStatoEmail',salvaStatoEmail);
 app.use('/getNotificheEmail',getNotificheEmail);
+app.use('/sendSms',sendSms);
 
 
 

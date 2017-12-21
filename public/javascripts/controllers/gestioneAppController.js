@@ -15,8 +15,6 @@ $(document).ready(function() {
             { "data": "specializzazione" },
             { "data": "provincia"},
             { "data": "mail"},
-            { "data": "pec"},
-            { "data": "numero_telefono"},
             { "data": "token" , "render": function (data) {
                 if (data!==""||data!==''||data!==null||data!==undefined) {
                     return '<span style="color:green; padding-right:3px; padding-top: 3px;">App scaricata<img class="manImg" src="../../images/check.png"></img></span>';

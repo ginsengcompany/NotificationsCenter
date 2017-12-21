@@ -7,17 +7,13 @@ html(lang='en')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
         //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
-        link(rel='stylesheet', href='stylesheets/editor.dataTables.min.css')
         link(rel='stylesheet', href='stylesheets/jquery.dataTables.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
         script(src='javascripts/datatables.min.js')
-        script(src='javascripts/dataTables.editor.min.js')
-        script(src='javascripts/dataTables.buttons.min.js')
-
-
+        script(src='javascripts/dataTables.select.min.js')
 
     body(style='padding-top: 75px;')
         block myNav
@@ -43,7 +39,7 @@ html(lang='en')
                                 li
                                     a(href='/creaEvento') Creazione
                                 li.divider(role='separator')
-                                li.active
+                                li
                                     a(href='/modificaEvento') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
@@ -57,7 +53,7 @@ html(lang='en')
                                         li
                                             a(href='/assegnaEvento') Via Push Notifications
                                         li.divider(role='separator')
-                                        li
+                                        li.active
                                             a(href='/gestioneSms') Via SMS
                                         li.divider(role='separator')
                                         li
@@ -83,17 +79,48 @@ html(lang='en')
                             a(href='/logout') Logout
         block myContainer
         .container-fluid
-
             .jumbotron
                 .row
-                    h1 Modifica Evento
+                    h1 Notifica via SMS
+
+            #myModal.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h1 Medico già notificato!
+                        // dialog buttons
+                        .modal-footer
+
+            #myModal1.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h1 Notifica inviata con Successo!
+                        // dialog buttons
+                        .modal-footer
 
             .row
-                .col-sm-12
+                .col-sm-6.table-responsive
+                    table#tabellaMedici.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                        thead
+                            tr
+                                th id
+                                th Matricola
+                                th Cognome
+                                th Nome
+                                th Specializzazione
+                                th Provincia
+                                th token
+
+                .col-sm-6.table-responsive
                     table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
                             tr
-                                th
+                                th id
                                 th Titolo
                                 th Sottotitolo
                                 th Luogo
@@ -103,6 +130,19 @@ html(lang='en')
                                 th Relatori
                                 th Descrizione
 
+            br
+            .container-fluid
+                button#SelezionaTutti.btn.btn-warning.btn-lg.pull-left(onclick='selezionaTutti();') Seleziona Tutti
+                button#DeselezionaTutti.btn.btn-warning.btn-lg.pull-left(onclick='deselezionaTutti();') Deseleziona Tutti
+                button#SalvaDati.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Assegna
+                br
+                br
+                br
+                .row
+                    .col-xs-12.col-sm-12.progress-container
+                        .progress.progress-striped.active
+                            .progress-bar.progress-bar-success(style='width:0%')
+            br
         br
         br
         br
@@ -114,4 +154,4 @@ html(lang='en')
                     a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
                     img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
     block myScript
-        script(src="javascripts/controllers/modificaEventoController.js")
+        script(src="javascripts/controllers/gestioneSmsController.js")

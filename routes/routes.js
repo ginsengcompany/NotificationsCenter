@@ -42,6 +42,10 @@ module.exports = function (app) {
         res.render('tabEmail');
     });
 
+    app.get('/gestioneSms', function (req, res, next) {
+        res.render('gestioneSms');
+    });
+
     app.post('/', function (req, res, next) {
 
         // you might like to do a database look-up or something more scalable here

@@ -34,46 +34,50 @@ html(lang='en')
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li
-                            a(href='/aggiungiContatto') Aggiungi Medico
-                        li.dropdown.active
+                            a(href='/aggiungiContatto') Anagrafica
+                        li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Gestione Eventi
+                                | Eventi
                                 span.caret
                             ul.dropdown-menu
                                 li.active
-                                    a(href='/creaEvento') Creazione Evento
+                                    a(href='/creaEvento') Creazione
                                 li.divider(role='separator')
                                 li
-                                    a(href='/modificaEvento') Modifica Evento
+                                    a(href='/modificaEvento') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Gestione Invii
+                                | Invii
                                 span.caret
                             ul.dropdown-menu
-                                li
-                                    a(href='/assegnaEvento') Notifica via App
+                                li.dropdown-submenu
+                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                        | Notifica
+                                    ul.dropdown-menu
+                                        li
+                                            a(href='/assegnaEvento') Via Push Notifications
+                                        li.divider(role='separator')
+                                        li
+                                            a(href='/gestioneSms') Via SMS
+                                        li.divider(role='separator')
+                                        li
+                                            a(href='/gestioneEmail') Via E-mail
                                 li.divider(role='separator')
-                                li
-                                    a(href='/') Notifica via SMS
-                                li.divider(role='separator')
-                                li
-                                    a(href='/gestioneEmail') Notifica via E-mail
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Gestione Notifiche
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/gestioneNotifiche') Tabulato Invii App
-                                li.divider(role='separator')
-                                li
-                                    a(href='/gestioneApp') Tabulato App Scaricate
-                                li.divider(role='separator')
-                                li
-                                    a(href='/') Tabulato Invii SMS
-                                li.divider(role='separator')
-                                li
-                                    a(href='/tabEmail') Tabulato Invii E-mail
+                                li.dropdown-submenu
+                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                        | Report
+                                    ul.dropdown-menu
+                                        li
+                                            a(href='/gestioneApp') Report App Scaricate
+                                        li.divider(role='separator')
+                                        li
+                                            a(href='/gestioneNotifiche') Report Push Notifications
+                                        li.divider(role='separator')
+                                        li
+                                            a(href='/') Report SMS
+                                        li.divider(role='separator')
+                                        li
+                                            a(href='/tabEmail') Report E-mail
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -186,7 +190,7 @@ html(lang='en')
             .container-fluid
                 br
                 p.copyright.pull-right
-                    | © 2017 Ordine Medici Caserta Notifications -
+                    | © 2018 Ordine Medici Caserta Notifications -
                     a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
                     img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
     block myScript

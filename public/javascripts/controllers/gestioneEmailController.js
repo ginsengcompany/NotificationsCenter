@@ -225,6 +225,8 @@ function salvaDati(){
     });
     arrayEventi = ids1;
 
+    console.log(arrayMedici);
+
     for(var i=0; i<arrayMedici.length; i++){
 
         datiEmail.service = $('#service').val();
@@ -232,18 +234,18 @@ function salvaDati(){
         datiEmail.pass = $('#password').val();
         datiEmail.from = $('#email').val();
         datiEmail.to = arrayMedici[i].mail;
-        datiEmail.subject = "Hai un nuovo Evento leggi subito per scoprire!";
-        datiEmail.text = "Titolo: "+arrayEventi[i].titolo+" \n"+
-                         "Sottotitolo: "+arrayEventi[i].sottotitolo+" \n"+
-                         "Data inizio: "+arrayEventi[i].data+" \n"+
-                         "Data Fine: "+arrayEventi[i].data_fine+" \n"+
-                         "Luogo: "+arrayEventi[i].luogo+" \n"+
-                         "Informazioni: "+arrayEventi[i].informazioni+" \n"+
-                         "Relatori: "+arrayEventi[i].relatori+" \n"+
-                         "Descrizione: "+arrayEventi[i].descrizione+" \n";
+        datiEmail.subject = "OMCEO - CASERTA , Hai un nuovo Evento leggi subito per scoprire!";
+        datiEmail.text = "Titolo: "+arrayEventi[0].titolo+" \n"+
+                         "Sottotitolo: "+arrayEventi[0].sottotitolo+" \n"+
+                         "Data inizio: "+arrayEventi[0].data+" \n"+
+                         "Data Fine: "+arrayEventi[0].data_fine+" \n"+
+                         "Luogo: "+arrayEventi[0].luogo+" \n"+
+                         "Informazioni: "+arrayEventi[0].informazioni+" \n"+
+                         "Relatori: "+arrayEventi[0].relatori+" \n"+
+                         "Descrizione: "+arrayEventi[0].descrizione+" \n";
 
-       medici = arrayMedici[i];
-       eventi = arrayEventi[i];
+       medicoId = arrayMedici[i]._id;
+       eventoId = arrayEventi[0]._id;
 
         $.ajax({
             url: '/sendEmail',
@@ -254,7 +256,7 @@ function salvaDati(){
             success: function (data) {
 
                 if(data===true){
-                    successEmail(medici._id,eventi._id);
+                    successEmail(medicoId,eventoId);
                 }
 
 

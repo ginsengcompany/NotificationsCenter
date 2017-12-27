@@ -244,7 +244,7 @@ function salvaDati(){
     arrayEventi = ids1;
 
     for(var i=0; i<arrayMedici.length; i++){
-        sendMessage(arrayMedici[i].token, 'Hai un nuovo Evento entra subito nell`app per scoprire!',arrayMedici[i]._id,arrayEventi[i]._id);
+        sendMessage(arrayMedici[i].token, 'OMCEO - CASERTA , Hai un nuovo Evento entra subito nell`app per scoprire!',arrayMedici[i]._id,arrayEventi[0]._id);
     }
 
 }

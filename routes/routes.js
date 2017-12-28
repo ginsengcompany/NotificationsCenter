@@ -42,6 +42,10 @@ module.exports = function (app) {
         res.render('tabEmail');
     });
 
+    app.get('/tabSms', function (req, res, next) {
+        res.render('tabSms');
+    });
+
     app.get('/gestioneSms', function (req, res, next) {
         res.render('gestioneSms');
     });

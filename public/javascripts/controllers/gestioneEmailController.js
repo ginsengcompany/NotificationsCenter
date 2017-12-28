@@ -1,6 +1,9 @@
 var arrayMedici = {};
 var arrayEventi = {};
 
+$('#email').val('omceoce.ak12srl@gmail.com');
+$('#password').val('omceoce.ak12');
+
 
 function render (data) {
     var date = new Date(data);

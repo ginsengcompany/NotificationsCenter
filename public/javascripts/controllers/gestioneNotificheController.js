@@ -12,6 +12,8 @@ $(document).ready(function() {
             { "data": "matricola" },
             { "data": "cognome" },
             { "data": "nome" },
+            { "data": "specializzazione" },
+            { "data": "provincia"},
             { "data": "titolo" },
             { "data": "sottotitolo"},
             { "data": "data_invio" , "render": function (data) {

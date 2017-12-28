@@ -15,6 +15,8 @@ $(document).ready(function() {
             { "data": "specializzazione" },
             { "data": "provincia"},
             { "data": "mail"},
+            { "data": "titolo"},
+            { "data": "sottotitolo"},
             { "data": "stato" , "render": function (data) {
                 if (data === true) {
                     return '<span style="color:green; padding-right:3px; padding-top: 3px;">Inviato <img class="manImg" src="../../images/check.png"></img> </span>';

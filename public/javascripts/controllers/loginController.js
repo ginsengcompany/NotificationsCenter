@@ -3,6 +3,12 @@ var datiLogin = {
     'password' : undefined
 };
 
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+        loginEffettuatoConSuccesso();
+    }
+});
+
 function loginEffettuatoConSuccesso(){
 
     datiLogin.email = $('#inputEmail').val();

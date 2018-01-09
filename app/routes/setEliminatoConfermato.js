@@ -15,15 +15,8 @@ router.post('/',function (req, res, next) {
     var idEvento = datiEliminatoConfermato._id_evento;
     var queryPostEliminatoConfermato = '';
 
-    if(eliminato===true&&confermato===false){
-
-        queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+eliminato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
-
-    }else if(eliminato===false&&confermato===true){
-
-        queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
-
-    }
+    queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
+    
 
     var client = connectionPostgres();
 

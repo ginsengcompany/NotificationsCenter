@@ -31,7 +31,8 @@ router.post('/',function (req, res, next) {
         }
         var jsonFinale = {
             "Result":"OK",
-            "Records": final
+            "Records": final,
+            "TotalRecordCount":final.length
         };
 
         return res.json(jsonFinale);

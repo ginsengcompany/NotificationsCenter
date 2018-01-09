@@ -1,6 +1,6 @@
 $(function() {
-    $('#datetimepicker1').datetimepicker();
-    $('#datetimepicker2').datetimepicker();
+    $('#dataEvento').datepicker();
+    $('#dataEventoFine').datepicker();
 });
 
 function bs_input_file() {
@@ -59,8 +59,8 @@ function salvaDati() {
 
     datiEvento.titolo = $('#titoloEvento').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento').val();
-    datiEvento.data = $('#datetimepicker1').data();
-    datiEvento.dataFine = $('#datetimepicker2').data();
+    datiEvento.data = $('#dataEvento').val();
+    datiEvento.dataFine = $('#dataEventoFine').val();
     datiEvento.luogo = $('#luogoEvento').val();
     datiEvento.informazioni = $('#informazioniEvento').val();
     datiEvento.relatori = $('#relatoriEvento').val();

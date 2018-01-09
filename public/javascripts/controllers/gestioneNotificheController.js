@@ -1,6 +1,26 @@
 $(document).ready(function() {
 
    var tabNotifiche = $('#tabellaNotifiche').DataTable( {
+       initComplete: function () {
+        this.api().columns([4, 5]).every( function () {
+            var column = this;
+            var select = $('<select><option value=""></option></select>')
+                .appendTo( $(column.footer()).empty() )
+                .on( 'change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex(
+                        $(this).val()
+                    );
+
+                    column
+                        .search( val ? '^'+val+'$' : '', true, false )
+                        .draw();
+                } );
+
+            column.data().unique().sort().each( function ( d, j ) {
+                select.append( '<option value="'+d+'">'+d+'</option>' )
+            } );
+        } );
+    },
         ajax: "/getNotifiche",
         responsive: true,
         ajaxSettings: {
@@ -30,19 +50,19 @@ $(document).ready(function() {
             { "data": "confermato" , "render": function (data) {
                 var color = 'black';
                 if (data===false) {
-                    return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non confermato<img class="manImg" src="../../images/delete.png"></img></span>';
+                    return '<span style="color:red; padding-right:3px; padding-top: 3px;">No <img class="manImg" src="../../images/delete.png"></img></span>';
                 }
                 if (data===true) {
-                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Confermato<img class="manImg" src="../../images/check.png"></img></span>';
+                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
                 }
             }},
             { "data": "eliminato" , "render": function (data) {
                 var color = 'black';
                 if (data===false) {
-                    return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Eliminato<img class="manImg" src="../../images/delete.png"></img></span>';
+                    return '<span style="color:red; padding-right:3px; padding-top: 3px;">No <img class="manImg" src="../../images/delete.png"></img></span>';
                 }
                 if (data===true) {
-                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Eliminato<img class="manImg" src="../../images/check.png"></img></span>';
+                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
                 }
             }}
         ]

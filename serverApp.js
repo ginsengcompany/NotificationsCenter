@@ -30,6 +30,9 @@ var salvaStatoEmail = require('./app/routes/salvaStatoEmail');
 var getNotificheEmail = require('./app/routes/getNotificheEmail');
 var sendSms = require('./app/routes/sendSms');
 var getNotificheSms = require('./app/routes/getNotificheSms');
+var getDeleteEventi = require('./app/routes/getDeleteEventi');
+var postGetEventi = require('./app/routes/postGetEventi');
+
 
 
 var app = express();
@@ -92,7 +95,8 @@ app.use('/salvaStatoEmail',salvaStatoEmail);
 app.use('/getNotificheEmail',getNotificheEmail);
 app.use('/sendSms',sendSms);
 app.use('/getNotificheSms',getNotificheSms);
-
+app.use('/getDeleteEventi',getDeleteEventi);
+app.use('/postGetEventi',postGetEventi);
 
 
 // catch 404 and forward to error handler

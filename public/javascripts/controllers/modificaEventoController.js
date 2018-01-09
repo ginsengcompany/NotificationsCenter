@@ -1,5 +1,57 @@
 var editor;
 
+$(document).ready(function () {
+    $('#PersonTableContainer').jtable({
+        title: 'Table of people',
+        actions: {
+            listAction: '/postGetEventi',
+            //createAction: '/GettingStarted/CreatePerson',
+            updateAction: '/getUpdateEventi',
+            deleteAction: '/getDeleteEventi'
+        },
+        fields: {
+            _id: {
+                key: true,
+                list: false
+            },
+            titolo: {
+                title: 'Titolo',
+                width: '10%'
+            },
+            sottotitolo: {
+                title: 'Sottotitolo',
+                width: '10%'
+            },
+            luogo: {
+                title: 'Luogo',
+                width: '10%'
+            },
+            data: {
+                title: 'Data Inizio',
+                width: '10%'
+            },
+            data_fine: {
+                title: 'Data Fine',
+                width: '10%'
+            },
+            informazioni: {
+                title: 'Informazioni:',
+                width: '20%'
+            },
+            relatori: {
+                title: 'Relatori:',
+                width: '20%'
+            },
+            descrizione: {
+                title: 'Descrizione:',
+                width: '20%'
+            }
+        }
+    });
+    $('#PersonTableContainer').jtable('load');
+});
+
+
 (function() {
     var Editor = $.fn.dataTable.Editor;
     Editor.display.details = $.extend(true, {}, Editor.models.displayController, {

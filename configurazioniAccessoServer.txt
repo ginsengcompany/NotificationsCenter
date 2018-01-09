@@ -1,0 +1,13 @@
+link accesso host:
+10.10.13.43:3000
+
+DataBase PG, accedere ad esempio mediante PgAdmin
+user: postgres
+pass: postgres
+host: 10.10.13.43
+
+Accesso FTPS (SSH)
+user: amorosoconcorsi.ak12srl.it
+pass: 3ed67h.x89jHH
+
+

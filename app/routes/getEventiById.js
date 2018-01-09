@@ -9,10 +9,15 @@ var connectionPostgres = function () {
 router.post('/',function (req, res, next) {
     var matricola = req.body.matricola;
     var token = req.body.token;
+    var eliminato = req.body.eliminato;
 
     var client = connectionPostgres();
 
-    var queryPostEventyById = "SELECT * FROM tb_medici_iscritti A INNER JOIN tb_stato_notifiche B ON A._id=B._id_medico INNER JOIN tb_landing_evento C ON C._id=B._id_evento  WHERE A.matricola='"+ matricola +"' AND A.token='"+ token +"' AND B.eliminato=false";
+    var queryPostEventyById =
+        "SELECT * FROM tb_medici_iscritti " +
+        "A INNER JOIN tb_stato_notifiche B ON A._id=B._id_medico INNER JOIN tb_landing_evento C ON C._id = B._id_evento " +
+        "WHERE " +
+        "A.matricola = '"+ matricola +"' AND A.token = '"+ token +"' AND B.eliminato = '" + eliminato + "';";
 
     const query = client.query(queryPostEventyById);
 
@@ -28,11 +33,8 @@ router.post('/',function (req, res, next) {
         }else{
             return res.send(false);
         }
-
         client.end();
     });
-
-
 });
 
 module.exports = router;

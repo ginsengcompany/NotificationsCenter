@@ -12,7 +12,6 @@ router.post('/',function (req, res, next) {
 
     var client = connectionPostgres();
 
-
     var queryPostToken = "UPDATE tb_medici_iscritti SET token='"+token+"' WHERE matricola='"+ matricola +"'";
 
     const query1 = client.query(queryPostToken);
@@ -20,7 +19,6 @@ router.post('/',function (req, res, next) {
     query1.on("row", function (row, result) {
         result.addRow(row);
     });
-
 
     var queryPostMatricola = "SELECT * FROM tb_medici_iscritti WHERE matricola='"+ matricola +"'";
 

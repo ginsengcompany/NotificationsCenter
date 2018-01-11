@@ -32,6 +32,7 @@ var sendSms = require('./app/routes/sendSms');
 var getNotificheSms = require('./app/routes/getNotificheSms');
 var getDeleteEventi = require('./app/routes/getDeleteEventi');
 var postGetEventi = require('./app/routes/postGetEventi');
+var switchConfermatoEmail = require('./app/routes/switchConfermatoEmail');
 
 
 
@@ -97,6 +98,7 @@ app.use('/sendSms',sendSms);
 app.use('/getNotificheSms',getNotificheSms);
 app.use('/getDeleteEventi',getDeleteEventi);
 app.use('/postGetEventi',postGetEventi);
+app.use('/switchConfermatoEmail',switchConfermatoEmail);
 
 
 // catch 404 and forward to error handler

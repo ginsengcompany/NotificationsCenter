@@ -2,7 +2,7 @@ $(document).ready(function() {
 
    var tabNotifiche = $('#tabellaNotifiche').DataTable( {
        initComplete: function () {
-        this.api().columns([4, 5]).every( function () {
+        this.api().columns([4,5]).every( function () {
             var column = this;
             var select = $('<select><option value=""></option></select>')
                 .appendTo( $(column.footer()).empty() )
@@ -20,6 +20,20 @@ $(document).ready(function() {
                 select.append( '<option value="'+d+'">'+d+'</option>' )
             } );
         } );
+           this.api().columns([8,9,6]).every( function () {
+               var column = this;
+               var title = $(this).text();
+               var input = $('<input type="text" placeholder="Ricerca '+title+'" />')
+                   .appendTo( $(column.footer()).empty() )
+                   .on('keyup change', function () {
+                       if ( column.search() !== this.value ) {
+                           column
+                               .search( this.value )
+                               .draw();
+                       }
+                   } );
+
+           } );
     },
         ajax: "/getNotifiche",
         responsive: true,
@@ -33,9 +47,7 @@ $(document).ready(function() {
             { "data": "cognome" },
             { "data": "nome" },
             { "data": "specializzazione" },
-            { "data": "provincia"},
             { "data": "titolo" },
-            { "data": "sottotitolo"},
             { "data": "data_invio" , "render": function (data) {
                 var date = new Date(data);
                 var month = date.getMonth() + 1;
@@ -67,7 +79,5 @@ $(document).ready(function() {
             }}
         ]
     } );
-
-
 
 } );

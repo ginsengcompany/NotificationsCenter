@@ -16,7 +16,7 @@ router.post('/',function (req, res, next) {
     var queryPostEliminatoConfermato = '';
 
     queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
-    
+
 
     var client = connectionPostgres();
 

@@ -6,22 +6,16 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
         //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-        link(rel='stylesheet', href='stylesheets/bootstrap.css')
         link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
-        link(href='javascripts/themes/metro/blue/jtable.min.css', rel='stylesheet', type='text/css')
+        link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='stylesheets/jquery.dataTables.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
-        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
         script(src='javascripts/datatables.min.js')
-        //script(src='javascripts/dataTables.editor.min.js')
-        // Include one of jTable styles.
         script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
-
-        // Include jTable script file.
-        script(src='javascripts/jquery.jtable.min.js', type='text/javascript')
-
         script(src='javascripts/dataTables.buttons.min.js')
+        script(src='javascripts/dataTables.select.min.js')
+
 
 
 
@@ -94,25 +88,110 @@ html(lang='en')
                 .row
                     h1 Modifica Evento
 
+            #myModal1.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-header
+                            button.close(type='button', data-dismiss='modal') ×
+                            h2.modal-title Modifica Evento
+                        .modal-body
+
+                            .row
+                                .col-sm-12
+                                    // Titolo evento
+                                    .row
+                                        .col-sm-12.form-group
+                                            label.cols-sm-2.control-label(for='titoloEvento') Titolo Evento
+                                            .cols-sm-10
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-briefcase(aria-hidden='true')
+                                                    input#titoloEvento.form-control(type='text', placeholder='Titolo evento')
+                                    // Sottotitolo
+                                    .row
+                                        .col-sm-12.form-group
+                                            label.cols-sm-2.control-label(for='sottotitoloEvento') Sottotitolo Evento
+                                            .cols-sm-10
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-briefcase(aria-hidden='true')
+                                                    input#sottotitoloEvento.form-control(type='text', placeholder='Sottotitolo evento')
+                                    .row
+                                        // Data Evento inizio
+                                        .col-sm-6.form-group
+                                            label.cols-sm-2.control-label(for='dataEvento') Dal giorno:
+                                            .cols-sm-10
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-calendar(aria-hidden='true')
+                                                    input#dataEvento.form-control(type='text', placeholder='GG/MM/AAAA')
+                                        // Data Evento fine
+                                        .col-sm-6.form-group
+                                            label.cols-sm-2.control-label(for='dataEvento', placeholder='GG/MM/AAAA') Al giorno:
+                                            .cols-sm-10
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-calendar(aria-hidden='true')
+                                                    input#dataEventoFine.form-control(type='text')
+                                        // Luogo Evento
+                                    .row
+                                        .col-sm-12.form-group
+                                            label.cols-sm-2.control-label(for='luogoEvento') Luogo Evento
+                                            .cols-sm-10
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-map-marker(aria-hidden='true')
+                                                    input#luogoEvento.form-control(type='text', placeholder='Luogo evento')
+                                    .row
+                                        // Informazioni evento
+                                        .col-sm-6.form-group
+                                            label.cols-sm-2.control-label(for='informazioniEvento') Informazioni Evento (CFU, note, ecc.):
+                                            textarea#informazioniEvento.form-control(rows='1', maxlength='500')
+                                        // Relatori evento
+                                        .col-sm-6.form-group
+                                            label.cols-sm-2.control-label(for='relatoriEvento') Relatori Evento:
+                                            textarea#relatoriEvento.form-control(rows='1', maxlength='500')
+                                    .row
+                                        // Descrizione evento
+                                        .col-sm-12.form-group
+                                            label.cols-sm-2.control-label(for='descrizioneEvento') Descrizione Evento:
+                                            textarea#descrizioneEvento.form-control(rows='1', maxlength='2000')
+                                    // Carica immagini evento da pc
+                                    .row
+                                        .col-sm-6
+                                            label.cols-sm-2.control-label(for='caricaFoto') Carica Immagine da PC
+                                            .input-group.input-file()
+                                                span.input-group-addon
+                                                    i.fa.fa-file-image-o.fa(aria-hidden='true')
+                                                span.input-group-btn
+                                                    button.btn.btn-warning.btn-choose(type='button') Seleziona
+                                                input#caricaFoto.form-control(type='text', placeholder='Carica immagini da PC...')
+                                                span.input-group-btn
+                                                    button.btn.btn-warning.btn-reset(type='button') Reset
+                        // dialog buttons
+                        .modal-footer
+                            button.btn.btn-warning.btn-block(type='button', onclick='updateEvento();') Salva
             .row
-                .col-sm-12
-                    #PersonTableContainer
-
-
-            //.row
-            //    .col-sm-12
-            //        table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
-            //            thead
-            //                tr
-            //                    th
-            //                    th Titolo
-            //                    th Sottotitolo
-            //                    th Luogo
-            //                    th Data Inizio
-            //                    th Data Fine
-            //                    th Informazioni
-            //                    th Relatori
-            //                    th Descrizione
+                .col-sm-2
+                    button#modificaEvento.btn.btn-warning.btn-lg(onclick='openModal();') Modifica Evento
+                .col-sm-2
+                    button#eliminaEvento.btn.btn-warning.btn-lg(onclick='eliminaEvento();') Elimina Evento
+            br
+            .row
+                .col-sm-12.table-responsive
+                    table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                        thead
+                            tr
+                                th id
+                                th Titolo Evento
+                                th Sottotitolo Evento
+                                th Luogo
+                                th Data Inizio
+                                th Data Fine
+                                th Informazioni
+                                th Relatori
+                                th Descrizione
 
         br
         br

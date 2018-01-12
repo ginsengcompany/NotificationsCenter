@@ -10,4 +10,8 @@ Accesso FTPS (SSH)
 user: amorosoconcorsi.ak12srl.it
 pass: 3ed67h.x89jHH
 
+Accesso SSH root
+user: root
+pass: userak12
+
 

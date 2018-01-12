@@ -228,8 +228,6 @@ function salvaDati(){
     });
     arrayEventi = ids1;
 
-    console.log(arrayMedici);
-
     for(var i=0; i<arrayMedici.length; i++){
 
         datiEmail.service = $('#service').val();

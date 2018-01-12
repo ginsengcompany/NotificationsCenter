@@ -14,7 +14,7 @@ router.post('/',function (req, res, next) {
     var client = connectionPostgres();
 
     //var queryUpdateOrDelete2 = "DELETE FROM tb_landing_evento WHERE _id_evento=" + datiUpdateOrDelete.data._id;
-    var queryUpdateOrDelete3 = "DELETE FROM tb_landing_evento WHERE _id= " + datiUpdateOrDelete._id;
+    var queryUpdateOrDelete3 = "DELETE FROM tb_landing_evento WHERE _id= " + datiUpdateOrDelete[0]._id;
 
     const query = client.query(queryUpdateOrDelete3);
 
@@ -23,7 +23,7 @@ router.post('/',function (req, res, next) {
     });
 
     query.on('error', function () {
-        return res.json(false);
+        return res.json({errore:true});
     });
 
     query.on("end", function (result) {
@@ -32,7 +32,7 @@ router.post('/',function (req, res, next) {
         //
         final = {"Result": "OK"};
         //
-        return res.json(final);
+        return res.json({errore:false});
         client.end();
     });
 });

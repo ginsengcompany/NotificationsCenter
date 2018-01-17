@@ -108,6 +108,7 @@ $(document).ready(function() {
 
 var datiSwitch= {
     'confermato': true,
+    'eliminato': false,
     '_id_medico': '',
     '_id_evento': ''
 };

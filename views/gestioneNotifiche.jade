@@ -8,11 +8,19 @@ html(lang='en')
         //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
         link(rel='stylesheet', href='stylesheets/jquery.dataTables.min.css')
+        link(rel='stylesheet', href='stylesheets/buttons.bootstrap.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
         script(src='javascripts/datatables.min.js')
+        script(src='javascripts/dataTables.buttons.min.js')
+        script(src='javascripts/pdfmake.min.js')
+        script(src='javascripts/buttons.print.min.js')
+        script(src='javascripts/buttons.flash.min.js')
+        script(src='javascripts/jszip.min.js')
+        script(src='javascripts/vfs_fonts.js')
+        script(src='javascripts/buttons.html5.min.js')
 
     body(style='padding-top: 75px;')
         block myNav
@@ -42,37 +50,14 @@ html(lang='en')
                                     a(href='/modificaEvento') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Invii
+                                | Gestione
                                 span.caret
                             ul.dropdown-menu
-                                li.dropdown-submenu
-                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                        | Notifica
-                                    ul.dropdown-menu
-                                        li
-                                            a(href='/assegnaEvento') Via Push Notifications
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneSms') Via SMS
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneEmail') Via E-mail
+                                li
+                                    a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
-                                li.dropdown-submenu
-                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                        | Report
-                                    ul.dropdown-menu
-                                        li
-                                            a(href='/gestioneApp') Report App Scaricate
-                                        li.divider(role='separator')
-                                        li.active
-                                            a(href='/gestioneNotifiche') Report Push Notifications
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/tabSms') Report SMS
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/tabEmail') Report E-mail
+                                li.active
+                                    a(href='/gestioneNotifiche') Report
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -80,10 +65,21 @@ html(lang='en')
         .container-fluid
             .jumbotron
                 .row
-                    h1 Report Push Notifications
+                    h1 Gestione Report
 
             .row
-                .col-sm-12
+                .col-sm-2
+                    h3 Esporta Report:
+            .row
+                .col-sm-2
+                    button#exportExcel.btn.btn-warning.btn-block(onclick='exportExcel();') Excel
+                .col-sm-2
+                    button#exportPdf.btn.btn-warning.btn-block(onclick='exportPdf();') PDF
+                .col-sm-2
+                    button#exportStampa.btn.btn-warning.btn-block(onclick='exportStampa();') Stampa
+            br
+            .row
+                .col-sm-12.table-responsive
                     table#tabellaNotifiche.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
                             tr
@@ -94,6 +90,7 @@ html(lang='en')
                                 th Specializzazione
                                 th Titolo Evento
                                 th Data Invio
+                                th Tipo
                                 th Stato
                                 th Confermato
                                 th Eliminato
@@ -103,7 +100,8 @@ html(lang='en')
                                 th
                                 th
                                 th
-                                th Specializzazione
+                                th
+                                th
                                 th
                                 th
                                 th

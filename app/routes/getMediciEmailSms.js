@@ -7,9 +7,9 @@ var connectionPostgres = function () {
     return postgresConnection();
 };
 
-router.post('/',function (req, res, next) {
+router.get('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT * FROM tb_landing_evento ";
+    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE mail <> '' OR mail <> null OR numero_telefono <> '' OR numero_telefono <> null";
 
     var client = connectionPostgres();
 
@@ -22,19 +22,9 @@ router.post('/',function (req, res, next) {
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
-
-        for (var i = 0; i < final.length; i++){
-            if (final[i].data != null)
-                final[i].data = final[i].data.substring(0,10);
-            if (final[i].data_fine != null)
-                final[i].data_fine = final[i].data_fine.substring(0,10);
-        }
         var jsonFinale = {
-            "Result":"OK",
-            "Records": final,
-            "TotalRecordCount":final.length
+            "data": final
         };
-
         return res.json(jsonFinale);
         client.end();
     });

@@ -9,7 +9,7 @@ var connectionPostgres = function () {
 
 router.get('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE pec <> '' OR pec <> null ";
+    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE numero_telefono <> '' OR numero_telefono <> null OR mail <> '' OR mail <> null";
 
     var client = connectionPostgres();
 

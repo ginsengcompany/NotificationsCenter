@@ -11,14 +11,15 @@ router.post('/',function (req, res, next) {
     var datiStatoNotifica = req.body;
 
     var queryPostStatoNotifica = "INSERT INTO tb_stato_notifiche " +
-        "(_id_medico, _id_evento, stato, confermato, eliminato, data_invio)" +
+        "(_id_medico, _id_evento, stato, confermato, eliminato, data_invio,tipo)" +
         "VALUES (" +
         "'" + datiStatoNotifica.idMedico        +"', " +
         "'" + datiStatoNotifica.idEvento   +"', " +
         "'" + datiStatoNotifica.stato   +"', " +
         "'" + datiStatoNotifica.confermato   +"', " +
         "'" + datiStatoNotifica.eliminato   +"', " +
-        "'" + moment().format()   +"')";
+        "'" + moment().format()   +"', " +
+        "'" + datiStatoNotifica.tipo   +"')";
 
     var client = connectionPostgres();
 

@@ -30,26 +30,6 @@ module.exports = function (app) {
         res.render('aggiungiContatto');
     });
 
-    app.get('/gestioneApp', function (req, res, next) {
-        res.render('gestioneApp');
-    });
-
-    app.get('/gestioneEmail', function (req, res, next) {
-        res.render('gestioneEmail');
-    });
-
-    app.get('/tabEmail', function (req, res, next) {
-        res.render('tabEmail');
-    });
-
-    app.get('/tabSms', function (req, res, next) {
-        res.render('tabSms');
-    });
-
-    app.get('/gestioneSms', function (req, res, next) {
-        res.render('gestioneSms');
-    });
-
     app.post('/', function (req, res, next) {
 
         // you might like to do a database look-up or something more scalable here

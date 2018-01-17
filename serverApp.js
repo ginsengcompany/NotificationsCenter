@@ -13,7 +13,6 @@ var salvaEvento = require('./app/routes/salvaEvento');
 var getEventi  = require('./app/routes/getEventi');
 var cercaMatricola  = require('./app/routes/cercaMatricola');
 var getMedici = require('./app/routes/getMedici');
-var getRisposte = require('./app/routes/getRisposte');
 var salvaContatto = require('./app/routes/salvaContatto');
 var salvaToken = require('./app/routes/salvaToken');
 var getEventiById = require('./app/routes/getEventiById');
@@ -22,17 +21,18 @@ var getNotifiche = require('./app/routes/getNotifiche');
 var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
 var getUpdateEventi = require('./app/routes/getUpdateEventi');
 var authRegister = require('./app/routes/authRegister');
-var getMediciEmail = require('./app/routes/getMediciEmail');
-var getMediciPec = require('./app/routes/getMediciPec');
+var getMediciEmailSms = require('./app/routes/getMediciEmailSms');
+var getMediciToken = require('./app/routes/getMediciToken');
 var getMediciSms = require('./app/routes/getMediciSms');
 var sendEmail = require('./app/routes/sendEmail');
-var salvaStatoEmail = require('./app/routes/salvaStatoEmail');
-var getNotificheEmail = require('./app/routes/getNotificheEmail');
-var sendSms = require('./app/routes/sendSms');
-var getNotificheSms = require('./app/routes/getNotificheSms');
 var getDeleteEventi = require('./app/routes/getDeleteEventi');
-var postGetEventi = require('./app/routes/postGetEventi');
 var switchConfermatoEmail = require('./app/routes/switchConfermatoEmail');
+var getMediciTokenSms = require('./app/routes/getMediciTokenSms');
+var getMediciEmail = require('./app/routes/getMediciEmail');
+var getMediciTokenEmail = require('./app/routes/getMediciTokenEmail');
+var getMediciEmailToken = require('./app/routes/getMediciEmailToken');
+var getMediciSmsToken = require('./app/routes/getMediciSmsToken');
+var getMediciSmsEmail = require('./app/routes/getMediciSmsEmail');
 
 
 
@@ -62,7 +62,7 @@ app.use(bodyParser.json());
 
 function checkAuth (req, res, next) {
 
-    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto' || req.url === '/gestioneApp' || req.url === '/gestioneEmail' || req.url === '/tabEmail' || req.url === '/tabSms' || req.url === '/gestioneSms')
+    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto')
         && (!req.session || !req.session.authenticated)) {
         res.render('login', { status: 403 });
         return;
@@ -79,7 +79,6 @@ app.use('/salvaEvento', salvaEvento);
 app.use('/getEventi', getEventi);
 app.use('/cercaMatricola', cercaMatricola);
 app.use('/getMedici', getMedici);
-app.use('/getRisposte', getRisposte);
 app.use('/salvaContatto', salvaContatto);
 app.use('/salvaToken', salvaToken);
 app.use('/getEventiById', getEventiById);
@@ -88,17 +87,18 @@ app.use('/getNotifiche',getNotifiche);
 app.use('/setEliminatoConfermato',setEliminatoConfermato);
 app.use('/getUpdateEventi',getUpdateEventi);
 app.use('/authRegister',authRegister);
-app.use('/getMediciPec',getMediciPec);
 app.use('/getMediciSms',getMediciSms);
-app.use('/getMediciEmail',getMediciEmail);
+app.use('/getMediciEmailSms',getMediciEmailSms);
 app.use('/sendEmail',sendEmail);
-app.use('/salvaStatoEmail',salvaStatoEmail);
-app.use('/getNotificheEmail',getNotificheEmail);
-app.use('/sendSms',sendSms);
-app.use('/getNotificheSms',getNotificheSms);
 app.use('/getDeleteEventi',getDeleteEventi);
-app.use('/postGetEventi',postGetEventi);
 app.use('/switchConfermatoEmail',switchConfermatoEmail);
+app.use('/getMediciToken',getMediciToken);
+app.use('/getMediciTokenSms',getMediciTokenSms);
+app.use('/getMediciEmail',getMediciEmail);
+app.use('/getMediciTokenEmail',getMediciTokenEmail);
+app.use('/getMediciEmailToken',getMediciEmailToken);
+app.use('/getMediciSmsToken',getMediciSmsToken);
+app.use('/getMediciSmsEmail',getMediciSmsEmail);
 
 
 // catch 404 and forward to error handler

@@ -1,14 +1,20 @@
 var arrayMedici = {};
 var arrayEventi = {};
 
+$('#email').val('omceoce.ak12srl@gmail.com');
+$('#password').val('omceoce.ak12');
+
+$(function() {
+    $('#invioPush').prop('checked',true);
+    $('#invioEmail').prop('checked',true);
+    $('#invioSms').prop('checked',true);
+});
 
 function render (data) {
     var date = new Date(data);
     var month = date.getMonth() + 1;
     return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
 }
-
-
 
 function format ( d ) {
     // `d` is the original data object for the row
@@ -51,8 +57,7 @@ $(document).ready(function() {
             { "data": "cognome" },
             { "data": "nome" },
             { "data": "specializzazione" },
-            { "data": "provincia" },
-            { "data": "token" }
+            { "data": "provincia" }
         ]
     } );
 
@@ -130,16 +135,220 @@ function deselezionaTutti(){
     tabMedici.rows().deselect();
 }
 
+function switchTable() {
 
+    //token
+    if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===false){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciToken",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===true){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciTokenSms",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===false){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciTokenEmail",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
 
-var successMessage = function(idMedico,idEvento){
+    //email
+    if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===false){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciEmail",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===true){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciEmailSms",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===false){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciEmailToken",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+
+    //sms
+    if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===true){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciSms",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===true){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciSmsToken",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===true){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMediciSmsEmail",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+
+    //all
+    if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===true){
+        $('#tabellaMedici').dataTable().fnDestroy();
+        tabMedici = $('#tabellaMedici').DataTable( {
+            ajax: "/getMedici",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "matricola" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "provincia" }
+            ]
+        } );
+    }
+    if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===false){
+        $('#tabellaMedici').dataTable().fnClearTable();
+    }
+
+};
+
+var successMessage = function(idMedico,idEvento,tipo){
 
     var successMessageDati = {
         "idMedico" : idMedico,
         "idEvento" : idEvento,
         "stato": true,
         "confermato": false,
-        "eliminato": false
+        "eliminato": false,
+        "tipo": tipo
     };
 
     $.ajax({
@@ -221,7 +430,8 @@ var sendMessage = function(device, message,idMedico,idEvento){
         contentType: 'application/json',
         authorization: "Basic " + restKey,
         success: function(data) {
-            successMessage(idMedico,idEvento);
+            var tipo = 'Push Notifications';
+            successMessage(idMedico,idEvento,tipo);
             console.log(data);
         },
         faliure: function(data) {
@@ -230,6 +440,17 @@ var sendMessage = function(device, message,idMedico,idEvento){
     });
 };
 
+datiEmail = {
+
+    "user":undefined,
+    "pass":undefined,
+    "from":undefined,
+    "to":undefined,
+    "subject":undefined,
+    "text": undefined,
+    "service":undefined
+
+};
 
 function salvaDati(){
 
@@ -244,7 +465,59 @@ function salvaDati(){
     arrayEventi = ids1;
 
     for(var i=0; i<arrayMedici.length; i++){
-        sendMessage(arrayMedici[i].token, 'OMCEO - CASERTA , Hai un nuovo Evento entra subito nell`app per scoprire!',arrayMedici[i]._id,arrayEventi[0]._id);
+
+        if(arrayMedici[i].token){
+
+            sendMessage(arrayMedici[i].token, 'OMCEO - CASERTA , Hai un nuovo Evento entra subito nell`app per scoprire!',arrayMedici[i]._id,arrayEventi[0]._id);
+
+        }
+        else if(arrayMedici[i].mail){
+
+            datiEmail.service = $('#service').val();
+            datiEmail.user = $('#email').val();
+            datiEmail.pass = $('#password').val();
+            datiEmail.from = $('#email').val();
+            datiEmail.to = arrayMedici[i].mail;
+            datiEmail.subject = "OMCEO - CASERTA , Hai un nuovo Evento leggi subito per scoprire!";
+            datiEmail.text = "Titolo: "+arrayEventi[0].titolo+" \n"+
+                "Sottotitolo: "+arrayEventi[0].sottotitolo+" \n"+
+                "Data inizio: "+arrayEventi[0].data+" \n"+
+                "Data Fine: "+arrayEventi[0].data_fine+" \n"+
+                "Luogo: "+arrayEventi[0].luogo+" \n"+
+                "Informazioni: "+arrayEventi[0].informazioni+" \n"+
+                "Relatori: "+arrayEventi[0].relatori+" \n"+
+                "Descrizione: "+arrayEventi[0].descrizione+" \n";
+
+            medicoId = arrayMedici[i]._id;
+            eventoId = arrayEventi[0]._id;
+
+            $.ajax({
+                url: '/sendEmail',
+                type: 'POST',
+                data: JSON.stringify(datiEmail),
+                cache: false,
+                contentType: 'application/json',
+                success: function (data) {
+
+                    if(data===true){
+                        var tipo = 'E-mail';
+                        successMessage(medicoId,eventoId,tipo);
+                    }
+
+
+                },
+                faliure: function (data) {
+
+                }
+            });
+
+        }
+        else if(arrayMedici[i].numero_telefono){
+
+            console.log('SMS: '+arrayMedici[i].nome);
+
+        }
+
     }
 
 }

@@ -9,7 +9,7 @@ var connectionPostgres = function () {
 
 router.get('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT * FROM tb_risposte_inviti A INNER JOIN tb_landing_evento B ON A._id_evento=B._id";
+    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE token <> '' OR token <> null ";
 
     var client = connectionPostgres();
 
@@ -22,7 +22,10 @@ router.get('/',function (req, res, next) {
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
-        return res.json(final);
+        var jsonFinale = {
+            "data": final
+        };
+        return res.json(jsonFinale);
         client.end();
     });
 

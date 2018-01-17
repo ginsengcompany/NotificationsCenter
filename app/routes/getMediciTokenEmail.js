@@ -7,34 +7,29 @@ var connectionPostgres = function () {
     return postgresConnection();
 };
 
-router.post('/',function (req, res, next) {
+router.get('/',function (req, res, next) {
 
-    var datiUpdateOrDelete = req.body;
+    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE token <> '' OR token <> null OR mail <> '' OR mail <> null  ";
 
     var client = connectionPostgres();
 
-    //var queryUpdateOrDelete2 = "DELETE FROM tb_landing_evento WHERE _id_evento=" + datiUpdateOrDelete.data._id;
-    var queryUpdateOrDelete3 = "DELETE FROM tb_landing_evento WHERE _id= " + datiUpdateOrDelete[0]._id;
-
-    const query = client.query(queryUpdateOrDelete3);
+    const query = client.query(queryPostEvento);
 
     query.on("row", function (row, result) {
         result.addRow(row);
     });
 
-    query.on('error', function () {
-        return res.json({errore:true});
-    });
-
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
-        //
-        final = {"Result": "OK"};
-        //
-        return res.json({errore:false});
+        var jsonFinale = {
+            "data": final
+        };
+        return res.json(jsonFinale);
         client.end();
     });
+
+
 });
 
 module.exports = router;

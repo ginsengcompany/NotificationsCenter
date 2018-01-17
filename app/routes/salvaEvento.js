@@ -14,18 +14,23 @@ router.post('/',function (req, res, next) {
     var dataFine = datiEvento.dataFine.date;
     var dataFin = moment(dataFine).format();
 
+    function replaceAll (search, replacement, string) {
+        var target = string;
+        return target.replace(new RegExp(search, 'g'), replacement);
+    };
+
     var queryPostEvento = "INSERT INTO tb_landing_evento " +
         "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, immagine)" +
         "VALUES (" +
-        "'" + datiEvento.titolo.replace("'", "`")        +"', " +
-        "'" + datiEvento.sottotitolo.replace("'", "`")      +"', " +
+        "'" + replaceAll("'", "`",datiEvento.titolo)  +"', " +
+        "'" + replaceAll("'", "`",datiEvento.sottotitolo) +"', " +
         "'" + dataIni                  +"', " +
         "'" + dataFin                  +"', " +
-        "'" + datiEvento.luogo.replace("'", "`")            +"', " +
-        "'" + datiEvento.informazioni.replace("'", "`")     +"', " +
-        "'" + datiEvento.relatori.replace("'", "`")         +"', " +
-        "'" + datiEvento.descrizione.replace("'", "`")      +"', " +
-        "'" + datiEvento.immagine.replace("'", "`")      +"')";
+        "'" + replaceAll("'", "`",datiEvento.luogo) +"', " +
+        "'" + replaceAll("'", "`",datiEvento.informazioni)  +"', " +
+        "'" + replaceAll("'", "`",datiEvento.relatori)    +"', " +
+        "'" + replaceAll("'", "`",datiEvento.descrizione)    +"', " +
+        "'" + replaceAll("'", "`",datiEvento.immagine)  +"')";
 
     var client = connectionPostgres();
 

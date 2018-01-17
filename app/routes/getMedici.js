@@ -9,7 +9,7 @@ var connectionPostgres = function () {
 
 router.get('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE token <> '' OR token <> null ";
+    var queryPostEvento = "SELECT * FROM tb_medici_iscritti";
 
     var client = connectionPostgres();
 

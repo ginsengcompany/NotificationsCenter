@@ -47,37 +47,14 @@ html(lang='en')
                                     a(href='/modificaEvento') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Invii
+                                | Gestione
                                 span.caret
                             ul.dropdown-menu
-                                li.dropdown-submenu
-                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                        | Notifica
-                                    ul.dropdown-menu
-                                        li
-                                            a(href='/assegnaEvento') Via Push Notifications
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneSms') Via SMS
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneEmail') Via E-mail
+                                li
+                                    a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
-                                li.dropdown-submenu
-                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                        | Report
-                                    ul.dropdown-menu
-                                        li
-                                            a(href='/gestioneApp') Report App Scaricate
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneNotifiche') Report Push Notifications
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/tabSms') Report SMS
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/tabEmail') Report E-mail
+                                li
+                                    a(href='/gestioneNotifiche') Report
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout

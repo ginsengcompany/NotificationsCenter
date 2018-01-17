@@ -43,37 +43,14 @@ html(lang='en')
                                     a(href='/modificaEvento') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Invii
+                                | Gestione
                                 span.caret
                             ul.dropdown-menu
-                                li.dropdown-submenu
-                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                        | Notifica
-                                    ul.dropdown-menu
-                                        li.active
-                                            a(href='/assegnaEvento') Via Push Notifications
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneSms') Via SMS
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneEmail') Via E-mail
+                                li.active
+                                    a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
-                                li.dropdown-submenu
-                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                        | Report
-                                    ul.dropdown-menu
-                                        li
-                                            a(href='/gestioneApp') Report App Scaricate
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/gestioneNotifiche') Report Push Notifications
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/tabSms') Report SMS
-                                        li.divider(role='separator')
-                                        li
-                                            a(href='/tabEmail') Report E-mail
+                                li
+                                    a(href='/gestioneNotifiche') Report
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -81,7 +58,7 @@ html(lang='en')
         .container-fluid
             .jumbotron
                 .row
-                    h1 Notifica via Push Notifications
+                    h1 Gestione Invio Notifiche
 
             #myModal.modal.fade
                 .modal-dialog
@@ -99,23 +76,66 @@ html(lang='en')
                         // dialog body
                         .modal-body
                             button.close(type='button', data-dismiss='modal') ×
-                            h1 Notifica inviata con Successo!
+                            h1 Evento inviato con Successo!
+                            .row
+                                .col-xs-12.col-sm-12.progress-container
+                                    .progress.progress-striped.active
+                                        .progress-bar.progress-bar-success(style='width:0%')
                         // dialog buttons
                         .modal-footer
 
             .row
-                .col-sm-6.table-responsive
-                    table#tabellaMedici.table.table-striped.table-bordered(width='100%', cellspacing='0')
-                        thead
-                            tr
-                                th id
-                                th Matricola
-                                th Cognome
-                                th Nome
-                                th Specializzazione
-                                th Provincia
-                                th token
+                .col-sm-4
+                    h3 Credenziali per invio email
+            .row
+                .col-sm-4.form-group
+                    label.cols-sm-2.control-label(for='service') Service
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-server(aria-hidden='true')
+                            select#service.form-control(type='text', name='service', placeholder='Service')
+                                option Gmail
+                                option Hotmail
+                                option iCloud
+                                option Outlook365
+                                option Yahoo
 
+                .col-md-4.form-group
+                    label.cols-sm-2.control-label(for='email') La tua Email
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-user(aria-hidden='true')
+                            input#email.form-control(type='text', name='email', placeholder='e-mail')
+                .col-md-4.form-group
+                    label.cols-sm-2.control-label(for='password') Password
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-key(aria-hidden='true')
+                            input#password.form-control(type='password', name='password', placeholder='Password')
+            .row
+                .col-sm-4
+                    h3 Restringi lista destinatari
+            .row
+                .col-sm-2
+                    h4 Push Notifications
+                    .material-switch
+                        input#invioPush(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                        label.label-success(for='invioPush')
+                .col-sm-2
+                    h4 E-mail
+                    .material-switch
+                        input#invioEmail(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                        label.label-success(for='invioEmail')
+                .col-sm-2
+                    h4 SMS
+                    .material-switch
+                        input#invioSms(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                        label.label-success(for='invioSms')
+            br
+            .row
                 .col-sm-6.table-responsive
                     table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
@@ -130,18 +150,27 @@ html(lang='en')
                                 th Relatori
                                 th Descrizione
 
+                .col-sm-6.table-responsive
+                    table#tabellaMedici.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                        thead
+                            tr
+                                th id
+                                th Matricola
+                                th Cognome
+                                th Nome
+                                th Specializzazione
+                                th Provincia
+
             br
             .container-fluid
-                button#SelezionaTutti.btn.btn-warning.btn-lg.pull-left(onclick='selezionaTutti();') Seleziona Tutti
-                button#DeselezionaTutti.btn.btn-warning.btn-lg.pull-left(onclick='deselezionaTutti();') Deseleziona Tutti
-                button#SalvaDati.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Assegna
-                br
-                br
-                br
                 .row
-                    .col-xs-12.col-sm-12.progress-container
-                        .progress.progress-striped.active
-                            .progress-bar.progress-bar-success(style='width:0%')
+                    .col-sm-2.pull-right
+                        button#SalvaDati.btn.btn-success.btn-lg.pull-right.btn-block(onclick='salvaDati();') Invia
+                    .col-sm-2.pull-right
+                        button#SelezionaTutti.btn.btn-warning.btn-lg.pull-right.btn-block(onclick='selezionaTutti();') Seleziona Tutti
+                    .col-sm-2.pull-right
+                        button#DeselezionaTutti.btn.btn-warning.btn-lg.pull-right.btn-block(onclick='deselezionaTutti();') Deseleziona Tutti
+                br
             br
         br
         br

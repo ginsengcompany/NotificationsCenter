@@ -33,6 +33,11 @@ var getMediciTokenEmail = require('./app/routes/getMediciTokenEmail');
 var getMediciEmailToken = require('./app/routes/getMediciEmailToken');
 var getMediciSmsToken = require('./app/routes/getMediciSmsToken');
 var getMediciSmsEmail = require('./app/routes/getMediciSmsEmail');
+var getDeleteMedici = require('./app/routes/getDeleteMedici');
+var getUpdateMedici = require('./app/routes/getUpdateMedici');
+var getMediciNotNotifica = require('./app/routes/getMediciNotNotifica');
+
+
 
 
 
@@ -62,7 +67,7 @@ app.use(bodyParser.json());
 
 function checkAuth (req, res, next) {
 
-    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto')
+    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto' || req.url === '/modificaContatto')
         && (!req.session || !req.session.authenticated)) {
         res.render('login', { status: 403 });
         return;
@@ -99,6 +104,9 @@ app.use('/getMediciTokenEmail',getMediciTokenEmail);
 app.use('/getMediciEmailToken',getMediciEmailToken);
 app.use('/getMediciSmsToken',getMediciSmsToken);
 app.use('/getMediciSmsEmail',getMediciSmsEmail);
+app.use('/getDeleteMedici',getDeleteMedici);
+app.use('/getUpdateMedici',getUpdateMedici);
+app.use('/getMediciNotNotifica',getMediciNotNotifica);
 
 
 // catch 404 and forward to error handler

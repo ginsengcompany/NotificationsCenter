@@ -7,9 +7,11 @@ var connectionPostgres = function () {
     return postgresConnection();
 };
 
-router.get('/',function (req, res, next) {
+router.post('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT * FROM tb_medici_iscritti WHERE numero_telefono <> '' OR numero_telefono <> null OR token <> '' OR token <> null";
+    var datiNotNotifica = req.body;
+
+    var queryPostEvento = "SELECT * from tb_medici_iscritti A WHERE  NOT EXISTS (SELECT _id_medico FROM  tb_stato_notifiche B WHERE  A._id = B._id_medico AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (numero_telefono <> '' OR numero_telefono <> null OR token <> '' OR token <> null)";
 
     var client = connectionPostgres();
 

@@ -9,29 +9,32 @@ var connectionPostgres = function () {
 
 router.post('/',function (req, res, next) {
 
-    var datiNotNotifica = req.body;
-
-    var queryPostEvento = "SELECT * from tb_medici_iscritti A WHERE  NOT EXISTS (SELECT _id_medico FROM  tb_stato_notifiche B WHERE  A._id = B._id_medico AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (token <> '' OR token <> null)";
+    var datiUpdateOrDelete = req.body;
 
     var client = connectionPostgres();
 
-    const query = client.query(queryPostEvento);
+    //var queryUpdateOrDelete2 = "DELETE FROM tb_landing_evento WHERE _id_evento=" + datiUpdateOrDelete.data._id;
+    var queryUpdateOrDelete3 = "DELETE FROM tb_medici_iscritti WHERE _id= " + datiUpdateOrDelete[0]._id;
+
+    const query = client.query(queryUpdateOrDelete3);
 
     query.on("row", function (row, result) {
         result.addRow(row);
     });
 
+    query.on('error', function () {
+        return res.json({errore:true});
+    });
+
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
-        var jsonFinale = {
-            "data": final
-        };
-        return res.json(jsonFinale);
+        //
+        final = {"Result": "OK"};
+        //
+        return res.json({errore:false});
         client.end();
     });
-
-
 });
 
 module.exports = router;

@@ -214,6 +214,8 @@ function updateEvento(){
 
                 $("#myModal1").modal('hide');
                 tabEventi.ajax.reload();
+                $('#modificaEvento').prop('disabled', true);
+                $('#eliminaEvento').prop('disabled', true);
 
             }else if(data.errore===true){
 
@@ -248,6 +250,8 @@ function eliminaEvento(){
             if(data.errore===false){
 
                 tabEventi.ajax.reload();
+                $('#modificaEvento').prop('disabled', true);
+                $('#eliminaEvento').prop('disabled', true);
 
             }
 

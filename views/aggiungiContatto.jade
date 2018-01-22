@@ -24,8 +24,16 @@ html(lang='en')
                     a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
-                        li.active
-                            a(href='/aggiungiContatto') Anagrafica
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Anagrafica
+                                span.caret
+                            ul.dropdown-menu
+                                li.active
+                                    a(href='/aggiungiContatto') Creazione
+                                li.divider(role='separator')
+                                li
+                                    a(href='/modificaContatto') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | Eventi
@@ -45,7 +53,7 @@ html(lang='en')
                                     a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
                                 li
-                                    a(href='/gestioneNotifiche') Report
+                                    a(href='/gestioneNotifiche') Report / Reinviare
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -71,75 +79,76 @@ html(lang='en')
                         // dialog body
                         .modal-body
                             button.close(type='button', data-dismiss='modal') ×
-                            h1 Inserire tutti i campi!
+                            h1 Inserire i campi obbligatori!
                         // dialog buttons
                         .modal-footer
+
             .row
-                .col-sm-12
-                    .row
-                        // Nome
-                        .col-sm-4.form-group
-                            label.cols-sm-2.control-label(for='nome') Nome
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-user(aria-hidden='true')
-                                    input#nome.form-control(type='text', name='nome', placeholder='Nome')
-                        .col-md-4.form-group
-                            label.cols-sm-2.control-label(for='cognome') Cognome
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-user(aria-hidden='true')
-                                    input#cognome.form-control(type='text', name='cognome', placeholder='cognome')
-                        .col-md-4.form-group
-                            label.cols-sm-2.control-label(for='specializzazione') Specializzazione
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-user-md(aria-hidden='true')
-                                    input#specializzazione.form-control(type='text', name='specializzazione', placeholder='Specializzazione')
-                    .row
-                        .col-md-4.form-group
-                            label.cols-sm-2.control-label(for='provincia') Provincia
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-map-marker(aria-hidden='true')
-                                    input#provincia.form-control(type='text', name='provincia', placeholder='Provincia')
-                        .col-md-4.form-group
-                            label.cols-sm-4.control-label(for='mail') Mail
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-envelope-o(aria-hidden='true')
-                                    input#mail.form-control(type='text', name='mail', placeholder='e-mail')
-                        .col-md-4.form-group
-                            label.cols-sm-4.control-label(for='matricola') Matricola
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-list-ol(aria-hidden='true')
-                                    input#matricola.form-control(type='text', name='matricola', placeholder='Matricola')
-                    .row
-                        .col-md-4.form-group
-                            label.cols-sm-2.control-label(for='telefono') Numero di Telefono
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-phone(aria-hidden='true')
-                                    input#telefono.form-control(type='text', name='telefono', placeholder='Numero di Telefono')
-                        .col-md-4.form-group
-                            label.cols-sm-4.control-label(for='pec') PEC
-                            .cols-sm-10
-                                .input-group
-                                    span.input-group-addon
-                                        i.fa.fa-envelope-o(aria-hidden='true')
-                                    input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
-                    .row
-                        br
-                        .container-fluid
-                            button.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Inserisci
+                .col-md-4.form-group
+                    label.cols-sm-4.control-label(for='matricola') Matricola *
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-list-ol(aria-hidden='true')
+                            input#matricola.form-control(type='text', name='matricola', placeholder='Matricola')
+                .col-sm-4.form-group
+                    label.cols-sm-2.control-label(for='nome') Nome *
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-user(aria-hidden='true')
+                            input#nome.form-control(type='text', name='nome', placeholder='Nome')
+                .col-md-4.form-group
+                    label.cols-sm-2.control-label(for='cognome') Cognome *
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-user(aria-hidden='true')
+                            input#cognome.form-control(type='text', name='cognome', placeholder='cognome')
+            .row
+                .col-md-4.form-group
+                    label.cols-sm-2.control-label(for='specializzazione') Specializzazione *
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-user-md(aria-hidden='true')
+                            input#specializzazione.form-control(type='text', name='specializzazione', placeholder='Specializzazione')
+                .col-md-4.form-group
+                    label.cols-sm-2.control-label(for='provincia') Residenza *
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-map-marker(aria-hidden='true')
+                            input#provincia.form-control(type='text', name='provincia', placeholder='residenza')
+                .col-md-4.form-group
+                    label.cols-sm-4.control-label(for='mail') Mail
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-envelope-o(aria-hidden='true')
+                            input#mail.form-control(type='text', name='mail', placeholder='e-mail')
+            .row
+                .col-md-4.form-group
+                    label.cols-sm-2.control-label(for='telefono') Numero di Telefono
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-phone(aria-hidden='true')
+                            input#telefono.form-control(type='text', name='telefono', placeholder='Numero di Telefono')
+                .col-md-4.form-group
+                    label.cols-sm-4.control-label(for='pec') PEC
+                    .cols-sm-10
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-envelope-o(aria-hidden='true')
+                            input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
+            .row
+                .col-md-4
+                    h5 * Campi Obbligatori.
+            .row
+                br
+                .container-fluid
+                    button.btn.btn-warning.btn-lg.pull-right(onclick='salvaDati();') Inserisci
             br
             br
             br

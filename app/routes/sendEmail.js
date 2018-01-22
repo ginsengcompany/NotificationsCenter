@@ -19,11 +19,13 @@ router.post('/',function (req, res, next) {
         }
     });
 
+
     var mailOptions = {
         from: datiEmail.from,
         to: datiEmail.to,
         subject: datiEmail.subject,
-        text: datiEmail.text
+        text: datiEmail.text,
+        html: datiEmail.html
     };
 
     transporter.sendMail(mailOptions, function(error, info){

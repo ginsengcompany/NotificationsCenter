@@ -30,6 +30,18 @@ module.exports = function (app) {
         res.render('aggiungiContatto');
     });
 
+    app.get('/modificaContatto', function (req, res, next) {
+        res.render('modificaContatto');
+    });
+
+    app.get('/declinato', function (req, res, next) {
+        res.render('declinato');
+    });
+
+    app.get('/partecipato', function (req, res, next) {
+        res.render('partecipato');
+    });
+
     app.post('/', function (req, res, next) {
 
         // you might like to do a database look-up or something more scalable here

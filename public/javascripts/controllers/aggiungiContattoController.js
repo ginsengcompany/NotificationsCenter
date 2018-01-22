@@ -24,10 +24,7 @@ function salvaDati() {
         (datiContatto.cognome === null || datiContatto.cognome === undefined || datiContatto.cognome === '' || datiContatto.cognome === "") ||
         (datiContatto.specializzazione === null || datiContatto.specializzazione === undefined || datiContatto.specializzazione === '' || datiContatto.specializzazione === "") ||
         (datiContatto.provincia === null || datiContatto.provincia === undefined || datiContatto.provincia === '' || datiContatto.provincia === "") ||
-        (datiContatto.mail === null || datiContatto.mail === undefined || datiContatto.mail === '' || datiContatto.mail === "") ||
-        (datiContatto.matricola === null || datiContatto.matricola === undefined || datiContatto.matricola === '' || datiContatto.matricola === "") ||
-        (datiContatto.numero_telefono === null || datiContatto.numero_telefono === undefined || datiContatto.numero_telefono === '' || datiContatto.numero_telefono === "") ||
-        (datiContatto.pec === null || datiContatto.pec === undefined || datiContatto.pec === '' || datiContatto.pec === "")
+        (datiContatto.matricola === null || datiContatto.matricola === undefined || datiContatto.matricola === '' || datiContatto.matricola === "")
     ) {
         $("#myModal1").on("show", function () {
             $("#myModal1 a.btn").on("click", function (e) {

@@ -31,8 +31,16 @@ html(lang='en')
                     a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
-                        li
-                            a(href='/aggiungiContatto') Anagrafica
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Anagrafica
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/aggiungiContatto') Creazione
+                                li.divider(role='separator')
+                                li
+                                    a(href='/modificaContatto') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | Eventi
@@ -52,7 +60,7 @@ html(lang='en')
                                     a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
                                 li
-                                    a(href='/gestioneNotifiche') Report
+                                    a(href='/gestioneNotifiche') Report / Reinviare
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout

@@ -41,7 +41,8 @@ $(document).ready(function() {
                extend: 'excel',
                text: 'Excel',
                exportOptions: {
-                   columns: ':visible'
+                   columns: ':visible',
+                   orthogonal: 'export'
                }
            },
            {
@@ -49,14 +50,16 @@ $(document).ready(function() {
                text: 'PDF',
                orientation: 'landscape',
                exportOptions: {
-                   columns: ':visible'
+                   columns: ':visible',
+                   orthogonal: 'export'
                }
            },
            {
                extend: 'print',
                text: 'Stampa',
                exportOptions: {
-                   columns: ':visible'
+                   columns: ':visible',
+                   orthogonal: 'export'
                }
            }
        ],
@@ -84,8 +87,16 @@ $(document).ready(function() {
                }
 
            }},
-           { "data": "confermato" , "render": function (data) {
+           { "data": "confermato" , "render": function (data, type) {
                var color = 'black';
+               if(type === 'export') {
+                   if (data === false) {
+                       return type === 'export' ? data = 'No' : data;
+                   }
+                   if (data === true) {
+                       return type === 'export' ? data = 'Si' : data;
+                   }
+               }
                if (data===false) {
                    return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button onclick="switchConfermatoEmail();">No - Clicca per Confermare</button> </span>';
                }
@@ -93,10 +104,18 @@ $(document).ready(function() {
                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
                }
            }},
-           { "data": "eliminato" , "render": function (data) {
+           { "data": "eliminato" , "render": function (data, type) {
                var color = 'black';
+               if(type === 'export'){
+                   if (data===false) {
+                       return type === 'export' ? data = 'No' : data;
+                   }
+                   if (data===true) {
+                       return type === 'export' ? data = 'Si' : data;
+                   }
+               }
                if (data===false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;">No <img class="manImg" src="../../images/delete.png"></img></span>';
+                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button> </span>';
                }
                if (data===true) {
                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
@@ -109,6 +128,13 @@ $(document).ready(function() {
 var datiSwitch= {
     'confermato': true,
     'eliminato': false,
+    '_id_medico': '',
+    '_id_evento': ''
+};
+
+var datiSwitch1= {
+    'confermato': false,
+    'eliminato': true,
     '_id_medico': '',
     '_id_evento': ''
 };
@@ -127,6 +153,39 @@ function switchConfermatoEmail(dataSwitch) {
             url: '/switchConfermatoEmail',
             type: 'POST',
             data: JSON.stringify(datiSwitch),
+            cache: false,
+            contentType: 'application/json',
+            success: function(data) {
+
+                if(data.errore===false){
+
+                    tabNotifiche.ajax.reload();
+
+                }
+
+            },
+            faliure: function(data) {
+
+            }
+        });
+    }
+
+}
+
+function switchEliminatoEmail(dataSwitch) {
+
+    $('#tabellaNotifiche tbody').on( 'click', 'button', function () {
+        var dati = tabNotifiche.row( $(this).parents('tr') ).data();
+        switchEliminatoEmail(dati);
+    } );
+
+    if(dataSwitch!== undefined){
+        datiSwitch1._id_medico = dataSwitch._id_medico;
+        datiSwitch1._id_evento = dataSwitch._id_evento;
+        $.ajax({
+            url: '/switchConfermatoEmail',
+            type: 'POST',
+            data: JSON.stringify(datiSwitch1),
             cache: false,
             contentType: 'application/json',
             success: function(data) {

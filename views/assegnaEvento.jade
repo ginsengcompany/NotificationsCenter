@@ -14,6 +14,9 @@ html(lang='en')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
         script(src='javascripts/datatables.min.js')
         script(src='javascripts/dataTables.select.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js')
+
 
     body(style='padding-top: 75px;')
         block myNav
@@ -29,8 +32,16 @@ html(lang='en')
                     a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
-                        li
-                            a(href='/aggiungiContatto') Anagrafica
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Anagrafica
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/aggiungiContatto') Creazione
+                                li.divider(role='separator')
+                                li
+                                    a(href='/modificaContatto') Modifica
                         li.dropdown
                             a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 | Eventi
@@ -50,7 +61,7 @@ html(lang='en')
                                     a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
                                 li
-                                    a(href='/gestioneNotifiche') Report
+                                    a(href='/gestioneNotifiche') Report / Reinviare
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -117,7 +128,7 @@ html(lang='en')
                             input#password.form-control(type='password', name='password', placeholder='Password')
             .row
                 .col-sm-4
-                    h3 Restringi lista destinatari
+                    h3 Seleziona modalità di comunicazione
             .row
                 .col-sm-2
                     h4 Push Notifications
@@ -132,9 +143,14 @@ html(lang='en')
                 .col-sm-2
                     h4 SMS
                     .material-switch
-                        input#invioSms(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                        input#invioSms(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();', disabled=true)
                         label.label-success(for='invioSms')
-            br
+            hr
+            .row
+                .col-sm-4
+                    h3 Seleziona L'evento
+                .col-sm-6.pull-right
+                    h3 Seleziona i medici
             .row
                 .col-sm-6.table-responsive
                     table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
@@ -159,7 +175,7 @@ html(lang='en')
                                 th Cognome
                                 th Nome
                                 th Specializzazione
-                                th Provincia
+                                th Residenza
 
             br
             .container-fluid

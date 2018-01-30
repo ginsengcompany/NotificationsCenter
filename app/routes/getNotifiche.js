@@ -9,7 +9,7 @@ var connectionPostgres = function () {
 
 router.get('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT * FROM tb_medici_iscritti A INNER JOIN tb_stato_notifiche B ON A._id=B._id_medico INNER JOIN tb_landing_evento C ON C._id=B._id_evento";
+    var queryPostEvento = "SELECT A.matricola, A.nome, A.cognome, A.specializzazione, C.titolo, B._id_medico, B._id_evento, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id FROM tb_medici_iscritti A INNER JOIN tb_stato_notifiche B ON A._id=B._id_medico INNER JOIN tb_landing_evento C ON C._id=B._id_evento";
 
     var client = connectionPostgres();
 
@@ -26,8 +26,9 @@ router.get('/',function (req, res, next) {
             "data": final
         };
 
-        return res.json(jsonFinale);
         client.end();
+        return res.json(jsonFinale);
+
     });
 
 

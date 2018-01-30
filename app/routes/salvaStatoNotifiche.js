@@ -18,7 +18,7 @@ router.post('/',function (req, res, next) {
         "'" + datiStatoNotifica.stato   +"', " +
         "'" + datiStatoNotifica.confermato   +"', " +
         "'" + datiStatoNotifica.eliminato   +"', " +
-        "'" + moment().format()   +"', " +
+        "'" + moment(new Date()).format("01/01/1970")   +"', " +
         "'" + datiStatoNotifica.tipo   +"')";
 
     var client = connectionPostgres();
@@ -70,8 +70,8 @@ router.post('/',function (req, res, next) {
     query.on("end", function (result) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
-        return res.json(final);
         client.end();
+        return res.json(final);
     });
 
 

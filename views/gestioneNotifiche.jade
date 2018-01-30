@@ -65,7 +65,7 @@ html(lang='en')
                                     a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
                                 li.active
-                                    a(href='/gestioneNotifiche') Report / Reinviare
+                                    a(href='/gestioneNotifiche') Gestione Report
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -75,17 +75,6 @@ html(lang='en')
                 .row
                     h1 Gestione Report
 
-            .row
-                .col-sm-2
-                    h3 Esporta Report:
-            .row
-                .col-sm-2
-                    button#exportExcel.btn.btn-warning.btn-block(onclick='exportExcel();') Excel
-                .col-sm-2
-                    button#exportPdf.btn.btn-warning.btn-block(onclick='exportPdf();') PDF
-                .col-sm-2
-                    button#exportStampa.btn.btn-warning.btn-block(onclick='exportStampa();') Stampa
-            br
             .row
                 .col-sm-12.table-responsive
                     table#tabellaNotifiche.table.table-striped.table-bordered(width='100%', cellspacing='0')
@@ -115,6 +104,16 @@ html(lang='en')
                                 th
                                 th
                                 th
+            .row
+                .col-sm-2
+                    h3 Esporta Report:
+            .row
+                .col-sm-2
+                   button#exportExcel.btn.btn-warning.btn-block(onclick='exportExcel();') Excel
+                .col-sm-2
+                    button#exportPdf.btn.btn-warning.btn-block(onclick='exportPdf();') PDF
+                .col-sm-2
+                    button#exportStampa.btn.btn-warning.btn-block(onclick='exportStampa();') Stampa
     br
     br
     br

@@ -20,7 +20,7 @@ $(document).ready(function() {
                 select.append( '<option value="'+d+'">'+d+'</option>' )
             } );
         } );
-           this.api().columns([9,10,6]).every( function () {
+           this.api().columns([9,10,6,8]).every( function () {
                var column = this;
                var title = $(this).text();
                var input = $('<input type="text" placeholder="Ricerca '+title+'" />')
@@ -76,14 +76,22 @@ $(document).ready(function() {
            { "data": "specializzazione" },
            { "data": "titolo" },
            { "data": "data_invio" , "render": function (data) {
-               var date = new Date(data);
-               var month = date.getMonth() + 1;
-               return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+               if(data!=='1969-12-31T23:00:00.000Z'){
+                   var date = new Date(data);
+                   var month = date.getMonth() + 1;
+                   return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+               }else {
+                   return 'Non Disponibile';
+               }
+
            }},
            { "data": "tipo" },
            { "data": "stato" , "render": function (data) {
                if (data === true) {
                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Inviato <img class="manImg" src="../../images/check.png"></img> </span>';
+               }
+               if (data === false) {
+                   return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Inviato <img class="manImg" src="../../images/delete.png"></img> </span>';
                }
 
            }},
@@ -98,7 +106,7 @@ $(document).ready(function() {
                    }
                }
                if (data===false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button onclick="switchConfermatoEmail();">No - Clicca per Confermare</button> </span>';
+                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button id="btnConferma" onclick="switchConfermatoEmail();">No - Clicca per Confermare</button> </span>';
                }
                if (data===true) {
                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
@@ -115,7 +123,7 @@ $(document).ready(function() {
                    }
                }
                if (data===false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button> </span>';
+                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button id="btnElimina" onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button> </span>';
                }
                if (data===true) {
                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';

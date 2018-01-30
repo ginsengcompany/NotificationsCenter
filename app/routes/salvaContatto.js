@@ -19,7 +19,7 @@ router.post('/',function (req, res, next) {
         "'" + datiContatto.provincia  +"', " +
         "'" + datiContatto.mail      +"', " +
         "'" + datiContatto.matricola      +"', " +
-        "'" + datiContatto.nuemro_telefono      +"', " +
+        "'" + datiContatto.numero_telefono      +"', " +
         "'" + datiContatto.pec   +"')";
 
     var client = connectionPostgres();

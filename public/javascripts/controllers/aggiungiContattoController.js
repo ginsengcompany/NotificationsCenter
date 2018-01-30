@@ -16,7 +16,7 @@ function salvaDati() {
     datiContatto.provincia = $('#provincia').val();
     datiContatto.mail = $('#mail').val();
     datiContatto.matricola = $('#matricola').val();
-    datiContatto.numero_telefono = $('#telefono').val();
+    datiContatto.numero_telefono = $('#numero_telefono').val();
     datiContatto.pec = $('#pec').val();
 
     if (
@@ -81,6 +81,8 @@ function salvaDati() {
                 $('#provincia').val('');
                 $('#mail').val('');
                 $('#matricola').val('');
+                $('#telefono').val('');
+                $('#pec').val('');
             },
             faliure: function (data) {
                 $("#myModal1").on("show", function () {

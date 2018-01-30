@@ -4,8 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var now = require('moment');
+var moment = require('moment');
 var session = require('express-session');
+var cron = require('node-cron');
+var request = require('request');
+
 
 var postgres = require("./config/postgres");
 
@@ -36,13 +39,16 @@ var getMediciSmsEmail = require('./app/routes/getMediciSmsEmail');
 var getDeleteMedici = require('./app/routes/getDeleteMedici');
 var getUpdateMedici = require('./app/routes/getUpdateMedici');
 var getMediciNotNotifica = require('./app/routes/getMediciNotNotifica');
-
-
-
+var switchForEmail = require('./app/routes/switchForEmail');
+var invioNotifica = require('./app/routes/invioNotifica');
+var checkNotifica = require('./app/routes/checkNotifica');
+var getCountNotifiche = require('./app/routes/getCountNotifiche');
 
 
 var app = express();
 var con = postgres(app);
+
+moment.locale('it');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -74,9 +80,50 @@ function checkAuth (req, res, next) {
     }
 
     next();
-}
+    }
 
 app.use(checkAuth);
+
+cron.schedule('*/2 * * * *', function(){
+
+    console.log(moment().format('LLLL'));
+
+    const options = {
+        url: 'http://localhost:3000/getCountNotifiche',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+    };
+
+    const options1 = {
+        url: 'http://localhost:3000/invioNotifica',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+    };
+
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            if(parseInt(body)>0){
+                request(options1, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+
+                    }else{
+                        console.log('Errore');
+                    }
+                })
+            }
+            else {
+                console.log('Nessuno da Notificare');
+            }
+        }
+    })
+});
+
 
 require('./routes/routes.js')(app);
 
@@ -107,6 +154,11 @@ app.use('/getMediciSmsEmail',getMediciSmsEmail);
 app.use('/getDeleteMedici',getDeleteMedici);
 app.use('/getUpdateMedici',getUpdateMedici);
 app.use('/getMediciNotNotifica',getMediciNotNotifica);
+app.use('/switchForEmail',switchForEmail);
+app.use('/invioNotifica',invioNotifica);
+app.use('/checkNotifica',checkNotifica);
+app.use('/getCountNotifiche',getCountNotifiche);
+
 
 
 // catch 404 and forward to error handler

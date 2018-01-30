@@ -61,7 +61,7 @@ html(lang='en')
                                     a(href='/assegnaEvento') Invio Notifiche
                                 li.divider(role='separator')
                                 li
-                                    a(href='/gestioneNotifiche') Report / Reinviare
+                                    a(href='/gestioneNotifiche') Gestione Report
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
@@ -95,37 +95,6 @@ html(lang='en')
                         // dialog buttons
                         .modal-footer
 
-            .row
-                .col-sm-4
-                    h3 Credenziali per invio email
-            .row
-                .col-sm-4.form-group
-                    label.cols-sm-2.control-label(for='service') Service
-                    .cols-sm-10
-                        .input-group
-                            span.input-group-addon
-                                i.fa.fa-server(aria-hidden='true')
-                            select#service.form-control(type='text', name='service', placeholder='Service')
-                                option Gmail
-                                option Hotmail
-                                option iCloud
-                                option Outlook365
-                                option Yahoo
-
-                .col-md-4.form-group
-                    label.cols-sm-2.control-label(for='email') La tua Email
-                    .cols-sm-10
-                        .input-group
-                            span.input-group-addon
-                                i.fa.fa-user(aria-hidden='true')
-                            input#email.form-control(type='text', name='email', placeholder='e-mail')
-                .col-md-4.form-group
-                    label.cols-sm-2.control-label(for='password') Password
-                    .cols-sm-10
-                        .input-group
-                            span.input-group-addon
-                                i.fa.fa-key(aria-hidden='true')
-                            input#password.form-control(type='password', name='password', placeholder='Password')
             .row
                 .col-sm-4
                     h3 Seleziona modalità di comunicazione

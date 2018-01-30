@@ -84,7 +84,7 @@ function checkAuth (req, res, next) {
 
 app.use(checkAuth);
 
-cron.schedule('*/2 * * * *', function(){
+cron.schedule('*/1 * * * *', function(){
 
     console.log(moment().format('LLLL'));
 

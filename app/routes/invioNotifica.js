@@ -81,15 +81,20 @@ function posyQuery(indice) {
                         body: {"_id_medico":indice._id_medico, "_id_evento":indice._id_evento}
                     };
 
-                    request(options, function (error, response, body) {
-                        if (!error && response.statusCode == 200) {
-                            request(options1, function (error, response, body) {
-                                if (!error && response.statusCode == 200) {
-                                    console.log(body);
-                                }
-                            })
-                        }
-                    })
+                    setTimeout(function () {
+
+                        request(options, function (error, response, body) {
+                            if (!error && response.statusCode == 200) {
+                                request(options1, function (error, response, body) {
+                                    if (!error && response.statusCode == 200) {
+                                        console.log(body);
+                                    }
+                                })
+                            }
+                        })
+
+                    },3000);
+
                 }
 
             }
@@ -122,15 +127,21 @@ function posyQuery(indice) {
                         body: {"_id_medico":indice._id_medico, "_id_evento":indice._id_evento}
                     };
 
-                    request(options, function (error, response, body) {
-                        if (!error && response.statusCode == 200) {
-                            request(options1, function (error, response, body) {
-                                if (!error && response.statusCode == 200) {
-                                    console.log(body);
-                                }
-                            })
-                        }
-                    })
+                    setTimeout(function () {
+
+                        request(options, function (error, response, body) {
+                            if (!error && response.statusCode == 200) {
+                                request(options1, function (error, response, body) {
+                                    if (!error && response.statusCode == 200) {
+                                        console.log(body);
+                                    }
+                                })
+                            }
+                        })
+
+                    },3000);
+
+
                 }
 
             }
@@ -149,7 +160,7 @@ router.get('/',function (req, res, next) {
 
     var queryPostInvio = "SELECT A.mail, A.token, A.numero_telefono, B._id_medico, B._id_evento, C.titolo, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id \n" +
         "FROM tb_medici_iscritti A INNER JOIN tb_stato_notifiche B ON A._id=B._id_medico \n" +
-        "INNER JOIN tb_landing_evento C ON C._id=B._id_evento where B.stato=false LIMIT 20";
+        "INNER JOIN tb_landing_evento C ON C._id=B._id_evento where B.stato=false LIMIT 100";
 
     const query = client.query(queryPostInvio);
     query.on("row", function (row, result) {

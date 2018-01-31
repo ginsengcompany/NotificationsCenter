@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Ordine Medici Caserta Notifications
+        title Notifications Center
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -29,8 +29,8 @@ html(lang='en')
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    img.navbar-brand(src='images/medici.png', alt='Company Logo', width='50', height='50')
-                    a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
+                    img.navbar-brand(src='images/centerLogo.svg', alt='Company Logo', width='50', height='50')
+                    a.navbar-brand(href='/home') Notifications Center
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li.dropdown
@@ -144,24 +144,24 @@ html(lang='en')
                                             textarea#descrizioneEvento.form-control(rows='1', maxlength='2000')
                                     // Carica immagini evento da pc
                                     .row
-                                        .col-sm-6
+                                        .col-sm-12
                                             label.cols-sm-2.control-label(for='caricaFoto') Carica Immagine da PC
                                             .input-group.input-file()
                                                 span.input-group-addon
                                                     i.fa.fa-file-image-o.fa(aria-hidden='true')
                                                 span.input-group-btn
-                                                    button.btn.btn-warning.btn-choose(type='button') Seleziona
+                                                    button.btn.btn-default.btn-choose(type='button') Seleziona
                                                 input#caricaFoto.form-control(type='text', placeholder='Carica immagini da PC...')
                                                 span.input-group-btn
-                                                    button.btn.btn-warning.btn-reset(type='button') Reset
+                                                    button.btn.btn-default.btn-reset(type='button') Reset
                         // dialog buttons
                         .modal-footer
-                            button.btn.btn-warning.btn-block(type='button', onclick='updateEvento();') Salva
+                            button.btn.btn-default.btn-block(type='button', onclick='updateEvento();') Salva
             .row
                 .col-sm-2
-                    button#modificaEvento.btn.btn-warning.btn-lg(onclick='openModal();') Modifica Evento
+                    button#modificaEvento.btn.btn-default.btn-lg(onclick='openModal();') Modifica Evento
                 .col-sm-2
-                    button#eliminaEvento.btn.btn-warning.btn-lg(onclick='eliminaEvento();') Elimina Evento
+                    button#eliminaEvento.btn.btn-default.btn-lg(onclick='eliminaEvento();') Elimina Evento
             br
             .row
                 .col-sm-12.table-responsive
@@ -185,7 +185,7 @@ html(lang='en')
             .container-fluid
                 br
                 p.copyright.pull-right
-                    | © 2018 Ordine Medici Caserta Notifications -
+                    | © 2018 Notifications Center -
                     a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
                     img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
     block myScript

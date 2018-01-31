@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Ordine Medici Caserta Notifications
+        title Notifications Center
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -32,8 +32,8 @@ html(lang='en')
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    img.navbar-brand(src='images/medici.png', alt='Company Logo', width='50', height='50')
-                    a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
+                    img.navbar-brand(src='images/centerLogo.svg', alt='Company Logo', width='50', height='50')
+                    a.navbar-brand(href='/home') Notifications Center
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li.dropdown
@@ -109,11 +109,11 @@ html(lang='en')
                     h3 Esporta Report:
             .row
                 .col-sm-2
-                   button#exportExcel.btn.btn-warning.btn-block(onclick='exportExcel();') Excel
+                   button#exportExcel.btn.btn-default.btn-block(onclick='exportExcel();') Excel
                 .col-sm-2
-                    button#exportPdf.btn.btn-warning.btn-block(onclick='exportPdf();') PDF
+                    button#exportPdf.btn.btn-default.btn-block(onclick='exportPdf();') PDF
                 .col-sm-2
-                    button#exportStampa.btn.btn-warning.btn-block(onclick='exportStampa();') Stampa
+                    button#exportStampa.btn.btn-default.btn-block(onclick='exportStampa();') Stampa
     br
     br
     br
@@ -121,7 +121,7 @@ html(lang='en')
         .container-fluid
             br
             p.copyright.pull-right
-                | © 2018 Ordine Medici Caserta Notifications -
+                | © 2018 Notifications Center -
                 a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
                 img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
     block myScript

@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Ordine Medici Caserta Notifications
+        title Notifications Center
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -25,8 +25,8 @@ html(lang='en')
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    img.navbar-brand(src='images/medici.png', alt='Company Logo', width='50', height='50')
-                    a.navbar-brand(href='/home') Ordine Medici Caserta Notifications
+                    img.navbar-brand(src='images/centerLogo.svg', alt='Company Logo', width='50', height='50')
+                    a.navbar-brand(href='/home') Notifications Center
                 #navbar.navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li.dropdown
@@ -141,12 +141,12 @@ html(lang='en')
                                                         input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
                         // dialog buttons
                         .modal-footer
-                            button.btn.btn-warning.btn-block(type='button', onclick='updateMedico();') Salva
+                            button.btn.btn-default.btn-block(type='button', onclick='updateMedico();') Salva
             .row
                 .col-sm-2
-                    button#modificaMedico.btn.btn-warning.btn-lg(onclick='openModal();') Modifica Medico
+                    button#modificaMedico.btn.btn-default.btn-lg(onclick='openModal();') Modifica Medico
                 .col-sm-2
-                    button#eliminaMedico.btn.btn-warning.btn-lg(onclick='eliminaMedico();') Elimina Medico
+                    button#eliminaMedico.btn.btn-default.btn-lg(onclick='eliminaMedico();') Elimina Medico
             br
             .row
                 .col-sm-12.table-responsive
@@ -170,7 +170,7 @@ html(lang='en')
             .container-fluid
                 br
                 p.copyright.pull-right
-                    | © 2018 Ordine Medici Caserta Notifications -
+                    | © 2018 Notifications Center -
                     a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
                     img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
             block myScript

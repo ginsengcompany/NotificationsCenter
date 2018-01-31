@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Ordine Medici Caserta Notifications
+        title Notifications Center
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
@@ -19,7 +19,7 @@ html(lang='en')
             .container
                 .jumbotron
                     .row
-                        h1(align="center") Login - Ordine Medici Caserta Notifications
+                        h1(align="center") Login - Notifications Center
 
                 #myModal1.modal.fade
                     .modal-dialog
@@ -32,7 +32,7 @@ html(lang='en')
                             .modal-footer
 
                 .card.card-container
-                    img#logoOrdine.img-responsive(src='images/medici.png', style='margin:0 auto;')
+                    img#logoOrdine.img-responsive(src='images/centerLogo.svg', style='margin:0 auto;')
                     br
                     .row
                         .col-sm-12.form-group
@@ -41,7 +41,7 @@ html(lang='en')
                         br
                         input#inputPassword.form-control(type='password', placeholder='Password', required='')
                         br
-                        button.btn.btn-lg.btn-warning.btn-block(onclick='loginEffettuatoConSuccesso();') Effettua Login
+                        button.btn.btn-lg.btn-default.btn-block(onclick='loginEffettuatoConSuccesso();') Effettua Login
             br
             br
             br

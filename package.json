@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node  --max-old-space-size=10240 ./ordineMedici"
+    "start": "node --max-old-space-size=2048 ./ordineMedici"
   },
   "dependencies": {
     "async": "^2.6.0",

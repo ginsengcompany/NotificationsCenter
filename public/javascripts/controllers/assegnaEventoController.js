@@ -40,6 +40,18 @@ function format ( d ) {
         '</table>';
 }
 
+var something = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+            $('#tabellaMedici tbody').on( 'click', 'tr', function () {
+                $(this).toggleClass('selected');
+            } );
+        }
+    };
+})();
+
 function getMediciNotNotifica (){
 
     var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
@@ -68,9 +80,8 @@ function getMediciNotNotifica (){
         ]
     } );
 
-    $('#tabellaMedici tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
+    something();
+
 }
 
 $(document).ready(function() {
@@ -111,10 +122,11 @@ $(document).ready(function() {
 
     $('#tabellaEventi tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
             $('#tabellaMedici').dataTable().fnClearTable();
         }
         else {
-            tabEventi.$('tr.selected').removeClass('selected');
+            tabEventi.rows().deselect();
             $(this).addClass('selected');
             $('#tabellaMedici').dataTable().fnDestroy();
             getMediciNotNotifica ();
@@ -156,7 +168,7 @@ function switchTable() {
 
     datiNotNotifica = {
         "idEvento" : arrayEventi[0]._id
-    }
+    };
 
     //token
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===false){
@@ -379,6 +391,7 @@ var successMessage = function(idMedico,idEvento,tipo){
         cache: false,
         contentType: 'application/json',
         success: function(data) {
+            $('.loader').show();
             if(data.errore===true){
 
                 $("#myModal").on("show", function() {
@@ -402,7 +415,6 @@ var successMessage = function(idMedico,idEvento,tipo){
                 });
             }
             else if(data.errore===false){
-                $(".progress-bar").animate({width: "100%"}, 2000);
                 $("#myModal1").on("show", function() {
                     $("#myModal1 a.btn").on("click", function(e) {
                         console.log("button pressed");
@@ -422,7 +434,8 @@ var successMessage = function(idMedico,idEvento,tipo){
                     "keyboard"  : true,
                     "show"      : true
                 });
-                $(".progress-bar").animate({width: "0%"}, 1000);
+
+                tabMedici.ajax.reload();
             }
 
         },
@@ -432,6 +445,10 @@ var successMessage = function(idMedico,idEvento,tipo){
     });
 
 };
+
+$(document).ajaxStop(function() {
+    $('.loader').hide();
+});
 
 function salvaDati(){
 

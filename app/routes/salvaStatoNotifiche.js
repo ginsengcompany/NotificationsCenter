@@ -71,7 +71,7 @@ router.post('/',function (req, res, next) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         var final = JSON.parse(myOjb);
         client.end();
-        return res.json(final);
+        return res.json({errore:false});
     });
 
 

@@ -84,9 +84,7 @@ function checkAuth (req, res, next) {
 
 app.use(checkAuth);
 
-cron.schedule('*/1 * * * *', function(){
-
-    console.log(moment().format('LLLL'));
+cron.schedule('*!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -118,7 +116,7 @@ cron.schedule('*/1 * * * *', function(){
                 })
             }
             else {
-                console.log('Nessuno da Notificare');
+                //console.log('Nessuno da Notificare');
             }
         }
     })

@@ -84,7 +84,7 @@ function checkAuth (req, res, next) {
 
 app.use(checkAuth);
 
-cron.schedule('*!/1 * * * *', function(){
+/*cron.schedule('*!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -120,7 +120,7 @@ cron.schedule('*!/1 * * * *', function(){
             }
         }
     })
-});
+});*/
 
 
 require('./routes/routes.js')(app);

@@ -19,22 +19,77 @@ $(document).ready(function() {
             column.data().unique().sort().each( function ( d, j ) {
                 select.append( '<option value="'+d+'">'+d+'</option>' )
             } );
-        } );
-           this.api().columns([9,10,6,8]).every( function () {
-               var column = this;
-               var title = $(this).text();
-               var input = $('<input type="text" placeholder="Ricerca '+title+'" />')
-                   .appendTo( $(column.footer()).empty() )
-                   .on('keyup change', function () {
-                       if ( column.search() !== this.value ) {
-                           column
-                               .search( this.value )
-                               .draw();
-                       }
-                   } );
+        });
+        this.api().columns([9,10]).every( function () {
+            var column = this;
+            var select = $('<select style="width: 80px"><option value=""></option></select>')
+                .appendTo( $(column.footer()).empty() )
+                .on( 'change', function () {
 
-           } );
+                    var val = $.fn.dataTable.util.escapeRegex(
+                        $(this).val()
+                    );
+
+                    column
+                        .search( val  )
+                        .draw();
+                } );
+
+            column.data().unique().sort().each( function ( d, j ) {
+                if(d===true){
+                    d='Si';
+                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                }
+                if(d===false){
+                    d='No';
+                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                }
+
+            } );
+
+           });
+        this.api().columns([8]).every( function () {
+            var column = this;
+            var select = $('<select style="width: 150px"><option value=""></option></select>')
+                .appendTo( $(column.footer()).empty() )
+                .on( 'change', function () {
+
+                    var val = $.fn.dataTable.util.escapeRegex(
+                        $(this).val()
+                    );
+
+                    column
+                        .search( val  )
+                        .draw();
+                } );
+
+            column.data().unique().sort().each( function ( d, j ) {
+                if(d===true){
+                    d='Inoltrato';
+                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                }
+                if(d===false){
+                    d='Non Inviato';
+                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                }
+
+            } );
+        });
+        this.api().columns([6]).every( function () {
+            var that = this;
+            $( "#datepicker" ).datepicker();
+            var select = $('<input type="text" id="datepicker" placeholder="Ricerca" />')
+                .appendTo( $(that.footer()).empty() )
+                .on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+           });
     },
+       search: { "caseInsensitive": false },
        ajax: "/getNotifiche",
        buttons: [
            {
@@ -63,6 +118,9 @@ $(document).ready(function() {
                }
            }
        ],
+       scrollCollapse: false,
+       paging: true,
+       autoWidth: false,
        responsive: true,
        ajaxSettings: {
             method: "GET",
@@ -88,7 +146,7 @@ $(document).ready(function() {
            { "data": "tipo" },
            { "data": "stato" , "render": function (data) {
                if (data === true) {
-                   return '<span style="color:green; padding-right:3px; padding-top: 3px;">Inviato <img class="manImg" src="../../images/check.png"></img> </span>';
+                   return '<span style="color:green; padding-right:3px; padding-top: 3px;">Inoltrato <img class="manImg" src="../../images/check.png"></img> </span>';
                }
                if (data === false) {
                    return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Inviato <img class="manImg" src="../../images/delete.png"></img> </span>';
@@ -131,6 +189,7 @@ $(document).ready(function() {
            }}
        ]
     } );
+
 } );
 
 var datiSwitch= {

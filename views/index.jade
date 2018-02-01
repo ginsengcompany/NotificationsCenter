@@ -6,13 +6,12 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        link(type='text/css', rel='stylesheet', href='stylesheets/style.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-
     body(style='padding-top: 75px;')
-        block myNav
         nav.navbar.navbar-default.navbar-fixed-top
             .container-fluid
                 .navbar-header
@@ -58,28 +57,19 @@ html(lang='en')
                     ul.nav.navbar-nav.navbar-right
                         li.active
                             a(href='/logout') Logout
-        block myContainer
         .container-fluid
             .jumbotron
                 .row
-                    h1 Benvenuto in Notifications Center
-             .row
-                 .bd-example
-                     img.img-fluid(style='width: 20%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/centerLogo.svg')
-             .row
-                 h4(align='center') Powered by Ak12 srl.
-                 .bd-example
-                     img.img-fluid(style='width: 20%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ak12.png')
-
-    br
-    br
-    br
+                    h1(style='text-align: center;') Benvenuto in Notifications Center
+            #sfondo(style='background-color: transparent;')
+                img.img-fluid(style='width: 25%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ico.png')
+                h4(align='center') Powered by Ak12 srl.
+                img.img-fluid(style='width: 10%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ak12.png')
     nav.navbar.navbar-default.navbar-fixed-bottom
         .container-fluid
             br
             p.copyright.pull-right
                 | © 2018 Notifications Center -
-                a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
+                a(href='http://www.ak12srl.it/')  AK-12 srl
                 img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
-    block myScript
-        script(src="javascripts/controllers/indexController.js")
+    script(src='javascripts/controllers/indexController.js')

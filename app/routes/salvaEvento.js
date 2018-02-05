@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var postgresConnection = require('../../config/postgres');
 var moment = require('moment');
+var multiUser = require('../../config/configMultiUser');
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -19,34 +20,41 @@ router.post('/',function (req, res, next) {
         return target.replace(new RegExp(search, 'g'), replacement);
     };
 
-    var queryPostEvento = "INSERT INTO tb_landing_evento " +
-        "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, immagine)" +
-        "VALUES (" +
-        "'" + replaceAll("'", "`",datiEvento.titolo)  +"', " +
-        "'" + replaceAll("'", "`",datiEvento.sottotitolo) +"', " +
-        "'" + dataIni                  +"', " +
-        "'" + dataFin                  +"', " +
-        "'" + replaceAll("'", "`",datiEvento.luogo) +"', " +
-        "'" + replaceAll("'", "`",datiEvento.informazioni)  +"', " +
-        "'" + replaceAll("'", "`",datiEvento.relatori)    +"', " +
-        "'" + replaceAll("'", "`",datiEvento.descrizione)    +"', " +
-        "'" + replaceAll("'", "`",datiEvento.immagine)  +"')";
+    var organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    for(var i=0;i<multiUser.data.length;i++) {
 
+        if (multiUser.data[i].cod_org === organizzazione) {
 
-    const query = client.query(queryPostEvento);
+            var queryPostEvento = "INSERT INTO "+multiUser.data[i].tb_eventi+" " +
+                "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, immagine)" +
+                "VALUES (" +
+                "'" + replaceAll("'", "`",datiEvento.titolo)  +"', " +
+                "'" + replaceAll("'", "`",datiEvento.sottotitolo) +"', " +
+                "'" + dataIni                  +"', " +
+                "'" + dataFin                  +"', " +
+                "'" + replaceAll("'", "`",datiEvento.luogo) +"', " +
+                "'" + replaceAll("'", "`",datiEvento.informazioni)  +"', " +
+                "'" + replaceAll("'", "`",datiEvento.relatori)    +"', " +
+                "'" + replaceAll("'", "`",datiEvento.descrizione)    +"', " +
+                "'" + replaceAll("'", "`",datiEvento.immagine)  +"')";
 
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
+            var client = connectionPostgres();
 
-    query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
-        return res.json(final);
-        client.end();
-    });
+            const query = client.query(queryPostEvento);
+
+            query.on("row", function (row, result) {
+                result.addRow(row);
+            });
+
+            query.on("end", function (result) {
+                var myOjb = JSON.stringify(result.rows, null, "    ");
+                var final = JSON.parse(myOjb);
+                return res.json(final);
+            });
+
+        }
+    }
 
 
 });

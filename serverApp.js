@@ -17,7 +17,6 @@ var getEventi  = require('./app/routes/getEventi');
 var cercaMatricola  = require('./app/routes/cercaMatricola');
 var getMedici = require('./app/routes/getMedici');
 var salvaContatto = require('./app/routes/salvaContatto');
-var salvaToken = require('./app/routes/salvaToken');
 var getEventiById = require('./app/routes/getEventiById');
 var salvaStatoNotifiche = require('./app/routes/salvaStatoNotifiche');
 var getNotifiche = require('./app/routes/getNotifiche');
@@ -85,7 +84,7 @@ function checkAuth (req, res, next) {
     }
 
     next();
-    }
+}
 
 app.use(checkAuth);
 
@@ -135,7 +134,6 @@ app.use('/getEventi', getEventi);
 app.use('/cercaMatricola', cercaMatricola);
 app.use('/getMedici', getMedici);
 app.use('/salvaContatto', salvaContatto);
-app.use('/salvaToken', salvaToken);
 app.use('/getEventiById', getEventiById);
 app.use('/salvaStatoNotifiche',salvaStatoNotifiche);
 app.use('/getNotifiche',getNotifiche);

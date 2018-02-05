@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var postgresConnection = require('../../config/postgres');
 var moment = require('moment');
+var multiUser = require('../../config/configMultiUser');
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -13,29 +14,35 @@ router.post('/',function (req, res, next) {
     var confermato = datiEliminatoConfermato.confermato;
     var idMedico = datiEliminatoConfermato._id_medico;
     var idEvento = datiEliminatoConfermato._id_evento;
-    var queryPostEliminatoConfermato = '';
+    var organizzazione = datiEliminatoConfermato.organizzazione;
 
-    queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
+    for(var i=0;i<multiUser.data.length;i++) {
 
+        if (multiUser.data[i].cod_org === organizzazione) {
 
-    var client = connectionPostgres();
+            var queryPostEliminatoConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
 
-    const query = client.query(queryPostEliminatoConfermato);
+            var client = connectionPostgres();
 
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
+            const query = client.query(queryPostEliminatoConfermato);
 
-    query.on('error', function() {
-        return res.json(false);
-    });
+            query.on("row", function (row, result) {
+                result.addRow(row);
+            });
 
-    query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
-        return res.json(true);
-        client.end();
-    });
+            query.on('error', function() {
+                return res.json(false);
+            });
+
+            query.on("end", function (result) {
+                var myOjb = JSON.stringify(result.rows, null, "    ");
+                var final = JSON.parse(myOjb);
+                return res.json(true);
+            });
+
+        }
+    }
+
 });
 
 module.exports = router;

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var postgresConnection = require('../../config/postgres');
 var moment = require('moment');
+var multiUser = require('../../config/configMultiUser');
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -10,44 +11,37 @@ var connectionPostgres = function () {
 router.post('/',function (req, res, next) {
     var datiStatoNotifica = req.body;
 
-    var queryPostStatoNotifica = "INSERT INTO tb_stato_notifiche " +
-        "(_id_medico, _id_evento, stato, confermato, eliminato, data_invio,tipo)" +
-        "VALUES (" +
-        "'" + datiStatoNotifica.idMedico        +"', " +
-        "'" + datiStatoNotifica.idEvento   +"', " +
-        "'" + datiStatoNotifica.stato   +"', " +
-        "'" + datiStatoNotifica.confermato   +"', " +
-        "'" + datiStatoNotifica.eliminato   +"', " +
-        "'" + moment(new Date()).format("01/01/1970")   +"', " +
-        "'" + datiStatoNotifica.tipo   +"')";
+    var organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    for(var i=0;i<multiUser.data.length;i++) {
 
-    const query = client.query(queryPostStatoNotifica);
+        if (multiUser.data[i].cod_org === organizzazione) {
 
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
+            var queryPostStatoNotifica = "INSERT INTO "+multiUser.data[i].tb_notifiche+" " +
+                "(_id_medico, _id_evento, stato, confermato, eliminato, data_invio,tipo)" +
+                "VALUES (" +
+                "'" + datiStatoNotifica.idMedico        +"', " +
+                "'" + datiStatoNotifica.idEvento   +"', " +
+                "'" + datiStatoNotifica.stato   +"', " +
+                "'" + datiStatoNotifica.confermato   +"', " +
+                "'" + datiStatoNotifica.eliminato   +"', " +
+                "'" + moment(new Date()).format("01/01/1970")   +"', " +
+                "'" + datiStatoNotifica.tipo   +"')";
 
-    query.on('error', function() {
+            var client = connectionPostgres();
 
-        var queryPostEliminatoConfermato1 = "SELECT * FROM tb_stato_notifiche WHERE eliminato=true AND confermato=false OR confermato=true AND _id_medico="+datiStatoNotifica.idMedico;
+            const query = client.query(queryPostStatoNotifica);
 
-        const query = client.query(queryPostEliminatoConfermato1);
+            query.on("row", function (row, result) {
+                result.addRow(row);
+            });
 
-        query.on("row", function (row, result) {
-            result.addRow(row);
-        });
+            query.on('error', function() {
 
-        query.on("end", function (result) {
-            var myOjb = JSON.stringify(result.rows, null, "    ");
-            var final = JSON.parse(myOjb);
+                var queryPostEliminatoConfermato1 = "SELECT * FROM "+multiUser.data[i].tb_notifiche+" WHERE eliminato=true AND confermato=false OR confermato=true AND _id_medico="+datiStatoNotifica.idMedico;
 
+                const query = client.query(queryPostEliminatoConfermato1);
 
-
-            if(final.length>0){
-                var queryPostEliminatoConfermato = "UPDATE tb_stato_notifiche SET eliminato=false, confermato=false WHERE _id="+ final[0]._id;
-                const query = client.query(queryPostEliminatoConfermato);
                 query.on("row", function (row, result) {
                     result.addRow(row);
                 });
@@ -55,25 +49,40 @@ router.post('/',function (req, res, next) {
                 query.on("end", function (result) {
                     var myOjb = JSON.stringify(result.rows, null, "    ");
                     var final = JSON.parse(myOjb);
-                    return res.json(final);
+
+
+
+                    if(final.length>0){
+                        var queryPostEliminatoConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET eliminato=false, confermato=false WHERE _id="+ final[0]._id;
+                        const query = client.query(queryPostEliminatoConfermato);
+                        query.on("row", function (row, result) {
+                            result.addRow(row);
+                        });
+
+                        query.on("end", function (result) {
+                            var myOjb = JSON.stringify(result.rows, null, "    ");
+                            var final = JSON.parse(myOjb);
+                            return res.json(final);
+                        });
+                    }
+                    else{
+                        return res.json({errore:true});
+                    }
+
+                    client.end();
                 });
-            }
-            else{
-                return res.json({errore:true});
-            }
 
-            client.end();
-        });
+            });
 
-    });
+            query.on("end", function (result) {
+                var myOjb = JSON.stringify(result.rows, null, "    ");
+                var final = JSON.parse(myOjb);
+                client.end();
+                return res.json({errore:false});
+            });
 
-    query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
-        client.end();
-        return res.json({errore:false});
-    });
-
+        }
+    }
 
 });
 

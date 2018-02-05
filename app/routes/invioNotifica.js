@@ -19,13 +19,9 @@ var datiEmail = {
 };
 
 function switchInvio(final){
-
         for(var i=0;i<final.length;i++){
-
             posyQuery(final[i]);
-
         }
-
 }
 
 function posyQuery(indice) {

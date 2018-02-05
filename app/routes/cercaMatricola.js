@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var postgresConnection = require('../../config/postgres');
+var multiUser = require('../../config/configMultiUser');
+
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -9,37 +11,43 @@ var connectionPostgres = function () {
 router.post('/',function (req, res, next) {
     var matricola = req.body.matricola;
     var token = req.body.token;
+    var organizzazione = req.body.organizzazione;
 
-    var client = connectionPostgres();
+    for(var i=0;i<multiUser.data.length;i++){
 
-    var queryPostToken = "UPDATE tb_medici_iscritti SET token='"+token+"' WHERE matricola='"+ matricola +"'";
+            if(multiUser.data[i].cod_org===organizzazione){
 
-    const query1 = client.query(queryPostToken);
+                var client = connectionPostgres();
 
-    query1.on("row", function (row, result) {
-        result.addRow(row);
-    });
+                var queryPostToken = "UPDATE "+multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE matricola='"+ matricola +"'";
 
-    var queryPostMatricola = "SELECT * FROM tb_medici_iscritti WHERE matricola='"+ matricola +"'";
+                const query1 = client.query(queryPostToken);
 
-    const query = client.query(queryPostMatricola);
+                query1.on("row", function (row, result) {
+                    result.addRow(row);
+                });
 
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
+                var queryPostMatricola = "SELECT * FROM "+multiUser.data[i].tb_contatti+" WHERE matricola='"+ matricola +"'";
 
-    query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
-        if(final.length>0){
-            return res.send(true);
-        }else{
-            return res.send(false);
-        }
+                const query = client.query(queryPostMatricola);
 
-        client.end();
-    });
+                query.on("row", function (row, result) {
+                    result.addRow(row);
+                });
 
+                query.on("end", function (result) {
+                    var myOjb = JSON.stringify(result.rows, null, "    ");
+                    var final = JSON.parse(myOjb);
+                    if(final.length>0){
+                        return res.send(true);
+                    }else{
+                        return res.send(false);
+                    }
+
+                });
+
+            }
+    }
 
 });
 

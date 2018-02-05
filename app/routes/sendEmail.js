@@ -56,7 +56,7 @@ router.post('/',function (req, res, next) {
         '</div>'+
         '<div class="header" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);" id="emb-email-header-container">'+
         '<div class="logo emb-logo-margin-box" style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #c3ced9;font-family: Roboto,Tahoma,sans-serif;Margin-left: 20px;Margin-right: 20px;" align="center">'+
-        '<div class="logo-center" align="center" id="emb-email-header"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 560px;" src="https://www.omceocaserta.it/wp-content/uploads/2015/09/logo-1.png" alt="" width="560" /></div>'+
+        '<div class="logo-center" align="center" id="emb-email-header"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 560px;" src="http://omceoce.ak12srl.it/images/centerLogo.svg" alt="" width="560" /></div>'+
         '</div>'+
         '</div>'+
         '</div>'+

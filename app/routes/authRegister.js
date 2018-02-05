@@ -42,13 +42,7 @@ router.post('/', function(req, res, next) {
 
         if(jsonFinale.data.length===1){
 
-            require('crypto').randomBytes(48, function(err, buffer) {
-                var token = buffer.toString('hex');
-
-                return res.json({errore:false,id:token});
-
-            });
-
+            return res.json({errore:false,id:jsonFinale.data[0]});
 
 
         }else if(jsonFinale.data.length===0){

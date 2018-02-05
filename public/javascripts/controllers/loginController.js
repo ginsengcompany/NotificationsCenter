@@ -47,7 +47,7 @@ function loginEffettuatoConSuccesso(){
                 $.ajax({
                     url: '/',
                     type: 'POST',
-                    data: JSON.stringify({userAuthenticated:true}),
+                    data: JSON.stringify({userAuthenticated:true,cod_org:data.id.cod_org}),
                     cache: false,
                     contentType: 'application/json',
                     success: function (data) {

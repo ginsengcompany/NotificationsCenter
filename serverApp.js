@@ -43,6 +43,7 @@ var switchForEmail = require('./app/routes/switchForEmail');
 var invioNotifica = require('./app/routes/invioNotifica');
 var checkNotifica = require('./app/routes/checkNotifica');
 var getCountNotifiche = require('./app/routes/getCountNotifiche');
+var getListaOrganizzazione = require('./app/routes/getListaOrganizzazione');
 
 
 var app = express();
@@ -55,7 +56,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname,'public/images','centerLogo.svg')));
+app.use(favicon(path.join(__dirname,'public/images','favicon.ico')));
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -79,12 +80,16 @@ function checkAuth (req, res, next) {
         return;
     }
 
+    if(req.body.cod_org){
+        req.session.cod_org = req.body.cod_org;
+    }
+
     next();
     }
 
 app.use(checkAuth);
 
-/*cron.schedule('*!/1 * * * *', function(){
+cron.schedule('*!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -120,7 +125,7 @@ app.use(checkAuth);
             }
         }
     })
-});*/
+});
 
 
 require('./routes/routes.js')(app);
@@ -156,6 +161,7 @@ app.use('/switchForEmail',switchForEmail);
 app.use('/invioNotifica',invioNotifica);
 app.use('/checkNotifica',checkNotifica);
 app.use('/getCountNotifiche',getCountNotifiche);
+app.use('/getListaOrganizzazione',getListaOrganizzazione);
 
 
 

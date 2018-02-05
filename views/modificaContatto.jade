@@ -66,7 +66,7 @@ html(lang='en')
         .container-fluid
             .jumbotron
                 .row
-                    h1 Modifica Medico
+                    h1 Modifica Contatto
 
             #myModal1.modal.fade
                 .modal-dialog
@@ -74,7 +74,7 @@ html(lang='en')
                         // dialog body
                         .modal-header
                             button.close(type='button', data-dismiss='modal') ×
-                            h2.modal-title Modifica Medico
+                            h2.modal-title Modifica Contatto
                         .modal-body
 
                             .row
@@ -88,7 +88,7 @@ html(lang='en')
                                                             i.fa.fa-list-ol(aria-hidden='true')
                                                         input#matricola.form-control(type='text', name='matricola', placeholder='Matricola')
                                         .col-sm-6.form-group
-                                            label.cols-sm-2.control-label(for='specializzazione') Specializzazione
+                                            label.cols-sm-2.control-label(for='specializzazione') Professione
                                                 .cols-sm-10
                                                     .input-group
                                                         span.input-group-addon
@@ -144,9 +144,9 @@ html(lang='en')
                             button.btn.btn-default.btn-block(type='button', onclick='updateMedico();') Salva
             .row
                 .col-sm-2
-                    button#modificaMedico.btn.btn-default.btn-lg(onclick='openModal();') Modifica Medico
+                    button#modificaMedico.btn.btn-default.btn-lg(onclick='openModal();') Modifica Contatto
                 .col-sm-2
-                    button#eliminaMedico.btn.btn-default.btn-lg(onclick='eliminaMedico();') Elimina Medico
+                    button#eliminaMedico.btn.btn-default.btn-lg(onclick='eliminaMedico();') Elimina Contatto
             br
             .row
                 .col-sm-12.table-responsive
@@ -157,7 +157,7 @@ html(lang='en')
                                 th Matricola
                                 th Cognome
                                 th Nome
-                                th Specializzazione
+                                th Professione
                                 th Residenza
                                 th Mail
                                 th Numero Telefono

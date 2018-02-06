@@ -120,7 +120,7 @@ cron.schedule('*!/1 * * * *', function(){
                 })
             }
             else {
-                //console.log('Nessuno da Notificare');
+
             }
         }
     })

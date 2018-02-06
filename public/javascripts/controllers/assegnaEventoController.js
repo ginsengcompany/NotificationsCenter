@@ -8,10 +8,10 @@ $(function() {
     $('#invioSms').prop('checked',false);
 });
 
-function render (data) {
-    var date = new Date(data);
-    var month = date.getMonth() + 1;
-    return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+function convertDate(inputFormat) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
 }
 
 function format ( d ) {
@@ -19,7 +19,7 @@ function format ( d ) {
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
         '<tr>'+
         '<td>Data Fine:</td>'+
-        '<td>'+render(d.data_fine)+'</td>'+
+        '<td>'+convertDate(d.data_fine)+'</td>'+
         '</tr>'+
         '<tr>'+
         '<td>Luogo:</td>'+
@@ -104,14 +104,14 @@ $(document).ready(function() {
             { "data": "sottotitolo" },
             { "data": "luogo", "visible": false },
             { "data": "data" , "render": function (data) {
-                var date = new Date(data);
-                var month = date.getMonth() + 1;
-                return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(data);
+                return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }},
             { "data": "data_fine" , "render": function (data) {
-                var date = new Date(data);
-                var month = date.getMonth() + 1;
-                return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(data);
+                return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }, "visible": false},
             { "data": "informazioni", "visible": false },
             { "data": "relatori", "visible": false },

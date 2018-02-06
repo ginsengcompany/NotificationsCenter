@@ -96,19 +96,22 @@ cron.schedule('*!/1 * * * *', function(){
         }
     };
 
-    const options1 = {
-        url: 'http://localhost:3000/invioNotifica',
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Accept-Charset': 'utf-8'
-        }
-    };
-
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            if(parseInt(body)>0){
-                request(options1, function (error, response, body) {
+            var data = [];
+            data.push(body);
+            var contaTot = JSON.parse(data[0]);
+            if(parseInt(contaTot.count)>0){
+                request({
+                    url: 'http://localhost:3000/invioNotifica',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Accept-Charset': 'utf-8'
+                    },
+                    json: true,
+                    body: contaTot
+                }, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
 
                     }else{

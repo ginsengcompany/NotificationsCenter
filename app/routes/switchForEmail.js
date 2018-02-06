@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var postgresConnection = require('../../config/postgres');
 var moment = require('moment');
-var multiUser = require('../../config/configMultiUser');
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -14,47 +13,39 @@ router.get('/',function (req, res, next) {
     var eliminato = req.query.eliminato;
     var idMedico = req.query.idMedico;
     var idEvento = req.query.idEvento;
+    var tb_notifica = req.query.tb_notifica;
 
-    var organizzazione = req.session.cod_org;
+    var queryPostConfermato = '';
 
-    for(var i=0;i<multiUser.data.length;i++) {
-
-        if (multiUser.data[i].cod_org === organizzazione) {
-
-            var queryPostConfermato = '';
-
-            queryPostConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
+    queryPostConfermato = "UPDATE "+tb_notifica+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
 
 
-            var client = connectionPostgres();
+    var client = connectionPostgres();
 
-            const query = client.query(queryPostConfermato);
+    const query = client.query(queryPostConfermato);
 
-            query.on("row", function (row, result) {
-                result.addRow(row);
-            });
+    query.on("row", function (row, result) {
+        result.addRow(row);
+    });
 
-            query.on('error', function() {
-                return res.json({errore:true});
-            });
+    query.on('error', function() {
+        return res.json({errore:true});
+    });
 
-            query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
-                if(confermato==='true'){
+    query.on("end", function (result) {
+        var myOjb = JSON.stringify(result.rows, null, "    ");
+        var final = JSON.parse(myOjb);
+        if(confermato==='true'){
 
-                    return res.redirect('/partecipato');
-                }
-                if(eliminato==='true'){
-
-                    return res.redirect('/declinato');
-                }
-                res.json({errore:false});
-                client.end();
-            });
-
+            return res.redirect('/partecipato');
         }
-    }
+        if(eliminato==='true'){
+
+            return res.redirect('/declinato');
+        }
+        res.json({errore:false});
+        client.end();
+    });
 
 });
 

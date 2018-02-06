@@ -135,9 +135,9 @@ $(document).ready(function() {
            { "data": "titolo" },
            { "data": "data_invio" , "render": function (data) {
                if(data!=='1969-12-31T23:00:00.000Z'){
-                   var date = new Date(data);
-                   var month = date.getMonth() + 1;
-                   return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+                   function pad(s) { return (s < 10) ? '0' + s : s; }
+                   var d = new Date(data);
+                   return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                }else {
                    return 'Non Disponibile';
                }

@@ -1,9 +1,9 @@
 var arrayEventi = {};
 
-function render (data) {
-    var date = new Date(data);
-    var month = date.getMonth() + 1;
-    return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+function convertDate(inputFormat) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
 }
 
 
@@ -48,14 +48,14 @@ $(document).ready(function () {
             { "data": "sottotitolo" },
             { "data": "luogo"},
             { "data": "data" , "render": function (data) {
-                var date = new Date(data);
-                var month = date.getMonth() + 1;
-                return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(data);
+                return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }},
             { "data": "data_fine" , "render": function (data) {
-                var date = new Date(data);
-                var month = date.getMonth() + 1;
-                return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(data);
+                return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }},
             { "data": "informazioni", "visible": false },
             { "data": "relatori", "visible": false },
@@ -179,8 +179,8 @@ function  openModal() {
 
     $('#titoloEvento').val(arrayEventi[0].titolo);
     $('#sottotitoloEvento').val(arrayEventi[0].sottotitolo);
-    $('#dataEvento').val(render(arrayEventi[0].data));
-    $('#dataEventoFine').val(render(arrayEventi[0].data_fine));
+    $('#dataEvento').val(convertDate(arrayEventi[0].data));
+    $('#dataEventoFine').val(convertDate(arrayEventi[0].data_fine));
     $('#luogoEvento').val(arrayEventi[0].luogo);
     $('#informazioniEvento').val(arrayEventi[0].informazioni);
     $('#relatoriEvento').val(arrayEventi[0].relatori);

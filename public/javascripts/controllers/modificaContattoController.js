@@ -1,11 +1,5 @@
 var arrayMedici = {};
 
-function render (data) {
-    var date = new Date(data);
-    var month = date.getMonth() + 1;
-    return date.getDate() + "/" + (month.length < 10 ? "0" + month : month) + "/" + date.getFullYear();
-}
-
 
 function format ( d ) {
     // `d` is the original data object for the row

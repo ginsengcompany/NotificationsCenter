@@ -195,9 +195,9 @@ router.post('/',function (req, res, next) {
 
         '<div style="Margin-left: 20px;Margin-right: 20px;">'+
         '<div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">'+
-        '<a style="border-radius: 3px;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: green;font-family: Georgia, serif;" href="http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'">Partecipa</a>'+
+        '<a style="border-radius: 3px;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: green;font-family: Georgia, serif;" href="http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiEmail.tb_notifica+'">Partecipa</a>'+
         '&nbsp;'+
-        '<a style="border-radius: 3px;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: red;font-family: Georgia, serif;" href="http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'">Declina</a>'+
+        '<a style="border-radius: 3px;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: red;font-family: Georgia, serif;" href="http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiEmail.tb_notifica+'">Declina</a>'+
         '</div>'+
         '</div>'+
 
@@ -217,7 +217,7 @@ router.post('/',function (req, res, next) {
         '<td class="emb-web-links" style="padding: 0;width: 26px;"><a style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #adb3b9;" href="https://www.facebook.com/medicicaserta/"><img style="border: 0;" src="https://i2.createsend1.com/static/eb/master/13-the-blueprint-3/images/facebook.png" width="26" height="26" alt="Facebook" /></a></td><td class="emb-web-links" style="padding: 0 0 0 3px;width: 26px;"><a style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #adb3b9;" href="https://www.omceocaserta.it/"><img style="border: 0;" src="https://i7.createsend1.com/static/eb/master/13-the-blueprint-3/images/website.png" width="26" height="26" alt="Website" /></a></td>'+
         '</tr></tbody></table>'+
         '<div style="font-size: 12px;line-height: 19px;Margin-top: 20px;">'+
-        '<div>OMCEO - CASERTA 2018</div>'+
+        '<div>Notification Center 2018</div>'+
         '</div>'+
         '<div style="font-size: 12px;line-height: 19px;Margin-top: 18px;">'+
 

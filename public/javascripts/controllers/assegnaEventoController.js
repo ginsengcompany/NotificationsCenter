@@ -448,6 +448,7 @@ var successMessage = function(idMedico,idEvento,tipo){
 
 $(document).ajaxStop(function() {
     $('.loader').hide();
+    $("#myModal1").remove();
 });
 
 function salvaDati(){

@@ -50,11 +50,9 @@ var con = postgres(app);
 
 moment.locale('it');
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname,'public/images','favicon.ico')));
 
 app.use(logger('dev'));
@@ -65,7 +63,6 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(session({secret: "Shh, its a secret!"}));
-
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -126,7 +123,6 @@ cron.schedule('*!/1 * * * *', function(){
     })
 });
 
-
 require('./routes/routes.js')(app);
 
 app.use('/salvaEvento', salvaEvento);
@@ -161,18 +157,27 @@ app.use('/checkNotifica',checkNotifica);
 app.use('/getCountNotifiche',getCountNotifiche);
 app.use('/getListaOrganizzazione',getListaOrganizzazione);
 
+app.use(function (req, res, next) {
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
+});
 
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-// error handlers
 
-// development error handler
-// will print stacktrace
+
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -183,8 +188,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {

@@ -12,37 +12,38 @@ var request = require('request');
 
 var postgres = require("./config/postgres");
 
-var salvaEvento = require('./app/routes/salvaEvento');
-var getEventi  = require('./app/routes/getEventi');
-var cercaMatricola  = require('./app/routes/cercaMatricola');
-var getMedici = require('./app/routes/getMedici');
-var salvaContatto = require('./app/routes/salvaContatto');
-var getEventiById = require('./app/routes/getEventiById');
-var salvaStatoNotifiche = require('./app/routes/salvaStatoNotifiche');
-var getNotifiche = require('./app/routes/getNotifiche');
-var setEliminatoConfermato = require('./app/routes/setEliminatoConfermato');
-var getUpdateEventi = require('./app/routes/getUpdateEventi');
-var authRegister = require('./app/routes/authRegister');
-var getMediciEmailSms = require('./app/routes/getMediciEmailSms');
-var getMediciToken = require('./app/routes/getMediciToken');
-var getMediciSms = require('./app/routes/getMediciSms');
-var sendEmail = require('./app/routes/sendEmail');
-var getDeleteEventi = require('./app/routes/getDeleteEventi');
-var switchConfermatoEmail = require('./app/routes/switchConfermatoEmail');
-var getMediciTokenSms = require('./app/routes/getMediciTokenSms');
-var getMediciEmail = require('./app/routes/getMediciEmail');
-var getMediciTokenEmail = require('./app/routes/getMediciTokenEmail');
-var getMediciEmailToken = require('./app/routes/getMediciEmailToken');
-var getMediciSmsToken = require('./app/routes/getMediciSmsToken');
-var getMediciSmsEmail = require('./app/routes/getMediciSmsEmail');
-var getDeleteMedici = require('./app/routes/getDeleteMedici');
-var getUpdateMedici = require('./app/routes/getUpdateMedici');
-var getMediciNotNotifica = require('./app/routes/getMediciNotNotifica');
-var switchForEmail = require('./app/routes/switchForEmail');
-var invioNotifica = require('./app/routes/invioNotifica');
-var checkNotifica = require('./app/routes/checkNotifica');
-var getCountNotifiche = require('./app/routes/getCountNotifiche');
-var getListaOrganizzazione = require('./app/routes/getListaOrganizzazione');
+var salvaEvento = require('./app/routes/webApplication/salvaEvento');
+var getEventi  = require('./app/routes/webApplication/getEventi');
+var cercaMatricola  = require('./app/routes/mobileApplication/cercaMatricola');
+var getMedici = require('./app/routes/webApplication/getMedici');
+var salvaContatto = require('./app/routes/webApplication/salvaContatto');
+var getEventiById = require('./app/routes/mobileApplication/getEventiById');
+var salvaStatoNotifiche = require('./app/routes/webApplication/salvaStatoNotifiche');
+var getNotifiche = require('./app/routes/webApplication/getNotifiche');
+var setEliminatoConfermato = require('./app/routes/mobileApplication/setEliminatoConfermato');
+var getUpdateEventi = require('./app/routes/webApplication/getUpdateEventi');
+var authRegister = require('./app/routes/webApplication/authRegister');
+var getMediciEmailSms = require('./app/routes/webApplication/getMediciEmailSms');
+var getMediciToken = require('./app/routes/webApplication/getMediciToken');
+var getMediciSms = require('./app/routes/webApplication/getMediciSms');
+var sendEmail = require('./app/routes/webApplication/sendEmail');
+var getDeleteEventi = require('./app/routes/webApplication/getDeleteEventi');
+var switchConfermatoEmail = require('./app/routes/webApplication/switchConfermatoEmail');
+var getMediciTokenSms = require('./app/routes/webApplication/getMediciTokenSms');
+var getMediciEmail = require('./app/routes/webApplication/getMediciEmail');
+var getMediciTokenEmail = require('./app/routes/webApplication/getMediciTokenEmail');
+var getMediciEmailToken = require('./app/routes/webApplication/getMediciEmailToken');
+var getMediciSmsToken = require('./app/routes/webApplication/getMediciSmsToken');
+var getMediciSmsEmail = require('./app/routes/webApplication/getMediciSmsEmail');
+var getDeleteMedici = require('./app/routes/webApplication/getDeleteMedici');
+var getUpdateMedici = require('./app/routes/webApplication/getUpdateMedici');
+var getMediciNotNotifica = require('./app/routes/webApplication/getMediciNotNotifica');
+var switchForEmail = require('./app/routes/webApplication/switchForEmail');
+var invioNotifica = require('./app/routes/webApplication/invioNotifica');
+var checkNotifica = require('./app/routes/webApplication/checkNotifica');
+var getCountNotifiche = require('./app/routes/webApplication/getCountNotifiche');
+var getListaOrganizzazione = require('./app/routes/mobileApplication/getListaOrganizzazione');
+var getNotificheMaster = require('./app/routes/mobileApplication/getNotificheMaster');
 
 
 var app = express();
@@ -159,6 +160,8 @@ app.use('/invioNotifica',invioNotifica);
 app.use('/checkNotifica',checkNotifica);
 app.use('/getCountNotifiche',getCountNotifiche);
 app.use('/getListaOrganizzazione',getListaOrganizzazione);
+app.use('/getNotificheMaster',getNotificheMaster);
+
 
 app.use(function (req, res, next) {
 

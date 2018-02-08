@@ -391,7 +391,6 @@ var successMessage = function(idMedico,idEvento,tipo){
         cache: false,
         contentType: 'application/json',
         success: function(data) {
-            $('.loader').show();
             if(data.errore===true){
 
                 $("#myModal").on("show", function() {
@@ -444,11 +443,11 @@ var successMessage = function(idMedico,idEvento,tipo){
         }
     });
 
-};
+    $(document).ajaxStop(function() {
+        $("#myModal1").modal('hide');
+    });
 
-$(document).ajaxStop(function() {
-    $('.loader').hide();
-});
+};
 
 function salvaDati(){
 

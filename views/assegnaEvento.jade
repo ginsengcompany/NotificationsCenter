@@ -87,18 +87,14 @@ html(lang='en')
                         // dialog body
                         .modal-body
                             button.close(type='button', data-dismiss='modal') ×
-                            h1 Evento inviato con Successo!
+                            h1 Invio!
                             .row
-                                .col-md-4
-
-                                .col-md-4
-                                    .loader
-                                .col-md-4
-                             .row
-                                 .col-md-12
-                                     h3 Attendi che il caricamento si finito...
-                        // dialog buttons
-                        .modal-footer
+                                .col-md-12
+                                    h3#myHeader Caricamento In Corso...
+                                        br
+                                        .progress.progress-striped.active.page-progress-bar
+                                            .progress-bar(style='width: 100%;')
+                                                | Attendere Prego
 
             .row
                 .col-sm-4

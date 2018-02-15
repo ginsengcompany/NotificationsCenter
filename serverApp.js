@@ -44,6 +44,14 @@ var checkNotifica = require('./app/routes/webApplication/checkNotifica');
 var getCountNotifiche = require('./app/routes/webApplication/getCountNotifiche');
 var getListaOrganizzazione = require('./app/routes/mobileApplication/getListaOrganizzazione');
 var getNotificheMaster = require('./app/routes/mobileApplication/getNotificheMaster');
+var externalNotifications = require('./app/routes/webApplication/externalNotifications');
+var prelievoInvioXML = require('./app/routes/webApplication/prelievoInvioXML');
+var loginMaster = require('./app/routes/mobileApplication/loginMaster');
+var getEventiMaster = require('./app/routes/mobileApplication/getEventiMaster');
+var getListaPartecipantiMaster = require('./app/routes/mobileApplication/getListaPartecipantiMaster');
+var getListaDeclinatiMaster = require('./app/routes/mobileApplication/getListaDeclinatiMaster');
+
+
 
 
 var app = express();
@@ -161,11 +169,19 @@ app.use('/checkNotifica',checkNotifica);
 app.use('/getCountNotifiche',getCountNotifiche);
 app.use('/getListaOrganizzazione',getListaOrganizzazione);
 app.use('/getNotificheMaster',getNotificheMaster);
+app.use('/externalNotifications',externalNotifications);
+app.use('/prelievoInvioXML',prelievoInvioXML);
+app.use('/loginMaster',loginMaster);
+app.use('/getEventiMaster',getEventiMaster);
+app.use('/getListaPartecipantiMaster',getListaPartecipantiMaster);
+app.use('/getListaDeclinatiMaster',getListaDeclinatiMaster);
+
+
 
 
 app.use(function (req, res, next) {
 
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 

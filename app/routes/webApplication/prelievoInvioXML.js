@@ -3,6 +3,7 @@ var router = express.Router();
 var xml2js = require('xml2js');
 var path = require('path');
 var moment = require('moment');
+var request = require('request');
 const fs = require('fs');
 
 // Variabile contenente i campi dell'xml utilizzati per raccogliere i dati degli utenti da contattare via sms
@@ -25,13 +26,15 @@ var files = [];
 var dataArray = new Array();
 
 // Percorso della directory contenente i file xml con i dati degli utenti
-var percorsoFile = path.join(__dirname, '../../../FPTsyncMessage');
+var percorsoFile = path.join(__dirname, '../../../FTPsyncMessage');
 
 // Cartella di destinazione dove vengono temporaneamente memorizzati i file xml gia letti ed utilizzati
-var percorsoFileDestinazione = path.join(__dirname, '../../../FPTsyncSuccess');
+var percorsoFileDestinazione = path.join(__dirname, '../../../FTPsyncSuccess');
 
 // Variabile di ritorno
 var risultatoConversionXML = true;
+
+var risultatoSMS;
 
 // Estensione xml dei file
 var fileType = '.xml';
@@ -135,7 +138,35 @@ function convertiXML (nomeFile) {
 }
 
 function invioSMS(dataArray) {
-    console.log(dataArray);
+    var dataArrayNumero = [];
+    var dataArrayMessaggi = [];
+    for(var i=0;i<dataArray.length;i++){
+        dataArrayNumero.push("+39"+ dataArray[i].destination);
+        dataArrayMessaggi.push(dataArray[i].message);
+    }
+    for(var j=0;j<dataArrayNumero.length;j++) {
+        request({
+            url: 'https://app.mobyt.it/API/v1.0/REST/sms',
+            method: 'POST',
+            headers: {'user_key': '18443', 'Access_token': 'nZVc7WglBBWHy9eD6bGslST7'},
+
+            json: true,
+            body: {
+                "recipient": [dataArrayNumero[j]],
+                "message": dataArrayMessaggi[j],
+                "message_type": "N",
+                "sender" : "+393458184794"
+            },
+            callback: function (error, responseMeta, response) {
+                if (!error && responseMeta.statusCode === 201) {
+                    risultatoSMS = response.order_id;
+                }
+                else {
+                    console.log("Errore invio sms");
+                }
+            }
+        });
+    }
     return true;
 }
 

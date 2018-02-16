@@ -137,6 +137,10 @@ function convertiXML (nomeFile) {
     });
 }
 
+function  rinominaFile(nomeFile, timeStamp, estensione) {
+    return nomeFile + timeStamp + estensione;
+}
+
 function invioSMS(dataArray) {
     var dataArrayNumero = [];
     var dataArrayMessaggi = [];
@@ -160,18 +164,15 @@ function invioSMS(dataArray) {
             callback: function (error, responseMeta, response) {
                 if (!error && responseMeta.statusCode === 201) {
                     risultatoSMS = response.order_id;
+                    return true;
                 }
                 else {
                     console.log("Errore invio sms");
+                    return false;
                 }
             }
         });
     }
-    return true;
-}
-
-function  rinominaFile(nomeFile, timeStamp, estensione) {
-    return nomeFile + timeStamp + estensione;
 }
 
 module.exports = router;

@@ -215,7 +215,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciTokenEmail',
+                url: '/getUtentiTokenEmail',
                 data: datiNotNotifica
             },
             columns: [
@@ -236,7 +236,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciEmail',
+                url: '/getUtentiEmail',
                 data: datiNotNotifica
             },
             columns: [
@@ -255,7 +255,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciEmailSms',
+                url: '/getUtentiEmailSms',
                 data: datiNotNotifica
             },
             columns: [
@@ -274,7 +274,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciEmailToken',
+                url: '/getUtentiEmailToken',
                 data: datiNotNotifica
             },
             columns: [
@@ -295,7 +295,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciSms',
+                url: '/getUtentiSms',
                 data: datiNotNotifica
             },
             columns: [
@@ -314,7 +314,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciSmsToken',
+                url: '/getUtentiSmsToken',
                 data: datiNotNotifica
             },
             columns: [
@@ -333,7 +333,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciSmsEmail',
+                url: '/getUtentiSmsEmail',
                 data: datiNotNotifica
             },
             columns: [
@@ -354,7 +354,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciNotNotifica',
+                url: '/getUtentiNotNotifica',
                 data: datiNotNotifica
             },
             columns: [

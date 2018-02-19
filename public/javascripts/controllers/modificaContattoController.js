@@ -24,7 +24,7 @@ $(document).ready(function () {
     $('#eliminaMedico').prop('disabled', true);
 
     tabMedici = $('#tabellaMedici').DataTable({
-        ajax: "/getMedici",
+        ajax: "/getUtenti",
         responsive: true,
         ajaxSettings: {
             method: "GET",
@@ -143,7 +143,7 @@ function updateMedico(){
 
 
     $.ajax({
-        url: '/getUpdateMedici',
+        url: '/getUpdateUtenti',
         type: 'POST',
         data: JSON.stringify(datiMedico),
         cache: false,
@@ -175,7 +175,7 @@ function eliminaMedico(){
     arrayMedici = ids1;
 
     $.ajax({
-        url: '/getDeleteMedici',
+        url: '/getDeleteUtenti',
         type: 'POST',
         data: JSON.stringify(arrayMedici),
         cache: false,

@@ -124,7 +124,7 @@ function  rinominaFile(nomeFile, timeStamp, estensione) {
     return nomeFile + timeStamp + estensione;
 }
 
-function  invioSMS(dataArray,nomeFile) {
+function invioSMS(dataArray,nomeFile) {
     var dataArrayNumero = [];
     var dataArrayMessaggi = [];
     for(var i=0;i<dataArray.length;i++){
@@ -180,7 +180,7 @@ function  invioSMS(dataArray,nomeFile) {
                                     console.log('RIM Completato');
                                     fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
                                         if (err){
-                                            console.log('File non torvato.');
+                                            console.log('File non trovato.');
                                         }else{
                                             // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
                                             fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {

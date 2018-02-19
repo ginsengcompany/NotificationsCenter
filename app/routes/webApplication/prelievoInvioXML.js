@@ -5,6 +5,7 @@ var path = require('path');
 var moment = require('moment');
 var request = require('request');
 const fs = require('fs');
+var mySqlConnection = require('../../../config/RIMdatabase');
 
 // Variabile contenente i campi dell'xml utilizzati per raccogliere i dati degli utenti da contattare via sms
 var dataRecord = {
@@ -113,26 +114,8 @@ function convertiXML (nomeFile) {
             // Ci consente di capire che la conversione XML è stata eseguita almeno una volta
             risultatoConversionXML = true;
             // Richiamo la funzione di invio sms per gli utenti i cui dati sono stati inseriti nel record dataArray
-            var invioSMSCompleto = invioSMS(dataArray);
-            if (invioSMSCompleto === true){
-                // Ripulisco il dataArray per evitare che al prossima ciclo vengano accdati i dati dei nuovi utenti con i vecchi
-                dataArray = [];
-                // Creo una variabile con il nuovo nome del file
-                var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
-                // Rinomino il file
-                fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
-                    if (err){
-                        console.log('File non torvato.');
-                    }else{
-                        // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
-                        fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
-                            if (err) throw err;
-                            console.log('Spostamento eseguito con successo.');
-                        });
-                        console.log('File rinominato con successo.');
-                    }
-                });
-            }
+            invioSMS(dataArray,nomeFile);
+
         });
     });
 }
@@ -141,7 +124,7 @@ function  rinominaFile(nomeFile, timeStamp, estensione) {
     return nomeFile + timeStamp + estensione;
 }
 
-function invioSMS(dataArray) {
+function  invioSMS(dataArray,nomeFile) {
     var dataArrayNumero = [];
     var dataArrayMessaggi = [];
     for(var i=0;i<dataArray.length;i++){
@@ -149,6 +132,7 @@ function invioSMS(dataArray) {
         dataArrayMessaggi.push(dataArray[i].message);
     }
     for(var j=0;j<dataArrayNumero.length;j++) {
+        var arraySQL = dataArray[j];
         request({
             url: 'https://app.mobyt.it/API/v1.0/REST/sms',
             method: 'POST',
@@ -164,11 +148,56 @@ function invioSMS(dataArray) {
             callback: function (error, responseMeta, response) {
                 if (!error && responseMeta.statusCode === 201) {
                     risultatoSMS = response.order_id;
-                    return true;
+                    // Ripulisco il dataArray per evitare che al prossima ciclo vengano accdati i dati dei nuovi utenti con i vecchi
+                    dataArray = [];
+                    // Creo una variabile con il nuovo nome del file
+                    var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+                    // Rinomino il file
+
+                    var query = 'INSERT INTO rim.service (id_service_state, message_service_state, id_user, username, id_comune, id_access_list, insert_date, modify_date, description, priority, message,' +
+                        ' subject, start_date, end_date, feedback, is_pin, path_csv, is_message_path, welcome_message, is_welcome_message_path, end_message, is_end_message_path,' +
+                        ' error_message, is_error_message_path, info_type, user_type, geo_area, is_cc, is_rapid_message, is_stopped, notify_result, notify_result_code,' +
+                        ' notify_result_description, notify_insert_date, notify_modify_date)\n' +
+                        'VALUES (4, "The Address property on ChannelFactory.Endpoint was null.  The ChannelFactory\'s Endpoint must have a valid Address specified.", null, null, 4,' +
+                        ' 1, current_timestamp(), null, "'+arraySQL.idTransaction+'", '+arraySQL.priority+', "'+arraySQL.message+'", null, current_timestamp(), DATE_ADD(SYSDATE(), INTERVAL 7 DAY), ' +
+                        ' null, "N", null, null, null, null, null, null, null, null, null, null, null, "N", "N", "N", null, null, null, null, null)';
+
+                    mySqlConnection.query(query, function (err, result) {
+                        if (err){
+                            console.log(err);
+                        }
+                        if(result.insertId){
+                            var query2 = 'INSERT INTO rim.service_item (id_service, id_service_item_type, id_service_item_state, message_service_item_state, insert_date, modify_date, destination, service_user, ' +
+                                'destination_username, destination_pin, destination_priority, destination_time_from, destination_time_to, retry_number, retry_date, force_send, send_date, result, result_code, result_description, ' +
+                                'result_feedback, result_pin, subject_pec)\n' +
+                                'VALUES ('+result.insertId+', 2, 3, "SMS Inviato", current_timestamp(), null, "'+arraySQL.destination+'", null, null, null, 0, null, null, 0, null, "N", current_timestamp(), "ok", null, "SMS Inviato", ' +
+                                'null, null, null)';
+                            mySqlConnection.query(query2, function (err, result) {
+                                if (err){
+                                    console.log(err);
+                                }
+                                if(result){
+                                    console.log('RIM Completato');
+                                    fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
+                                        if (err){
+                                            console.log('File non torvato.');
+                                        }else{
+                                            // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
+                                            fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
+                                                if (err) throw err;
+                                                console.log('Spostamento eseguito con successo.');
+                                            });
+                                            console.log('File rinominato con successo.');
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+
                 }
                 else {
                     console.log("Errore invio sms");
-                    return false;
                 }
             }
         });

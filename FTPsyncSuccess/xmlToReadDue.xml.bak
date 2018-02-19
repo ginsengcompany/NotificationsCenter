@@ -2,20 +2,11 @@
 <services>
 <service>
 <serviceType>2</serviceType>
-<message>Gent. AURORA NICOLETTA il 17/02/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 11:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<message>Gent. ANTONIO BIONDILLO il 17/02/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 11:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
 <subject>
 </subject>
-<destination>3331517904</destination>
-<idTransaction>150907-R-X</idTransaction>
-<priority>3</priority>
-</service>
-<service>
-<serviceType>2</serviceType>
-<message>Gent. CISSE DAOUDA il 17/02/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 11:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
-<subject>
-</subject>
-<destination>3392706698</destination>
-<idTransaction>150907-R-X</idTransaction>
+<destination>3409232116</destination>
+<idTransaction>150906-P-CC</idTransaction>
 <priority>3</priority>
 </service>
 </services>

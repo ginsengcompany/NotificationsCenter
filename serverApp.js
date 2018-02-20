@@ -78,7 +78,7 @@ app.use(bodyParser.json());
 
 function checkAuth (req, res, next) {
 
-    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto' || req.url === '/modificaContatto')
+    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto' || req.url === '/modificaContatto' || req.url === '/chatOperatoreSMS')
         && (!req.session || !req.session.authenticated)) {
         res.render('login', { status: 403 });
         return;

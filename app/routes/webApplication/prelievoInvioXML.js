@@ -101,6 +101,7 @@ function convertiXML (nomeFile) {
             var xmlJSON = JSON.parse(xmlSTRING);
             // Incapsulo in una struttura dati di tipo array i record dell'array di JSON, Serve a filtrare il messaggio.
             for (var i = 0; i < xml.length; i ++){
+                dataArray = [];
                 dataRecord.serviceType = xmlJSON[i]['serviceType'][0];
                 dataRecord.message = xmlJSON[i]['message'][0];
                 dataRecord.subject = xmlJSON[i]['subject'][0];
@@ -109,10 +110,26 @@ function convertiXML (nomeFile) {
                 dataRecord.priority = xmlJSON[i]['priority'][0];
 
                 dataArray.push(dataRecord);
-                dataRecord = {};
             }
+
             // Ci consente di capire che la conversione XML è stata eseguita almeno una volta
             risultatoConversionXML = true;
+            // Creo una variabile con il nuovo nome del file
+            var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+
+            // Rinomino il file
+            fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
+                if (err){
+                    console.log('File non trovato.');
+                }else{
+                    // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
+                    fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
+                        if (err) throw err;
+                        console.log('Spostamento eseguito con successo.');
+                    });
+                    console.log('File rinominato con successo.');
+                }
+            });
             // Richiamo la funzione di invio sms per gli utenti i cui dati sono stati inseriti nel record dataArray
             invioSMS(dataArray,nomeFile);
 
@@ -124,13 +141,14 @@ function  rinominaFile(nomeFile, timeStamp, estensione) {
     return nomeFile + timeStamp + estensione;
 }
 
-function invioSMS(dataArray,nomeFile) {
+function invioSMS(dataArray) {
     var dataArrayNumero = [];
     var dataArrayMessaggi = [];
     for(var i=0;i<dataArray.length;i++){
         dataArrayNumero.push("+39"+ dataArray[i].destination);
         dataArrayMessaggi.push(dataArray[i].message);
     }
+    console.log(dataArray);
     for(var j=0;j<dataArrayNumero.length;j++) {
         var arraySQL = dataArray[j];
         request({
@@ -143,16 +161,13 @@ function invioSMS(dataArray,nomeFile) {
                 "recipient": [dataArrayNumero[j]],
                 "message": dataArrayMessaggi[j],
                 "message_type": "N",
-                "sender" : "+393458184794"
+                "sender" : "+393711823424"
             },
             callback: function (error, responseMeta, response) {
                 if (!error && responseMeta.statusCode === 201) {
                     risultatoSMS = response.order_id;
                     // Ripulisco il dataArray per evitare che al prossima ciclo vengano accdati i dati dei nuovi utenti con i vecchi
                     dataArray = [];
-                    // Creo una variabile con il nuovo nome del file
-                    var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
-                    // Rinomino il file
 
                     var query = 'INSERT INTO rim.service (id_service_state, message_service_state, id_user, username, id_comune, id_access_list, insert_date, modify_date, description, priority, message,' +
                         ' subject, start_date, end_date, feedback, is_pin, path_csv, is_message_path, welcome_message, is_welcome_message_path, end_message, is_end_message_path,' +
@@ -178,18 +193,7 @@ function invioSMS(dataArray,nomeFile) {
                                 }
                                 if(result){
                                     console.log('RIM Completato');
-                                    fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
-                                        if (err){
-                                            console.log('File non trovato.');
-                                        }else{
-                                            // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
-                                            fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
-                                                if (err) throw err;
-                                                console.log('Spostamento eseguito con successo.');
-                                            });
-                                            console.log('File rinominato con successo.');
-                                        }
-                                    });
+
                                 }
                             });
                         }

@@ -124,8 +124,8 @@ function bs_input_file() {
 
 $(function() {
     bs_input_file();
-    $('#dataEvento').datepicker();
-    $('#dataEventoFine').datepicker();
+    $('#dataEvento').datepicker({container: '#myModal1 modal-body'});
+    $('#dataEventoFine').datepicker({container: '#myModal1 modal-body'});
 });
 
 var datiEvento = {

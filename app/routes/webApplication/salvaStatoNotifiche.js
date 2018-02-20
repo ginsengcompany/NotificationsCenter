@@ -24,7 +24,7 @@ router.post('/',function (req, res, next) {
             var queryPostStatoNotifica = "INSERT INTO "+multiUser.data[i].tb_notifiche+" " +
                 "(_id_medico, _id_evento, stato, confermato, eliminato, data_invio,tipo)" +
                 "VALUES (" +
-                "'" + datiStatoNotifica.idMedico        +"', " +
+                "'" + datiStatoNotifica.idUtente        +"', " +
                 "'" + datiStatoNotifica.idEvento   +"', " +
                 "'" + datiStatoNotifica.stato   +"', " +
                 "'" + datiStatoNotifica.confermato   +"', " +
@@ -40,7 +40,7 @@ router.post('/',function (req, res, next) {
 
             query.on('error', function() {
 
-                var queryPostEliminatoConfermato1 = "SELECT * FROM "+multi.tb_notifiche+" WHERE eliminato=true AND confermato=false OR confermato=true AND _id_medico="+datiStatoNotifica.idMedico;
+                var queryPostEliminatoConfermato1 = "SELECT * FROM "+multi.tb_notifiche+" WHERE eliminato=true AND confermato=false OR confermato=true AND _id_medico="+datiStatoNotifica.idUtente;
 
                 const query = client.query(queryPostEliminatoConfermato1);
 

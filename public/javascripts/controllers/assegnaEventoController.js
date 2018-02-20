@@ -1,4 +1,4 @@
-var arrayMedici = {};
+var arrayUtenti = {};
 var arrayEventi = {};
 
 $(function() {
@@ -45,7 +45,7 @@ var something = (function() {
     return function() {
         if (!executed) {
             executed = true;
-            $('#tabellaMedici tbody').on( 'click', 'tr', function () {
+            $('#tabellaUtenti tbody').on( 'click', 'tr', function () {
                 $(this).toggleClass('selected');
             } );
         }
@@ -63,7 +63,7 @@ function getUtentiNotNotifica (){
         "idEvento" : arrayEventi[0]._id
     };
 
-    tabMedici = $('#tabellaMedici').DataTable( {
+    tabUtenti = $('#tabellaUtenti').DataTable( {
         responsive: true,
         ajax: {
             type: 'POST',
@@ -123,12 +123,12 @@ $(document).ready(function() {
     $('#tabellaEventi tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
-            $('#tabellaMedici').dataTable().fnClearTable();
+            $('#tabellaUtenti').dataTable().fnClearTable();
         }
         else {
             tabEventi.rows().deselect();
             $(this).addClass('selected');
-            $('#tabellaMedici').dataTable().fnDestroy();
+            $('#tabellaUtenti').dataTable().fnDestroy();
             getUtentiNotNotifica ();
         }
     } );
@@ -152,11 +152,11 @@ $(document).ready(function() {
 });
 
 function  selezionaTutti() {
-    tabMedici.rows().select();
+    tabUtenti.rows().select();
 }
 
 function deselezionaTutti(){
-    tabMedici.rows().deselect();
+    tabUtenti.rows().deselect();
 }
 
 function switchTable() {
@@ -172,8 +172,8 @@ function switchTable() {
 
     //token
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===false){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -191,8 +191,8 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===true){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -210,8 +210,8 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===false){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -231,8 +231,8 @@ function switchTable() {
 
     //email
     if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===false){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -250,8 +250,8 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===true){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -269,8 +269,8 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===false){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -290,8 +290,8 @@ function switchTable() {
 
     //sms
     if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===true){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -309,8 +309,8 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===true){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -328,8 +328,8 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===true){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -349,8 +349,8 @@ function switchTable() {
 
     //all
     if($('#invioPush').prop('checked')===true && $('#invioEmail').prop('checked')===true && $('#invioSms').prop('checked')===true){
-        $('#tabellaMedici').dataTable().fnDestroy();
-        tabMedici = $('#tabellaMedici').DataTable( {
+        $('#tabellaUtenti').dataTable().fnDestroy();
+        tabUtenti = $('#tabellaUtenti').DataTable( {
             responsive: true,
             ajax: {
                 type: 'POST',
@@ -368,21 +368,23 @@ function switchTable() {
         } );
     }
     if($('#invioPush').prop('checked')===false && $('#invioEmail').prop('checked')===false && $('#invioSms').prop('checked')===false){
-        $('#tabellaMedici').dataTable().fnClearTable();
+        $('#tabellaUtenti').dataTable().fnClearTable();
     }
 
 };
 
-var successMessage = function(idMedico,idEvento,tipo){
+var successMessage = function(idUtente,idEvento,tipo){
 
     var successMessageDati = {
-        "idMedico" : idMedico,
+        "idUtente" : idUtente,
         "idEvento" : idEvento,
         "stato": false,
         "confermato": false,
         "eliminato": false,
         "tipo": tipo
     };
+
+    console.log(successMessageDati);
 
     $.ajax({
         url: '/salvaStatoNotifiche',
@@ -434,7 +436,7 @@ var successMessage = function(idMedico,idEvento,tipo){
                     "show"      : true
                 });
 
-                tabMedici.ajax.reload();
+                tabUtenti.ajax.reload();
             }
 
         },
@@ -451,38 +453,38 @@ var successMessage = function(idMedico,idEvento,tipo){
 
 function salvaDati(){
 
-    var ids = $.map(tabMedici.rows('.selected').data(), function (item) {
+    var ids = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
-    arrayMedici = ids;
+    arrayUtenti = ids;
 
     var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
 
-    for(var i=0; i<arrayMedici.length; i++){
+    for(var i=0; i<arrayUtenti.length; i++){
 
         var tipo = '';
-        var idMedico = arrayMedici[i]._id;
+        var idUtente = arrayUtenti[i]._id;
         var idEvento = arrayEventi[0]._id;
 
-        if(arrayMedici[i].token){
+        if(arrayUtenti[i].token){
 
             tipo = 'Push Notifications';
-            successMessage(idMedico,idEvento,tipo);
+            successMessage(idUtente,idEvento,tipo);
 
         }
-        else if(arrayMedici[i].mail){
+        else if(arrayUtenti[i].mail){
 
             tipo = 'E-mail';
-            successMessage(idMedico,idEvento,tipo);
+            successMessage(idUtente,idEvento,tipo);
 
         }
-        else if(arrayMedici[i].numero_telefono){
+        else if(arrayUtenti[i].numero_telefono){
 
             tipo = 'SMS';
-            successMessage(idMedico,idEvento,tipo);
+            successMessage(idUtente,idEvento,tipo);
 
         }
 

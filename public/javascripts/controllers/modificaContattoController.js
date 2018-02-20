@@ -1,4 +1,4 @@
-var arrayMedici = {};
+var arrayUtenti = {};
 
 
 function format ( d ) {
@@ -20,10 +20,10 @@ function format ( d ) {
 }
 
 $(document).ready(function () {
-    $('#modificaMedico').prop('disabled', true);
-    $('#eliminaMedico').prop('disabled', true);
+    $('#modificaUtente').prop('disabled', true);
+    $('#eliminaUtente').prop('disabled', true);
 
-    tabMedici = $('#tabellaMedici').DataTable({
+    tabUtenti = $('#tabellaUtenti').DataTable({
         ajax: "/getUtenti",
         responsive: true,
         ajaxSettings: {
@@ -49,23 +49,23 @@ $(document).ready(function () {
         ]
     });
 
-    $('#tabellaMedici tbody').on('click', 'tr', function () {
+    $('#tabellaUtenti tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
-            $('#modificaMedico').prop('disabled', true);
-            $('#eliminaMedico').prop('disabled', true);
+            $('#modificaUtente').prop('disabled', true);
+            $('#eliminaUtente').prop('disabled', true);
         }
         else {
-            tabMedici.$('tr.selected').removeClass('selected');
+            tabUtenti.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            $('#modificaMedico').prop('disabled', false);
-            $('#eliminaMedico').prop('disabled', false);
+            $('#modificaUtente').prop('disabled', false);
+            $('#eliminaUtente').prop('disabled', false);
         }
     });
 
-    $('#tabellaMedici tbody').on('click', 'td.details-control', function () {
+    $('#tabellaUtenti tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
-        var row = tabMedici.row(tr);
+        var row = tabUtenti.row(tr);
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -82,10 +82,10 @@ $(document).ready(function () {
 
 function  openModal() {
 
-    var ids1 = $.map(tabMedici.rows('.selected').data(), function (item) {
+    var ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
-    arrayMedici = ids1;
+    arrayUtenti = ids1;
 
     $("#myModal1").on("show", function () {
         $("#myModal1 a.btn").on("click", function (e) {
@@ -107,17 +107,17 @@ function  openModal() {
         "show": true
     });
 
-    $('#matricola').val(arrayMedici[0].matricola);
-    $('#specializzazione').val(arrayMedici[0].specializzazione);
-    $('#nome').val(arrayMedici[0].nome);
-    $('#cognome').val(arrayMedici[0].cognome);
-    $('#provincia').val(arrayMedici[0].provincia);
-    $('#mail').val(arrayMedici[0].mail);
-    $('#telefono').val(arrayMedici[0].numero_telefono);
-    $('#pec').val(arrayMedici[0].pec);
+    $('#matricola').val(arrayUtenti[0].matricola);
+    $('#specializzazione').val(arrayUtenti[0].specializzazione);
+    $('#nome').val(arrayUtenti[0].nome);
+    $('#cognome').val(arrayUtenti[0].cognome);
+    $('#provincia').val(arrayUtenti[0].provincia);
+    $('#mail').val(arrayUtenti[0].mail);
+    $('#telefono').val(arrayUtenti[0].numero_telefono);
+    $('#pec').val(arrayUtenti[0].pec);
 }
 
-datiMedico = {
+datiUtente = {
     "_id" : undefined,
     "matricola" : undefined,
     "specializzazione" : undefined,
@@ -129,23 +129,23 @@ datiMedico = {
     "pec" : undefined
 }
 
-function updateMedico(){
+function updateUtente(){
 
-    datiMedico._id = arrayMedici[0]._id;
-    datiMedico.matricola = $('#matricola').val();
-    datiMedico.specializzazione = $('#specializzazione').val();
-    datiMedico.nome = $('#nome').val();
-    datiMedico.cognome = $('#cognome').val();
-    datiMedico.provincia = $('#provincia').val();
-    datiMedico.mail = $('#mail').val();
-    datiMedico.telefono = $('#telefono').val();
-    datiMedico.pec = $('#pec').val();
+    datiUtente._id = arrayUtenti[0]._id;
+    datiUtente.matricola = $('#matricola').val();
+    datiUtente.specializzazione = $('#specializzazione').val();
+    datiUtente.nome = $('#nome').val();
+    datiUtente.cognome = $('#cognome').val();
+    datiUtente.provincia = $('#provincia').val();
+    datiUtente.mail = $('#mail').val();
+    datiUtente.telefono = $('#telefono').val();
+    datiUtente.pec = $('#pec').val();
 
 
     $.ajax({
         url: '/getUpdateUtenti',
         type: 'POST',
-        data: JSON.stringify(datiMedico),
+        data: JSON.stringify(datiUtente),
         cache: false,
         contentType: 'application/json',
         success: function(data) {
@@ -153,9 +153,9 @@ function updateMedico(){
             if(data.errore===false){
 
                 $("#myModal1").modal('hide');
-                $('#modificaMedico').prop('disabled', true);
-                $('#eliminaMedico').prop('disabled', true);
-                tabMedici.ajax.reload();
+                $('#modificaUtente').prop('disabled', true);
+                $('#eliminaUtente').prop('disabled', true);
+                tabUtenti.ajax.reload();
 
             }
 
@@ -167,26 +167,26 @@ function updateMedico(){
 
 }
 
-function eliminaMedico(){
+function eliminaUtente(){
 
-    var ids1 = $.map(tabMedici.rows('.selected').data(), function (item) {
+    var ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
-    arrayMedici = ids1;
+    arrayUtenti = ids1;
 
     $.ajax({
         url: '/getDeleteUtenti',
         type: 'POST',
-        data: JSON.stringify(arrayMedici),
+        data: JSON.stringify(arrayUtenti),
         cache: false,
         contentType: 'application/json',
         success: function(data) {
 
             if(data.errore===false){
 
-                tabMedici.ajax.reload();
-                $('#modificaMedico').prop('disabled', true);
-                $('#eliminaMedico').prop('disabled', true);
+                tabUtenti.ajax.reload();
+                $('#modificaUtente').prop('disabled', true);
+                $('#eliminaUtente').prop('disabled', true);
 
             }
 

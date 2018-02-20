@@ -195,14 +195,14 @@ $(document).ready(function() {
 var datiSwitch= {
     'confermato': true,
     'eliminato': false,
-    '_id_medico': '',
+    '_id_utente': '',
     '_id_evento': ''
 };
 
 var datiSwitch1= {
     'confermato': false,
     'eliminato': true,
-    '_id_medico': '',
+    '_id_utente': '',
     '_id_evento': ''
 };
 
@@ -214,7 +214,7 @@ function switchConfermatoEmail(dataSwitch) {
     } );
 
     if(dataSwitch!== undefined){
-        datiSwitch._id_medico = dataSwitch._id_medico;
+        datiSwitch._id_utente = dataSwitch._id_utente;
         datiSwitch._id_evento = dataSwitch._id_evento;
         $.ajax({
             url: '/switchConfermatoEmail',
@@ -247,7 +247,7 @@ function switchEliminatoEmail(dataSwitch) {
     } );
 
     if(dataSwitch!== undefined){
-        datiSwitch1._id_medico = dataSwitch._id_medico;
+        datiSwitch1._id_utente = dataSwitch._id_utente;
         datiSwitch1._id_evento = dataSwitch._id_evento;
         $.ajax({
             url: '/switchConfermatoEmail',

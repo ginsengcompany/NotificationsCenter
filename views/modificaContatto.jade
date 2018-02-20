@@ -131,7 +131,7 @@ html(lang='en')
                                                     .input-group
                                                         span.input-group-addon
                                                             i.fa.fa-phone(aria-hidden='true')
-                                                        input#telefono.form-control(type='text', name='telefono', placeholder='Numero di Telefono')
+                                                        input#telefono.form-control(type='number', name='telefono', placeholder='Numero di Telefono')
                                         .col-sm-6.form-group
                                             label.cols-sm-4.control-label(for='pec') PEC
                                                 .cols-sm-10
@@ -141,16 +141,16 @@ html(lang='en')
                                                         input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
                         // dialog buttons
                         .modal-footer
-                            button.btn.btn-default.btn-block(type='button', onclick='updateMedico();') Salva
+                            button.btn.btn-default.btn-block(type='button', onclick='updateUtente();') Salva
             .row
                 .col-sm-2
-                    button#modificaMedico.btn.btn-default.btn-lg(onclick='openModal();') Modifica Contatto
+                    button#modificaUtente.btn.btn-default.btn-lg(onclick='openModal();') Modifica Contatto
                 .col-sm-2
-                    button#eliminaMedico.btn.btn-default.btn-lg(onclick='eliminaMedico();') Elimina Contatto
+                    button#eliminaUtente.btn.btn-default.btn-lg(onclick='eliminaUtente();') Elimina Contatto
             br
             .row
                 .col-sm-12.table-responsive
-                    table#tabellaMedici.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                    table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
                             tr
                                 th id

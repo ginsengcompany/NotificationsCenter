@@ -42,6 +42,10 @@ module.exports = function (app) {
         res.render('partecipato');
     });
 
+    app.get('/chatOperatoreSMS', function (req, res, next) {
+        res.render('chatOperatoreSMS');
+    });
+
     app.post('/', function (req, res, next) {
 
         // you might like to do a database look-up or something more scalable here

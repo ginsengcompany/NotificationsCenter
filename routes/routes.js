@@ -42,9 +42,9 @@ module.exports = function (app) {
         res.render('partecipato');
     });
 
-    app.get('/chatOperatoreSMS', function (req, res, next) {
+    /*app.get('/chatOperatoreSMS', function (req, res, next) {
         res.render('chatOperatoreSMS');
-    });
+    });*/
 
     app.post('/', function (req, res, next) {
 

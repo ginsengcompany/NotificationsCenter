@@ -31,6 +31,7 @@ router.get('/',function (req, res, next) {
         final.tb_notifiche = randomItem.tb_notifiche;
         final.tb_eventi = randomItem.tb_eventi;
         final.tb_contatti = randomItem.tb_contatti;
+        final.descrizione = randomItem.descrizione;
 
         client.end();
         return res.json(final);

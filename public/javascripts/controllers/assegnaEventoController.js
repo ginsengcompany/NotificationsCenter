@@ -5,7 +5,7 @@ $(function() {
     moment.locale('it');
     $('#invioPush').prop('checked',true);
     $('#invioEmail').prop('checked',true);
-    $('#invioSms').prop('checked',false);
+    $('#invioSms').prop('checked',true);
 });
 
 function convertDate(inputFormat) {
@@ -52,7 +52,7 @@ var something = (function() {
     };
 })();
 
-function getMediciNotNotifica (){
+function getUtentiNotNotifica (){
 
     var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
@@ -67,7 +67,7 @@ function getMediciNotNotifica (){
         responsive: true,
         ajax: {
             type: 'POST',
-            url: '/getMediciNotNotifica',
+            url: '/getUtentiNotNotifica',
             data: datiNotNotifica
         },
         columns: [
@@ -129,7 +129,7 @@ $(document).ready(function() {
             tabEventi.rows().deselect();
             $(this).addClass('selected');
             $('#tabellaMedici').dataTable().fnDestroy();
-            getMediciNotNotifica ();
+            getUtentiNotNotifica ();
         }
     } );
 
@@ -177,7 +177,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciToken',
+                url: '/getUtentiToken',
                 data: datiNotNotifica
             },
             columns: [
@@ -196,7 +196,7 @@ function switchTable() {
             responsive: true,
             ajax: {
                 type: 'POST',
-                url: '/getMediciTokenSms',
+                url: '/getUtentiTokenSms',
                 data: datiNotNotifica
             },
             columns: [

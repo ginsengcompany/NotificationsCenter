@@ -4,12 +4,17 @@ var postgresConnection = require('../../../config/postgres');
 var moment = require('moment');
 var request = require('request');
 var path = require('path');
+var googl = require('goo.gl');
 
 var connectionPostgres = function () {
     return postgresConnection();
 };
 
 var client = connectionPostgres();
+
+googl.setKey('AIzaSyDKnbwfdHhc9qaPTyMuPO53mES20-PwJB4');
+
+googl.getKey();
 
 var datiEmail = {
     "to":undefined,
@@ -149,6 +154,72 @@ function posyQuery(indice,datiTab) {
 
             else if(indice.tipo==='SMS'){
 
+                if(datiEmail.arrayEventi && datiEmail.arrayMedici){
+
+                    var linkPartecipa = 'http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
+
+                    var linkDeclina = 'http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
+
+                    var link = [];
+
+                    googl.shorten(linkPartecipa)
+                        .then(function (shortUrl) {
+                           link.push(shortUrl);
+                            googl.shorten(linkDeclina)
+                                .then(function (shortUrl) {
+                                    link.push(shortUrl);
+                                    const options = {
+                                        url: 'https://app.mobyt.it/API/v1.0/REST/sms',
+                                        method: 'POST',
+                                        headers: {'user_key': '18443', 'Access_token': 'nZVc7WglBBWHy9eD6bGslST7'},
+
+                                        json: true,
+                                        body: {
+                                            "recipient": ["+39"+datiEmail.arrayMedici.numero_telefono],
+                                            "message": datiTab.descrizione.toUpperCase() + "\n" +
+                                            "Sei stato invitato ad un nuovo Evento! " +
+                                            "Titolo: "+datiEmail.arrayEventi.titolo +
+                                            " Sottotitolo: "+datiEmail.arrayEventi.sottotitolo +"\n"+
+                                            "Partecipa --->"+link[0]+" Declina --->"+link[1],
+                                            "message_type": "N",
+                                            "sender": "+393458184794"
+                                        }
+                                    };
+                                    const options1 = {
+                                        url: 'http://localhost:3000/checkNotifica',
+                                        method: 'POST',
+                                        headers: {
+                                            'Accept': 'application/json',
+                                            'Accept-Charset': 'utf-8'
+                                        },
+                                        json: true,
+                                        body: {"_id_medico":indice._id_medico, "_id_evento":indice._id_evento,  "tb_notifica": datiTab.tb_notifiche}
+                                    };
+
+                                    setTimeout(function () {
+
+                                        request(options, function (error, responseMeta, response) {
+                                            if (!error && responseMeta.statusCode === 201) {
+                                                request(options1, function (error, response, body) {
+                                                    if (!error && response.statusCode == 200) {
+                                                        client.end();
+                                                    }
+                                                })
+                                            }
+                                        })
+
+                                    },3000);
+                                })
+                                .catch(function (err) {
+                                    console.error(err.message);
+                                });
+                        })
+                        .catch(function (err) {
+                            console.error(err.message);
+                        });
+
+                }
+
             }
 
         });
@@ -156,6 +227,7 @@ function posyQuery(indice,datiTab) {
     });
 
 }
+
 
 router.post('/',function (req, res, next) {
 

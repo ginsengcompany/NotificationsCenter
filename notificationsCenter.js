@@ -5,7 +5,7 @@
  */
 
 var app = require('./serverApp');
-var debug = require('debug')('ordinemedici:server');
+var debug = require('debug')('notificationsCenter:server');
 var http = require('http');
 
 /**

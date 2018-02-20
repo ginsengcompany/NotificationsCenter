@@ -1,9 +1,9 @@
 {
-  "name": "ordinemedici",
+  "name": "notificationsCenter",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node --max-old-space-size=2048 ./ordineMedici"
+    "start": "node --max-old-space-size=2048 ./notificationsCenter"
   },
   "dependencies": {
     "async": "^2.6.0",

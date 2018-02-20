@@ -4,7 +4,7 @@ var postgresConnection = require('../../../config/postgres');
 var moment = require('moment');
 var request = require('request');
 var path = require('path');
-var googl = require('goo.gl');
+
 
 var connectionPostgres = function () {
     return postgresConnection();
@@ -12,16 +12,12 @@ var connectionPostgres = function () {
 
 var client = connectionPostgres();
 
-googl.setKey('AIzaSyDKnbwfdHhc9qaPTyMuPO53mES20-PwJB4');
-
-googl.getKey();
-
 var datiEmail = {
     "to":undefined,
     "subject":undefined,
     "html": undefined,
     "arrayEventi" : undefined,
-    "arrayMedici" : undefined,
+    "arrayUtenti" : undefined,
     "tb_notifica" : undefined
 };
 
@@ -34,7 +30,7 @@ function switchInvio(final,datiTab){
 function posyQuery(indice,datiTab) {
 
     queryPostEvento = "SELECT * FROM "+datiTab.tb_eventi+" WHERE _id="+indice._id_evento;
-    queryPostMedico = "SELECT * FROM "+datiTab.tb_contatti+" WHERE _id="+indice._id_medico;
+    queryPostUtente = "SELECT * FROM "+datiTab.tb_contatti+" WHERE _id="+indice._id_utente;
 
     const query1 = client.query(queryPostEvento);
 
@@ -43,20 +39,20 @@ function posyQuery(indice,datiTab) {
         var myOjb = JSON.stringify(result.rows, null, "    ");
         datiEmail.arrayEventi = JSON.parse(myOjb)[0];
 
-        const query2 = client.query(queryPostMedico);
+        const query2 = client.query(queryPostUtente);
 
         query2.on("row", function (row, result) {
             result.addRow(row);
             var myOjb = JSON.stringify(result.rows, null, "    ");
-            datiEmail.arrayMedici = JSON.parse(myOjb)[0];
+            datiEmail.arrayUtenti = JSON.parse(myOjb)[0];
 
             if(indice.tipo==='Push Notifications'){
 
-                if(datiEmail.arrayEventi && datiEmail.arrayMedici){
+                if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
                     var restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
                     var appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
                     var message = 'Hai un nuovo Evento entra subito nell`app per scoprire!';
-                    var device  = datiEmail.arrayMedici.token;
+                    var device  = datiEmail.arrayUtenti.token;
 
                     const options = {
                         method:'POST',
@@ -83,7 +79,7 @@ function posyQuery(indice,datiTab) {
                             'Accept-Charset': 'utf-8'
                         },
                         json: true,
-                        body: {"_id_medico":indice._id_medico, "_id_evento":indice._id_evento, "tb_notifica": datiTab.tb_notifiche}
+                        body: {"_id_utente":indice._id_utente, "_id_evento":indice._id_evento, "tb_notifica": datiTab.tb_notifiche}
                     };
 
                     setTimeout(function () {
@@ -106,7 +102,7 @@ function posyQuery(indice,datiTab) {
 
             else if(indice.tipo==='E-mail'){
 
-                if(datiEmail.arrayEventi && datiEmail.arrayMedici){
+                if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
                     datiEmail.to = indice.mail;
                     datiEmail.tb_notifica = datiTab.tb_notifiche;
                     datiEmail.subject = "Notifications - Center , Hai un nuovo Evento leggi subito per scoprire!";
@@ -130,7 +126,7 @@ function posyQuery(indice,datiTab) {
                             'Accept-Charset': 'utf-8'
                         },
                         json: true,
-                        body: {"_id_medico":indice._id_medico, "_id_evento":indice._id_evento,  "tb_notifica": datiTab.tb_notifiche}
+                        body: {"_id_utente":indice._id_utente, "_id_evento":indice._id_evento,  "tb_notifica": datiTab.tb_notifiche}
                     };
 
                     setTimeout(function () {
@@ -154,13 +150,19 @@ function posyQuery(indice,datiTab) {
 
             else if(indice.tipo==='SMS'){
 
-                if(datiEmail.arrayEventi && datiEmail.arrayMedici){
+                if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
 
-                    var linkPartecipa = 'http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
+                    var linkPartecipa = 'http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idUtente='+datiEmail.arrayUtenti._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
 
-                    var linkDeclina = 'http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idMedico='+datiEmail.arrayMedici._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
+                    var linkDeclina = 'http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idUtente='+datiEmail.arrayUtenti._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
 
                     var link = [];
+
+                    var googl = require('goo.gl');
+
+                    googl.setKey('AIzaSyDKnbwfdHhc9qaPTyMuPO53mES20-PwJB4');
+
+                    googl.getKey();
 
                     googl.shorten(linkPartecipa)
                         .then(function (shortUrl) {
@@ -175,7 +177,7 @@ function posyQuery(indice,datiTab) {
 
                                         json: true,
                                         body: {
-                                            "recipient": ["+39"+datiEmail.arrayMedici.numero_telefono],
+                                            "recipient": ["+39"+datiEmail.arrayUtenti.numero_telefono],
                                             "message": datiTab.descrizione.toUpperCase() + "\n" +
                                             "Sei stato invitato ad un nuovo Evento! " +
                                             "Titolo: "+datiEmail.arrayEventi.titolo +
@@ -193,7 +195,7 @@ function posyQuery(indice,datiTab) {
                                             'Accept-Charset': 'utf-8'
                                         },
                                         json: true,
-                                        body: {"_id_medico":indice._id_medico, "_id_evento":indice._id_evento,  "tb_notifica": datiTab.tb_notifiche}
+                                        body: {"_id_utente":indice._id_utente, "_id_evento":indice._id_evento,  "tb_notifica": datiTab.tb_notifiche}
                                     };
 
                                     setTimeout(function () {
@@ -233,8 +235,8 @@ router.post('/',function (req, res, next) {
 
    var datiTab = req.body;
 
-    var queryPostInvio = "SELECT A.mail, A.token, A.numero_telefono, B._id_medico, B._id_evento, C.titolo, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id \n" +
-        "FROM "+datiTab.tb_contatti+" A INNER JOIN "+datiTab.tb_notifiche+" B ON A._id=B._id_medico \n" +
+    var queryPostInvio = "SELECT A.mail, A.token, A.numero_telefono, B._id_utente, B._id_evento, C.titolo, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id \n" +
+        "FROM "+datiTab.tb_contatti+" A INNER JOIN "+datiTab.tb_notifiche+" B ON A._id=B._id_utente \n" +
         "INNER JOIN "+datiTab.tb_eventi+" C ON C._id=B._id_evento where B.stato=false LIMIT 100";
 
     const query = client.query(queryPostInvio);

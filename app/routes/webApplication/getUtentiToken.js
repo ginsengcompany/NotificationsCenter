@@ -20,7 +20,7 @@ router.post('/',function (req, res, next) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_medico FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_medico AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (token <> '' OR token <> null)";
+            var queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (token <> '' OR token <> null)";
 
             const query = client.query(queryPostEvento);
 

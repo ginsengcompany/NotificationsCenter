@@ -14,8 +14,8 @@ router.post('/',function (req, res, next) {
         " SET stato=true ," +
         " data_invio=" +
         "'" + moment().format()   +"'"+
-        " WHERE _id_medico=" +
-        "'" + datiCheck._id_medico   +"'" +
+        " WHERE _id_utente=" +
+        "'" + datiCheck._id_utente   +"'" +
         " AND _id_evento=" +
         "'" + datiCheck._id_evento   +"'";
 

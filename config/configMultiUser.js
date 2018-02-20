@@ -5,9 +5,9 @@ var config = {
 var multiUser = {
     cod_org: 'omceoce',
     descrizione: 'Ordine Medici Caserta',
-    tb_contatti: 'tb_medici_iscritti',
-    tb_eventi: 'tb_landing_evento',
-    tb_notifiche: 'tb_stato_notifiche'
+    tb_contatti: 'tb_contatti_omceoce',
+    tb_eventi: 'tb_evento_omceoce',
+    tb_notifiche: 'tb_notifiche_omceoce'
 };
 config.data.push(multiUser);
 

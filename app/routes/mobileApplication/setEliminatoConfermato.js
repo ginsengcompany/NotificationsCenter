@@ -12,7 +12,7 @@ router.post('/',function (req, res, next) {
     var datiEliminatoConfermato = req.body;
     var eliminato = datiEliminatoConfermato.eliminato;
     var confermato = datiEliminatoConfermato.confermato;
-    var idMedico = datiEliminatoConfermato._id_medico;
+    var idUtente = datiEliminatoConfermato._id_utente;
     var idEvento = datiEliminatoConfermato._id_evento;
     var organizzazione = datiEliminatoConfermato.organizzazione;
 
@@ -22,7 +22,7 @@ router.post('/',function (req, res, next) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEliminatoConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
+            var queryPostEliminatoConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
 
             const query = client.query(queryPostEliminatoConfermato);
 

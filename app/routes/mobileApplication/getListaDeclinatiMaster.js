@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEvento = "SELECT A.matricola, A.nome, A.cognome, A.specializzazione, B.data_invio, B.tipo FROM "+multiUser.data[i].tb_contatti+" A INNER JOIN "+multiUser.data[i].tb_notifiche+" B ON A._id=B._id_medico INNER JOIN tb_landing_evento C ON C._id=B._id_evento WHERE B._id_evento="+idEvento+" AND B.eliminato=true";
+            var queryPostEvento = "SELECT A.matricola, A.nome, A.cognome, A.specializzazione, B.data_invio, B.tipo FROM "+multiUser.data[i].tb_contatti+" A INNER JOIN "+multiUser.data[i].tb_notifiche+" B ON A._id=B._id_utente INNER JOIN tb_landing_evento C ON C._id=B._id_evento WHERE B._id_evento="+idEvento+" AND B.eliminato=true";
 
             const query = client.query(queryPostEvento);
 

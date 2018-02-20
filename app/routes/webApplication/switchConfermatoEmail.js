@@ -25,7 +25,7 @@ router.post('/',function (req, res, next) {
 
             var queryPostConfermato = '';
 
-            queryPostConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_medico='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
+            queryPostConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
 
 
             const query = client.query(queryPostConfermato);

@@ -11,13 +11,13 @@ router.get('/',function (req, res, next) {
 
     var confermato = req.query.confermato;
     var eliminato = req.query.eliminato;
-    var idMedico = req.query.idMedico;
+    var idUtente = req.query.idUtente;
     var idEvento = req.query.idEvento;
     var tb_notifica = req.query.tb_notifica;
 
     var queryPostConfermato = '';
 
-    queryPostConfermato = "UPDATE "+tb_notifica+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_medico='"+ idMedico +"' AND _id_evento='"+idEvento+"'";
+    queryPostConfermato = "UPDATE "+tb_notifica+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
 
 
     var client = connectionPostgres();

@@ -134,6 +134,24 @@ cron.schedule('*!/1 * * * *', function(){
     })
 });
 
+cron.schedule('15 *!/1 * * * *', function(){
+
+    const options = {
+        url: 'http://localhost:3000/prelievoInvioXML',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+    };
+
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+
+        }
+    })
+});
+
 require('./routes/routes.js')(app);
 
 app.use('/salvaEvento', salvaEvento);

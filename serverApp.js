@@ -8,6 +8,7 @@ var moment = require('moment');
 var session = require('express-session');
 var cron = require('node-cron');
 var request = require('request');
+var mySqlConnection = require('./config/RIMdatabase');
 
 
 var postgres = require("./config/postgres");
@@ -136,20 +137,26 @@ cron.schedule('*!/1 * * * *', function(){
 
 cron.schedule('15 *!/1 * * * *', function(){
 
-    const options = {
-        url: 'http://localhost:3000/prelievoInvioXML',
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Accept-Charset': 'utf-8'
-        }
-    };
+    if(mySqlConnection.state === 'authenticated') {
 
-    request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+        const options = {
+            url: 'http://localhost:3000/prelievoInvioXML',
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Accept-Charset': 'utf-8'
+            }
+        };
 
-        }
-    })
+        request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+            }
+        })
+
+    }else{
+        console.log('Connessione Persa');
+    }
 });
 
 require('./routes/routes.js')(app);

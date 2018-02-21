@@ -56,27 +56,34 @@ router.get('/', function(req, res, next) {
                 checkFile(files[i]);
             }else if(path.extname(list[i])!==fileType)
             {
-                var nuovoNomeFile = rinominaFile(list[i], timeStamp.substring(0,10), '.bak');
-
-                // Rinomino il file
-                fs.rename(percorsoFile + '/' + list[i], percorsoFile + '/' + nuovoNomeFile, function (err) {
-                    if (err){
-                        console.log('File non trovato scartati.');
-                    }else{
-                        // Sposto il file nella posizione indicata dal nuovo path contenente i file scartati
-                        fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
-                            if (err) throw err;
-                            console.log('Spostamento scartati.');
-                        });
-                        console.log('File rinominato scartati.');
-                    }
-                });
+                rinominaSpostaDiscarded(list[i]);
 
             }
         }
     });
     res.send(risultatoConversionXML);
 });
+
+function rinominaSpostaDiscarded(nomeFile){
+
+    // Creo una variabile con il nuovo nome del file
+    var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+
+    // Rinomino il file
+    fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
+        if (err){
+            console.log('File non trovato Discarded');
+        }else{
+            // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
+            fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
+                if (err) throw err;
+                console.log('Spostamento scartati Discarded');
+            });
+            console.log('File rinominato scartati Discarded');
+        }
+    });
+
+}
 
 function checkFile(files){
     // Assegno il nome del file da controllare ad una variabile locale
@@ -86,17 +93,17 @@ function checkFile(files){
         if (err) {
             // In caso di errore ENOENT allora la directory non Ã¨ esistente
             if (err.code == 'ENOENT') {
-                console.log('errore EnoENT.');
+                console.log('ENOENT EnoENT in checkFile');
             }
         } else {
             // Controllo se al path indicato trovo un file
             if (fileStat.isFile()) {
-                console.log('File trovato.');
+                console.log('File trovato in checkFile');
                 // Eseguo la conversione del file al percorso indicato estrapolando i campi xml
                 convertiXML(nomeFile);
             } else if (fileStat.isDirectory()) {
                 // Accedo se il path indicato Ã¨ una directory
-                console.log('Directory non trovata.');
+                console.log('Directory non trovata in checkFile');
                 risultatoConversionXML = false;
             }
         }
@@ -114,24 +121,7 @@ function convertiXML (nomeFile) {
         parser.parseString(data, function (err, result) {
 
             if(result===null){
-
-                // Creo una variabile con il nuovo nome del file
-                var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
-
-                // Rinomino il file
-                fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
-                    if (err){
-                        console.log('File non trovato.');
-                    }else{
-                        // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
-                        fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
-                            if (err) throw err;
-                            console.log('Spostamento scartati.');
-                        });
-                        console.log('File rinominato scartati.');
-                    }
-                });
-
+                rinominaSpostaDiscarded(nomeFile);
             }
 
             else if(result['services']){
@@ -164,23 +154,7 @@ function convertiXML (nomeFile) {
 
             }else{
 
-                // Creo una variabile con il nuovo nome del file
-                var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
-
-                // Rinomino il file
-                fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
-                    if (err){
-                        console.log('File non trovato.');
-                    }else{
-                        // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
-                        fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
-                            if (err) throw err;
-                            console.log('Spostamento scartati.');
-                        });
-                        console.log('File rinominato scartati.');
-                    }
-                });
-
+                rinominaSpostaDiscarded(nomeFile);
             }
 
         });
@@ -195,8 +169,11 @@ function invioSMS(dataArray,nomeFile) {
     var dataArrayNumero = [];
     var dataArrayMessaggi = [];
     for(var i=0;i<dataArray.length;i++){
-        dataArrayNumero.push("+39"+ dataArray[i].destination);
-        dataArrayMessaggi.push(dataArray[i].message);
+        var numValidator = controlloNumeroTelefono(dataArray[i].destination);
+        if(numValidator.validate===true){
+            dataArrayNumero.push("+39"+ numValidator.numero);
+            dataArrayMessaggi.push(dataArray[i].message);
+        }
     }
     console.log(dataArray);
     for(var j=0;j<dataArrayNumero.length;j++) {
@@ -216,55 +193,8 @@ function invioSMS(dataArray,nomeFile) {
             callback: function (error, responseMeta, response) {
                 if (!error && responseMeta.statusCode === 201) {
 
-                    // Creo una variabile con il nuovo nome del file
-                    var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
-
-                    // Rinomino il file
-                    fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
-                        if (err){
-                            console.log('File non trovato.');
-                        }else{
-                            // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
-                            fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
-                                if (err) throw err;
-                                console.log('Spostamento eseguito con successo.');
-                                risultatoSMS = response.order_id;
-                                // Ripulisco il dataArray per evitare che al prossima ciclo vengano accdati i dati dei nuovi utenti con i vecchi
-                                dataArray = [];
-
-                                var query = 'INSERT INTO rim.service (id_service_state, message_service_state, id_user, username, id_comune, id_access_list, insert_date, modify_date, description, priority, message,' +
-                                    ' subject, start_date, end_date, feedback, is_pin, path_csv, is_message_path, welcome_message, is_welcome_message_path, end_message, is_end_message_path,' +
-                                    ' error_message, is_error_message_path, info_type, user_type, geo_area, is_cc, is_rapid_message, is_stopped, notify_result, notify_result_code,' +
-                                    ' notify_result_description, notify_insert_date, notify_modify_date)\n' +
-                                    'VALUES (4, "The Address property on ChannelFactory.Endpoint was null.  The ChannelFactory\'s Endpoint must have a valid Address specified.", null, null, 4,' +
-                                    ' 1, current_timestamp(), null, "'+arraySQL.idTransaction+'", '+arraySQL.priority+', "'+arraySQL.message+'", null, current_timestamp(), DATE_ADD(SYSDATE(), INTERVAL 7 DAY), ' +
-                                    ' null, "N", null, null, null, null, null, null, null, null, null, null, null, "N", "N", "N", null, null, null, null, null)';
-
-                                mySqlConnection.query(query, function (err, result) {
-                                    if (err){
-                                        console.log(err);
-                                    }
-                                    if(result.insertId){
-                                        var query2 = 'INSERT INTO rim.service_item (id_service, id_service_item_type, id_service_item_state, message_service_item_state, insert_date, modify_date, destination, service_user, ' +
-                                            'destination_username, destination_pin, destination_priority, destination_time_from, destination_time_to, retry_number, retry_date, force_send, send_date, result, result_code, result_description, ' +
-                                            'result_feedback, result_pin, subject_pec)\n' +
-                                            'VALUES ('+result.insertId+', 2, 3, "SMS Inviato", current_timestamp(), null, "'+arraySQL.destination+'", null, null, null, 0, null, null, 0, null, "N", current_timestamp(), "ok", null, "SMS Inviato", ' +
-                                            'null, null, null)';
-                                        mySqlConnection.query(query2, function (err, result) {
-                                            if (err){
-                                                console.log(err);
-                                            }
-                                            if(result){
-                                                console.log('RIM Completato');
-
-                                            }
-                                        });
-                                    }
-                                });
-                            });
-                            console.log('File rinominato con successo.');
-                        }
-                    });
+                    dataArray = [];
+                    appendRIM(arraySQL);
 
                 }
                 else {
@@ -273,6 +203,98 @@ function invioSMS(dataArray,nomeFile) {
             }
         });
     }
+    // Creo una variabile con il nuovo nome del file
+    var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+
+    // Rinomino il file
+    fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
+        if (err){
+            console.log('File non trovato.');
+        }else{
+            // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
+            fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
+                if (err) throw err;
+                console.log('Spostamento eseguito con successo.');
+
+            });
+            console.log('File rinominato con successo.');
+        }
+    });
+}
+
+function controlloNumeroTelefono(stringa) {
+    const regex = /^(\((00|\+)39\)|(00|\+)39)?(3[0-9][0-9])\d{6,7}$/gm;
+    var m;
+    response = {"validate":'', "numero":''};
+    var res = '';
+
+    while ((m = regex.exec(stringa)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === regex.lastIndex) {
+            regex.lastIndex++;
+        }
+        // The result can be accessed through the `m`-variable.
+        m.forEach(function (match, groupIndex) {
+            if(match===undefined && groupIndex===1){
+                response.validate = true;
+                response.numero = stringa;
+            }
+            if(match==='+39' && groupIndex===1){
+                response.validate = true;
+                res = stringa.substring(3, 13);
+                response.numero = res;
+            }
+            if(match==='0039' && groupIndex===1){
+                response.validate = true;
+                res = stringa.substring(4, 14);
+                response.numero = res;
+            }
+            if(match==='(+39)' && groupIndex===1){
+                response.validate = true;
+                res = stringa.substring(5, 15);
+                response.numero = res;
+            }
+            if(match==='(0039)' && groupIndex===1){
+                response.validate = true;
+                res = stringa.substring(6, 16);
+                response.numero = res;
+            }
+        });
+    }
+
+    return response;
+}
+
+function appendRIM(arraySQL){
+    var query = 'INSERT INTO rim.service (id_service_state, message_service_state, id_user, username, id_comune, id_access_list, insert_date, modify_date, description, priority, message,' +
+        ' subject, start_date, end_date, feedback, is_pin, path_csv, is_message_path, welcome_message, is_welcome_message_path, end_message, is_end_message_path,' +
+        ' error_message, is_error_message_path, info_type, user_type, geo_area, is_cc, is_rapid_message, is_stopped, notify_result, notify_result_code,' +
+        ' notify_result_description, notify_insert_date, notify_modify_date)\n' +
+        'VALUES (4, "The Address property on ChannelFactory.Endpoint was null.  The ChannelFactory\'s Endpoint must have a valid Address specified.", null, null, 4,' +
+        ' 1, current_timestamp(), null, "'+arraySQL.idTransaction+'", '+arraySQL.priority+', "'+arraySQL.message+'", null, current_timestamp(), DATE_ADD(SYSDATE(), INTERVAL 7 DAY), ' +
+        ' null, "N", null, null, null, null, null, null, null, null, null, null, null, "N", "N", "N", null, null, null, null, null)';
+
+    mySqlConnection.query(query, function (err, result) {
+        if (err){
+            console.log(err);
+        }
+        if(result.insertId){
+            var query2 = 'INSERT INTO rim.service_item (id_service, id_service_item_type, id_service_item_state, message_service_item_state, insert_date, modify_date, destination, service_user, ' +
+                'destination_username, destination_pin, destination_priority, destination_time_from, destination_time_to, retry_number, retry_date, force_send, send_date, result, result_code, result_description, ' +
+                'result_feedback, result_pin, subject_pec)\n' +
+                'VALUES ('+result.insertId+', 2, 3, "SMS Inviato", current_timestamp(), null, "'+arraySQL.destination+'", null, null, null, 0, null, null, 0, null, "N", current_timestamp(), "ok", null, "SMS Inviato", ' +
+                'null, null, null)';
+            mySqlConnection.query(query2, function (err, result) {
+                if (err){
+                    console.log(err);
+                }
+                if(result){
+                    console.log('RIM Completato');
+
+                }
+            });
+        }
+    });
 }
 
 module.exports = router;

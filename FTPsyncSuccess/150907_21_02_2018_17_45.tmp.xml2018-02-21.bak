@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. BOCCOLATO GABRIELE il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 11:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3396446377</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. CHIANESE EMILA il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 10:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3382001800</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. DE MATTEO LUIGIA il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in PNEUMOLOGIA REPARTO orario apertura reparto 08:30. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3209170971</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. DI BALSAMO ISIDORO il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in PNEUMOLOGIA REPARTO orario apertura reparto 08:30. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3393994329</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. GALLUCCIO CASTRESE il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in EPATOLOGICA-SATTE orario apertura reparto 09:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3313465544</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. GUERRIERO GIOVANNA il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 10:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3338191489</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. MAIO EUGENIO il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 11:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3395692673</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. MINUTOLO CESARE il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in CAMERA IPERBARICA orario apertura reparto 08:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3483781329</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+<service>
+<serviceType>2</serviceType>
+<message>Gent. RUSSO PASQUALE il 03/03/2018 presso OSPEDALE DI CASERTA ha una prenotazione in OCULISTICA orario apertura reparto 10:00. Se vuole annullare o spostare la prenotazione chiami il num. 08231761547 dalle 08:00 alle 17:00, altrimenti risulta confermata.</message>
+<subject>
+</subject>
+<destination>3200315070</destination>
+<idTransaction>150907-R-X</idTransaction>
+<priority>3</priority>
+</service>
+</services>

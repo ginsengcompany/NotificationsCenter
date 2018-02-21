@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+    <service>
+        <serviceType>2</serviceType>
+        <message>Gent.ANTONIO BIONDILLO DISCARDED!
+        </message>
+        <subject></subject>
+        <destination>3409232116</destination>
+        <idTransaction>150206-P-CUP</idTransaction>
+        <priority>1</priority>
+    </service>
+</services>

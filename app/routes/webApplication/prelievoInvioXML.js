@@ -20,9 +20,6 @@ var dataRecord = {
 // Variabile che tiene conto dell'istante di tempo attuale
 var timeStamp = moment().format();
 
-// Vettore di file xml
-var files = [];
-
 // Percorso della directory contenente i file xml con i dati degli utenti
 var percorsoFile = path.join(__dirname, '../../../FTPsyncMessage');
 
@@ -41,6 +38,9 @@ var risultatoSMS;
 var fileType = '.xml';
 
 router.get('/', function(req, res, next) {
+    // Vettore di file xml
+    var files = [];
+
     // Opero una lettura della directory percorsoFile
     fs.readdir(percorsoFile, function(err,list){
         if(err) throw err;
@@ -81,10 +81,10 @@ router.get('/', function(req, res, next) {
 function checkFile(files){
     // Assegno il nome del file da controllare ad una variabile locale
     var nomeFile = files;
-    // Verifico lo stato del percorso in cui è memorizzato il file e che ho passato alla funzione stat
+    // Verifico lo stato del percorso in cui Ã¨ memorizzato il file e che ho passato alla funzione stat
     fs.stat(percorsoFile + '/' + nomeFile, function(err, fileStat) {
         if (err) {
-            // In caso di errore ENOENT allora la directory non è esistente
+            // In caso di errore ENOENT allora la directory non Ã¨ esistente
             if (err.code == 'ENOENT') {
                 console.log('errore EnoENT.');
             }
@@ -95,7 +95,7 @@ function checkFile(files){
                 // Eseguo la conversione del file al percorso indicato estrapolando i campi xml
                 convertiXML(nomeFile);
             } else if (fileStat.isDirectory()) {
-                // Accedo se il path indicato è una directory
+                // Accedo se il path indicato Ã¨ una directory
                 console.log('Directory non trovata.');
                 risultatoConversionXML = false;
             }
@@ -123,7 +123,7 @@ function convertiXML (nomeFile) {
                     if (err){
                         console.log('File non trovato.');
                     }else{
-                        // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
+                        // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
                         fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
                             if (err) throw err;
                             console.log('Spostamento scartati.');
@@ -157,7 +157,7 @@ function convertiXML (nomeFile) {
                     dataRecord = {};
                 }
 
-                // Ci consente di capire che la conversione XML è stata eseguita almeno una volta
+                // Ci consente di capire che la conversione XML Ã¨ stata eseguita almeno una volta
                 risultatoConversionXML = true;
                 // Richiamo la funzione di invio sms per gli utenti i cui dati sono stati inseriti nel record dataArray
                 invioSMS(dataArray,nomeFile);
@@ -172,7 +172,7 @@ function convertiXML (nomeFile) {
                     if (err){
                         console.log('File non trovato.');
                     }else{
-                        // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
+                        // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
                         fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
                             if (err) throw err;
                             console.log('Spostamento scartati.');
@@ -224,7 +224,7 @@ function invioSMS(dataArray,nomeFile) {
                         if (err){
                             console.log('File non trovato.');
                         }else{
-                            // Sposto il file nella posizione indicata dal nuovo path contenente i file già manipolati
+                            // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
                             fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
                                 if (err) throw err;
                                 console.log('Spostamento eseguito con successo.');

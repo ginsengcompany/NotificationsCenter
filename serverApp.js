@@ -50,6 +50,7 @@ var loginMaster = require('./app/routes/mobileApplication/loginMaster');
 var getEventiMaster = require('./app/routes/mobileApplication/getEventiMaster');
 var getListaPartecipantiMaster = require('./app/routes/mobileApplication/getListaPartecipantiMaster');
 var getListaDeclinatiMaster = require('./app/routes/mobileApplication/getListaDeclinatiMaster');
+var gestioneConfermeSMS = require('./app/routes/webApplication/gestioneConfermeSMS');
 
 
 
@@ -159,6 +160,35 @@ cron.schedule('15 *!/1 * * * *', function(){
     }
 });
 
+/*cron.schedule('0 * * * *', function(){
+
+    setTimeout(function(){
+
+        if(mySqlConnection.state === 'authenticated') {
+
+            const options = {
+                url: 'http://localhost:3000/gestioneConfermeSMS',
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Accept-Charset': 'utf-8'
+                }
+            };
+
+            request(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+
+                }
+            })
+
+        }else{
+            console.log('Connessione Persa');
+        }
+
+        }, 30000);
+
+});*/
+
 require('./routes/routes.js')(app);
 
 app.use('/salvaEvento', salvaEvento);
@@ -198,6 +228,7 @@ app.use('/loginMaster',loginMaster);
 app.use('/getEventiMaster',getEventiMaster);
 app.use('/getListaPartecipantiMaster',getListaPartecipantiMaster);
 app.use('/getListaDeclinatiMaster',getListaDeclinatiMaster);
+app.use('/gestioneConfermeSMS',gestioneConfermeSMS);
 
 
 

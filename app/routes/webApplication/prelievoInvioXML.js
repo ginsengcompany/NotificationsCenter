@@ -268,8 +268,6 @@ function invioSMS(arrayDetails,nomeFile) {
         dataArrayNumero.push("+39" + numValidator.numero);
     }
 
-    console.log(arrayDetails);
-
     if(dataArrayNumero.length>0 && arrayDetails.numMittente !== null){
         console.log('Alta qualità');
         request({
@@ -352,6 +350,7 @@ function controlloNumeroTelefono(stringa) {
 }
 
 function appendRimPortal(arrayDetails,nomeFile){
+    console.log(arrayDetails);
     var query = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo, mittente, quantita) ' +
                 'VALUES("+39'+arrayDetails.numero+'", "'+arrayDetails.codutente+'", current_timestamp(), "'+arrayDetails.testo+'", '+arrayDetails.tipo+',  '+arrayDetails.mittente+', '+arrayDetails.quantita+')';
     mySqlConnection.query(query, function (err, result) {

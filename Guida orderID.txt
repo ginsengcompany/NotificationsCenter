@@ -1,0 +1,54 @@
+
+NELLA TABELLA DELLO STATO DEGLI SMS VIENE INSERITO L' ORDER ID E LO STATO DEL MESSAGGIO
+
+ESEMPIO DI RITORNO DOPO INVIO SMS:
+
+
+{
+    "result" : "OK",                    "//OK or errors"
+    "order_id" : "123456789",
+    "total_sent" : 2                    "//SMS sent or credits used"
+}
+
+
+
+
+ORDER ID parametro GET, il ritorno della GET viene inserito in tabella al corrispondente campo
+
+
+var request = require('request');
+
+request({
+    url: 'https://app.mobyt.it/API/v1.0/REST/sms/{order_id}',
+    method: 'GET',
+    headers: { 'user_key' : '{USER_KEY}', 'Session_key' : '{SESSION_KEY}' },
+
+    callback: function (error, responseMeta, response) {
+        if (!error && responseMeta.statusCode == 200) {
+
+        }
+        else {
+            console.log('An error occurred..');
+        }
+    }
+});
+
+
+ESEMPIO RISPOSTA:
+
+
+{
+    "recipient_number": 1,
+    "result": "OK",
+    "recipients": [
+        {
+            "status": "WAITING",
+            "destination": "+393471234567",
+            "delivery_date": ""
+        }
+    ]
+}
+
+
+
+TUTTE LE GLI "STATUS" DIVERSI DA “DLVRD” SONO DA CONSIDERARSI NON CONSEGNATI

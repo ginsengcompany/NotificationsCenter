@@ -6,6 +6,12 @@ var moment = require('moment');
 var request = require('request');
 const fs = require('fs');
 var mySqlConnection = require('../../../config/RIMdatabase');
+var lodash = require('lodash');
+var postgresConnection = require('../../../config/postgres');
+
+var connectionPostgres = function () {
+    return postgresConnection();
+};
 
 // Variabile contenente i campi dell'xml utilizzati per raccogliere i dati degli utenti da contattare via sms
 var dataRecord = {
@@ -34,8 +40,18 @@ var risultatoConversionXML = true;
 
 var risultatoSMS;
 
+var tipi = [];
+
+var mittenti = [];
+
+var strutture = [];
+
 // Estensione xml dei file
 var fileType = '.xml';
+
+selectMittenti();
+selectStrutture();
+selectTipi();
 
 router.get('/', function(req, res, next) {
     // Vettore di file xml
@@ -56,7 +72,7 @@ router.get('/', function(req, res, next) {
                 checkFile(files[i]);
             }else if(path.extname(list[i])!==fileType)
             {
-                rinominaSpostaDiscarded(list[i]);
+                rinominaSpostaDiscarded(list[i], 'GET');
 
             }
         }
@@ -64,22 +80,62 @@ router.get('/', function(req, res, next) {
     res.send(risultatoConversionXML);
 });
 
-function rinominaSpostaDiscarded(nomeFile){
+function selectStrutture(){
 
-    // Creo una variabile con il nuovo nome del file
+        var query = 'SELECT * FROM rim_portale.settings';
+        mySqlConnection.query(query, function (err, result) {
+            if (err){
+                console.log(err);
+            }
+            if(result.length>0){
+
+                strutture = result;
+
+            }
+        });
+}
+
+function selectMittenti(){
+        var query = 'SELECT * FROM rim_portale.mittenti';
+        mySqlConnection.query(query, function (err, result) {
+            if (err){
+                console.log(err);
+            }
+            if(result.length>0){
+
+                mittenti = result;
+
+            }
+        });
+}
+
+function selectTipi(){
+        var query = 'SELECT * FROM rim_portale.tipi';
+        mySqlConnection.query(query, function (err, result) {
+            if (err){
+                console.log(err);
+            }
+            if(result.length>0){
+
+                tipi = result;
+
+            }
+        });
+}
+
+function rinominaSpostaDiscarded(nomeFile, posizione){
+
     var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
 
-    // Rinomino il file
     fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
         if (err){
             console.log('File non trovato Discarded');
         }else{
-            // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
             fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileScartati+ '/' + nuovoNomeFile, function (err) {
                 if (err) throw err;
-                console.log('Spostamento scartati Discarded');
+                console.log('Spostamento scartati Discarded '+posizione);
             });
-            console.log('File rinominato scartati Discarded');
+            console.log('File rinominato scartati Discarded '+posizione);
         }
     });
 
@@ -112,28 +168,26 @@ function checkFile(files){
 
 function convertiXML (nomeFile) {
 
-    // Creo una variabile parser usando il plugin Parser
     var parser = new xml2js.Parser();
 
-    // Procedo alla lettura del file
     fs.readFile(percorsoFile + '/' + nomeFile, function (err, data) {
-        // Eseguo il parsing dell'xml che viene inserito in un array di stringhe
+
         parser.parseString(data, function (err, result) {
 
             if(result===null){
-                rinominaSpostaDiscarded(nomeFile);
+                rinominaSpostaDiscarded(nomeFile, 'ConvertiXML');
             }
 
             else if(result['services']){
 
-                // Accedo ai campi dell'arrey contenneti i dati di interesse
+
                 var xml = result['services']['service'];
-                // Trasformo in un array JSON l'array di stringhe
+
                 var xmlSTRING = JSON.stringify(xml);
                 var xmlJSON = JSON.parse(xmlSTRING);
 
                 var dataArray = [];
-                // Incapsulo in una struttura dati di tipo array i record dell'array di JSON, Serve a filtrare il messaggio.
+
                 for (var i = 0; i < xml.length; i ++){
 
                     dataRecord.serviceType = xmlJSON[i]['serviceType'][0];
@@ -147,14 +201,14 @@ function convertiXML (nomeFile) {
                     dataRecord = {};
                 }
 
-                // Ci consente di capire che la conversione XML Ã¨ stata eseguita almeno una volta
+
                 risultatoConversionXML = true;
-                // Richiamo la funzione di invio sms per gli utenti i cui dati sono stati inseriti nel record dataArray
-                invioSMS(dataArray,nomeFile);
+
+                checkStruttura(dataArray,nomeFile);
 
             }else{
 
-                rinominaSpostaDiscarded(nomeFile);
+                rinominaSpostaDiscarded(nomeFile, 'ConvertiXML2');
             }
 
         });
@@ -165,19 +219,59 @@ function  rinominaFile(nomeFile, timeStamp, estensione) {
     return nomeFile + timeStamp + estensione;
 }
 
-function invioSMS(dataArray,nomeFile) {
-    var dataArrayNumero = [];
-    var dataArrayMessaggi = [];
-    for(var i=0;i<dataArray.length;i++){
-        var numValidator = controlloNumeroTelefono(dataArray[i].destination);
-        if(numValidator.validate===true){
-            dataArrayNumero.push("+39"+ numValidator.numero);
-            dataArrayMessaggi.push(dataArray[i].message);
-        }
+function checkStruttura(dataArray,nomeFile){
+
+    for(var i=0; i<dataArray.length; i++){
+
+        var arrayDetails = {
+            "numero" : "",
+            "codutente" : "",
+            "testo" : "",
+            "tipo" : "",
+            "mittente" : "",
+            "quantita" : "",
+            "numMittente" : "",
+            "id_order" : ""
+        };
+
+        var stringa = dataArray[i].idTransaction;
+        var message = dataArray[i].message;
+        var destination = dataArray[i].destination;
+        var arraySplit = stringa.split('-');
+        var struttura = lodash.filter(strutture, { 'codutente': arraySplit[0] } );
+
+            if(struttura.length>0){
+                arrayDetails.codutente = arraySplit[0];
+                arrayDetails.numero = destination;
+                arrayDetails.testo = message;
+                var tipo = lodash.filter(tipi, { 'codice': arraySplit[1] } );
+                arrayDetails.tipo = tipo[0].id_tipo;
+                var mittente = lodash.filter(mittenti, { 'codice': arraySplit[2] } );
+                arrayDetails.mittente = mittente[0].id_mittente;
+                arrayDetails.numMittente = struttura[0].numMittente;
+                invioSMS(arrayDetails,nomeFile)
+            }
+            else if (struttura.length===0){
+                rinominaSpostaDiscarded(nomeFile, 'CheckStruttura');
+            }
+
     }
-    console.log(dataArray);
-    for(var j=0;j<dataArrayNumero.length;j++) {
-        var arraySQL = dataArray[j];
+}
+
+function invioSMS(arrayDetails,nomeFile) {
+
+    var dataArrayNumero = [];
+
+    var numValidator = controlloNumeroTelefono(arrayDetails.numero);
+
+    if(numValidator.validate===true) {
+        dataArrayNumero.push("+39" + numValidator.numero);
+    }
+
+    console.log(arrayDetails);
+
+    if(dataArrayNumero.length>0 && arrayDetails.numMittente !== null){
+        console.log('Alta qualità');
         request({
             url: 'https://app.mobyt.it/API/v1.0/REST/sms',
             method: 'POST',
@@ -185,17 +279,18 @@ function invioSMS(dataArray,nomeFile) {
 
             json: true,
             body: {
-                "recipient": [dataArrayNumero[j]],
-                "message": dataArrayMessaggi[j],
+                "recipient": [dataArrayNumero[0]],
+                "message": arrayDetails.testo,
                 "message_type": "N",
-                "sender" : "+393711823424"
+                "sender" : arrayDetails.numMittente
             },
             callback: function (error, responseMeta, response) {
                 if (!error && responseMeta.statusCode === 201) {
 
-                    dataArray = [];
-                    appendRIM(arraySQL);
+                    arrayDetails.quantita = response.total_sent;
+                    arrayDetails.id_order = response.order_id;
 
+                    appendRimPortal(arrayDetails,nomeFile);
                 }
                 else {
                     console.log("Errore invio sms");
@@ -203,23 +298,14 @@ function invioSMS(dataArray,nomeFile) {
             }
         });
     }
-    // Creo una variabile con il nuovo nome del file
-    var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
 
-    // Rinomino il file
-    fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
-        if (err){
-            console.log('File non trovato.');
-        }else{
-            // Sposto il file nella posizione indicata dal nuovo path contenente i file giÃ  manipolati
-            fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
-                if (err) throw err;
-                console.log('Spostamento eseguito con successo.');
+    else if (dataArrayNumero.length>0 && arrayDetails.numMittente === null){
+        console.log('Bassa qualità');
+    }
 
-            });
-            console.log('File rinominato con successo.');
-        }
-    });
+    else if (dataArrayNumero.length===0){
+        rinominaSpostaDiscarded(nomeFile, 'invioSMS');
+    }
 }
 
 function controlloNumeroTelefono(stringa) {
@@ -265,33 +351,48 @@ function controlloNumeroTelefono(stringa) {
     return response;
 }
 
-function appendRIM(arraySQL){
-    var query = 'INSERT INTO rim.service (id_service_state, message_service_state, id_user, username, id_comune, id_access_list, insert_date, modify_date, description, priority, message,' +
-        ' subject, start_date, end_date, feedback, is_pin, path_csv, is_message_path, welcome_message, is_welcome_message_path, end_message, is_end_message_path,' +
-        ' error_message, is_error_message_path, info_type, user_type, geo_area, is_cc, is_rapid_message, is_stopped, notify_result, notify_result_code,' +
-        ' notify_result_description, notify_insert_date, notify_modify_date)\n' +
-        'VALUES (4, "The Address property on ChannelFactory.Endpoint was null.  The ChannelFactory\'s Endpoint must have a valid Address specified.", null, null, 4,' +
-        ' 1, current_timestamp(), null, "'+arraySQL.idTransaction+'", '+arraySQL.priority+', "'+arraySQL.message+'", null, current_timestamp(), DATE_ADD(SYSDATE(), INTERVAL 7 DAY), ' +
-        ' null, "N", null, null, null, null, null, null, null, null, null, null, null, "N", "N", "N", null, null, null, null, null)';
-
+function appendRimPortal(arrayDetails,nomeFile){
+    var query = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo, mittente, quantita) ' +
+                'VALUES("+39'+arrayDetails.numero+'", "'+arrayDetails.codutente+'", current_timestamp(), "'+arrayDetails.testo+'", '+arrayDetails.tipo+',  '+arrayDetails.mittente+', '+arrayDetails.quantita+')';
     mySqlConnection.query(query, function (err, result) {
         if (err){
             console.log(err);
         }
         if(result.insertId){
-            var query2 = 'INSERT INTO rim.service_item (id_service, id_service_item_type, id_service_item_state, message_service_item_state, insert_date, modify_date, destination, service_user, ' +
-                'destination_username, destination_pin, destination_priority, destination_time_from, destination_time_to, retry_number, retry_date, force_send, send_date, result, result_code, result_description, ' +
-                'result_feedback, result_pin, subject_pec)\n' +
-                'VALUES ('+result.insertId+', 2, 3, "SMS Inviato", current_timestamp(), null, "'+arraySQL.destination+'", null, null, null, 0, null, null, 0, null, "N", current_timestamp(), "ok", null, "SMS Inviato", ' +
-                'null, null, null)';
-            mySqlConnection.query(query2, function (err, result) {
-                if (err){
-                    console.log(err);
-                }
-                if(result){
-                    console.log('RIM Completato');
 
+            var nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+
+            fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
+                if (err){
+                    console.log('File non trovato.');
+                }else{
+
+                    fs.rename(percorsoFile + '/' + nuovoNomeFile, percorsoFileDestinazione+ '/' + nuovoNomeFile, function (err) {
+                        if (err) throw err;
+                        console.log('Spostamento eseguito con successo.');
+
+                    });
+                    console.log('File rinominato con successo.');
                 }
+            });
+
+            var query1 = 'INSERT INTO "tb_hqSent" (numero, cod_utente, id_order) ' +
+                         "VALUES (" +
+                         "'+39" + arrayDetails.numero      +"', " +
+                         "'" + arrayDetails.codutente     +"', " +
+                         "'" + arrayDetails.id_order   +"')";
+
+            var client = connectionPostgres();
+
+            const query2 = client.query(query1);
+
+            query2.on("row", function (row, result) {
+                result.addRow(row);
+            });
+
+            query2.on("end", function (result) {
+                var myOjb = JSON.stringify(result.rows, null, "    ");
+                client.end();
             });
         }
     });

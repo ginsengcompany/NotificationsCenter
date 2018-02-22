@@ -10,9 +10,9 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err){
     if(!err) {
-        console.log("Database Connesso alla RIM... \n\n");
+        console.log("Database Connesso al RIM PORTAL ...");
     } else {
-        console.log("Errore connessione database alla RIM ... \n\n");
+        console.log("Errore connessione database al RIM PORTAL ...");
         connection.end();
     }
 });

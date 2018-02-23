@@ -49,6 +49,7 @@ let  getEventiMaster = require('./app/routes/mobileApplication/getEventiMaster')
 let  getListaPartecipantiMaster = require('./app/routes/mobileApplication/getListaPartecipantiMaster');
 let  getListaDeclinatiMaster = require('./app/routes/mobileApplication/getListaDeclinatiMaster');
 let  gestioneConfermeSMS = require('./app/routes/webApplication/gestioneConfermeSMS');
+let  deleteFileSuccess = require('./app/routes/webApplication/deleteFileSuccess');
 
 
 
@@ -92,7 +93,7 @@ function checkAuth (req, res, next) {
 
 app.use(checkAuth);
 
-cron.schedule('*!/1 * * * *', function(){
+/*cron.schedule('*!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -131,7 +132,7 @@ cron.schedule('*!/1 * * * *', function(){
             }
         }
     })
-});
+});*/
 
 cron.schedule('15 *!/1 * * * *', function(){
 
@@ -157,9 +158,8 @@ cron.schedule('15 *!/1 * * * *', function(){
     }
 });
 
-/*cron.schedule('0 * * * *', function(){
+/*cron.schedule('45 *!/30 * * * *', function(){
 
-    setTimeout(function(){
 
         if(mySqlConnection.state === 'authenticated') {
 
@@ -182,9 +182,29 @@ cron.schedule('15 *!/1 * * * *', function(){
             console.log('Connessione Persa');
         }
 
-        }, 30000);
-
 });*/
+
+cron.schedule('0 0 0 * * *', function(){
+
+    const options = {
+        url: 'http://localhost:3000/deleteFileSuccess',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+    };
+
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+
+        }
+    })
+
+
+});
+
+
 
 require('./routes/routes.js')(app);
 
@@ -226,6 +246,7 @@ app.use('/getEventiMaster',getEventiMaster);
 app.use('/getListaPartecipantiMaster',getListaPartecipantiMaster);
 app.use('/getListaDeclinatiMaster',getListaDeclinatiMaster);
 app.use('/gestioneConfermeSMS',gestioneConfermeSMS);
+app.use('/deleteFileSuccess',deleteFileSuccess);
 
 
 

@@ -1,20 +1,20 @@
-let express = require('express');
-let router = express.Router();
-let xml2js = require('xml2js');
-let path = require('path');
-let moment = require('moment');
-let request = require('request');
+let  express = require('express');
+let  router = express.Router();
+let  xml2js = require('xml2js');
+let  path = require('path');
+let  moment = require('moment');
+let  request = require('request');
 const fs = require('fs');
-let mySqlConnection = require('../../../config/RIMdatabase');
-let lodash = require('lodash');
-let postgresConnection = require('../../../config/postgres');
+let  mySqlConnection = require('../../../config/RIMdatabase');
+let  lodash = require('lodash');
+let  postgresConnection = require('../../../config/postgres');
 
-let connectionPostgres = function () {
+let  connectionPostgres = function () {
     return postgresConnection();
 };
 
-// Variabile contenente i campi dell'xml utilizzati per raccogliere i dati degli utenti da contattare via sms
-let dataRecord = {
+// let iabile contenente i campi dell'xml utilizzati per raccogliere i dati degli utenti da contattare via sms
+let  dataRecord = {
     'serviceType' : '',
     'message' : '',
     'subject' : '',
@@ -23,31 +23,31 @@ let dataRecord = {
     'priority' : ''
 };
 
-// Variabile che tiene conto dell'istante di tempo attuale
-let timeStamp = moment().format();
+// let iabile che tiene conto dell'istante di tempo attuale
+let  timeStamp = moment().format();
 
 // Percorso della directory contenente i file xml con i dati degli utenti
-let percorsoFile = path.join(__dirname, '../../../FTPsyncMessage');
+let  percorsoFile = path.join(__dirname, '../../../FTPsyncMessage');
 
-// Cartella di destinazione dove vengono temporaneamente memorizzati i file xml gia let ti ed utilizzati
-let percorsoFileDestinazione = path.join(__dirname, '../../../FTPsyncSuccess');
+// Cartella di destinazione dove vengono temporaneamente memorizzati i file xml gia letti ed utilizzati
+let  percorsoFileDestinazione = path.join(__dirname, '../../../FTPsyncSuccess');
 
 // Cartella di destinazione dove vengono temporaneamente memorizzati i file xml scartati
-let percorsoFileScartati = path.join(__dirname, '../../../FTPdiscardedMessage');
+let  percorsoFileScartati = path.join(__dirname, '../../../FTPdiscardedMessage');
 
-// Variabile di ritorno
-let risultatoConversionXML = true;
+// let iabile di ritorno
+let  risultatoConversionXML = true;
 
-let risultatoSMS;
+let  risultatoSMS;
 
-let tipi = [];
+let  tipi = [];
 
-let mittenti = [];
+let  mittenti = [];
 
-let strutture = [];
+let  strutture = [];
 
 // Estensione xml dei file
-let fileType = '.xml';
+let  fileType = '.xml';
 
 selectMittenti();
 selectStrutture();
@@ -55,18 +55,18 @@ selectTipi();
 
 router.get('/', function(req, res, next) {
     // Vettore di file xml
-    let files = [];
+    let  files = [];
 
-    // Opero una let tura della directory percorsoFile
+    // Opero una lettura della directory percorsoFile
     fs.readdir(percorsoFile, function(err,list){
         if(err) throw err;
         // Ciclo tutti i file contenuti nella directory
-        for(let i=0; i<list.length; i++)
+        for(let  i=0; i<list.length; i++)
         {
-            // Verifico se i file let ti hanno estensione xml
+            // Verifico se i file letti hanno estensione xml
             if(path.extname(list[i])===fileType)
             {
-                // Inserisco tutti i file che ho let to all'interno di una struttura dati
+                // Inserisco tutti i file che ho letto all'interno di una struttura dati
                 files.push(list[i]);
                 // Richiamo la funzione che controlla i file e prende in argomento il nome del file da controllare
                 checkFile(files[i]);
@@ -82,50 +82,50 @@ router.get('/', function(req, res, next) {
 
 function selectStrutture(){
 
-        let query = 'SELECT * FROM rim_portale.settings';
-        mySqlConnection.query(query, function (err, result) {
-            if (err){
-                console.log(err);
-            }
-            if(result.length>0){
+    let  query = 'SELECT * FROM rim_portale.settings';
+    mySqlConnection.query(query, function (err, result) {
+        if (err){
+            console.log(err);
+        }
+        if(result.length>0){
 
-                strutture = result;
+            strutture = result;
 
-            }
-        });
+        }
+    });
 }
 
 function selectMittenti(){
-        let query = 'SELECT * FROM rim_portale.mittenti';
-        mySqlConnection.query(query, function (err, result) {
-            if (err){
-                console.log(err);
-            }
-            if(result.length>0){
+    let  query = 'SELECT * FROM rim_portale.mittenti';
+    mySqlConnection.query(query, function (err, result) {
+        if (err){
+            console.log(err);
+        }
+        if(result.length>0){
 
-                mittenti = result;
+            mittenti = result;
 
-            }
-        });
+        }
+    });
 }
 
 function selectTipi(){
-        let query = 'SELECT * FROM rim_portale.tipi';
-        mySqlConnection.query(query, function (err, result) {
-            if (err){
-                console.log(err);
-            }
-            if(result.length>0){
+    let  query = 'SELECT * FROM rim_portale.tipi';
+    mySqlConnection.query(query, function (err, result) {
+        if (err){
+            console.log(err);
+        }
+        if(result.length>0){
 
-                tipi = result;
+            tipi = result;
 
-            }
-        });
+        }
+    });
 }
 
 function rinominaSpostaDiscarded(nomeFile, posizione){
 
-    let nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+    let  nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
 
     fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
         if (err){
@@ -142,8 +142,8 @@ function rinominaSpostaDiscarded(nomeFile, posizione){
 }
 
 function checkFile(files){
-    // Assegno il nome del file da controllare ad una variabile locale
-    let nomeFile = files;
+    // Assegno il nome del file da controllare ad una let iabile locale
+    let  nomeFile = files;
     // Verifico lo stato del percorso in cui Ã¨ memorizzato il file e che ho passato alla funzione stat
     fs.stat(percorsoFile + '/' + nomeFile, function(err, fileStat) {
         if (err) {
@@ -168,7 +168,7 @@ function checkFile(files){
 
 function convertiXML (nomeFile) {
 
-    let parser = new xml2js.Parser();
+    let  parser = new xml2js.Parser();
 
     fs.readFile(percorsoFile + '/' + nomeFile, function (err, data) {
 
@@ -181,14 +181,14 @@ function convertiXML (nomeFile) {
             else if(result['services']){
 
 
-                let xml = result['services']['service'];
+                let  xml = result['services']['service'];
 
-                let xmlSTRING = JSON.stringify(xml);
-                let xmlJSON = JSON.parse(xmlSTRING);
+                let  xmlSTRING = JSON.stringify(xml);
+                let  xmlJSON = JSON.parse(xmlSTRING);
 
-                let dataArray = [];
+                let  dataArray = [];
 
-                for (let i = 0; i < xml.length; i ++){
+                for (let  i = 0; i < xml.length; i ++){
 
                     dataRecord.serviceType = xmlJSON[i]['serviceType'][0];
                     dataRecord.message = xmlJSON[i]['message'][0];
@@ -221,9 +221,9 @@ function  rinominaFile(nomeFile, timeStamp, estensione) {
 
 function checkStruttura(dataArray,nomeFile){
 
-    for(let i=0; i<dataArray.length; i++){
+    for(let  i=0; i<dataArray.length; i++){
 
-        let arrayDetails = {
+        let  arrayDetails = {
             "numero" : "",
             "codutente" : "",
             "testo" : "",
@@ -234,35 +234,35 @@ function checkStruttura(dataArray,nomeFile){
             "id_order" : ""
         };
 
-        let stringa = dataArray[i].idTransaction;
-        let message = dataArray[i].message;
-        let destination = dataArray[i].destination;
-        let arraySplit = stringa.split('-');
-        let struttura = lodash.filter(strutture, { 'codutente': arraySplit[0] } );
+        let  stringa = dataArray[i].idTransaction;
+        let  message = dataArray[i].message;
+        let  destination = dataArray[i].destination;
+        let  arraySplit = stringa.split('-');
+        let  struttura = lodash.filter(strutture, { 'codutente': arraySplit[0] } );
 
-            if(struttura.length>0){
-                arrayDetails.codutente = arraySplit[0];
-                arrayDetails.numero = destination;
-                arrayDetails.testo = message;
-                let tipo = lodash.filter(tipi, { 'codice': arraySplit[1] } );
-                arrayDetails.tipo = tipo[0].id_tipo;
-                let mittente = lodash.filter(mittenti, { 'codice': arraySplit[2] } );
-                arrayDetails.mittente = mittente[0].id_mittente;
-                arrayDetails.numMittente = struttura[0].numMittente;
-                invioSMS(arrayDetails,nomeFile)
-            }
-            else if (struttura.length===0){
-                rinominaSpostaDiscarded(nomeFile, 'CheckStruttura');
-            }
+        if(struttura.length>0){
+            arrayDetails.codutente = arraySplit[0];
+            arrayDetails.numero = destination;
+            arrayDetails.testo = message;
+            let  tipo = lodash.filter(tipi, { 'codice': arraySplit[1] } );
+            arrayDetails.tipo = tipo[0].id_tipo;
+            let  mittente = lodash.filter(mittenti, { 'codice': arraySplit[2] } );
+            arrayDetails.mittente = mittente[0].id_mittente;
+            arrayDetails.numMittente = struttura[0].numMittente;
+            invioSMS(arrayDetails,nomeFile)
+        }
+        else if (struttura.length===0){
+            rinominaSpostaDiscarded(nomeFile, 'CheckStruttura');
+        }
 
     }
 }
 
 function invioSMS(arrayDetails,nomeFile) {
 
-    let dataArrayNumero = [];
+    let  dataArrayNumero = [];
 
-    let numValidator = controlloNumeroTelefono(arrayDetails.numero);
+    let  numValidator = controlloNumeroTelefono(arrayDetails.numero);
 
     if(numValidator.validate===true) {
         dataArrayNumero.push("+39" + numValidator.numero);
@@ -277,6 +277,7 @@ function invioSMS(arrayDetails,nomeFile) {
 
             json: true,
             body: {
+                "returnCredits" : true,
                 "recipient": [dataArrayNumero[0]],
                 "message": arrayDetails.testo,
                 "message_type": "N",
@@ -308,16 +309,16 @@ function invioSMS(arrayDetails,nomeFile) {
 
 function controlloNumeroTelefono(stringa) {
     const regex = /^(\((00|\+)39\)|(00|\+)39)?(3[0-9][0-9])\d{6,7}$/gm;
-    let m;
+    let  m;
     response = {"validate":'', "numero":''};
-    let res = '';
+    let  res = '';
 
     while ((m = regex.exec(stringa)) !== null) {
         // This is necessary to avoid infinite loops with zero-width matches
         if (m.index === regex.lastIndex) {
             regex.lastIndex++;
         }
-        // The result can be accessed through the `m`-variable.
+        // The result can be accessed through the `m`-let iable.
         m.forEach(function (match, groupIndex) {
             if(match===undefined && groupIndex===1){
                 response.validate = true;
@@ -351,15 +352,15 @@ function controlloNumeroTelefono(stringa) {
 
 function appendRimPortal(arrayDetails,nomeFile){
     console.log(arrayDetails);
-    let query = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo, mittente, quantita) ' +
-                'VALUES("+39'+arrayDetails.numero+'", "'+arrayDetails.codutente+'", current_timestamp(), "'+arrayDetails.testo+'", '+arrayDetails.tipo+',  '+arrayDetails.mittente+', '+arrayDetails.quantita+')';
+    let  query = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo, mittente, quantita, id_order) ' +
+        'VALUES("+39'+arrayDetails.numero+'", "'+arrayDetails.codutente+'", current_timestamp(), "'+arrayDetails.testo+'", '+arrayDetails.tipo+',  '+arrayDetails.mittente+', '+arrayDetails.quantita+', "'+arrayDetails.id_order+'")';
     mySqlConnection.query(query, function (err, result) {
         if (err){
             console.log(err);
         }
         if(result.insertId){
 
-            let nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
+            let  nuovoNomeFile = rinominaFile(nomeFile, timeStamp.substring(0,10), '.bak');
 
             fs.rename(percorsoFile + '/' + nomeFile, percorsoFile + '/' + nuovoNomeFile, function (err) {
                 if (err){
@@ -375,13 +376,13 @@ function appendRimPortal(arrayDetails,nomeFile){
                 }
             });
 
-            let query1 = 'INSERT INTO "tb_hqSent" (numero, cod_utente, id_order) ' +
-                         "VALUES (" +
-                         "'+39" + arrayDetails.numero      +"', " +
-                         "'" + arrayDetails.codutente     +"', " +
-                         "'" + arrayDetails.id_order   +"')";
+            let  query1 = 'INSERT INTO "tb_hqSent" (numero, cod_utente, id_order) ' +
+                "VALUES (" +
+                "'+39" + arrayDetails.numero      +"', " +
+                "'" + arrayDetails.codutente     +"', " +
+                "'" + arrayDetails.id_order   +"')";
 
-            let client = connectionPostgres();
+            let  client = connectionPostgres();
 
             const query2 = client.query(query1);
 
@@ -390,7 +391,7 @@ function appendRimPortal(arrayDetails,nomeFile){
             });
 
             query2.on("end", function (result) {
-                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let  myOjb = JSON.stringify(result.rows, null, "    ");
                 client.end();
             });
         }

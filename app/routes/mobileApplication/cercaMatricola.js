@@ -1,25 +1,25 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let multiUser = require('../../../config/configMultiUser');
 
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var matricola = req.body.matricola;
-    var token = req.body.token;
-    var organizzazione = req.body.organizzazione;
+    let matricola = req.body.matricola;
+    let token = req.body.token;
+    let organizzazione = req.body.organizzazione;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++){
+    for(let i=0;i<multiUser.data.length;i++){
 
             if(multiUser.data[i].cod_org===organizzazione){
 
-                var queryPostToken = "UPDATE "+multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE matricola='"+ matricola +"'";
+                let queryPostToken = "UPDATE "+multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE matricola='"+ matricola +"'";
 
                 const query1 = client.query(queryPostToken);
 
@@ -27,7 +27,7 @@ router.post('/',function (req, res, next) {
                     result.addRow(row);
                 });
 
-                var queryPostMatricola = "SELECT * FROM "+multiUser.data[i].tb_contatti+" WHERE matricola='"+ matricola +"'";
+                let queryPostMatricola = "SELECT * FROM "+multiUser.data[i].tb_contatti+" WHERE matricola='"+ matricola +"'";
 
                 const query = client.query(queryPostMatricola);
 
@@ -36,8 +36,8 @@ router.post('/',function (req, res, next) {
                 });
 
                 query.on("end", function (result) {
-                    var myOjb = JSON.stringify(result.rows, null, "    ");
-                    var final = JSON.parse(myOjb);
+                    let myOjb = JSON.stringify(result.rows, null, "    ");
+                    let final = JSON.parse(myOjb);
                     if(final.length>0){
                         client.end();
                         return res.send(true);

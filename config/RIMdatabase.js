@@ -1,7 +1,7 @@
-var mysql = require('mysql');
-var config = require('./configMySqlRIM');
+let mysql = require('mysql');
+let config = require('./configMySqlRIM');
 
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host     : config.dbMySql.host,
     user     : config.dbMySql.user,
     password : config.dbMySql.password,

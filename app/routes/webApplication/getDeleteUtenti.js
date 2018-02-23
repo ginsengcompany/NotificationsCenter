@@ -1,26 +1,26 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
 
-    var datiUpdateOrDelete = req.body;
+    let datiUpdateOrDelete = req.body;
 
-    var organizzazione = req.session.cod_org;
+    let organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryUpdateOrDelete3 = "DELETE FROM "+multiUser.data[i].tb_contatti+" WHERE _id= " + datiUpdateOrDelete[0]._id;
+            let queryUpdateOrDelete3 = "DELETE FROM "+multiUser.data[i].tb_contatti+" WHERE _id= " + datiUpdateOrDelete[0]._id;
 
             const query = client.query(queryUpdateOrDelete3);
 
@@ -34,8 +34,8 @@ router.post('/',function (req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
                 client.end();
                 return res.json({errore:false});
             });

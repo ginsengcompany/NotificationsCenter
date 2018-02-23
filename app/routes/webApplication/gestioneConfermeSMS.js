@@ -1,19 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var request = require('request');
-var mySqlConnection = require('../../../config/RIMdatabase');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let request = require('request');
+let mySqlConnection = require('../../../config/RIMdatabase');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.get('/',function (req, res, next) {
 
-    var querySent = 'SELECT * from "tb_hqSent"';
+    let querySent = 'SELECT * from "tb_hqSent"';
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
     const query = client.query(querySent);
     client.end();
@@ -24,13 +24,13 @@ router.get('/',function (req, res, next) {
     });
 
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
+        let myOjb = JSON.stringify(result.rows, null, "    ");
+        let final = JSON.parse(myOjb);
 
 
-        for(var i=0; i<final.length; i++){
+        for(let i=0; i<final.length; i++){
 
-            var arrayDetails = {
+            let arrayDetails = {
                 "numero" : "",
                 "codutente" : "",
                 "testo" : "",
@@ -104,9 +104,9 @@ router.get('/',function (req, res, next) {
 
 function deleteRecordPSQL(id){
 
-    var queryDelete = 'DELETE from "tb_hqSent" WHERE _id='+id;
+    let queryDelete = 'DELETE from "tb_hqSent" WHERE _id='+id;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
     const query = client.query(queryDelete);
     client.end();
@@ -116,7 +116,7 @@ function deleteRecordPSQL(id){
     });
 
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
+        let myOjb = JSON.stringify(result.rows, null, "    ");
         console.log('Delete PgSql');
 
     });
@@ -125,7 +125,7 @@ function deleteRecordPSQL(id){
 
 function insertRecordMYSQL(numero,codutente,delivery_date,testo,tipo,id){
 
-    var querySQL = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo) ' +
+    let querySQL = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo) ' +
         'VALUES("'+numero+'", "'+codutente+'", '+delivery_date+', "'+testo+'", '+tipo+')';
     mySqlConnection.query(querySQL, function (err, result) {
         if (err){

@@ -1,18 +1,18 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var request = require('request');
-var path = require('path');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let request = require('request');
+let path = require('path');
 
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
-var client = connectionPostgres();
+let client = connectionPostgres();
 
-var datiEmail = {
+let datiEmail = {
     "to":undefined,
     "subject":undefined,
     "html": undefined,
@@ -22,7 +22,7 @@ var datiEmail = {
 };
 
 function switchInvio(final,datiTab){
-        for(var i=0;i<final.length;i++){
+        for(let i=0;i<final.length;i++){
             posyQuery(final[i],datiTab);
         }
 }
@@ -36,23 +36,23 @@ function posyQuery(indice,datiTab) {
 
     query1.on("row", function (row, result) {
         result.addRow(row);
-        var myOjb = JSON.stringify(result.rows, null, "    ");
+        let myOjb = JSON.stringify(result.rows, null, "    ");
         datiEmail.arrayEventi = JSON.parse(myOjb)[0];
 
         const query2 = client.query(queryPostUtente);
 
         query2.on("row", function (row, result) {
             result.addRow(row);
-            var myOjb = JSON.stringify(result.rows, null, "    ");
+            let myOjb = JSON.stringify(result.rows, null, "    ");
             datiEmail.arrayUtenti = JSON.parse(myOjb)[0];
 
             if(indice.tipo==='Push Notifications'){
 
                 if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
-                    var restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
-                    var appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
-                    var message = 'Hai un nuovo Evento entra subito nell`app per scoprire!';
-                    var device  = datiEmail.arrayUtenti.token;
+                    let restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
+                    let appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
+                    let message = 'Hai un nuovo Evento entra subito nell`app per scoprire!';
+                    let device  = datiEmail.arrayUtenti.token;
 
                     const options = {
                         method:'POST',
@@ -152,13 +152,13 @@ function posyQuery(indice,datiTab) {
 
                 if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
 
-                    var linkPartecipa = 'http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idUtente='+datiEmail.arrayUtenti._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
+                    let linkPartecipa = 'http://omceoce.ak12srl.it/switchForEmail?confermato=true&eliminato=false&idUtente='+datiEmail.arrayUtenti._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
 
-                    var linkDeclina = 'http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idUtente='+datiEmail.arrayUtenti._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
+                    let linkDeclina = 'http://omceoce.ak12srl.it/switchForEmail?confermato=false&eliminato=true&idUtente='+datiEmail.arrayUtenti._id+'&idEvento='+datiEmail.arrayEventi._id+'&tb_notifica='+datiTab.tb_notifiche;
 
-                    var link = [];
+                    let link = [];
 
-                    var googl = require('goo.gl');
+                    let googl = require('goo.gl');
 
                     googl.setKey('AIzaSyDKnbwfdHhc9qaPTyMuPO53mES20-PwJB4');
 
@@ -233,9 +233,9 @@ function posyQuery(indice,datiTab) {
 
 router.post('/',function (req, res, next) {
 
-   var datiTab = req.body;
+   let datiTab = req.body;
 
-    var queryPostInvio = "SELECT A.mail, A.token, A.numero_telefono, B._id_utente, B._id_evento, C.titolo, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id \n" +
+    let queryPostInvio = "SELECT A.mail, A.token, A.numero_telefono, B._id_utente, B._id_evento, C.titolo, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id \n" +
         "FROM "+datiTab.tb_contatti+" A INNER JOIN "+datiTab.tb_notifiche+" B ON A._id=B._id_utente \n" +
         "INNER JOIN "+datiTab.tb_eventi+" C ON C._id=B._id_evento where B.stato=false LIMIT 100";
 
@@ -244,8 +244,8 @@ router.post('/',function (req, res, next) {
         result.addRow(row);
     });
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
+        let myOjb = JSON.stringify(result.rows, null, "    ");
+        let final = JSON.parse(myOjb);
         if(final.length===0){
             res.json({"Nessuno da Notificare":true});
         }

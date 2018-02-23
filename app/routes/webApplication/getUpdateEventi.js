@@ -1,37 +1,37 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
 
-    var datiUpdateOrDelete = req.body;
+    let datiUpdateOrDelete = req.body;
 
-    var organizzazione = req.session.cod_org;
+    let organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
             if(datiUpdateOrDelete.data.length===10 && datiUpdateOrDelete.dataFine.length===10){
 
-                var dd1 = datiUpdateOrDelete.data.substr(0,2);
-                var mm1 = datiUpdateOrDelete.data.substr(3,2);
-                var yy1 = datiUpdateOrDelete.data.substr(6,10);
-                var dd2 = datiUpdateOrDelete.dataFine.substr(0,2);
-                var mm2 = datiUpdateOrDelete.dataFine.substr(3,2);
-                var yy2 = datiUpdateOrDelete.dataFine.substr(6,10);
-                var data_inizio = yy1+'-'+mm1+'-'+dd1;
-                var data_fine = yy2+'-'+mm2+'-'+dd2;
+                let dd1 = datiUpdateOrDelete.data.substr(0,2);
+                let mm1 = datiUpdateOrDelete.data.substr(3,2);
+                let yy1 = datiUpdateOrDelete.data.substr(6,10);
+                let dd2 = datiUpdateOrDelete.dataFine.substr(0,2);
+                let mm2 = datiUpdateOrDelete.dataFine.substr(3,2);
+                let yy2 = datiUpdateOrDelete.dataFine.substr(6,10);
+                let data_inizio = yy1+'-'+mm1+'-'+dd1;
+                let data_fine = yy2+'-'+mm2+'-'+dd2;
 
-                var queryUpdateOrDelete1 =
+                let queryUpdateOrDelete1 =
                     "UPDATE "+multiUser.data[i].tb_eventi+" SET " +
                     "titolo='" + datiUpdateOrDelete.titolo + "', " +
                     "sottotitolo='" + datiUpdateOrDelete.sottotitolo + "', " +
@@ -55,8 +55,8 @@ router.post('/',function (req, res, next) {
                 });
 
                 query.on("end", function (result) {
-                    var myOjb = JSON.stringify(result.rows, null, "    ");
-                    var final = JSON.parse(myOjb);
+                    let myOjb = JSON.stringify(result.rows, null, "    ");
+                    let final = JSON.parse(myOjb);
                     client.end();
                     return res.json({errore:false});
                 });

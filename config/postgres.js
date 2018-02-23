@@ -1,12 +1,12 @@
 'use strict';
-var config = require('./configPostgres');
-var pg = require('pg');
-var Pool = require('pg-pool');
+let config = require('./configPostgres');
+let pg = require('pg');
+let Pool = require('pg-pool');
 
-var connectionString = config.protocol + '://' + config.username + ':' + config.password + '@' + config.ip + ':' + config.port + '/' + config.dbname;
+let connectionString = config.protocol + '://' + config.username + ':' + config.password + '@' + config.ip + ':' + config.port + '/' + config.dbname;
 
 function createConnectionPostgres(app){
-    var pgClient = new pg.Client(connectionString);
+    let pgClient = new pg.Client(connectionString);
     pgClient.connect();
     return pgClient;
 }

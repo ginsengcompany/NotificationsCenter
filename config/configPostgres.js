@@ -1,4 +1,4 @@
-var config = {};
+let config = {};
 config.protocol = 'postgres';
 config.username = 'postgres';
 config.password = 'postgres';

@@ -1,28 +1,28 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var datiEliminatoConfermato = req.body;
-    var eliminato = datiEliminatoConfermato.eliminato;
-    var confermato = datiEliminatoConfermato.confermato;
-    var idUtente = datiEliminatoConfermato._id_utente;
-    var idEvento = datiEliminatoConfermato._id_evento;
-    var organizzazione = datiEliminatoConfermato.organizzazione;
+    let datiEliminatoConfermato = req.body;
+    let eliminato = datiEliminatoConfermato.eliminato;
+    let confermato = datiEliminatoConfermato.confermato;
+    let idUtente = datiEliminatoConfermato._id_utente;
+    let idEvento = datiEliminatoConfermato._id_evento;
+    let organizzazione = datiEliminatoConfermato.organizzazione;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEliminatoConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
+            let queryPostEliminatoConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET eliminato='"+eliminato+"' , confermato='"+confermato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
 
             const query = client.query(queryPostEliminatoConfermato);
 
@@ -35,8 +35,8 @@ router.post('/',function (req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
                 client.end();
                 return res.json(true);
             });

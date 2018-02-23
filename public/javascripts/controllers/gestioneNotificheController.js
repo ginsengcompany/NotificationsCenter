@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
    tabNotifiche = $('#tabellaNotifiche').DataTable( {
-       initComplete: function () {
+       initComplete:  () =>{
         this.api().columns([4,5,7]).every( function () {
-            var column = this;
-            var select = $('<select><option value=""></option></select>')
+            let column = this;
+            let select = $('<select><option value=""></option></select>')
                 .appendTo( $(column.footer()).empty() )
                 .on( 'change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex(
+                    let val = $.fn.dataTable.util.escapeRegex(
                         $(this).val()
                     );
 
@@ -21,12 +21,12 @@ $(document).ready(function() {
             } );
         });
         this.api().columns([9,10]).every( function () {
-            var column = this;
-            var select = $('<select style="width: 80px"><option value=""></option></select>')
+            let column = this;
+            let select = $('<select style="width: 80px"><option value=""></option></select>')
                 .appendTo( $(column.footer()).empty() )
                 .on( 'change', function () {
 
-                    var val = $.fn.dataTable.util.escapeRegex(
+                    let val = $.fn.dataTable.util.escapeRegex(
                         $(this).val()
                     );
 
@@ -49,12 +49,12 @@ $(document).ready(function() {
 
            });
         this.api().columns([8]).every( function () {
-            var column = this;
-            var select = $('<select style="width: 150px"><option value=""></option></select>')
+            let column = this;
+            let select = $('<select style="width: 150px"><option value=""></option></select>')
                 .appendTo( $(column.footer()).empty() )
                 .on( 'change', function () {
 
-                    var val = $.fn.dataTable.util.escapeRegex(
+                    let val = $.fn.dataTable.util.escapeRegex(
                         $(this).val()
                     );
 
@@ -76,9 +76,9 @@ $(document).ready(function() {
             } );
         });
         this.api().columns([6]).every( function () {
-            var that = this;
+            let that = this;
             $( "#datepicker" ).datepicker();
-            var select = $('<input type="text" id="datepicker" placeholder="Ricerca" />')
+            let select = $('<input type="text" id="datepicker" placeholder="Ricerca" />')
                 .appendTo( $(that.footer()).empty() )
                 .on( 'keyup change', function () {
                 if ( that.search() !== this.value ) {
@@ -136,7 +136,7 @@ $(document).ready(function() {
            { "data": "data_invio" , "render": function (data) {
                if(data!=='1969-12-31T23:00:00.000Z'){
                    function pad(s) { return (s < 10) ? '0' + s : s; }
-                   var d = new Date(data);
+                   let d = new Date(data);
                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                }else {
                    return 'Non Disponibile';
@@ -149,12 +149,12 @@ $(document).ready(function() {
                    return '<span style="color:green; padding-right:3px; padding-top: 3px;">Inoltrato <img class="manImg" src="../../images/check.png"></img> </span>';
                }
                if (data === false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Inviato <img class="manImg" src="../../images/delete.png"></img> </span>';
+                   return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Inviato <img class="manImg" src="../../images/delet e.png"></img> </span>';
                }
 
            }},
            { "data": "confermato" , "render": function (data, type) {
-               var color = 'black';
+               let color = 'black';
                if(type === 'export') {
                    if (data === false) {
                        return type === 'export' ? data = 'No' : data;
@@ -171,7 +171,7 @@ $(document).ready(function() {
                }
            }},
            { "data": "eliminato" , "render": function (data, type) {
-               var color = 'black';
+               let color = 'black';
                if(type === 'export'){
                    if (data===false) {
                        return type === 'export' ? data = 'No' : data;
@@ -192,14 +192,14 @@ $(document).ready(function() {
 
 } );
 
-var datiSwitch= {
+let datiSwitch= {
     'confermato': true,
     'eliminato': false,
     '_id_utente': '',
     '_id_evento': ''
 };
 
-var datiSwitch1= {
+let datiSwitch1= {
     'confermato': false,
     'eliminato': true,
     '_id_utente': '',
@@ -209,7 +209,7 @@ var datiSwitch1= {
 function switchConfermatoEmail(dataSwitch) {
 
     $('#tabellaNotifiche tbody').on( 'click', 'button', function () {
-        var dati = tabNotifiche.row( $(this).parents('tr') ).data();
+        let dati = tabNotifiche.row( $(this).parents('tr') ).data();
         switchConfermatoEmail(dati);
     } );
 
@@ -242,7 +242,7 @@ function switchConfermatoEmail(dataSwitch) {
 function switchEliminatoEmail(dataSwitch) {
 
     $('#tabellaNotifiche tbody').on( 'click', 'button', function () {
-        var dati = tabNotifiche.row( $(this).parents('tr') ).data();
+        let dati = tabNotifiche.row( $(this).parents('tr') ).data();
         switchEliminatoEmail(dati);
     } );
 

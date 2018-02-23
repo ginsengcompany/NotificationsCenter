@@ -1,4 +1,4 @@
-var arrayUtenti = {};
+let arrayUtenti = {};
 
 
 function format ( d ) {
@@ -64,8 +64,8 @@ $(document).ready(function () {
     });
 
     $('#tabellaUtenti tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = tabUtenti.row(tr);
+        let tr = $(this).closest('tr');
+        let row = tabUtenti.row(tr);
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -82,7 +82,7 @@ $(document).ready(function () {
 
 function  openModal() {
 
-    var ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
     arrayUtenti = ids1;
@@ -169,13 +169,13 @@ function updateUtente(){
 
 function eliminaUtente(){
 
-    var ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
     arrayUtenti = ids1;
 
     $.ajax({
-        url: '/getDeleteUtenti',
+        url: '/getDelet eUtenti',
         type: 'POST',
         data: JSON.stringify(arrayUtenti),
         cache: false,

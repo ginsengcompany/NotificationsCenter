@@ -1,17 +1,17 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.get('/',function (req, res, next) {
 
-    var queryPostEvento = "SELECT cod_org, descrizione FROM tb_admin";
+    let queryPostEvento = "SELECT cod_org, descrizione FROM tb_admin";
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
     const query = client.query(queryPostEvento);
 
@@ -20,8 +20,8 @@ router.get('/',function (req, res, next) {
     });
 
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
+        let myOjb = JSON.stringify(result.rows, null, "    ");
+        let final = JSON.parse(myOjb);
 
         client.end();
         return res.json(final);

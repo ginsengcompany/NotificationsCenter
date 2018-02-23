@@ -1,34 +1,34 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var datiEvento = req.body;
-    var dataInizio = datiEvento.data.date;
-    var dataIni = moment(dataInizio).format();
-    var dataFine = datiEvento.dataFine.date;
-    var dataFin = moment(dataFine).format();
+    let datiEvento = req.body;
+    let dataInizio = datiEvento.data.date;
+    let dataIni = moment(dataInizio).format();
+    let dataFine = datiEvento.dataFine.date;
+    let dataFin = moment(dataFine).format();
 
     function replaceAll (search, replacement, string) {
-        var target = string;
+        let target = string;
         return target.replace(new RegExp(search, 'g'), replacement);
     };
 
-    var organizzazione = req.session.cod_org;
+    let organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEvento = "INSERT INTO "+multiUser.data[i].tb_eventi+" " +
+            let queryPostEvento = "INSERT INTO "+multiUser.data[i].tb_eventi+" " +
                 "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, immagine)" +
                 "VALUES (" +
                 "'" + replaceAll("'", "`",datiEvento.titolo)  +"', " +
@@ -48,8 +48,8 @@ router.post('/',function (req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
                 client.end();
                 return res.json(final);
             });

@@ -1,26 +1,26 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.get('/',function (req, res, next) {
 
-    var confermato = req.query.confermato;
-    var eliminato = req.query.eliminato;
-    var idUtente = req.query.idUtente;
-    var idEvento = req.query.idEvento;
-    var tb_notifica = req.query.tb_notifica;
+    let confermato = req.query.confermato;
+    let eliminato = req.query.eliminato;
+    let idUtente = req.query.idUtente;
+    let idEvento = req.query.idEvento;
+    let tb_notifica = req.query.tb_notifica;
 
-    var queryPostConfermato = '';
+    let queryPostConfermato = '';
 
     queryPostConfermato = "UPDATE "+tb_notifica+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
 
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
     const query = client.query(queryPostConfermato);
 
@@ -34,8 +34,8 @@ router.get('/',function (req, res, next) {
     });
 
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
+        let myOjb = JSON.stringify(result.rows, null, "    ");
+        let final = JSON.parse(myOjb);
         if(confermato==='true'){
 
             return res.redirect('/partecipato');

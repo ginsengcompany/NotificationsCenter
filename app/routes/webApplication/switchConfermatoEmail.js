@@ -1,29 +1,29 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var datiEliminatoConfermato = req.body;
-    var confermato = datiEliminatoConfermato.confermato;
-    var eliminato = datiEliminatoConfermato.eliminato;
-    var idUtente = datiEliminatoConfermato._id_utente;
-    var idEvento = datiEliminatoConfermato._id_evento;
+    let datiEliminatoConfermato = req.body;
+    let confermato = datiEliminatoConfermato.confermato;
+    let eliminato = datiEliminatoConfermato.eliminato;
+    let idUtente = datiEliminatoConfermato._id_utente;
+    let idEvento = datiEliminatoConfermato._id_evento;
 
-    var organizzazione = req.session.cod_org;
+    let organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostConfermato = '';
+            let queryPostConfermato = '';
 
             queryPostConfermato = "UPDATE "+multiUser.data[i].tb_notifiche+" SET confermato='"+confermato+"', eliminato='"+eliminato+"' WHERE _id_utente='"+ idUtente +"' AND _id_evento='"+idEvento+"'";
 
@@ -39,8 +39,8 @@ router.post('/',function (req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
                 client.end();
                 return res.json({errore:false});
             });

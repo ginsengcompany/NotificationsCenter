@@ -1,8 +1,8 @@
 'use strict';
-var config = {
+let config = {
     data: []
 };
-var multiUser = {
+let multiUser = {
     cod_org: 'omceoce',
     descrizione: 'Ordine Medici Caserta',
     tb_contatti: 'tb_contatti_omceoce',
@@ -11,7 +11,7 @@ var multiUser = {
 };
 config.data.push(multiUser);
 
-var multiUser1 = {
+let multiUser1 = {
     cod_org: 'admin',
     descrizione: 'Amministrazione',
     tb_contatti: 'tb_contatti_admin',

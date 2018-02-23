@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let multiUser = require('../../../config/configMultiUser');
 
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
@@ -27,15 +27,15 @@ router.post('/', function(req, res, next) {
 
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
 
-    var organizzazione = req.body.email.cod_org;
+    let organizzazione = req.body.email.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEvento = "SELECT * FROM "+multiUser.data[i].tb_eventi+" ";
+            let queryPostEvento = "SELECT * FROM "+multiUser.data[i].tb_eventi+" ";
 
             const query = client.query(queryPostEvento);
 
@@ -44,9 +44,9 @@ router.post('/', function(req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
-                var jsonFinale = {
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
+                let jsonFinale = {
                     "data": final
                 };
 

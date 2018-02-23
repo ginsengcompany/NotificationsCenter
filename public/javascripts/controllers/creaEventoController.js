@@ -7,7 +7,7 @@ function bs_input_file() {
     $(".input-file").before(
         function() {
             if ( ! $(this).prev().hasClass('input-ghost') ) {
-                var element = $("<input type='file' class='input-ghost' onchange='encodeImageFileAsURL(this)' style='visibility:hidden; height:0'>");
+                let element = $("<input type='file' class='input-ghost' onchange='encodeImageFileAsURL(this)' style='visibility:hidden; height:0'>");
                 element.attr("name",$(this).attr("name"));
                 element.change(function(){
                     element.next(element).find('input').val((element.val()).split('\\').pop());
@@ -34,7 +34,7 @@ $(function() {
     bs_input_file();
 });
 
-var datiEvento = {
+let datiEvento = {
     'titolo' : undefined ,
     'sottotitolo' : undefined ,
     'data' : undefined ,
@@ -47,8 +47,8 @@ var datiEvento = {
 };
 
 function encodeImageFileAsURL(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
+    let file = element.files[0];
+    let reader = new FileReader();
     reader.onloadend = function() {
         datiEvento['immagine']= reader.result;
     };

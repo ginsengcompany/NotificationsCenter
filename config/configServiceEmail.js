@@ -1,4 +1,4 @@
-var config = {};
+let config = {};
 config.serviceEmail = {};
 config.serviceEmail.service = 'Gmail';
 config.serviceEmail.user = 'omceoce.ak12srl@gmail.com';

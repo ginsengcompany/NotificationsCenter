@@ -1,4 +1,4 @@
-var datiLogin = {
+let datiLogin = {
     'email' : undefined ,
     'password' : undefined
 };

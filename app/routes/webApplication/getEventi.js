@@ -1,24 +1,24 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.get('/',function (req, res, next) {
 
-    var organizzazione = req.session.cod_org;
+    let organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEvento = "SELECT * FROM "+multiUser.data[i].tb_eventi+" ";
+            let queryPostEvento = "SELECT * FROM "+multiUser.data[i].tb_eventi+" ";
 
             const query = client.query(queryPostEvento);
 
@@ -27,9 +27,9 @@ router.get('/',function (req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
-                var jsonFinale = {
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
+                let jsonFinale = {
                     "data": final
                 };
 

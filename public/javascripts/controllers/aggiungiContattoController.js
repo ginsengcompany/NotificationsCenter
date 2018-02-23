@@ -1,4 +1,4 @@
-var datiContatto = {
+let datiContatto = {
     'nome' : undefined,
     'cognome' : undefined,
     'specializzazione' : undefined,

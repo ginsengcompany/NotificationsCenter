@@ -923,7 +923,7 @@
 .fa-laptop:before {
   content: "\f109";
 }
-.fa-tablet:before {
+.fa-tablet :before {
   content: "\f10a";
 }
 .fa-mobile-phone:before,
@@ -1604,7 +1604,7 @@
 .fa-paypal:before {
   content: "\f1ed";
 }
-.fa-google-wallet:before {
+.fa-google-wallet :before {
   content: "\f1ee";
 }
 .fa-cc-visa:before {

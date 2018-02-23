@@ -16,7 +16,7 @@ ESEMPIO DI RITORNO DOPO INVIO SMS:
 ORDER ID parametro GET, il ritorno della GET viene inserito in tabella al corrispondente campo
 
 
-var request = require('request');
+let request = require('request');
 
 request({
     url: 'https://app.mobyt.it/API/v1.0/REST/sms/{order_id}',

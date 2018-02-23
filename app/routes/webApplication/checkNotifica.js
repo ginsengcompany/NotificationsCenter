@@ -1,16 +1,16 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var datiCheck = req.body;
+    let datiCheck = req.body;
 
-    var queryPostCheck = "UPDATE "+datiCheck.tb_notifica+"" +
+    let queryPostCheck = "UPDATE "+datiCheck.tb_notifica+"" +
         " SET stato=true ," +
         " data_invio=" +
         "'" + moment().format()   +"'"+
@@ -19,7 +19,7 @@ router.post('/',function (req, res, next) {
         " AND _id_evento=" +
         "'" + datiCheck._id_evento   +"'";
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
     const query = client.query(queryPostCheck);
 
@@ -28,8 +28,8 @@ router.post('/',function (req, res, next) {
     });
 
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
+        let myOjb = JSON.stringify(result.rows, null, "    ");
+        let final = JSON.parse(myOjb);
         client.end();
         return res.json(datiCheck);
     });

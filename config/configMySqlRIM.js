@@ -1,4 +1,4 @@
-var config = {};
+let config = {};
 config.dbMySql = {};
 config.dbMySql.database = 'rim_portale';
 config.dbMySql.host = '10.10.13.205';

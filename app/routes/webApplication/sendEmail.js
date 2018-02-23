@@ -1,19 +1,19 @@
-var nodemailer = require('nodemailer');
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var config = require('../../../config/configServiceEmail');
-var moment = require('moment');
+let nodemailer = require('nodemailer');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let config = require('../../../config/configServiceEmail');
+let moment = require('moment');
 moment.locale('it');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var datiEmail = req.body;
+    let datiEmail = req.body;
 
-    var transporter = nodemailer.createTransport({
+    let transporter = nodemailer.createTransport({
         service: config.serviceEmail.service,
         auth: {
             user: config.serviceEmail.user,
@@ -21,7 +21,7 @@ router.post('/',function (req, res, next) {
         }
     });
 
-    var html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' +
+    let html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' +
         '<html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>'+
         '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'+
         '<title></title>'+
@@ -231,7 +231,7 @@ router.post('/',function (req, res, next) {
         '</body>'+
         '</html>';
 
-    var mailOptions = {
+    let mailOptions = {
         from: config.serviceEmail.from,
         to: datiEmail.to,
         subject: datiEmail.subject,

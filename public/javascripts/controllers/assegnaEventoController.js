@@ -1,5 +1,5 @@
-var arrayUtenti = {};
-var arrayEventi = {};
+let arrayUtenti = {};
+let arrayEventi = {};
 
 $(function() {
     moment.locale('it');
@@ -10,7 +10,7 @@ $(function() {
 
 function convertDate(inputFormat) {
     function pad(s) { return (s < 10) ? '0' + s : s; }
-    var d = new Date(inputFormat);
+    let d = new Date(inputFormat);
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
 }
 
@@ -40,8 +40,8 @@ function format ( d ) {
         '</table>';
 }
 
-var something = (function() {
-    var executed = false;
+let something = (function() {
+    let executed = false;
     return function() {
         if (!executed) {
             executed = true;
@@ -54,7 +54,7 @@ var something = (function() {
 
 function getUtentiNotNotifica (){
 
-    var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
@@ -105,12 +105,12 @@ $(document).ready(function() {
             { "data": "luogo", "visible": false },
             { "data": "data" , "render": function (data) {
                 function pad(s) { return (s < 10) ? '0' + s : s; }
-                var d = new Date(data);
+                let d = new Date(data);
                 return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }},
             { "data": "data_fine" , "render": function (data) {
                 function pad(s) { return (s < 10) ? '0' + s : s; }
-                var d = new Date(data);
+                let d = new Date(data);
                 return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }, "visible": false},
             { "data": "informazioni", "visible": false },
@@ -134,8 +134,8 @@ $(document).ready(function() {
     } );
 
     $('#tabellaEventi tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = tabEventi.row( tr );
+        let tr = $(this).closest('tr');
+        let row = tabEventi.row( tr );
 
         if ( row.child.isShown() ) {
             // This row is already open - close it
@@ -161,7 +161,7 @@ function deselezionaTutti(){
 
 function switchTable() {
 
-    var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
@@ -373,9 +373,9 @@ function switchTable() {
 
 };
 
-var successMessage = function(idUtente,idEvento,tipo){
+let successMessage = function(idUtente,idEvento,tipo){
 
-    var successMessageDati = {
+    let successMessageDati = {
         "idUtente" : idUtente,
         "idEvento" : idEvento,
         "stato": false,
@@ -453,21 +453,21 @@ var successMessage = function(idUtente,idEvento,tipo){
 
 function salvaDati(){
 
-    var ids = $.map(tabUtenti.rows('.selected').data(), function (item) {
+    let ids = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
     arrayUtenti = ids;
 
-    var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
 
-    for(var i=0; i<arrayUtenti.length; i++){
+    for(let i=0; i<arrayUtenti.length; i++){
 
-        var tipo = '';
-        var idUtente = arrayUtenti[i]._id;
-        var idEvento = arrayEventi[0]._id;
+        let tipo = '';
+        let idUtente = arrayUtenti[i]._id;
+        let idEvento = arrayEventi[0]._id;
 
         if(arrayUtenti[i].token){
 

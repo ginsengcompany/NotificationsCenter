@@ -1,8 +1,8 @@
-var arrayEventi = {};
+let  arrayEventi = {};
 
 function convertDate(inputFormat) {
     function pad(s) { return (s < 10) ? '0' + s : s; }
-    var d = new Date(inputFormat);
+    let  d = new Date(inputFormat);
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
 }
 
@@ -49,12 +49,12 @@ $(document).ready(function () {
             { "data": "luogo"},
             { "data": "data" , "render": function (data) {
                 function pad(s) { return (s < 10) ? '0' + s : s; }
-                var d = new Date(data);
+                let  d = new Date(data);
                 return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }},
             { "data": "data_fine" , "render": function (data) {
                 function pad(s) { return (s < 10) ? '0' + s : s; }
-                var d = new Date(data);
+                let  d = new Date(data);
                 return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }},
             { "data": "informazioni", "visible": false },
@@ -79,8 +79,8 @@ $(document).ready(function () {
     } );
 
     $('#tabellaEventi tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = tabEventi.row( tr );
+        let  tr = $(this).closest('tr');
+        let  row = tabEventi.row( tr );
 
         if ( row.child.isShown() ) {
             // This row is already open - close it
@@ -99,7 +99,7 @@ function bs_input_file() {
     $(".input-file").before(
         function() {
             if ( ! $(this).prev().hasClass('input-ghost') ) {
-                var element = $("<input type='file' class='input-ghost' onchange='encodeImageFileAsURL(this)' style='visibility:hidden; height:0'>");
+                let  element = $("<input type='file' class='input-ghost' onchange='encodeImageFileAsURL(this)' style='visibility:hidden; height:0'>");
                 element.attr("name",$(this).attr("name"));
                 element.change(function(){
                     element.next(element).find('input').val((element.val()).split('\\').pop());
@@ -128,7 +128,7 @@ $(function() {
     $('#dataEventoFine').datepicker({container: '#myModal1 modal-body'});
 });
 
-var datiEvento = {
+let  datiEvento = {
     '_id' : undefined,
     'titolo' : undefined ,
     'sottotitolo' : undefined ,
@@ -142,8 +142,8 @@ var datiEvento = {
 };
 
 function encodeImageFileAsURL(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
+    let  file = element.files[0];
+    let  reader = new FileReader();
     reader.onloadend = function() {
         datiEvento['immagine']= reader.result;
     };
@@ -152,7 +152,7 @@ function encodeImageFileAsURL(element) {
 
 function  openModal() {
 
-    var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let  ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
@@ -234,13 +234,13 @@ function updateEvento(){
 
 function eliminaEvento(){
 
-    var ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let  ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
 
     $.ajax({
-        url: '/getDeleteEventi',
+        url: '/getDelet eEventi',
         type: 'POST',
         data: JSON.stringify(arrayEventi),
         cache: false,

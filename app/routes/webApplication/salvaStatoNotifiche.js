@@ -1,27 +1,27 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var moment = require('moment');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let moment = require('moment');
+let multiUser = require('../../../config/configMultiUser');
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/',function (req, res, next) {
-    var datiStatoNotifica = req.body;
+    let datiStatoNotifica = req.body;
 
-    var organizzazione = req.session.cod_org;
+    let organizzazione = req.session.cod_org;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
-        var multi = multiUser.data[i];
+        let multi = multiUser.data[i];
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostStatoNotifica = "INSERT INTO "+multiUser.data[i].tb_notifiche+" " +
+            let queryPostStatoNotifica = "INSERT INTO "+multiUser.data[i].tb_notifiche+" " +
                 "(_id_utente, _id_evento, stato, confermato, eliminato, data_invio,tipo)" +
                 "VALUES (" +
                 "'" + datiStatoNotifica.idUtente        +"', " +
@@ -40,7 +40,7 @@ router.post('/',function (req, res, next) {
 
             query.on('error', function() {
 
-                var queryPostEliminatoConfermato1 = "SELECT * FROM "+multi.tb_notifiche+" WHERE eliminato=true AND confermato=false OR confermato=true AND _id_utente="+datiStatoNotifica.idUtente;
+                let queryPostEliminatoConfermato1 = "SELECT * FROM "+multi.tb_notifiche+" WHERE eliminato=true AND confermato=false OR confermato=true AND _id_utente="+datiStatoNotifica.idUtente;
 
                 const query = client.query(queryPostEliminatoConfermato1);
 
@@ -49,21 +49,21 @@ router.post('/',function (req, res, next) {
                 });
 
                 query.on("end", function (result) {
-                    var myOjb = JSON.stringify(result.rows, null, "    ");
-                    var final = JSON.parse(myOjb);
+                    let myOjb = JSON.stringify(result.rows, null, "    ");
+                    let final = JSON.parse(myOjb);
 
 
 
                     if(final.length>0){
-                        var queryPostEliminatoConfermato = "UPDATE "+multi.tb_notifiche+" SET eliminato=false, confermato=false WHERE _id="+ final[0]._id;
+                        let queryPostEliminatoConfermato = "UPDATE "+multi.tb_notifiche+" SET eliminato=false, confermato=false WHERE _id="+ final[0]._id;
                         const query = client.query(queryPostEliminatoConfermato);
                         query.on("row", function (row, result) {
                             result.addRow(row);
                         });
 
                         query.on("end", function (result) {
-                            var myOjb = JSON.stringify(result.rows, null, "    ");
-                            var final = JSON.parse(myOjb);
+                            let myOjb = JSON.stringify(result.rows, null, "    ");
+                            let final = JSON.parse(myOjb);
                             client.end();
                             return res.json(final);
                         });
@@ -79,8 +79,8 @@ router.post('/',function (req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
                 client.end();
                 return res.json({errore:false});
             });

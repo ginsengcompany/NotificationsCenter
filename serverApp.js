@@ -1,62 +1,59 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var moment = require('moment');
-var session = require('express-session');
-var cron = require('node-cron');
-var request = require('request');
-var mySqlConnection = require('./config/RIMdatabase');
+let  express = require('express');
+let  path = require('path');
+let  favicon = require('serve-favicon');
+let  logger = require('morgan');
+let  cookieParser = require('cookie-parser');
+let  bodyParser = require('body-parser');
+let  moment = require('moment');
+let  session = require('express-session');
+let  cron = require('node-cron');
+let  request = require('request');
+let  mySqlConnection = require('./config/RIMdatabase');
 
 
-var postgres = require("./config/postgres");
-
-var salvaEvento = require('./app/routes/webApplication/salvaEvento');
-var getEventi  = require('./app/routes/webApplication/getEventi');
-var cercaMatricola  = require('./app/routes/mobileApplication/cercaMatricola');
-var getUtenti = require('./app/routes/webApplication/getUtenti');
-var salvaContatto = require('./app/routes/webApplication/salvaContatto');
-var getEventiById = require('./app/routes/mobileApplication/getEventiById');
-var salvaStatoNotifiche = require('./app/routes/webApplication/salvaStatoNotifiche');
-var getNotifiche = require('./app/routes/webApplication/getNotifiche');
-var setEliminatoConfermato = require('./app/routes/mobileApplication/setEliminatoConfermato');
-var getUpdateEventi = require('./app/routes/webApplication/getUpdateEventi');
-var authRegister = require('./app/routes/webApplication/authRegister');
-var getUtentiEmailSms = require('./app/routes/webApplication/getUtentiEmailSms');
-var getUtentiToken = require('./app/routes/webApplication/getUtentiToken');
-var getUtentiSms = require('./app/routes/webApplication/getUtentiSms');
-var sendEmail = require('./app/routes/webApplication/sendEmail');
-var getDeleteEventi = require('./app/routes/webApplication/getDeleteEventi');
-var switchConfermatoEmail = require('./app/routes/webApplication/switchConfermatoEmail');
-var getUtentiTokenSms = require('./app/routes/webApplication/getUtentiTokenSms');
-var getUtentiEmail = require('./app/routes/webApplication/getUtentiEmail');
-var getUtentiTokenEmail = require('./app/routes/webApplication/getUtentiTokenEmail');
-var getUtentiEmailToken = require('./app/routes/webApplication/getUtentiEmailToken');
-var getUtentiSmsToken = require('./app/routes/webApplication/getUtentiSmsToken');
-var getUtentiSmsEmail = require('./app/routes/webApplication/getUtentiSmsEmail');
-var getDeleteUtenti = require('./app/routes/webApplication/getDeleteUtenti');
-var getUpdateUtenti = require('./app/routes/webApplication/getUpdateUtenti');
-var getUtentiNotNotifica = require('./app/routes/webApplication/getUtentiNotNotifica');
-var switchForEmail = require('./app/routes/webApplication/switchForEmail');
-var invioNotifica = require('./app/routes/webApplication/invioNotifica');
-var checkNotifica = require('./app/routes/webApplication/checkNotifica');
-var getCountNotifiche = require('./app/routes/webApplication/getCountNotifiche');
-var getListaOrganizzazione = require('./app/routes/mobileApplication/getListaOrganizzazione');
-var getNotificheMaster = require('./app/routes/mobileApplication/getNotificheMaster');
-var prelievoInvioXML = require('./app/routes/webApplication/prelievoInvioXML');
-var loginMaster = require('./app/routes/mobileApplication/loginMaster');
-var getEventiMaster = require('./app/routes/mobileApplication/getEventiMaster');
-var getListaPartecipantiMaster = require('./app/routes/mobileApplication/getListaPartecipantiMaster');
-var getListaDeclinatiMaster = require('./app/routes/mobileApplication/getListaDeclinatiMaster');
-var gestioneConfermeSMS = require('./app/routes/webApplication/gestioneConfermeSMS');
+let  salvaEvento = require('./app/routes/webApplication/salvaEvento');
+let  getEventi  = require('./app/routes/webApplication/getEventi');
+let  cercaMatricola  = require('./app/routes/mobileApplication/cercaMatricola');
+let  getUtenti = require('./app/routes/webApplication/getUtenti');
+let  salvaContatto = require('./app/routes/webApplication/salvaContatto');
+let  getEventiById = require('./app/routes/mobileApplication/getEventiById');
+let  salvaStatoNotifiche = require('./app/routes/webApplication/salvaStatoNotifiche');
+let  getNotifiche = require('./app/routes/webApplication/getNotifiche');
+let  setEliminatoConfermato = require('./app/routes/mobileApplication/setEliminatoConfermato');
+let  getUpdateEventi = require('./app/routes/webApplication/getUpdateEventi');
+let  authRegister = require('./app/routes/webApplication/authRegister');
+let  getUtentiEmailSms = require('./app/routes/webApplication/getUtentiEmailSms');
+let  getUtentiToken = require('./app/routes/webApplication/getUtentiToken');
+let  getUtentiSms = require('./app/routes/webApplication/getUtentiSms');
+let  sendEmail = require('./app/routes/webApplication/sendEmail');
+let  getDeleteEventi = require('./app/routes/webApplication/getDeleteEventi');
+let  switchConfermatoEmail = require('./app/routes/webApplication/switchConfermatoEmail');
+let  getUtentiTokenSms = require('./app/routes/webApplication/getUtentiTokenSms');
+let  getUtentiEmail = require('./app/routes/webApplication/getUtentiEmail');
+let  getUtentiTokenEmail = require('./app/routes/webApplication/getUtentiTokenEmail');
+let  getUtentiEmailToken = require('./app/routes/webApplication/getUtentiEmailToken');
+let  getUtentiSmsToken = require('./app/routes/webApplication/getUtentiSmsToken');
+let  getUtentiSmsEmail = require('./app/routes/webApplication/getUtentiSmsEmail');
+let  getDeleteUtenti = require('./app/routes/webApplication/getDeleteUtenti');
+let  getUpdateUtenti = require('./app/routes/webApplication/getUpdateUtenti');
+let  getUtentiNotNotifica = require('./app/routes/webApplication/getUtentiNotNotifica');
+let  switchForEmail = require('./app/routes/webApplication/switchForEmail');
+let  invioNotifica = require('./app/routes/webApplication/invioNotifica');
+let  checkNotifica = require('./app/routes/webApplication/checkNotifica');
+let  getCountNotifiche = require('./app/routes/webApplication/getCountNotifiche');
+let  getListaOrganizzazione = require('./app/routes/mobileApplication/getListaOrganizzazione');
+let  getNotificheMaster = require('./app/routes/mobileApplication/getNotificheMaster');
+let  prelievoInvioXML = require('./app/routes/webApplication/prelievoInvioXML');
+let  loginMaster = require('./app/routes/mobileApplication/loginMaster');
+let  getEventiMaster = require('./app/routes/mobileApplication/getEventiMaster');
+let  getListaPartecipantiMaster = require('./app/routes/mobileApplication/getListaPartecipantiMaster');
+let  getListaDeclinatiMaster = require('./app/routes/mobileApplication/getListaDeclinatiMaster');
+let  gestioneConfermeSMS = require('./app/routes/webApplication/gestioneConfermeSMS');
 
 
 
 
-var app = express();
-var con = postgres(app);
+let  app = express();
 
 moment.locale('it');
 
@@ -108,9 +105,9 @@ cron.schedule('*!/1 * * * *', function(){
 
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            var data = [];
+            let  data = [];
             data.push(body);
-            var contaTot = JSON.parse(data[0]);
+            let  contaTot = JSON.parse(data[0]);
             if(parseInt(contaTot.count)>0){
                 request({
                     url: 'http://localhost:3000/invioNotifica',
@@ -205,7 +202,7 @@ app.use('/authRegister',authRegister);
 app.use('/getUtentiSms',getUtentiSms);
 app.use('/getUtentiEmailSms',getUtentiEmailSms);
 app.use('/sendEmail',sendEmail);
-app.use('/getDeleteEventi',getDeleteEventi);
+app.use('/getDelet eEventi',getDeleteEventi);
 app.use('/switchConfermatoEmail',switchConfermatoEmail);
 app.use('/getUtentiToken',getUtentiToken);
 app.use('/getUtentiTokenSms',getUtentiTokenSms);
@@ -214,7 +211,7 @@ app.use('/getUtentiTokenEmail',getUtentiTokenEmail);
 app.use('/getUtentiEmailToken',getUtentiEmailToken);
 app.use('/getUtentiSmsToken',getUtentiSmsToken);
 app.use('/getUtentiSmsEmail',getUtentiSmsEmail);
-app.use('/getDeleteUtenti',getDeleteUtenti);
+app.use('/getDelet eUtenti',getDeleteUtenti);
 app.use('/getUpdateUtenti',getUpdateUtenti);
 app.use('/getUtentiNotNotifica',getUtentiNotNotifica);
 app.use('/switchForEmail',switchForEmail);
@@ -248,14 +245,14 @@ app.use(function (req, res, next) {
 
 
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let  err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function(err, req, res) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -265,7 +262,7 @@ if (app.get('env') === 'development') {
 }
 
 
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

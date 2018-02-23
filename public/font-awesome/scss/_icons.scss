@@ -268,7 +268,7 @@
 .#{$fa-css-prefix}-angle-down:before { content: $fa-var-angle-down; }
 .#{$fa-css-prefix}-desktop:before { content: $fa-var-desktop; }
 .#{$fa-css-prefix}-laptop:before { content: $fa-var-laptop; }
-.#{$fa-css-prefix}-tablet:before { content: $fa-var-tablet; }
+.#{$fa-css-prefix}-tablet :before { content: $fa-var-tablet ; }
 .#{$fa-css-prefix}-mobile-phone:before,
 .#{$fa-css-prefix}-mobile:before { content: $fa-var-mobile; }
 .#{$fa-css-prefix}-circle-o:before { content: $fa-var-circle-o; }
@@ -525,7 +525,7 @@
 .#{$fa-css-prefix}-wifi:before { content: $fa-var-wifi; }
 .#{$fa-css-prefix}-calculator:before { content: $fa-var-calculator; }
 .#{$fa-css-prefix}-paypal:before { content: $fa-var-paypal; }
-.#{$fa-css-prefix}-google-wallet:before { content: $fa-var-google-wallet; }
+.#{$fa-css-prefix}-google-wallet :before { content: $fa-var-google-wallet ; }
 .#{$fa-css-prefix}-cc-visa:before { content: $fa-var-cc-visa; }
 .#{$fa-css-prefix}-cc-mastercard:before { content: $fa-var-cc-mastercard; }
 .#{$fa-css-prefix}-cc-discover:before { content: $fa-var-cc-discover; }

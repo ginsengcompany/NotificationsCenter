@@ -1,4 +1,4 @@
-var util = require('util');
+let  util = require('util');
 
 module.exports = function (app) {
 

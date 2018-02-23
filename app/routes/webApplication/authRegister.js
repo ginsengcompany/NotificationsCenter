@@ -1,17 +1,17 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
 
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
 router.post('/', function(req, res, next) {
 
-    var datiRegistrazione = req.body;
-    var email = datiRegistrazione.email;
-    var password = datiRegistrazione.password;
+    let datiRegistrazione = req.body;
+    let email = datiRegistrazione.email;
+    let password = datiRegistrazione.password;
 
     if(email==='\' or \'\'=\''||password==='\' or \'\'=\''){
 
@@ -20,9 +20,9 @@ router.post('/', function(req, res, next) {
 
     }
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    var queryAutenticazione = "SELECT * FROM tb_admin WHERE email='"+email+"' AND password='"+password+"'";
+    let queryAutenticazione = "SELECT * FROM tb_admin WHERE email='"+email+"' AND password='"+password+"'";
     const query = client.query(queryAutenticazione);
 
     query.on("row", function (row, result) {
@@ -34,9 +34,9 @@ router.post('/', function(req, res, next) {
     });
 
     query.on("end", function (result) {
-        var myOjb = JSON.stringify(result.rows, null, "    ");
-        var final = JSON.parse(myOjb);
-        var jsonFinale = {
+        let myOjb = JSON.stringify(result.rows, null, "    ");
+        let final = JSON.parse(myOjb);
+        let jsonFinale = {
             "data": final
         };
 

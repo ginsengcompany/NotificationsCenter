@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var postgresConnection = require('../../../config/postgres');
-var multiUser = require('../../../config/configMultiUser');
+let express = require('express');
+let router = express.Router();
+let postgresConnection = require('../../../config/postgres');
+let multiUser = require('../../../config/configMultiUser');
 
 
-var connectionPostgres = function () {
+let connectionPostgres = function () {
     return postgresConnection();
 };
 
@@ -27,16 +27,16 @@ router.post('/', function(req, res, next) {
 
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
 
-    var organizzazione = req.body.organizzazione;
-    var idEvento = req.body.id_evento;
+    let organizzazione = req.body.organizzazione;
+    let idEvento = req.body.id_evento;
 
-    var client = connectionPostgres();
+    let client = connectionPostgres();
 
-    for(var i=0;i<multiUser.data.length;i++) {
+    for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            var queryPostEvento = "SELECT A.matricola, A.nome, A.cognome, A.specializzazione, B.data_invio, B.tipo FROM "+multiUser.data[i].tb_contatti+" A INNER JOIN "+multiUser.data[i].tb_notifiche+" B ON A._id=B._id_utente INNER JOIN tb_landing_evento C ON C._id=B._id_evento WHERE B._id_evento="+idEvento+" AND B.confermato=true";
+            let queryPostEvento = "SELECT A.matricola, A.nome, A.cognome, A.specializzazione, B.data_invio, B.tipo FROM "+multiUser.data[i].tb_contatti+" A INNER JOIN "+multiUser.data[i].tb_notifiche+" B ON A._id=B._id_utente INNER JOIN tb_landing_evento C ON C._id=B._id_evento WHERE B._id_evento="+idEvento+" AND B.confermato=true";
 
             const query = client.query(queryPostEvento);
 
@@ -45,9 +45,9 @@ router.post('/', function(req, res, next) {
             });
 
             query.on("end", function (result) {
-                var myOjb = JSON.stringify(result.rows, null, "    ");
-                var final = JSON.parse(myOjb);
-                var jsonFinale = {
+                let myOjb = JSON.stringify(result.rows, null, "    ");
+                let final = JSON.parse(myOjb);
+                let jsonFinale = {
                     "data": final
                 };
                 client.end();

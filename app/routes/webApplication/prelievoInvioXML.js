@@ -8,6 +8,7 @@ const fs = require('fs');
 let  mySqlConnection = require('../../../config/RIMdatabase');
 let  lodash = require('lodash');
 let  postgresConnection = require('../../../config/postgres');
+let multiTableRim = require('../../../config/configMultiTableRim');
 
 let  connectionPostgres = function () {
     return postgresConnection();
@@ -352,8 +353,12 @@ function controlloNumeroTelefono(stringa) {
 
 function appendRimPortal(arrayDetails,nomeFile){
     console.log(arrayDetails);
-    let  query = 'INSERT INTO rim_portale.stats_detail (numero, codutente, data, testo, tipo, mittente, quantita, id_order) ' +
+
+    let tbStruttura = lodash.filter(multiTableRim.data, { 'cod_str': arrayDetails.codutente } );
+
+    let  query = 'INSERT INTO rim_portale.'+tbStruttura[0].table+' (numero, codutente, data, testo, tipo, mittente, quantita, id_order) ' +
         'VALUES("+39'+arrayDetails.numero+'", "'+arrayDetails.codutente+'", current_timestamp(), "'+arrayDetails.testo+'", '+arrayDetails.tipo+',  '+arrayDetails.mittente+', '+arrayDetails.quantita+', "'+arrayDetails.id_order+'")';
+
     mySqlConnection.query(query, function (err, result) {
         if (err){
             console.log(err);

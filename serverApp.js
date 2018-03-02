@@ -158,7 +158,7 @@ cron.schedule('15 *!/1 * * * *', function(){
     }
 });
 
-/*cron.schedule('45 *!/30 * * * *', function(){
+cron.schedule('0 01-05 * * *', function(){
 
 
         if(mySqlConnection.state === 'authenticated') {
@@ -182,7 +182,7 @@ cron.schedule('15 *!/1 * * * *', function(){
             console.log('Connessione Persa');
         }
 
-});*/
+});
 
 cron.schedule('0 0 0 * * *', function(){
 

@@ -8,7 +8,7 @@ let connectionPostgres = function () {
 };
 
 router.post('/',function (req, res, next) {
-    let matricola = req.body.matricola;
+    let username = req.body.username;
     let token = req.body.token;
     let eliminato = req.body.eliminato;
     let organizzazione = req.body.organizzazione;
@@ -23,7 +23,7 @@ router.post('/',function (req, res, next) {
                 "SELECT * FROM "+multiUser.data[i].tb_contatti+" " +
                 "A INNER JOIN "+multiUser.data[i].tb_notifiche+" B ON A._id=B._id_utente INNER JOIN "+multiUser.data[i].tb_eventi+" C ON C._id = B._id_evento " +
                 "WHERE " +
-                "A.matricola = '"+ matricola +"' AND A.token = '"+ token +"' AND B.eliminato = '" + eliminato + "';";
+                "A.username = '"+ username +"' AND A.token = '"+ token +"' AND B.eliminato = '" + eliminato + "';";
 
             const query = client.query(queryPostEventyById);
 

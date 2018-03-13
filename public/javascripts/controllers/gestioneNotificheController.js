@@ -1,195 +1,13 @@
 $(document).ready(function() {
-
-   tabNotifiche = $('#tabellaNotifiche').DataTable( {
-       initComplete:  () =>{
-        this.api().columns([4,5,7]).every( function () {
-            let column = this;
-            let select = $('<select><option value=""></option></select>')
-                .appendTo( $(column.footer()).empty() )
-                .on( 'change', function () {
-                    let val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
-
-                    column
-                        .search( val ? '^'+val+'$' : '', true, false )
-                        .draw();
-                } );
-
-            column.data().unique().sort().each( function ( d, j ) {
-                select.append( '<option value="'+d+'">'+d+'</option>' )
-            } );
-        });
-        this.api().columns([9,10]).every( function () {
-            let column = this;
-            let select = $('<select style="width: 80px"><option value=""></option></select>')
-                .appendTo( $(column.footer()).empty() )
-                .on( 'change', function () {
-
-                    let val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
-
-                    column
-                        .search( val  )
-                        .draw();
-                } );
-
-            column.data().unique().sort().each( function ( d, j ) {
-                if(d===true){
-                    d='Si';
-                    select.append( '<option value="'+d+'">'+d+'</option>' );
-                }
-                if(d===false){
-                    d='No';
-                    select.append( '<option value="'+d+'">'+d+'</option>' );
-                }
-
-            } );
-
-           });
-        this.api().columns([8]).every( function () {
-            let column = this;
-            let select = $('<select style="width: 150px"><option value=""></option></select>')
-                .appendTo( $(column.footer()).empty() )
-                .on( 'change', function () {
-
-                    let val = $.fn.dataTable.util.escapeRegex(
-                        $(this).val()
-                    );
-
-                    column
-                        .search( val  )
-                        .draw();
-                } );
-
-            column.data().unique().sort().each( function ( d, j ) {
-                if(d===true){
-                    d='Inoltrato';
-                    select.append( '<option value="'+d+'">'+d+'</option>' );
-                }
-                if(d===false){
-                    d='Non Inviato';
-                    select.append( '<option value="'+d+'">'+d+'</option>' );
-                }
-
-            } );
-        });
-        this.api().columns([6]).every( function () {
-            let that = this;
-            $( "#datepicker" ).datepicker();
-            let select = $('<input type="text" id="datepicker" placeholder="Ricerca" />')
-                .appendTo( $(that.footer()).empty() )
-                .on( 'keyup change', function () {
-                if ( that.search() !== this.value ) {
-                    that
-                        .search( this.value )
-                        .draw();
-                }
-            } );
-           });
-    },
-       search: { "caseInsensitive": false },
-       ajax: "/getNotifiche",
-       buttons: [
-           {
-               extend: 'excel',
-               text: 'Excel',
-               exportOptions: {
-                   columns: ':visible',
-                   orthogonal: 'export'
-               }
-           },
-           {
-               extend: 'pdfHtml5',
-               text: 'PDF',
-               orientation: 'landscape',
-               exportOptions: {
-                   columns: ':visible',
-                   orthogonal: 'export'
-               }
-           },
-           {
-               extend: 'print',
-               text: 'Stampa',
-               exportOptions: {
-                   columns: ':visible',
-                   orthogonal: 'export'
-               }
-           }
-       ],
-       scrollCollapse: false,
-       paging: true,
-       autoWidth: false,
-       responsive: true,
-       ajaxSettings: {
-            method: "GET",
-            cache: false
-        },
-       columns: [
-           { "data": "_id", "visible": false },
-           { "data": "matricola" },
-           { "data": "cognome" },
-           { "data": "nome" },
-           { "data": "specializzazione" },
-           { "data": "titolo" },
-           { "data": "data_invio" , "render": function (data) {
-               if(data!=='1969-12-31T23:00:00.000Z'){
-                   function pad(s) { return (s < 10) ? '0' + s : s; }
-                   let d = new Date(data);
-                   return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-               }else {
-                   return 'Non Disponibile';
-               }
-
-           }},
-           { "data": "tipo" },
-           { "data": "stato" , "render": function (data) {
-               if (data === true) {
-                   return '<span style="color:green; padding-right:3px; padding-top: 3px;">Inoltrato <img class="manImg" src="../../images/check.png"></img> </span>';
-               }
-               if (data === false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;">Non Inviato <img class="manImg" src="../../images/delet e.png"></img> </span>';
-               }
-
-           }},
-           { "data": "confermato" , "render": function (data, type) {
-               let color = 'black';
-               if(type === 'export') {
-                   if (data === false) {
-                       return type === 'export' ? data = 'No' : data;
-                   }
-                   if (data === true) {
-                       return type === 'export' ? data = 'Si' : data;
-                   }
-               }
-               if (data===false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button id="btnConferma" onclick="switchConfermatoEmail();">No - Clicca per Confermare</button> </span>';
-               }
-               if (data===true) {
-                   return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
-               }
-           }},
-           { "data": "eliminato" , "render": function (data, type) {
-               let color = 'black';
-               if(type === 'export'){
-                   if (data===false) {
-                       return type === 'export' ? data = 'No' : data;
-                   }
-                   if (data===true) {
-                       return type === 'export' ? data = 'Si' : data;
-                   }
-               }
-               if (data===false) {
-                   return '<span style="color:red; padding-right:3px; padding-top: 3px;"><button id="btnElimina" onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button> </span>';
-               }
-               if (data===true) {
-                   return '<span style="color:green; padding-right:3px; padding-top: 3px;">Si <img class="manImg" src="../../images/check.png"></img></span>';
-               }
-           }}
-       ]
-    } );
-
+    setTimeout(function(){
+        $('body').addClass('loaded');
+        $('h1').css('color','#222222');
+    }, 900);
+    $('#hideInfo').hide();
+    $('#conteinerHideEvento').hide();
+    $('#tabellaNotifiche').dataTable().hide();
+    $('#tabellaNotifiche').dataTable().fnDestroy();
+    $('#tabellaNotifiche').dataTable().fnClearTable();
 } );
 
 let datiSwitch= {
@@ -282,4 +100,420 @@ function exportPdf(){
 
 function exportStampa(){
     tabNotifiche.buttons('.buttons-print').trigger();
+}
+
+function switchTable() {
+
+    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===false){
+        $('#hideInfo').hide();
+        $('#conteinerHideEvento').show();
+        $('#tabellaNotifiche').dataTable().show();
+        $('#tabellaNotifiche').dataTable().fnDestroy();;
+
+        tabNotifiche = $('#tabellaNotifiche').DataTable( {
+            initComplete:  function (){
+                this.api().columns([4,5,7]).every( function () {
+                    let column = this;
+                    let select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                });
+                this.api().columns([9,10]).every( function () {
+                    let column = this;
+                    let select = $('<select class="form-control" style="width: 80px"><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val  )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        if(d===true){
+                            d='Si';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+                        if(d===false){
+                            d='No';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+
+                    } );
+
+                });
+                this.api().columns([8]).every( function () {
+                    let column = this;
+                    let select = $('<select class="form-control" style="width: 150px"><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val  )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        if(d===true){
+                            d='Inoltrato';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+                        if(d===false){
+                            d='Non Inviato';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+
+                    } );
+                });
+                this.api().columns([6]).every( function () {
+                    let that = this;
+                    let select = $('<input class="form-control" type="text" id="dataSearch" placeholder="Ricerca" />')
+                        .appendTo( $(that.footer()).empty() )
+                        .on( 'keyup change', function () {
+                            if ( that.search() !== this.value ) {
+                                that
+                                    .search( this.value )
+                                    .draw();
+                            }
+                        } );
+                });
+            },
+            search: { "caseInsensitive": false },
+            ajax: "/getNotifiche",
+            buttons: [
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        orthogonal: 'export'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: ':visible',
+                        orthogonal: 'export'
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: 'Stampa',
+                    exportOptions: {
+                        columns: ':visible',
+                        orthogonal: 'export'
+                    }
+                }
+            ],
+            scrollCollapse: false,
+            paging: true,
+            autoWidth: false,
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "username" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "titolo" },
+                { "data": "data_invio" , "render": function (data) {
+                    if(data!=='1969-12-31T23:00:00.000Z'){
+                        function pad(s) { return (s < 10) ? '0' + s : s; }
+                        let d = new Date(data);
+                        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+                    }else {
+                        return 'Non Disponibile';
+                    }
+
+                }},
+                { "data": "tipo" },
+                { "data": "stato" , "render": function (data) {
+                    if (data === true) {
+                        return '<h3 class="label label-success label-medium">Inoltrato</h3>';
+                    }
+                    if (data === false) {
+                        return '<h3 class="label label-danger label-medium">Non Inviato</h3>';
+                    }
+
+                }},
+                { "data": "confermato" , "render": function (data, type) {
+                    let color = 'black';
+                    if(type === 'export') {
+                        if (data === false) {
+                            return type === 'export' ? data = 'No' : data;
+                        }
+                        if (data === true) {
+                            return type === 'export' ? data = 'Si' : data;
+                        }
+                    }
+                    if (data===false) {
+                        return '<button type="button" class="btn btn-danger btn-sm" id="btnConferma" onclick="switchConfermatoEmail();">No - Clicca per Confermare</button>';
+                    }
+                    if (data===true) {
+                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    }
+                }},
+                { "data": "eliminato" , "render": function (data, type) {
+                    let color = 'black';
+                    if(type === 'export'){
+                        if (data===false) {
+                            return type === 'export' ? data = 'No' : data;
+                        }
+                        if (data===true) {
+                            return type === 'export' ? data = 'Si' : data;
+                        }
+                    }
+                    if (data===false) {
+                        return '<button type="button" class="btn btn-danger btn-sm" id="btnElimina" onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button>';
+                    }
+                    if (data===true) {
+                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    }
+                }}
+            ]
+        } );
+
+    }
+
+    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===true){
+        $('#hideInfo').hide();
+        $('#conteinerHideEvento').show();
+        $('#tabellaNotifiche').dataTable().show();
+        $('#tabellaNotifiche').dataTable().fnDestroy();
+
+        tabNotifiche = $('#tabellaNotifiche').DataTable( {
+            initComplete:  function (){
+                this.api().columns([4,5,7]).every( function () {
+                    let column = this;
+                    let select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                });
+                this.api().columns([9,10]).every( function () {
+                    let column = this;
+                    let select = $('<select class="form-control" style="width: 80px"><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val  )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        if(d===true){
+                            d='Si';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+                        if(d===false){
+                            d='No';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+
+                    } );
+
+                });
+                this.api().columns([8]).every( function () {
+                    let column = this;
+                    let select = $('<select class="form-control" style="width: 150px"><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val  )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        if(d===true){
+                            d='Inoltrato';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+                        if(d===false){
+                            d='Non Inviato';
+                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        }
+
+                    } );
+                });
+                this.api().columns([6]).every( function () {
+                    let that = this;
+                    let select = $('<input class="form-control" type="text" id="dataSearch" placeholder="Ricerca" />')
+                        .appendTo( $(that.footer()).empty() )
+                        .on( 'keyup change', function () {
+                            if ( that.search() !== this.value ) {
+                                that
+                                    .search( this.value )
+                                    .draw();
+                            }
+                        } );
+                });
+            },
+            search: { "caseInsensitive": false },
+            ajax: "/getNotificheNota",
+            buttons: [
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        orthogonal: 'export'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: ':visible',
+                        orthogonal: 'export'
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: 'Stampa',
+                    exportOptions: {
+                        columns: ':visible',
+                        orthogonal: 'export'
+                    }
+                }
+            ],
+            scrollCollapse: false,
+            paging: true,
+            autoWidth: false,
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "_id", "visible": false },
+                { "data": "username" },
+                { "data": "cognome" },
+                { "data": "nome" },
+                { "data": "specializzazione" },
+                { "data": "titolo" },
+                { "data": "data_invio" , "render": function (data) {
+                    if(data!=='1969-12-31T23:00:00.000Z'){
+                        function pad(s) { return (s < 10) ? '0' + s : s; }
+                        let d = new Date(data);
+                        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+                    }else {
+                        return 'Non Disponibile';
+                    }
+
+                }},
+                { "data": "tipo" },
+                { "data": "stato" , "render": function (data) {
+                    if (data === true) {
+                        return '<h3 class="label label-success label-medium">Inoltrato</h3>';
+                    }
+                    if (data === false) {
+                        return '<h3 class="label label-danger label-medium">Non Inviato</h3>';
+                    }
+
+                }},
+                { "data": "confermato" , "render": function (data, type) {
+                    let color = 'black';
+                    if(type === 'export') {
+                        if (data === false) {
+                            return type === 'export' ? data = 'No' : data;
+                        }
+                        if (data === true) {
+                            return type === 'export' ? data = 'Si' : data;
+                        }
+                    }
+                    if (data===false) {
+                        return '<button type="button" class="btn btn-danger btn-sm" id="btnConferma" onclick="switchConfermatoEmail();">No - Clicca per Confermare</button>';
+                    }
+                    if (data===true) {
+                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    }
+                }},
+                { "data": "eliminato" , "render": function (data, type) {
+                    let color = 'black';
+                    if(type === 'export'){
+                        if (data===false) {
+                            return type === 'export' ? data = 'No' : data;
+                        }
+                        if (data===true) {
+                            return type === 'export' ? data = 'Si' : data;
+                        }
+                    }
+                    if (data===false) {
+                        return '<button type="button" class="btn btn-danger btn-sm" id="btnElimina" onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button>';
+                    }
+                    if (data===true) {
+                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    }
+                }}
+            ]
+        } );
+
+    }
+
+    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===false){
+        $('#hideInfo').hide();
+        $('#conteinerHideEvento').hide();
+        $('#tabellaNotifiche').dataTable().hide();
+        $('#tabellaNotifiche').dataTable().fnDestroy();
+        $('#tabellaNotifiche').dataTable().fnClearTable();
+    }
+
+    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===true){
+
+        $('#hideInfo').show();
+        $('#conteinerHideEvento').hide();
+        $('#tabellaNotifiche').dataTable().hide();
+        $('#tabellaNotifiche').dataTable().fnDestroy();
+        $('#tabellaNotifiche').dataTable().fnClearTable();
+
+    }
+
 }

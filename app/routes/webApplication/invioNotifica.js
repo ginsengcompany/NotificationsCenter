@@ -51,7 +51,7 @@ function posyQuery(indice,datiTab) {
                 if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
                     let restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
                     let appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
-                    let message = 'Hai un nuovo Evento entra subito nell`app per scoprire!';
+                    let message = 'Hai una nuova notizia entra subito nell`app per scoprire!';
                     let device  = datiEmail.arrayUtenti.token;
 
                     const options = {
@@ -105,7 +105,7 @@ function posyQuery(indice,datiTab) {
                 if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
                     datiEmail.to = indice.mail;
                     datiEmail.tb_notifica = datiTab.tb_notifiche;
-                    datiEmail.subject = "Notifications - Center , Hai un nuovo Evento leggi subito per scoprire!";
+                    datiEmail.subject = "Notifications - Center , Leggi subito per scoprire!";
 
                     const options = {
                         url: 'http://localhost:3000/sendEmail',

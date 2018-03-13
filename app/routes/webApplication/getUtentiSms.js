@@ -20,7 +20,13 @@ router.post('/',function (req, res, next) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            let queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (numero_telefono <> '' OR numero_telefono <> null)";
+            let queryPostEvento = '';
+
+            if(datiNotNotifica.interesse){
+                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (numero_telefono <> '' OR numero_telefono <> null) AND interessi LIKE '%"+datiNotNotifica.interesse+"%'";
+            }else{
+                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (numero_telefono <> '' OR numero_telefono <> null)";
+            }
 
             const query = client.query(queryPostEvento);
 

@@ -6,38 +6,13 @@ $(function() {
     $('#invioPush').prop('checked',true);
     $('#invioEmail').prop('checked',true);
     $('#invioSms').prop('checked',true);
+    $('#tabellaUtenti').dataTable().fnClearTable();
 });
 
 function convertDate(inputFormat) {
     function pad(s) { return (s < 10) ? '0' + s : s; }
     let d = new Date(inputFormat);
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-}
-
-function format ( d ) {
-    // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-        '<td>Data Fine:</td>'+
-        '<td>'+convertDate(d.data_fine)+'</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Luogo:</td>'+
-        '<td>'+d.luogo+'</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Informazioni:</td>'+
-        '<td>'+d.informazioni+'</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Relatori:</td>'+
-        '<td>'+d.relatori+'</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Descrizione:</td>'+
-        '<td>'+d.descrizione+'</td>'+
-        '</tr>'+
-        '</table>';
 }
 
 let something = (function() {
@@ -72,7 +47,7 @@ function getUtentiNotNotifica (){
         },
         columns: [
             { "data": "_id", "visible": false },
-            { "data": "matricola" },
+            { "data": "username" },
             { "data": "cognome" },
             { "data": "nome" },
             { "data": "specializzazione" },
@@ -86,48 +61,28 @@ function getUtentiNotNotifica (){
 
 $(document).ready(function() {
 
-     tabEventi = $('#tabellaEventi').DataTable( {
-        ajax: "/getEventi",
-        responsive: true,
-        ajaxSettings: {
-            method: "GET",
-            cache: false
-        },
-        columns: [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "titolo" },
-            { "data": "sottotitolo" },
-            { "data": "luogo", "visible": false },
-            { "data": "data" , "render": function (data) {
-                function pad(s) { return (s < 10) ? '0' + s : s; }
-                let d = new Date(data);
-                return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-            }},
-            { "data": "data_fine" , "render": function (data) {
-                function pad(s) { return (s < 10) ? '0' + s : s; }
-                let d = new Date(data);
-                return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-            }, "visible": false},
-            { "data": "informazioni", "visible": false },
-            { "data": "relatori", "visible": false },
-            { "data": "descrizione", "visible": false }
+    setTimeout(function(){
+        $('body').addClass('loaded');
+        $('h1').css('color','#222222');
+    }, 900);
 
-        ]
-    } );
+    $('#hideInfo').hide();
+    $('#conteinerHideEvento').hide();
+    $('#conteinerHideModalita').hide();
+    $('#tabellaEventi').dataTable().hide();
+    $('#tabellaEventi').dataTable().fnDestroy();
+    $('#tabellaEventi').dataTable().fnClearTable();
 
     $('#tabellaEventi tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
+            $('#conteinerHideModalita').hide();
             $('#tabellaUtenti').dataTable().fnClearTable();
         }
         else {
             tabEventi.rows().deselect();
             $(this).addClass('selected');
+            $('#conteinerHideModalita').show();
             $('#tabellaUtenti').dataTable().fnDestroy();
             getUtentiNotNotifica ();
         }
@@ -149,6 +104,48 @@ $(document).ready(function() {
         }
     } );
 
+    $.ajax({
+        url: '/getInteressi',
+        type: 'GET',
+        cache: false,
+        contentType: 'application/json',
+        success: function(data) {
+
+            let arrayTokenField =[];
+
+            for(let i =0;i<data.data.length;i++){
+
+
+                let input = data.data[i].interesse + " - " + data.data[i].descrizione;
+
+                arrayTokenField.push(input);
+
+            }
+
+            $('#interessi').tokenfield({
+                autocomplete: {
+                    source: arrayTokenField,
+                    delay: 100
+                },
+                showAutocompleteOnFocus: true
+            });
+
+            $('#interessi').on('tokenfield:createtoken', function (event) {
+                var existingTokens = $(this).tokenfield('getTokens');
+                $.each(existingTokens, function(index, token) {
+                    if (token.value === event.attrs.value)
+                        event.preventDefault();
+                });
+            });
+
+
+
+        },
+        faliure: function(data) {
+
+        }
+    });
+
 });
 
 function  selezionaTutti() {
@@ -167,7 +164,8 @@ function switchTable() {
     arrayEventi = ids1;
 
     datiNotNotifica = {
-        "idEvento" : arrayEventi[0]._id
+        "idEvento" : arrayEventi[0]._id,
+        "interesse" : $('#interessi').tokenfield('getTokensList')
     };
 
     //token
@@ -182,7 +180,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -201,7 +199,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -220,7 +218,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -241,7 +239,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -260,7 +258,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -279,7 +277,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -300,7 +298,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -319,7 +317,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -338,7 +336,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -359,7 +357,7 @@ function switchTable() {
             },
             columns: [
                 { "data": "_id", "visible": false },
-                { "data": "matricola" },
+                { "data": "username" },
                 { "data": "cognome" },
                 { "data": "nome" },
                 { "data": "specializzazione" },
@@ -373,7 +371,7 @@ function switchTable() {
 
 };
 
-let successMessage = function(idUtente,idEvento,tipo){
+let successMessage = function(idUtente,idEvento,tipo,tipoEvento){
 
     let successMessageDati = {
         "idUtente" : idUtente,
@@ -381,10 +379,9 @@ let successMessage = function(idUtente,idEvento,tipo){
         "stato": false,
         "confermato": false,
         "eliminato": false,
-        "tipo": tipo
+        "tipo": tipo,
+        "tipoEvento" : tipoEvento
     };
-
-    console.log(successMessageDati);
 
     $.ajax({
         url: '/salvaStatoNotifiche',
@@ -445,11 +442,111 @@ let successMessage = function(idUtente,idEvento,tipo){
         }
     });
 
-    $(document).ajaxStop(function() {
-        $("#myModal1").modal('hide');
-    });
-
 };
+
+$(document).ajaxStop(function() {
+    $("#myModal1").modal('hide');
+});
+
+function switchTable1() {
+
+    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===false){
+        $('#hideInfo').hide();
+        $('#conteinerHideModalita').hide();
+        $('#tabellaEventi').dataTable().show();
+        $('#tabellaEventi').dataTable().fnDestroy();
+        $('#conteinerHideEvento').show();
+        tabEventi = $('#tabellaEventi').DataTable( {
+            ajax: "/getEventi",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "titolo" },
+                { "data": "sottotitolo" },
+                { "data": "luogo"},
+                { "data": "data" , "render": function (data) {
+                    function pad(s) { return (s < 10) ? '0' + s : s; }
+                    let  d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+                }},
+                { "data": "data_fine" , "render": function (data) {
+                    function pad(s) { return (s < 10) ? '0' + s : s; }
+                    let  d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+                }},
+                { "data": "informazioni"},
+                { "data": "relatori"},
+                { "data": "descrizione"}
+
+            ]
+        } );
+
+
+    }
+
+    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===true){
+        $('#hideInfo').hide();
+        $('#conteinerHideModalita').hide();
+        $('#tabellaEventi').dataTable().show();
+        $('#tabellaEventi').dataTable().fnDestroy();
+        $('#conteinerHideEvento').show();
+
+        tabEventi = $('#tabellaEventi').DataTable( {
+            ajax: "/getNota",
+            responsive: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            columns: [
+                { "data": "titolo" },
+                { "data": "sottotitolo" },
+                { "data": "luogo", "visible": false },
+                { "data": "data" , "render": function (data) {
+                    function pad(s) { return (s < 10) ? '0' + s : s; }
+                    let  d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+                }, "visible": false },
+                { "data": "data_fine" , "render": function (data) {
+                    function pad(s) { return (s < 10) ? '0' + s : s; }
+                    let  d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+                }, "visible": false },
+                { "data": "informazioni", "visible": false },
+                { "data": "relatori", "visible": false },
+                { "data": "descrizione"}
+
+            ]
+        } );
+
+
+
+    }
+
+    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===false){
+        $('#conteinerHideEvento').hide();
+        $('#conteinerHideModalita').hide();
+        $('#hideInfo').hide();
+        $('#tabellaEventi').dataTable().hide();
+        $('#tabellaEventi').dataTable().fnDestroy();
+        $('#tabellaEventi').dataTable().fnClearTable();
+    }
+
+    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===true){
+
+        $('#conteinerHideEvento').hide();
+        $('#conteinerHideModalita').hide();
+        $('#hideInfo').show();
+        $('#tabellaEventi').dataTable().hide();
+        $('#tabellaEventi').dataTable().fnDestroy();
+        $('#tabellaEventi').dataTable().fnClearTable();
+
+    }
+
+}
 
 function salvaDati(){
 
@@ -468,23 +565,24 @@ function salvaDati(){
         let tipo = '';
         let idUtente = arrayUtenti[i]._id;
         let idEvento = arrayEventi[0]._id;
+        let tipoEvento =  arrayEventi[0].tipo;
 
         if(arrayUtenti[i].token){
 
             tipo = 'Push Notifications';
-            successMessage(idUtente,idEvento,tipo);
+            successMessage(idUtente,idEvento,tipo,tipoEvento);
 
         }
         else if(arrayUtenti[i].mail){
 
             tipo = 'E-mail';
-            successMessage(idUtente,idEvento,tipo);
+            successMessage(idUtente,idEvento,tipo,tipoEvento);
 
         }
         else if(arrayUtenti[i].numero_telefono){
 
             tipo = 'SMS';
-            successMessage(idUtente,idEvento,tipo);
+            successMessage(idUtente,idEvento,tipo,tipoEvento);
 
         }
 

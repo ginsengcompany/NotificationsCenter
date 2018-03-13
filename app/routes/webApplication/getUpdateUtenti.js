@@ -27,7 +27,9 @@ router.post('/',function (req, res, next) {
                 "specializzazione='" + datiUpdateOrDelete.specializzazione + "', " +
                 "provincia='" + datiUpdateOrDelete.provincia + "', " +
                 "mail='" + datiUpdateOrDelete.mail + "', " +
-                "matricola='" + datiUpdateOrDelete.matricola + "', " +
+                "username='" + datiUpdateOrDelete.username + "', " +
+                "password='" + datiUpdateOrDelete.password + "', " +
+                "interessi='" + datiUpdateOrDelete.interessi + "', " +
                 "numero_telefono='" + datiUpdateOrDelete.telefono + "', " +
                 "pec='" + datiUpdateOrDelete.pec + "' " +
                 "WHERE _id=" + datiUpdateOrDelete._id;

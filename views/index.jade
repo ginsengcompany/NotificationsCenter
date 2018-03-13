@@ -6,71 +6,91 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
-        link(type='text/css', rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/reset.css')
+        link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/main.css')
+        style(type='text/css').
+            .back-link a {
+                color: #4ca340;
+                text-decoration: none;
+                border-bottom: 1px #4ca340 solid;
+            }
+
+            .back-link a:hover,
+            .back-link a:focus {
+                color: #408536;
+                text-decoration: none;
+                border-bottom: 1px #408536 solid;
+            }
+
+            h1 {
+                height: 100%;
+                /* The html and body elements cannot have any padding or margin. */
+                margin: 0;
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 32px;
+                margin-bottom: 3px;
+            }
+
+            .entry-header {
+                text-align: left;
+                margin: 0 auto 50px auto;
+                width: 80%;
+                max-width: 978px;
+                position: relative;
+                z-index: 10001;
+            }
+
+            #demo-content {
+                padding-top: 100px;
+            }
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(src='javascripts/modernizr.js')
+        script(src='javascripts/jquery-2.1.1.js')
+        script(src='javascripts/main.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-    body(style='padding-top: 75px;')
-        nav.navbar.navbar-default.navbar-fixed-top
-            .container-fluid
-                .navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    img.navbar-brand(src='images/centerLogo.svg', alt='Company Logo', width='50', height='50')
-                    a.navbar-brand(href='/home') Notifications Center
-                #navbar.navbar-collapse.collapse
-                    ul.nav.navbar-nav
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Anagrafica
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/aggiungiContatto') Creazione
-                                li.divider(role='separator')
-                                li
-                                    a(href='/modificaContatto') Modifica
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Eventi
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/creaEvento') Creazione
-                                li.divider(role='separator')
-                                li
-                                    a(href='/modificaEvento') Modifica
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Gestione
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/assegnaEvento') Invio Notifiche
-                                li.divider(role='separator')
-                                li
-                                    a(href='/gestioneNotifiche') Gestione Report
-                    ul.nav.navbar-nav.navbar-right
-                        li.active
-                            a(href='/logout') Logout
+    body
+        header.cd-header
+            a.cd-3d-nav-trigger
+                | Menu
+                span
+        nav.cd-3d-nav-container
+            ul.cd-3d-nav
+                li.cd-selected
+                    a(href='/home') Notifications Center
+                li
+                    a(href='/gestioneInteressi') Interessi
+                li
+                    a(href='/gestioneContatto') Anagrafica
+                li
+                    a(href='/gestioneEventi') Eventi
+                li
+                    a(href='/assegnaEvento') Invio Notifiche
+                li
+                    a(href='/gestioneNotifiche') Gestione Report
+                li
+                    a(href='/logout') Logout
+         br
+        #loader-wrapper
+            #loader
+            .loader-section.section-left
+            .loader-section.section-right
         .container-fluid
             .jumbotron
                 .row
                     h1(style='text-align: center;') Benvenuto in Notifications Center
-            #sfondo(style='background-color: transparent;')
-                img.img-fluid(style='width: 25%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ico.png')
-                h2(align='center')
-                    b Powered By
-                img.img-fluid(style='width: 10%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ak12.png')
-    nav.navbar.navbar-default.navbar-fixed-bottom
-        .container-fluid
-            br
-            p.copyright.pull-right
-                | © 2018 Notifications Center -
-                a(href='http://www.ak12srl.it/')  AK-12 srl
-                img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
+                .row
+                    h2(style='text-align: center;') "#{name}"
+            .row(style='background-color: transparent;')
+                img.img-responsive(style='width: 20%; display: block; margin-left: auto; margin-right: auto;', data-holder-rendered='true', src='images/ico.png')
+        br
+        nav.navbar.navbar-default
+            .container-fluid
+                .row
+                    a(target='_blank', href='http://www.ak12srl.it/', style="float:right; padding-top:8px")
+                        img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
+                    h5(style="float:right; padding-top:18px") © Copyright 2018 - AK-12. All Rights Reserved.
     script(src='javascripts/controllers/indexController.js')

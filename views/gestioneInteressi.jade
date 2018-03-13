@@ -1,0 +1,182 @@
+doctype html
+html(lang='en')
+    head
+        title Notifications Center
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
+        link(rel='stylesheet', href='stylesheets/dataTables.bootstrap.min.css')
+        link(rel='stylesheet', href='https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css')
+        link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='stylesheets/reset.css')
+        link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/main.css')
+        style(type='text/css').
+            .back-link a {
+                color: #4ca340;
+                text-decoration: none;
+                border-bottom: 1px #4ca340 solid;
+            }
+
+            .back-link a:hover,
+            .back-link a:focus {
+                color: #408536;
+                text-decoration: none;
+                border-bottom: 1px #408536 solid;
+            }
+
+            h1 {
+                height: 100%;
+                /* The html and body elements cannot have any padding or margin. */
+                margin: 0;
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 32px;
+                margin-bottom: 3px;
+            }
+
+            .entry-header {
+                text-align: left;
+                margin: 0 auto 50px auto;
+                width: 80%;
+                max-width: 978px;
+                position: relative;
+                z-index: 10001;
+            }
+
+            #demo-content {
+                padding-top: 100px;
+            }
+        script(src='javascripts/modernizr.js')
+        script(src='javascripts/jquery-2.1.1.js')
+        script(src='javascripts/main.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+        script(src='javascripts/datatables.min.js')
+        script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js')
+        script(src='https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js')
+        script(src='https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap.min.js')
+        script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
+        script(src='javascripts/dataTables.buttons.min.js')
+        script(src='javascripts/dataTables.select.min.js')
+    body
+        header.cd-header
+            a.cd-3d-nav-trigger
+                | Menu
+                span
+        nav.cd-3d-nav-container
+            ul.cd-3d-nav
+                li
+                    a(href='/home') Notifications Center
+                li.cd-selected
+                    a(href='/gestioneInteressi') Interessi
+                li
+                    a(href='/gestioneContatto') Anagrafica
+                li
+                    a(href='/gestioneEventi') Eventi
+                li
+                    a(href='/assegnaEvento') Invio Notifiche
+                li
+                    a(href='/gestioneNotifiche') Gestione Report
+                li
+                    a(href='/logout') Logout
+        br
+        #loader-wrapper
+            #loader
+            .loader-section.section-left
+            .loader-section.section-right
+        block myContainer
+        .container-fluid
+            .jumbotron
+                .row
+                    h1(style='text-align: center;') Gestione Interessi
+
+            #myModal1.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-header
+                            button.close(type='button', data-dismiss='modal') ×
+                            h2.modal-title Modifica Interesse
+                        .modal-body
+
+                            .row
+                                .col-sm-12
+                                    .row
+                                        .col-sm-6.form-group
+                                            label.cols-sm-4.control-label(for='interesse') Interesse
+                                                .cols-sm-10
+                                                    .input-group
+                                                        span.input-group-addon
+                                                            i.fa.fa-hashtag(aria-hidden='true')
+                                                        input#interesse.form-control(type='text', name='interesse', placeholder='Interesse')
+                                        .col-sm-6.form-group
+                                            label.cols-sm-2.control-label(for='descrizione') Descrizione
+                                                .cols-sm-10
+                                                    .input-group
+                                                        span.input-group-addon
+                                                            i.fa.fa-server(aria-hidden='true')
+                                                        textarea#descrizione.form-control(type='text', name='descrizione', placeholder='Descrizione')
+                        // dialog buttons
+                        .modal-footer
+                            button.btn.btn-primary.btn-block(type='button', onclick='updateInteresse();') Salva
+
+
+            #myModal2.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // dialog body
+                        .modal-header
+                            button.close(type='button', data-dismiss='modal') ×
+                            h2.modal-title Aggiungi Interesse
+                        .modal-body
+
+                            .row
+                                .col-sm-12
+                                    .row
+                                        .col-sm-6.form-group
+                                            label.cols-sm-4.control-label(for='interesse2') Interesse
+                                                .cols-sm-10
+                                                    .input-group
+                                                        span.input-group-addon
+                                                            i.fa.fa-hashtag(aria-hidden='true')
+                                                        input#interesse2.form-control(type='text', name='interesse2', placeholder='Interesse')
+                                        .col-sm-6.form-group
+                                            label.cols-sm-2.control-label(for='descrizione2') Descrizione
+                                                .cols-sm-10
+                                                    .input-group
+                                                        span.input-group-addon
+                                                            i.fa.fa-server(aria-hidden='true')
+                                                        textarea#descrizione2.form-control(type='text', name='descrizione2', placeholder='Descrizione')
+                        // dialog buttons
+                        .modal-footer
+                            button.btn.btn-primary.btn-block(type='button', onclick='addInteresse();') Salva
+
+            .row
+                .col-sm-2
+                    button#AggiungiInteresse.btn.btn-primary.btn-lg(onclick='openModalAdd();') Aggiungi Interesse
+                .col-sm-2
+                    button#modificaInteresse.btn.btn-primary.btn-lg(onclick='openModalUpdate();') Modifica Interesse
+                .col-sm-2
+                    button#eliminaInteresse.btn.btn-primary.btn-lg(onclick='eliminaInteresse();') Elimina Interesse
+            br
+            .row
+                .col-sm-12.table-responsive
+                    table#tabellaInteressi.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                        thead
+                            tr
+                                th id
+                                th Interesse
+                                th Descrizione
+
+            br
+        nav.navbar.navbar-default
+            .container-fluid
+                .row
+                    a(target='_blank', href='http://www.ak12srl.it/', style="float:right; padding-top:8px")
+                        img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
+                    h5(style="float:right; padding-top:18px") © Copyright 2018 - AK-12. All Rights Reserved.
+            block myScript
+                script(src="javascripts/controllers/gestioneInteressiController.js")

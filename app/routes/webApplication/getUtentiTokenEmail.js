@@ -19,8 +19,16 @@ router.post('/',function (req, res, next) {
     for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
+            let queryPostEvento = '';
 
-            let queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (token <> '' OR token <> null OR mail <> '' OR mail <> null)";
+            if(datiNotNotifica.interesse){
+
+                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (token <> '' OR token <> null OR mail <> '' OR mail <> null) AND interessi LIKE '%"+datiNotNotifica.interesse+"%'";
+
+            }else{
+                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (token <> '' OR token <> null OR mail <> '' OR mail <> null)";
+            }
+
 
             const query = client.query(queryPostEvento);
 

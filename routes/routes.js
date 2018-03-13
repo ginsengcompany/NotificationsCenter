@@ -1,4 +1,6 @@
 let  util = require('util');
+let  lodash = require('lodash');
+let multiUser = require('../config/configMultiUser');
 
 module.exports = function (app) {
 
@@ -7,12 +9,10 @@ module.exports = function (app) {
     });
 
     app.get('/home', function (req, res, next) {
-        res.render('index');
+        let  mutiOrg = lodash.filter(multiUser.data, { 'cod_org': req.session.cod_org } );
+        res.render('index', { name: mutiOrg[0].descrizione });
     });
 
-    app.get('/creaEvento', function (req, res, next) {
-        res.render('creaEvento');
-    });
 
     app.get('/assegnaEvento', function (req, res, next) {
         res.render('assegnaEvento');
@@ -22,16 +22,12 @@ module.exports = function (app) {
         res.render('gestioneNotifiche');
     });
 
-    app.get('/modificaEvento', function (req, res, next) {
-        res.render('modificaEvento');
+    app.get('/gestioneEventi', function (req, res, next) {
+        res.render('gestioneEventi');
     });
 
-    app.get('/aggiungiContatto', function (req, res, next) {
-        res.render('aggiungiContatto');
-    });
-
-    app.get('/modificaContatto', function (req, res, next) {
-        res.render('modificaContatto');
+    app.get('/gestioneContatto', function (req, res, next) {
+        res.render('gestioneContatto');
     });
 
     app.get('/declinato', function (req, res, next) {
@@ -40,6 +36,10 @@ module.exports = function (app) {
 
     app.get('/partecipato', function (req, res, next) {
         res.render('partecipato');
+    });
+
+    app.get('/gestioneInteressi', function (req, res, next) {
+        res.render('gestioneInteressi');
     });
 
     /*app.get('/chatOperatoreSMS', function (req, res, next) {

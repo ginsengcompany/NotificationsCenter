@@ -18,7 +18,7 @@ router.get('/',function (req, res, next) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
 
-            let queryPostEvento = "SELECT * FROM "+multiUser.data[i].tb_eventi+" ";
+            let queryPostEvento = "SELECT * FROM "+multiUser.data[i].tb_eventi+" WHERE tipo = 1 ";
 
             const query = client.query(queryPostEvento);
 

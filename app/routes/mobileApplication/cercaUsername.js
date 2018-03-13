@@ -9,7 +9,8 @@ let connectionPostgres = function () {
 };
 
 router.post('/',function (req, res, next) {
-    let matricola = req.body.matricola;
+    let username = req.body.username;
+    let password =  req.body.password;
     let token = req.body.token;
     let organizzazione = req.body.organizzazione;
 
@@ -19,7 +20,7 @@ router.post('/',function (req, res, next) {
 
             if(multiUser.data[i].cod_org===organizzazione){
 
-                let queryPostToken = "UPDATE "+multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE matricola='"+ matricola +"'";
+                let queryPostToken = "UPDATE "+multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE username='"+ username +"' AND password='"+password+"'";
 
                 const query1 = client.query(queryPostToken);
 
@@ -27,7 +28,7 @@ router.post('/',function (req, res, next) {
                     result.addRow(row);
                 });
 
-                let queryPostMatricola = "SELECT * FROM "+multiUser.data[i].tb_contatti+" WHERE matricola='"+ matricola +"'";
+                let queryPostMatricola = "SELECT * FROM "+multiUser.data[i].tb_contatti+" WHERE username='"+ username +"' AND password='"+ password +"'";
 
                 const query = client.query(queryPostMatricola);
 

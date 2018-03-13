@@ -20,21 +20,27 @@ router.post('/',function (req, res, next) {
         if (multiUser.data[i].cod_org === organizzazione) {
 
             let queryPostContatto = "INSERT INTO "+multiUser.data[i].tb_contatti+" " +
-                "(nome, cognome, specializzazione, provincia, mail, matricola, numero_telefono, pec)" +
+                "(nome, cognome, specializzazione, provincia, mail, username, password, numero_telefono, interessi, pec)" +
                 "VALUES (" +
                 "'" + datiContatto.nome        +"', " +
                 "'" + datiContatto.cognome   +"', " +
                 "'" + datiContatto.specializzazione         +"', " +
                 "'" + datiContatto.provincia  +"', " +
                 "'" + datiContatto.mail      +"', " +
-                "'" + datiContatto.matricola      +"', " +
+                "'" + datiContatto.username      +"', " +
+                "'" + datiContatto.password      +"', " +
                 "'" + datiContatto.numero_telefono      +"', " +
+                "'" + datiContatto.interesse      +"', " +
                 "'" + datiContatto.pec   +"')";
 
             const query = client.query(queryPostContatto);
 
             query.on("row", function (row, result) {
                 result.addRow(row);
+            });
+
+            query.on('error', function() {
+                return res.json(false);
             });
 
             query.on("end", function (result) {

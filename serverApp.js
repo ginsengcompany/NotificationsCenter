@@ -13,7 +13,7 @@ let  mySqlConnection = require('./config/RIMdatabase');
 
 let  salvaEvento = require('./app/routes/webApplication/salvaEvento');
 let  getEventi  = require('./app/routes/webApplication/getEventi');
-let  cercaMatricola  = require('./app/routes/mobileApplication/cercaMatricola');
+let  cercaUsername  = require('./app/routes/mobileApplication/cercaUsername');
 let  getUtenti = require('./app/routes/webApplication/getUtenti');
 let  salvaContatto = require('./app/routes/webApplication/salvaContatto');
 let  getEventiById = require('./app/routes/mobileApplication/getEventiById');
@@ -50,7 +50,14 @@ let  getListaPartecipantiMaster = require('./app/routes/mobileApplication/getLis
 let  getListaDeclinatiMaster = require('./app/routes/mobileApplication/getListaDeclinatiMaster');
 let  gestioneConfermeSMS = require('./app/routes/webApplication/gestioneConfermeSMS');
 let  deleteFileSuccess = require('./app/routes/webApplication/deleteFileSuccess');
-
+let  getInteressi = require('./app/routes/webApplication/getInteressi');
+let  getAddInteressi = require('./app/routes/webApplication/getAddInteressi');
+let  getUpdateInteressi = require('./app/routes/webApplication/getUpdateInteressi');
+let  getDeleteInteressi = require('./app/routes/webApplication/getDeleteInteressi');
+let getNota = require('./app/routes/webApplication/getNota');
+let salvaNota = require('./app/routes/webApplication/salvaNota');
+let getUpdateNota = require('./app/routes/webApplication/getUpdateNota');
+let getNotificheNota = require('./app/routes/webApplication/getNotificheNota');
 
 
 
@@ -78,7 +85,7 @@ app.use(bodyParser.json());
 
 function checkAuth (req, res, next) {
 
-    if ((req.url === '/home'|| req.url === '/creaEvento' || req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/modificaEvento' || req.url === '/aggiungiContatto' || req.url === '/modificaContatto' || req.url === '/chatOperatoreSMS')
+    if ((req.url === '/home'|| req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/gestioneEventi' || req.url === '/gestioneContatto' || req.url === '/chatOperatoreSMS' || req.url === '/gestioneInteressi')
         && (!req.session || !req.session.authenticated)) {
         res.render('login', { status: 403 });
         return;
@@ -93,7 +100,7 @@ function checkAuth (req, res, next) {
 
 app.use(checkAuth);
 
-/*cron.schedule('*!/1 * * * *', function(){
+/*cron.schedule('40 *!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -134,7 +141,7 @@ app.use(checkAuth);
     })
 });*/
 
-cron.schedule('15 *!/1 * * * *', function(){
+/*cron.schedule('15 *!/1 * * * *', function(){
 
     if(mySqlConnection.state === 'authenticated') {
 
@@ -158,7 +165,7 @@ cron.schedule('15 *!/1 * * * *', function(){
     }
 });
 
-cron.schedule('0 01-05 * * *', function(){
+cron.schedule('* 01-05 * * *', function(){
 
 
         if(mySqlConnection.state === 'authenticated') {
@@ -202,15 +209,14 @@ cron.schedule('0 0 0 * * *', function(){
     })
 
 
-});
-
+});*/
 
 
 require('./routes/routes.js')(app);
 
 app.use('/salvaEvento', salvaEvento);
 app.use('/getEventi', getEventi);
-app.use('/cercaMatricola', cercaMatricola);
+app.use('/cercaUsername', cercaUsername);
 app.use('/getUtenti', getUtenti);
 app.use('/salvaContatto', salvaContatto);
 app.use('/getEventiById', getEventiById);
@@ -222,7 +228,7 @@ app.use('/authRegister',authRegister);
 app.use('/getUtentiSms',getUtentiSms);
 app.use('/getUtentiEmailSms',getUtentiEmailSms);
 app.use('/sendEmail',sendEmail);
-app.use('/getDelet eEventi',getDeleteEventi);
+app.use('/getDeleteEventi',getDeleteEventi);
 app.use('/switchConfermatoEmail',switchConfermatoEmail);
 app.use('/getUtentiToken',getUtentiToken);
 app.use('/getUtentiTokenSms',getUtentiTokenSms);
@@ -231,7 +237,7 @@ app.use('/getUtentiTokenEmail',getUtentiTokenEmail);
 app.use('/getUtentiEmailToken',getUtentiEmailToken);
 app.use('/getUtentiSmsToken',getUtentiSmsToken);
 app.use('/getUtentiSmsEmail',getUtentiSmsEmail);
-app.use('/getDelet eUtenti',getDeleteUtenti);
+app.use('/getDeleteUtenti',getDeleteUtenti);
 app.use('/getUpdateUtenti',getUpdateUtenti);
 app.use('/getUtentiNotNotifica',getUtentiNotNotifica);
 app.use('/switchForEmail',switchForEmail);
@@ -247,7 +253,14 @@ app.use('/getListaPartecipantiMaster',getListaPartecipantiMaster);
 app.use('/getListaDeclinatiMaster',getListaDeclinatiMaster);
 app.use('/gestioneConfermeSMS',gestioneConfermeSMS);
 app.use('/deleteFileSuccess',deleteFileSuccess);
-
+app.use('/getInteressi',getInteressi);
+app.use('/getAddInteressi',getAddInteressi);
+app.use('/getUpdateInteressi',getUpdateInteressi);
+app.use('/getDeleteInteressi',getDeleteInteressi);
+app.use('/getNota',getNota);
+app.use('/salvaNota',salvaNota);
+app.use('/getUpdateNota',getUpdateNota);
+app.use('/getNotificheNota',getNotificheNota);
 
 
 
@@ -264,13 +277,12 @@ app.use(function (req, res, next) {
     next();
 });
 
-
 app.use(function(req, res, next) {
     let  err = new Error('Not Found');
     err.status = 404;
+    res.render('error');
     next(err);
 });
-
 
 if (app.get('env') === 'development') {
     app.use(function(err, req, res) {
@@ -281,7 +293,6 @@ if (app.get('env') === 'development') {
         });
     });
 }
-
 
 app.use(function(err, req, res) {
     res.status(err.status || 500);

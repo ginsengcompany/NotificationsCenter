@@ -2,23 +2,16 @@
 let config = {
     data: []
 };
-let multiUser = {
-    cod_org: 'omceoce',
-    descrizione: 'Ordine Medici Caserta',
-    tb_contatti: 'tb_contatti_omceoce',
-    tb_eventi: 'tb_evento_omceoce',
-    tb_notifiche: 'tb_notifiche_omceoce'
-};
-config.data.push(multiUser);
 
-let multiUser1 = {
-    cod_org: 'admin',
-    descrizione: 'Amministrazione',
-    tb_contatti: 'tb_contatti_admin',
-    tb_eventi: 'tb_evento_admin',
-    tb_notifiche: 'tb_notifiche_admin'
+let multiUser2 = {
+    cod_org: 'orizz_quattro',
+    descrizione: 'Assc. Orizzonti 4.0',
+    tb_interessi: 'tb_interessi_orizz_quattro',
+    tb_contatti: 'tb_contatti_orizz_quattro',
+    tb_eventi: 'tb_evento_orizz_quattro',
+    tb_notifiche: 'tb_notifiche_orizz_quattro'
 };
-config.data.push(multiUser1);
+config.data.push(multiUser2);
 
 
 module.exports =  config;

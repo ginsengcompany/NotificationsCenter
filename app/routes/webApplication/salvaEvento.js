@@ -29,7 +29,7 @@ router.post('/',function (req, res, next) {
         if (multiUser.data[i].cod_org === organizzazione) {
 
             let queryPostEvento = "INSERT INTO "+multiUser.data[i].tb_eventi+" " +
-                "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, immagine)" +
+                "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, tipo, immagine)" +
                 "VALUES (" +
                 "'" + replaceAll("'", "`",datiEvento.titolo)  +"', " +
                 "'" + replaceAll("'", "`",datiEvento.sottotitolo) +"', " +
@@ -39,6 +39,7 @@ router.post('/',function (req, res, next) {
                 "'" + replaceAll("'", "`",datiEvento.informazioni)  +"', " +
                 "'" + replaceAll("'", "`",datiEvento.relatori)    +"', " +
                 "'" + replaceAll("'", "`",datiEvento.descrizione)    +"', " +
+                "" + datiEvento.tipo  +", " +
                 "'" + replaceAll("'", "`",datiEvento.immagine)  +"')";
 
             const query = client.query(queryPostEvento);

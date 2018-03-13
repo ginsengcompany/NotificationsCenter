@@ -22,7 +22,7 @@ router.post('/',function (req, res, next) {
         if (multiUser.data[i].cod_org === organizzazione) {
 
             let queryPostStatoNotifica = "INSERT INTO "+multiUser.data[i].tb_notifiche+" " +
-                "(_id_utente, _id_evento, stato, confermato, eliminato, data_invio,tipo)" +
+                "(_id_utente, _id_evento, stato, confermato, eliminato, data_invio, tipo, tipo_evento)" +
                 "VALUES (" +
                 "'" + datiStatoNotifica.idUtente        +"', " +
                 "'" + datiStatoNotifica.idEvento   +"', " +
@@ -30,7 +30,8 @@ router.post('/',function (req, res, next) {
                 "'" + datiStatoNotifica.confermato   +"', " +
                 "'" + datiStatoNotifica.eliminato   +"', " +
                 "'" + moment(new Date()).format("01/01/1970")   +"', " +
-                "'" + datiStatoNotifica.tipo   +"')";
+                "'" + datiStatoNotifica.tipo   +"', " +
+                "" + datiStatoNotifica.tipoEvento   +")";
 
             const query = client.query(queryPostStatoNotifica);
 

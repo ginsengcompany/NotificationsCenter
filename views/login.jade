@@ -5,46 +5,83 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-        //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(rel='stylesheet', href='stylesheets/main.css')
+        style(type='text/css').
+            .back-link a {
+                color: #4ca340;
+                text-decoration: none;
+                border-bottom: 1px #4ca340 solid;
+            }
+
+            .back-link a:hover,
+            .back-link a:focus {
+                color: #408536;
+                text-decoration: none;
+                border-bottom: 1px #408536 solid;
+            }
+
+            h1 {
+                height: 100%;
+                /* The html and body elements cannot have any padding or margin. */
+                margin: 0;
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 32px;
+                margin-bottom: 3px;
+            }
+
+            .entry-header {
+                text-align: left;
+                margin: 0 auto 50px auto;
+                width: 80%;
+                max-width: 978px;
+                position: relative;
+                z-index: 10001;
+            }
+
+            #demo-content {
+                padding-top: 100px;
+            }
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        script(src='javascripts/modernizr.js')
+        script(src='javascripts/jquery-2.1.1.js')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
 
-    body(style='padding-top: 75px;')
-        block myNav
+    body
+        #particles-js
+        #loader-wrapper
+            #loader
+            .loader-section.section-left
+            .loader-section.section-right
+        #login-box.container
 
-        block myContainer
-            .container
-                .jumbotron
-                    .row
-                        h1(align="center") Login - Notifications Center
-
-                #myModal1.modal.fade
-                    .modal-dialog
-                        .modal-content
-                            // dialog body
-                            .modal-body
-                                button.close(type='button', data-dismiss='modal') ×
-                                h1 Impossibile Accedere Utente non Autorizzato!
-                            // dialog buttons
-                            .modal-footer
-
-                .card.card-container
-                    img#logoOrdine.img-responsive(src='images/centerLogo.svg', style='margin:0 auto;')
-                    br
-                    .row
-                        .col-sm-12.form-group
-                        span#reauth-email.reauth-email
-                        input#inputEmail.form-control(type='email', placeholder='Email', required='', autofocus='')
-                        br
-                        input#inputPassword.form-control(type='password', placeholder='Password', required='')
-                        br
-                        button.btn.btn-lg.btn-default.btn-block(onclick='loginEffettuatoConSuccesso();') Effettua Login
-            br
-            br
-            br
-            br
+            #myModal1.modal.fade
+                .modal-dialog.modal-sm
+                    .modal-content
+                        // dialog body
+                        .modal-body
+                            button.close(type='button', data-dismiss='modal') ×
+                            h3 Impossibile Accedere Utente non Autorizzato!
+                        // dialog buttons
+                        .modal-footer
+            .row
+                .col-md-12
+                    .card.card-container
+                        img#logoOrdine.img-responsive(src='images/intestazionemail.png', style='margin:0 auto; border-radius: 25px;' )
+            .row
+                .col-sm-12.form-group
+                span#reauth-email.reauth-email
+                input#inputEmail.form-control(type='email', placeholder='Username', required='', autofocus='')
+                br
+                input#inputPassword.form-control(type='password', placeholder='Password', required='')
+                br
+                button.btn.btn-lg.btn-primary.btn-block(onclick='loginEffettuatoConSuccesso();') Login
+        br
+        br
+        br
+        br
     block myScript
         script(src="javascripts/controllers/loginController.js")

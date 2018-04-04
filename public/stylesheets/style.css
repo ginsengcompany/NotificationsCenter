@@ -225,7 +225,7 @@ Main Components
 }
 .cd-3d-nav li {
   height: 100%;
-  width: 14%;
+  width: 12.5%;
   float: left;
 }
 .cd-3d-nav li:first-of-type a::before {
@@ -247,6 +247,9 @@ Main Components
   background-image: url(../images/gestione.svg);
 }
 .cd-3d-nav li:nth-of-type(7) a::before {
+  background-image: url(../images/chat.svg);
+}
+.cd-3d-nav li:nth-of-type(8) a::before {
   background-image: url(../images/logOut.svg);
 }
 .cd-3d-nav a {

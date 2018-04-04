@@ -1,0 +1,1601 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Il Notifications Center è un sistema di notifica multicanale (Push Notifications , E-mail, SMS).",
+    "version": "1.0.0",
+    "title": "Notifications Center"
+  },
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/authRegister": {
+      "post": {
+        "tags": [
+          "authRegister"
+        ],
+        "summary": "Servizio Login BackEnd",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authRegister"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/checkNotifica": {
+      "post": {
+        "tags": [
+          "checkNotifica"
+        ],
+        "summary": "Update stato notifica a true",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/checkNotifica"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/deleteFileSuccess": {
+      "get": {
+        "tags": [
+          "deleteFileSuccess"
+        ],
+        "summary": "Delete file xml sms backup vecchi di due giorni",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/gestioneConfermeSMS": {
+      "get": {
+        "tags": [
+          "gestioneConfermeSMS"
+        ],
+        "summary": "Update stato sms nelle tabella rim_portal.{struttura} ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getAddInteressi": {
+      "post": {
+        "tags": [
+          "getAddInteressi"
+        ],
+        "summary": "Inserisce gli interessi nell'apposita tabella dell'organizzazione connessa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getAddInteressi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getCountNotifiche": {
+      "get": {
+        "tags": [
+          "getCountNotifiche"
+        ],
+        "summary": "Ritorna il numero delle notifiche da inviare",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getDeleteEventi": {
+      "post": {
+        "tags": [
+          "getDeleteEventi"
+        ],
+        "summary": "Elimina ON CASCADE un evento o una nota informativa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getDeleteEventi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getDeleteInteressi": {
+      "post": {
+        "tags": [
+          "getDeleteInteressi"
+        ],
+        "summary": "Elimina ON CASCADE un interesse",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getDeleteInteressi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getDeleteUtenti": {
+      "post": {
+        "tags": [
+          "getDeleteUtenti"
+        ],
+        "summary": "Elimina ON CASCADE un utente",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getDeleteUtenti"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getEventi": {
+      "get": {
+        "tags": [
+          "getEventi"
+        ],
+        "summary": "Ritorna tutti gli eventi di un'organizzaione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getInteressi": {
+      "get": {
+        "tags": [
+          "getInteressi"
+        ],
+        "summary": "Ritorna tutti gli interessi di un'organizzaione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getNota": {
+      "get": {
+        "tags": [
+          "getNota"
+        ],
+        "summary": "Ritorna tutti le note informative di un'organizzaione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getNotifiche": {
+      "get": {
+        "tags": [
+          "getNotifiche"
+        ],
+        "summary": "Ritorna tutti le notifiche degli eventi inviati di un'organizzaione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getNotificheNota": {
+      "get": {
+        "tags": [
+          "getNotificheNota"
+        ],
+        "summary": "Ritorna tutti le notifiche delle note informative inviate di un'organizzaione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUpdateEventi": {
+      "post": {
+        "tags": [
+          "getUpdateEventi"
+        ],
+        "summary": "Update eventi",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUpdateEventi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUpdateInteressi": {
+      "post": {
+        "tags": [
+          "getUpdateInteressi"
+        ],
+        "summary": "Update interessi",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUpdateInteressi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUpdateNota": {
+      "post": {
+        "tags": [
+          "getUpdateNota"
+        ],
+        "summary": "Update nota informativa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUpdateNota"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUpdateUtenti": {
+      "post": {
+        "tags": [
+          "getUpdateUtenti"
+        ],
+        "summary": "Update utente",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUpdateUtenti"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtenti": {
+      "get": {
+        "tags": [
+          "getUtenti"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiEmail": {
+      "post": {
+        "tags": [
+          "getUtentiEmail"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con le email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiEmail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiEmailSms": {
+      "post": {
+        "tags": [
+          "getUtentiEmailSms"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con le email e numero di telefono",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiEmailSms"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiEmailToken": {
+      "post": {
+        "tags": [
+          "getUtentiEmailToken"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con le email e token",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiEmailToken"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiNotNotifica": {
+      "post": {
+        "tags": [
+          "getUtentiNotNotifica"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione che non sono stati notificati",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiNotNotifica"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiSms": {
+      "post": {
+        "tags": [
+          "getUtentiSms"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con il numero di telefono",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiSms"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiSmsEmail": {
+      "post": {
+        "tags": [
+          "getUtentiSmsEmail"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con il numero di telefono e email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiSmsEmail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiSmsToken": {
+      "post": {
+        "tags": [
+          "getUtentiSmsToken"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con il numero di telefono e token",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiSmsToken"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiToken": {
+      "post": {
+        "tags": [
+          "getUtentiToken"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con il token",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiToken"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiTokenEmail": {
+      "post": {
+        "tags": [
+          "getUtentiTokenEmail"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con il token e email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiTokenEmail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getUtentiTokenSms": {
+      "post": {
+        "tags": [
+          "getUtentiTokenSms"
+        ],
+        "summary": "Ritorna tutti gli utenti di un'organizzaione con il token e numero di telefono",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUtentiTokenSms"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/invioNotifica": {
+      "post": {
+        "tags": [
+          "invioNotifica"
+        ],
+        "summary": "Invia le notifiche agli utenti per la modalità selezionata",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/invioNotifica"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/prelievoInvioXML": {
+      "get": {
+        "tags": [
+          "prelievoInvioXML"
+        ],
+        "summary": "Preleva gli xml dalla sync folder e invio gli sms ai destinatari",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/salvaContatto": {
+      "post": {
+        "tags": [
+          "salvaContatto"
+        ],
+        "summary": "Inserisce un nuovo utente per una determinata organizzazione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/salvaContatto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/salvaEvento": {
+      "post": {
+        "tags": [
+          "salvaEvento"
+        ],
+        "summary": "Inserisce un nuovo evento per una determinata organizzazione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/salvaEvento"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/salvaNota": {
+      "post": {
+        "tags": [
+          "salvaNota"
+        ],
+        "summary": "Inserisce una nuova nota informativa per una determinata organizzazione",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/salvaNota"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/salvaStatoNotifiche": {
+      "post": {
+        "tags": [
+          "salvaStatoNotifiche"
+        ],
+        "summary": "Salva lo stato di una determinata notifica",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/salvaStatoNotifiche"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/sendEmail": {
+      "post": {
+        "tags": [
+          "sendEmail"
+        ],
+        "summary": "Invia Email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sendEmail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/switchConfermatoEmail": {
+      "post": {
+        "tags": [
+          "switchConfermatoEmail"
+        ],
+        "summary": "Update conferma o eliminazione di una notifiche",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/switchConfermatoEmail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/switchForEmail": {
+      "get": {
+        "tags": [
+          "switchForEmail"
+        ],
+        "summary": "Update conferma o eliminazione di una notifiche tramite sms o email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/switchForEmail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "authRegister": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "checkNotifica": {
+      "type": "object",
+      "properties": {
+        "_id_utente": {
+          "type": "string"
+        },
+        "_id_evento": {
+          "type": "string"
+        },
+        "tb_notifica": {
+          "type": "string"
+        }
+      }
+    },
+    "getAddInteressi": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        },
+        "descrizione": {
+          "type": "string"
+        }
+      }
+    },
+    "getDeleteEventi": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "getDeleteInteressi": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "getDeleteUtenti": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "getUpdateEventi": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "titolo": {
+          "type": "string"
+        },
+        "sottotitolo": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "dataFine": {
+          "type": "string"
+        },
+        "luogo": {
+          "type": "string"
+        },
+        "informazioni": {
+          "type": "string"
+        },
+        "relatori": {
+          "type": "string"
+        },
+        "descrizione": {
+          "type": "string"
+        },
+        "immagine": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string"
+        }
+      }
+    },
+    "getUpdateInteressi": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        },
+        "descrizione": {
+          "type": "string"
+        }
+      }
+    },
+    "getUpdateNota": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "titolo": {
+          "type": "string"
+        },
+        "sottotitolo": {
+          "type": "string"
+        },
+        "descrizione": {
+          "type": "string"
+        }
+      }
+    },
+    "getUpdateUtenti": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "cognome": {
+          "type": "string"
+        },
+        "specializzazione": {
+          "type": "string"
+        },
+        "provincia": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "interessi": {
+          "type": "string"
+        },
+        "numero_telefono": {
+          "type": "string"
+        },
+        "pec": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiEmail": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiEmailSms": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiEmailToken": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiNotNotifica": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiSms": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiSmsEmail": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiSmsToken": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiToken": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiTokenEmail": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "getUtentiTokenSms": {
+      "type": "object",
+      "properties": {
+        "idEvento": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        }
+      }
+    },
+    "invioNotifica": {
+      "type": "object",
+      "properties": {
+        "tb_contatti": {
+          "type": "string"
+        },
+        "tb_notifiche": {
+          "type": "string"
+        },
+        "tb_eventi": {
+          "type": "string"
+        }
+      }
+    },
+    "salvaContatto": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string"
+        },
+        "cognome": {
+          "type": "string"
+        },
+        "specializzazione": {
+          "type": "string"
+        },
+        "provincia": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "numero_telefono": {
+          "type": "string"
+        },
+        "interesse": {
+          "type": "string"
+        },
+        "pec": {
+          "type": "string"
+        }
+      }
+    },
+    "salvaEvento": {
+      "type": "object",
+      "properties": {
+        "titolo": {
+          "type": "string"
+        },
+        "sottotitolo": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "dataFine": {
+          "type": "string"
+        },
+        "luogo": {
+          "type": "string"
+        },
+        "informazioni": {
+          "type": "string"
+        },
+        "relatori": {
+          "type": "string"
+        },
+        "descrizione": {
+          "type": "string"
+        },
+        "immagine": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string"
+        }
+      }
+    },
+    "salvaNota": {
+      "type": "object",
+      "properties": {
+        "titolo": {
+          "type": "string"
+        },
+        "sottotitolo": {
+          "type": "string"
+        },
+        "descrizione": {
+          "type": "string"
+        }
+      }
+    },
+    "salvaStatoNotifiche": {
+      "type": "object",
+      "properties": {
+        "idUtente": {
+          "type": "string"
+        },
+        "idEvento": {
+          "type": "string"
+        },
+        "stato": {
+          "type": "string"
+        },
+        "confermato": {
+          "type": "string"
+        },
+        "eliminato": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string"
+        },
+        "tipoEvento": {
+          "type": "string"
+        }
+      }
+    },
+    "sendEmail": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "arrayEventi": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "arrayUtenti": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tb_notifica": {
+          "type": "string"
+        }
+      }
+    },
+    "switchConfermatoEmail": {
+      "type": "object",
+      "properties": {
+        "confermato": {
+          "type": "string"
+        },
+        "eliminato": {
+          "type": "string"
+        },
+        "_id_utente": {
+          "type": "string"
+        },
+        "_id_evento": {
+          "type": "string"
+        }
+      }
+    },
+    "switchForEmail": {
+      "type": "object",
+      "properties": {
+        "confermato": {
+          "type": "string"
+        },
+        "eliminato": {
+          "type": "string"
+        },
+        "_id_utente": {
+          "type": "string"
+        },
+        "_id_evento": {
+          "type": "string"
+        },
+        "tb_notifica": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

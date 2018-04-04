@@ -2,6 +2,8 @@ let  util = require('util');
 let  lodash = require('lodash');
 let multiUser = require('../config/configMultiUser');
 
+
+
 module.exports = function (app) {
 
     app.get('/', function (req, res, next) {
@@ -42,13 +44,12 @@ module.exports = function (app) {
         res.render('gestioneInteressi');
     });
 
-    /*app.get('/chatOperatoreSMS', function (req, res, next) {
+    app.get('/chatOperatoreSMS', function (req, res, next) {
         res.render('chatOperatoreSMS');
-    });*/
+    });
 
     app.post('/', function (req, res, next) {
 
-        // you might like to do a database look-up or something more scalable here
         if (req.body.userAuthenticated && req.body.userAuthenticated === true) {
             req.session.authenticated = true;
             res.redirect('/home');

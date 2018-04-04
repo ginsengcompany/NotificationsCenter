@@ -5,124 +5,95 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-        //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-        link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
-        link(rel='stylesheet', href='stylesheets/chat-style1.css')
-        link(rel='stylesheet', href='stylesheets/jquery.dataTables.min.css')
+        link(rel='stylesheet', href='stylesheets/reset.css')
+        link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/main.css')
+        style(type='text/css').
+            .back-link a {
+                color: #4ca340;
+                text-decoration: none;
+                border-bottom: 1px #4ca340 solid;
+            }
+
+            .back-link a:hover,
+            .back-link a:focus {
+                color: #408536;
+                text-decoration: none;
+                border-bottom: 1px #408536 solid;
+            }
+
+            h1 {
+                height: 100%;
+                /* The html and body elements cannot have any padding or margin. */
+                margin: 0;
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 32px;
+                margin-bottom: 3px;
+            }
+
+            .entry-header {
+                text-align: left;
+                margin: 0 auto 50px auto;
+                width: 80%;
+                max-width: 978px;
+                position: relative;
+                z-index: 10001;
+            }
+
+            #demo-content {
+                padding-top: 100px;
+            }
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(src='javascripts/modernizr.js')
+        script(src='javascripts/jquery-2.1.1.js')
+        script(src='javascripts/main.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-        script(src='javascripts/datatables.min.js')
-        script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
-        script(src='javascripts/dataTables.buttons.min.js')
-
-
-
-    body(style='padding-top: 75px;')
-        block myNav
-        nav.navbar.navbar-default.navbar-fixed-top
-            .container-fluid
-                .navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    img.navbar-brand(src='images/centerLogo.svg', alt='Company Logo', width='50', height='50')
-                    a.navbar-brand(href='/home') Notifications Center
-                #navbar.navbar-collapse.collapse
-                    ul.nav.navbar-nav
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Anagrafica
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/aggiungiContatto') Creazione
-                                li.divider(role='separator')
-                                li
-                                    a(href='/modificaContatto') Modifica
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Eventi
-                                span.caret
-                            ul.dropdown-menu
-                                li.active
-                                    a(href='/creaEvento') Creazione
-                                li.divider(role='separator')
-                                li
-                                    a(href='/modificaEvento') Modifica
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                                | Gestione
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/assegnaEvento') Invio Notifiche
-                                li.divider(role='separator')
-                                li
-                                    a(href='/gestioneNotifiche') Gestione Report
-                    ul.nav.navbar-nav.navbar-right
-                        li.active
-                            a(href='/logout') Logout
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+        script(src='javascripts/react.production.min.js')
+        script(src='javascripts/react-dom.production.min.js')
+        script(src='javascripts/babel.js')
+    body
+        header.cd-header
+            a.cd-3d-nav-trigger
+                | Menu
+                span
+        nav.cd-3d-nav-container
+            ul.cd-3d-nav
+                li
+                    a(href='/home') Notifications Center
+                li
+                    a(href='/gestioneInteressi') Interessi
+                li
+                    a(href='/gestioneContatto') Anagrafica
+                li
+                    a(href='/gestioneEventi') Eventi
+                li
+                    a(href='/assegnaEvento') Invio Notifiche
+                li
+                    a(href='/gestioneNotifiche') Gestione Report
+                li.cd-selected
+                    a(href='/chatOperatoreSMS') Chat
+                li
+                    a(href='/logout') Logout
+        br
+        #loader-wrapper
+            #loader
+            .loader-section.section-left
+            .loader-section.section-right
+        br
         block myContainer
         .container-fluid
-
             .jumbotron
                 .row
-                    h1 Chat Operatore
-
-            .row
-                .col-sm-12
-                    .chatbox
-                        .chatlogs
-                            .chat.friend
-                                .user-photo
-                                    img(src='images/friend.png')
-                                p.chat-message
-                                    | Hello
-                            .chat.self
-                                .user-photo
-                                    img(src='images/self.jpg')
-                                p.chat-message
-                                    | Hello too
-                            .chat.friend
-                                .user-photo
-                                    img(src='images/friend.png')
-                                p.chat-message
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                                    | Hello Hello Hello Hello
-                                    | Odaro Odaro Odaro
-                        .chat-form
-                            textarea
-                            button Send
-
+                    h1(style='text-align: center;') Chat
         br
-        br
-        nav.navbar.navbar-default.navbar-fixed-bottom
+        nav.navbar.navbar-default
             .container-fluid
-                br
-                p.copyright.pull-right
-                    | © 2018 Notifications Center -
-                    a(href='http://www.ak12srl.it/')  AK-12 srl &nbsp;
-                    img(src='images/ak12.png', alt='Company Logo', width='40', height='20')
-    block myScript
-        script(src="javascripts/controllers/chatOperatoreSMS.js")
+                .row
+                    a(target='_blank', href='http://www.ak12srl.it/', style="float:right; padding-top:8px")
+                        img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
+                    h5(style="float:right; padding-top:18px") © Copyright 2018 - AK-12. All Rights Reserved.
+    script(src='javascripts/controllers/chatOperatoreSms.js')

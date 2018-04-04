@@ -10,6 +10,27 @@ let  cron = require('node-cron');
 let  request = require('request');
 let  mySqlConnection = require('./config/RIMdatabase');
 
+let  app = express();
+
+moment.locale('it');
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(favicon(path.join(__dirname,'public/images','favicon.ico')));
+
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+app.use(session({secret: "Shh, its a secret!",saveUninitialized: false, resave: false}));
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 
 let  salvaEvento = require('./app/routes/webApplication/salvaEvento');
 let  getEventi  = require('./app/routes/webApplication/getEventi');
@@ -60,29 +81,6 @@ let getUpdateNota = require('./app/routes/webApplication/getUpdateNota');
 let getNotificheNota = require('./app/routes/webApplication/getNotificheNota');
 
 
-
-let  app = express();
-
-moment.locale('it');
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(favicon(path.join(__dirname,'public/images','favicon.ico')));
-
-app.use(logger('dev'));
-app.use(cookieParser());
-app.use(require('less-middleware')(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
-app.use(session({secret: "Shh, its a secret!"}));
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-
 function checkAuth (req, res, next) {
 
     if ((req.url === '/home'|| req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/gestioneEventi' || req.url === '/gestioneContatto' || req.url === '/chatOperatoreSMS' || req.url === '/gestioneInteressi')
@@ -100,7 +98,103 @@ function checkAuth (req, res, next) {
 
 app.use(checkAuth);
 
-/*cron.schedule('40 *!/1 * * * *', function(){
+let flag = false;
+let flag1 = false;
+
+/*cron.schedule('* 30 13 * * *', function(){
+
+    request({
+        url: 'https://app.mobyt.it/API/v1.0/REST/status?getMoney=true',
+        method: 'GET',
+        headers: {'user_key': '18443', 'Access_token': 'nZVc7WglBBWHy9eD6bGslST7'},
+
+        callback: function (error, responseMeta, response) {
+            if (!error && responseMeta.statusCode == 200) {
+
+                response = JSON.parse(response);
+
+                if(response.sms[0].quantity <= 50000 && flag === false){
+
+                    flag = true;
+
+                    request({
+                        url: 'https://app.mobyt.it/API/v1.0/REST/sms',
+                        method: 'POST',
+                        headers: {'user_key': '18443', 'Access_token': 'nZVc7WglBBWHy9eD6bGslST7'},
+
+                        json: true,
+                        body: {
+                            "returnCredits" : true,
+                            "recipient": ["+393409232116","+393497841753","+393298618639"],
+                            "message": "NOTIFICATIONS CENTER \nNumero sms rimanenti: "+response.sms[0].quantity+"\nCredito residuo: € "+response.money,
+                            "message_type": "N",
+                            "sender" : "+393711823424"
+                        },
+                        callback: function (error, responseMeta, response) {
+                            if (!error && responseMeta.statusCode === 201) {
+
+                                console.log("invio con successo Crediti")
+
+                            }
+                            else {
+                                console.log("Errore invio sms");
+                            }
+                        }
+                    });
+
+                }
+                else{
+
+                    console.log('crediti sufficienti');
+
+                }
+
+                if(response.sms[0].quantity <= 25000 && flag1 === false){
+
+                    flag1 = true;
+
+                    request({
+                        url: 'https://app.mobyt.it/API/v1.0/REST/sms',
+                        method: 'POST',
+                        headers: {'user_key': '18443', 'Access_token': 'nZVc7WglBBWHy9eD6bGslST7'},
+
+                        json: true,
+                        body: {
+                            "returnCredits" : true,
+                            "recipient": ["+393409232116","+393497841753","+393298618639"],
+                            "message": "NOTIFICATIONS CENTER \nNumero sms rimanenti: "+response.sms[0].quantity+"\nCredito residuo: € "+response.money,
+                            "message_type": "N",
+                            "sender" : "+393711823424"
+                        },
+                        callback: function (error, responseMeta, response) {
+                            if (!error && responseMeta.statusCode === 201) {
+
+                                console.log("invio con successo Crediti")
+
+                            }
+                            else {
+                                console.log("Errore invio sms");
+                            }
+                        }
+                    });
+
+                }
+                else{
+
+                    console.log('crediti sufficienti');
+
+                }
+
+            }
+            else {
+                console.log('An error occurred..');
+            }
+        }
+    });
+
+});*/
+
+cron.schedule('40 *!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -139,9 +233,9 @@ app.use(checkAuth);
             }
         }
     })
-});*/
+});
 
-/*cron.schedule('15 *!/1 * * * *', function(){
+/*cron.schedule('20 *!/1 * * * *', function(){
 
     if(mySqlConnection.state === 'authenticated') {
 
@@ -262,6 +356,10 @@ app.use('/salvaNota',salvaNota);
 app.use('/getUpdateNota',getUpdateNota);
 app.use('/getNotificheNota',getNotificheNota);
 
+let swaggerUi = require('swagger-ui-express');
+let swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.use(function (req, res, next) {

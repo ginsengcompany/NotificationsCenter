@@ -6416,7 +6416,7 @@ button.close {
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
-    let ter-spacing: normal;
+    letter-spacing: normal;
     word-break: normal;
     word-spacing: normal;
     word-wrap: normal;
@@ -6550,7 +6550,7 @@ button.close {
     text-decoration: none;
     text-shadow: none;
     text-transform: none;
-    let ter-spacing: normal;
+    letter-spacing: normal;
     word-break: normal;
     word-spacing: normal;
     word-wrap: normal;
@@ -6971,7 +6971,7 @@ button.close {
 }
 
 @-ms-viewport {
-    width: device-width
+    width: device-width;
 }
 
 .visible-lg, .visible-md, .visible-sm, .visible-xs {

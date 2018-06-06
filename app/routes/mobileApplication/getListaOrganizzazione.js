@@ -9,7 +9,7 @@ let connectionPostgres = function () {
 
 router.get('/',function (req, res, next) {
 
-    let queryPostEvento = "SELECT cod_org, descrizione FROM tb_admin";
+    let queryPostEvento = "SELECT cod_org, descrizione, logo FROM tb_admin";
 
     let client = connectionPostgres();
 

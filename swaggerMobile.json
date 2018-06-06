@@ -1,0 +1,396 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Il Notifications Center è un sistema di notifica multicanale (Push Notifications , E-mail, SMS).",
+    "version": "1.0.0",
+    "title": "Servizi App REST Api"
+  },
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/cercaUsername": {
+      "post": {
+        "tags": [
+          "cercaUsername"
+        ],
+        "summary": "Servizio Login Mobile App User",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cercaUsername"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getEventiById": {
+      "post": {
+        "tags": [
+          "getEventiById"
+        ],
+        "summary": "Servizio che ritorna Eventi e Note Informative Mobile App User",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getEventiById"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getEventiMaster": {
+      "post": {
+        "tags": [
+          "getEventiMaster"
+        ],
+        "summary": "Servizio che ritorna Eventi e Note Informative Mobile App Admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getEventiMaster"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getListaDeclinatiMaster": {
+      "post": {
+        "tags": [
+          "getListaDeclinatiMaster"
+        ],
+        "summary": "Servizio che ritorna La lista degli utenti che non partecipano ad un determinato Evento e/o Nota Informativa Mobile App Admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getListaDeclinatiMaster"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getListaOrganizzazione": {
+      "get": {
+        "tags": [
+          "getListaOrganizzazione"
+        ],
+        "summary": "Servizio che ritorna La lista delle organizzazioni per la login Mobile App User",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getListaPartecipantiMaster": {
+      "post": {
+        "tags": [
+          "getListaPartecipantiMaster"
+        ],
+        "summary": "Servizio che ritorna La lista degli utenti che partecipano ad un determinato Evento e/o Nota Informativa Mobile App Admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getListaPartecipantiMaster"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/getNotificheMaster": {
+      "post": {
+        "tags": [
+          "getNotificheMaster"
+        ],
+        "summary": "Servizio che ritorna La lista delle notifiche inviate agli utenti Mobile App Admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getNotificheMaster"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/loginMaster": {
+      "post": {
+        "tags": [
+          "loginMaster"
+        ],
+        "summary": "Servizio Login Mobile App Admin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loginMaster"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/setEliminatoConfermato": {
+      "post": {
+        "tags": [
+          "setEliminatoConfermato"
+        ],
+        "summary": "Update partecipazione o declinazione di un determinato Evento e/o Nota Informativa Mobile App User ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/setEliminatoConfermato"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "cercaUsername": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "organizzazione": {
+          "type": "string"
+        }
+      }
+    },
+    "getEventiById": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "eliminato": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "organizzazione": {
+          "type": "string"
+        }
+      }
+    },
+    "getEventiMaster": {
+      "type": "object",
+      "properties": {
+        "organizzazione": {
+          "type": "string"
+        }
+      }
+    },
+    "getListaDeclinatiMaster": {
+      "type": "object",
+      "properties": {
+        "organizzazione": {
+          "type": "string"
+        },
+        "id_evento": {
+          "type": "string"
+        }
+      }
+    },
+    "getListaPartecipantiMaster": {
+      "type": "object",
+      "properties": {
+        "organizzazione": {
+          "type": "string"
+        },
+        "id_evento": {
+          "type": "string"
+        }
+      }
+    },
+    "getNotificheMaster": {
+      "type": "object",
+      "properties": {
+        "organizzazione": {
+          "type": "string"
+        }
+      }
+    },
+    "loginMaster": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "setEliminatoConfermato": {
+      "type": "object",
+      "properties": {
+        "eliminato": {
+          "type": "string"
+        },
+        "confermato": {
+          "type": "string"
+        },
+        "_id_utente": {
+          "type": "string"
+        },
+        "_id_evento": {
+          "type": "string"
+        },
+        "organizzazione": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,9 @@ html(lang='en')
         link(rel='stylesheet', href='stylesheets/bootstrap.css')
         link(rel='stylesheet', href='stylesheets/reset.css')
         link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/styleChat.css')
         link(rel='stylesheet', href='stylesheets/main.css')
+        link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css')
         style(type='text/css').
             .back-link a {
                 color: #4ca340;
@@ -52,9 +54,17 @@ html(lang='en')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
         script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-        script(src='javascripts/react.production.min.js')
-        script(src='javascripts/react-dom.production.min.js')
-        script(src='javascripts/babel.js')
+        script(src='javascripts/moment.min.js')
+        script(src='https://use.typekit.net/ama5eep.js')
+            script.
+                try {
+                    Typekit.load({async: true});
+                } catch (e) {
+                }
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')
+        script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', integrity='sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=', crossorigin='anonymous')
+        script(src='/socket.io/socket.io.js')
     body
         header.cd-header
             a.cd-3d-nav-trigger
@@ -89,11 +99,13 @@ html(lang='en')
             .jumbotron
                 .row
                     h1(style='text-align: center;') Chat
+        .container-fluid#ChatContainer
         br
-        nav.navbar.navbar-default
+        nav.navbar.navbar-default.navbar-fixed-bottom
             .container-fluid
                 .row
                     a(target='_blank', href='http://www.ak12srl.it/', style="float:right; padding-top:8px")
                         img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
                     h5(style="float:right; padding-top:18px") © Copyright 2018 - AK-12. All Rights Reserved.
+                    h2#codOrg(style='text-align: center; display: none;') "#{name}"
     script(src='javascripts/controllers/chatOperatoreSms.js')

@@ -45,7 +45,8 @@ module.exports = function (app) {
     });
 
     app.get('/chatOperatoreSMS', function (req, res, next) {
-        res.render('chatOperatoreSMS');
+        let  mutiOrg = lodash.filter(multiUser.data, { 'cod_org': req.session.cod_org } );
+        res.render('chatOperatoreSMS', { name: mutiOrg[0].descrizione });
     });
 
     app.post('/', function (req, res, next) {

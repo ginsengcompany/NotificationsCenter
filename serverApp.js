@@ -30,6 +30,84 @@ app.use(session({secret: "Shh, its a secret!",saveUninitialized: false, resave: 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + 'public'));
+
+
+let soap = require('soap-server');
+
+let services = {
+
+    Service: {
+
+        BasicHttpBinding_IService: {
+
+            SendSms: function(args, callback, headers, req) {
+
+                let soapenvEnvelope = soap.SoapServer.prototype.handleOperationRequest.arguments[1];
+                let soapenvBody = soapenvEnvelope['soapenv:Envelope']['soapenv:Body'];
+                let body = soapenvBody[0]['tem:SendSms'][0]['tem:request'][0];
+                let myJson = {
+                    comune : body['rim:comune'][0],
+                    description : body['rim:description'][0],
+                    destinations : body['rim:destinations'][0]['arr:string'],
+                    message : body['rim:message'][0],
+                    priority : body['rim:priority'][0]
+                };
+
+                request({
+                    url: 'https://app.mobyt.it/API/v1.0/REST/sms',
+                    method: 'POST',
+                    headers: {'user_key': '18443', 'Access_token': 'nZVc7WglBBWHy9eD6bGslST7'},
+
+                    json: true,
+                    body: {
+                        "returnCredits" : true,
+                        "recipient": myJson.destinations,
+                        "message": myJson.message,
+                        "message_type": "N",
+                        "sender" : "+393711870081"
+                    },
+                    callback: function (error, responseMeta, response) {
+                        if (!error && responseMeta.statusCode === 201) {
+
+                            return {
+                                SendSmsResult : {
+                                    result : 'ok', //string
+                                    resultCode : '100', //string
+                                    resultDescription : '', //string
+                                    idService : '', //int
+                                    targetNSAlias : '', //string
+                                    targetNamespace : '' //http://schemas.datacontract.org/2004/07/RIMWCFLibrary.DomainLayer
+                                }
+
+                            }
+
+                        }
+                        else {
+                            console.log("Errore invio sms");
+                            return {
+                                SendSmsResult : {
+                                    result : 'errore', //string
+                                    resultCode : '200', //string
+                                    resultDescription : '', //string
+                                    idService : '', //int
+                                    targetNSAlias : '', //string
+                                    targetNamespace : '' //http://schemas.datacontract.org/2004/07/RIMWCFLibrary.DomainLayer
+                                }
+
+                            }
+                        }
+                    }
+                });
+
+            }
+        }
+    }
+};
+
+let soapServer = new soap.SoapServer();
+soapServer.addService('Service.svc', services.Service.BasicHttpBinding_IService);
+soapServer.listen(1337, '192.168.125.38');
 
 
 let  salvaEvento = require('./app/routes/webApplication/salvaEvento');
@@ -79,6 +157,8 @@ let getNota = require('./app/routes/webApplication/getNota');
 let salvaNota = require('./app/routes/webApplication/salvaNota');
 let getUpdateNota = require('./app/routes/webApplication/getUpdateNota');
 let getNotificheNota = require('./app/routes/webApplication/getNotificheNota');
+let insertMessageChat = require('./app/routes/webApplication/insertMessageChat');
+let getListaMessaggi = require('./app/routes/webApplication/getListaMessaggi');
 
 
 function checkAuth (req, res, next) {
@@ -194,7 +274,7 @@ let flag1 = false;
 
 });*/
 
-cron.schedule('40 *!/1 * * * *', function(){
+/*cron.schedule('40 *!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -233,7 +313,7 @@ cron.schedule('40 *!/1 * * * *', function(){
             }
         }
     })
-});
+});*/
 
 /*cron.schedule('20 *!/1 * * * *', function(){
 
@@ -305,7 +385,6 @@ cron.schedule('0 0 0 * * *', function(){
 
 });*/
 
-
 require('./routes/routes.js')(app);
 
 app.use('/salvaEvento', salvaEvento);
@@ -355,11 +434,16 @@ app.use('/getNota',getNota);
 app.use('/salvaNota',salvaNota);
 app.use('/getUpdateNota',getUpdateNota);
 app.use('/getNotificheNota',getNotificheNota);
+app.use('/insertMessageChat',insertMessageChat);
+app.use('/getListaMessaggi',getListaMessaggi);
+
 
 let swaggerUi = require('swagger-ui-express');
 let swaggerDocument = require('./swagger.json');
+let swaggerMobile = require('./swaggerMobile.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-mobile', swaggerUi.serve, swaggerUi.setup(swaggerMobile));
 
 
 app.use(function (req, res, next) {

@@ -165,7 +165,8 @@ function updateEvento(){
     datiEvento.informazioni = $('#informazioniEvento').val();
     datiEvento.relatori = $('#relatoriEvento').val();
     datiEvento.descrizione = $('#descrizioneEvento').val();
-    datiEvento.immagine = $('#caricaFoto').val();
+    //datiEvento.immagine = $('#caricaFoto').val();
+    console.log(datiEvento.immagine);
 
 
     $.ajax({

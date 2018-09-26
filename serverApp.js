@@ -107,7 +107,7 @@ let services = {
 
 let soapServer = new soap.SoapServer();
 soapServer.addService('Service.svc', services.Service.BasicHttpBinding_IService);
-soapServer.listen(1337, '192.168.125.38');
+soapServer.listen(1337, '192.168.125.25');
 
 
 let  salvaEvento = require('./app/routes/webApplication/salvaEvento');

@@ -14,6 +14,17 @@ let multiUser2 = {
 };
 config.data.push(multiUser2);
 
+let multiUser3 = {
+    cod_org: 'ord_inf_caserta',
+    descrizione: 'Ordine Degli Infermieri',
+    tb_interessi: 'tb_interessi_ordine_infermieri_caserta',
+    tb_contatti: 'tb_contatti_ordine_infermieri_caserta',
+    tb_eventi: 'tb_evento_ordine_infermieri_caserta',
+    tb_notifiche: 'tb_notifiche_ordine_infermieri_caserta',
+    tb_messaggi: 'message_ordine_infermieri_caserta'
+};
+config.data.push(multiUser3);
+
 
 module.exports =  config;
 

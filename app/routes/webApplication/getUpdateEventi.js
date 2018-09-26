@@ -10,6 +10,11 @@ let connectionPostgres = function () {
 
 router.post('/',function (req, res, next) {
 
+    function replaceAll (search, replacement, string) {
+        let target = string;
+        return target.replace(new RegExp(search, 'g'), replacement);
+    };
+
     let datiUpdateOrDelete = req.body;
 
     let organizzazione = req.session.cod_org;
@@ -40,7 +45,8 @@ router.post('/',function (req, res, next) {
                     "informazioni='" + datiUpdateOrDelete.informazioni + "', " +
                     "relatori='" + datiUpdateOrDelete.relatori + "', " +
                     "descrizione='" + datiUpdateOrDelete.descrizione + "', " +
-                    "data_fine='" + moment().format(datiUpdateOrDelete.dataFine) + "' " +
+                    "data_fine='" + moment().format(datiUpdateOrDelete.dataFine) + "', " +
+                    "immagine='" + replaceAll("'", "`",datiUpdateOrDelete.immagine)  + "' " +
                     "WHERE _id=" + datiUpdateOrDelete._id;
 
                 const query = client.query(queryUpdateOrDelete1);

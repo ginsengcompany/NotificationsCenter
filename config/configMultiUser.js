@@ -3,7 +3,7 @@ let config = {
     data: []
 };
 
-let multiUser2 = {
+/*let multiUser2 = {
     cod_org: 'orizz_quattro',
     descrizione: 'Assc. Orizzonti 4.0',
     tb_interessi: 'tb_interessi_orizz_quattro',
@@ -12,7 +12,7 @@ let multiUser2 = {
     tb_notifiche: 'tb_notifiche_orizz_quattro',
     tb_messaggi: 'message_orizz_quattro'
 };
-config.data.push(multiUser2);
+config.data.push(multiUser2);*/
 
 let multiUser3 = {
     cod_org: 'ord_inf_caserta',

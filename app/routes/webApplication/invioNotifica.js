@@ -10,7 +10,6 @@ let connectionPostgres = function () {
     return postgresConnection();
 };
 
-let client = connectionPostgres();
 
 let datiEmail = {
     "to":undefined,
@@ -28,6 +27,9 @@ function switchInvio(final,datiTab){
 }
 
 function posyQuery(indice,datiTab) {
+
+    var client = connectionPostgres();
+
 
     queryPostEvento = "SELECT * FROM "+datiTab.tb_eventi+" WHERE _id="+indice._id_evento;
     queryPostUtente = "SELECT * FROM "+datiTab.tb_contatti+" WHERE _id="+indice._id_utente;
@@ -58,8 +60,8 @@ function posyQuery(indice,datiTab) {
                         method:'POST',
                         uri:'https://onesignal.com/api/v1/notifications',
                         headers: {
-                            "authorization": "Basic "+restKey,
-                            "content-type": "application/json"
+                            "Authorization": "Basic "+restKey,
+                            "Content-Type": "application/json"
                         },
                         json: true,
                         body:{
@@ -85,15 +87,14 @@ function posyQuery(indice,datiTab) {
                     setTimeout(function () {
 
                         request(options, function (error, response, body) {
-                            if (!error && response.statusCode == 200) {
+                            if (!error && response.statusCode === 200) {
                                 request(options1, function (error, response, body) {
-                                    if (!error && response.statusCode == 200) {
+                                    if (!error && response.statusCode === 200) {
                                         client.end();
                                     }
                                 })
                             }
                         })
-
                     },3000);
 
                 }
@@ -132,9 +133,9 @@ function posyQuery(indice,datiTab) {
                     setTimeout(function () {
 
                         request(options, function (error, response, body) {
-                            if (!error && response.statusCode == 200) {
+                            if (!error && response.statusCode === 200) {
                                 request(options1, function (error, response, body) {
-                                    if (!error && response.statusCode == 200) {
+                                    if (!error && response.statusCode === 200) {
                                         client.end();
                                     }
                                 })
@@ -203,7 +204,7 @@ function posyQuery(indice,datiTab) {
                                         request(options, function (error, responseMeta, response) {
                                             if (!error && responseMeta.statusCode === 201) {
                                                 request(options1, function (error, response, body) {
-                                                    if (!error && response.statusCode == 200) {
+                                                    if (!error && response.statusCode === 200) {
                                                         client.end();
                                                     }
                                                 })
@@ -232,8 +233,8 @@ function posyQuery(indice,datiTab) {
 
 
 router.post('/',function (req, res, next) {
-
-   let datiTab = req.body;
+    var client = connectionPostgres();
+    let datiTab = req.body;
 
     let queryPostInvio = "SELECT A.mail, A.token, A.numero_telefono, B._id_utente, B._id_evento, C.titolo, B.data_invio, B.tipo, B.stato, B.confermato, B.eliminato, B._id \n" +
         "FROM "+datiTab.tb_contatti+" A INNER JOIN "+datiTab.tb_notifiche+" B ON A._id=B._id_utente \n" +
@@ -250,6 +251,10 @@ router.post('/',function (req, res, next) {
             res.json({"Nessuno da Notificare":true});
         }
         switchInvio(final,datiTab);
+    });
+
+    query.on('error', function(err) {
+        console.error(err.stack);
     });
 
     res.json({"success":true});

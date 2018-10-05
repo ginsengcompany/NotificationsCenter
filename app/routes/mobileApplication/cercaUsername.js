@@ -46,12 +46,9 @@ router.post('/',function (req, res, next) {
                         client.end();
                         return res.send(false);
                     }
-
                 });
-
             }
     }
-
 });
 
 module.exports = router;

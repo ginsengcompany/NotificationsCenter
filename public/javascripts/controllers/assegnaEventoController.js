@@ -478,13 +478,11 @@ function switchTable1() {
                     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                 }},
                 { "data": "informazioni"},
-                { "data": "relatori"},
-                { "data": "descrizione"}
-
+                { "data": "relatori"}
+                // Commentato per visibilita della pagina
+                //{ "data": "descrizione"}
             ]
         } );
-
-
     }
 
     if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===true){
@@ -585,7 +583,6 @@ function salvaDati(){
             successMessage(idUtente,idEvento,tipo,tipoEvento);
 
         }
-
     }
 
 }

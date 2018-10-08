@@ -9,8 +9,10 @@ let connectionPostgres = function () {
 };
 
 router.post('/',function (req, res, next) {
+    // Dati del contatto da salvare che vengono passati dalla richiesta
     let datiContatto = req.body;
 
+    // Il codice organizzazione viene passato all'interno della sessione
     let organizzazione = req.session.cod_org;
 
     let client = connectionPostgres();
@@ -27,7 +29,7 @@ router.post('/',function (req, res, next) {
                 "'" + datiContatto.specializzazione         +"', " +
                 "'" + datiContatto.provincia  +"', " +
                 "'" + datiContatto.mail      +"', " +
-                "'" + datiContatto.username      +"', " +
+                "'" + organizzazione + datiContatto.username      +"', " + // la username viene sempre preceduta dal codice organizzazione
                 "'" + datiContatto.password      +"', " +
                 "'" + datiContatto.numero_telefono      +"', " +
                 "'" + datiContatto.interesse      +"', " +
@@ -49,11 +51,8 @@ router.post('/',function (req, res, next) {
                 client.end();
                 return res.json(final);
             });
-
         }
     }
-
-
 });
 
 module.exports = router;

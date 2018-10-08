@@ -15,7 +15,6 @@ module.exports = function (app) {
         res.render('index', { name: mutiOrg[0].descrizione });
     });
 
-
     app.get('/assegnaEvento', function (req, res, next) {
         res.render('assegnaEvento');
     });

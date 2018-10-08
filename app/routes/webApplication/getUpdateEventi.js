@@ -46,7 +46,8 @@ router.post('/',function (req, res, next) {
                     "relatori='" + datiUpdateOrDelete.relatori + "', " +
                     "descrizione='" + datiUpdateOrDelete.descrizione + "', " +
                     "data_fine='" + moment().format(datiUpdateOrDelete.dataFine) + "', " +
-                    "immagine='" + replaceAll("'", "`",datiUpdateOrDelete.immagine)  + "' " +
+                    "immagine='" + replaceAll("'", "`",datiUpdateOrDelete.immagine)  + "', " +
+                    "url_evento='" + datiUpdateOrDelete.url_evento + "' " +
                     "WHERE _id=" + datiUpdateOrDelete._id;
 
                 const query = client.query(queryUpdateOrDelete1);

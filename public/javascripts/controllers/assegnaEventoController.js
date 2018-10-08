@@ -61,6 +61,29 @@ function getUtentiNotNotifica (){
 
 $(document).ready(function() {
 
+    function format ( d ) {
+        // `d` is the original data object for the row
+        if (d.informazioni === null || d.informazioni === undefined){
+            return '<table cellpadding="50" cellspacing="20" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td style="font-weight: bold;">Descrizione: </td>' +
+                '<td>' + d.descrizione + '</td>' +
+                '</tr>' +
+                '</table>';
+        }else {
+            return '<table cellpadding="50" cellspacing="20" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td style="font-weight: bold;">Informazioni: </td>' +
+                '<td>' + d.informazioni + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="font-weight: bold;">Descrizione: </td>' +
+                '<td>' + d.descrizione + '</td>' +
+                '</tr>' +
+                '</table>';
+        }
+    }
+
     setTimeout(function(){
         $('body').addClass('loaded');
         $('h1').css('color','#222222');
@@ -464,6 +487,12 @@ function switchTable1() {
                 cache: false
             },
             columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
                 { "data": "titolo" },
                 { "data": "sottotitolo" },
                 { "data": "luogo"},
@@ -477,10 +506,8 @@ function switchTable1() {
                     let  d = new Date(data);
                     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                 }},
-                { "data": "informazioni"},
-                { "data": "relatori"}
+                { "data": "relatori"},
                 // Commentato per visibilita della pagina
-                //{ "data": "descrizione"}
             ]
         } );
     }
@@ -500,6 +527,12 @@ function switchTable1() {
                 cache: false
             },
             columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
                 { "data": "titolo" },
                 { "data": "sottotitolo" },
                 { "data": "luogo", "visible": false },
@@ -513,9 +546,7 @@ function switchTable1() {
                     let  d = new Date(data);
                     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                 }, "visible": false },
-                { "data": "informazioni", "visible": false },
-                { "data": "relatori", "visible": false },
-                { "data": "descrizione"}
+                { "data": "relatori", "visible": false }
 
             ]
         } );

@@ -240,16 +240,20 @@ html(lang='en')
                                         // Informazioni evento
                                         .col-sm-6.form-group
                                             label.cols-sm-2.control-label(for='informazioniEvento2') Informazioni Evento (CFU, note, ecc.):
-                                            textarea#informazioniEvento2.form-control(rows='1', maxlength='500')
+                                            textarea#informazioniEvento2.form-control(rows='4', maxlength='500')
                                         // Relatori evento
                                         .col-sm-6.form-group
                                             label.cols-sm-2.control-label(for='relatoriEvento2') Relatori Evento:
-                                            textarea#relatoriEvento2.form-control(rows='1', maxlength='500')
+                                            textarea#relatoriEvento2.form-control(rows='4', maxlength='500')
+                                    .row
+                                        .col-sm-12.form-group
+                                            label.cols-sm-2.control-label(for='urlEvento') Url Evento:
+                                            input#urlEvento.form-control(type = 'text', maxlength='600')
                                     .row
                                         // Descrizione evento
                                         .col-sm-12.form-group
                                             label.cols-sm-2.control-label(for='descrizioneEvento2') Descrizione Evento:
-                                            textarea#descrizioneEvento2.form-control(rows='1', maxlength='2000')
+                                            textarea#descrizioneEvento2.form-control(rows='4', maxlength='2000')
                                     // Carica immagini evento da pc
                                     .row
                                         .col-sm-12
@@ -401,14 +405,13 @@ html(lang='en')
                     table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
                         thead
                             tr
+                                th
                                 th Titolo Evento
                                 th Sottotitolo Evento
                                 th Luogo
                                 th Data Inizio
                                 th Data Fine
-                                th Informazioni
                                 th Relatori
-                                th Descrizione
 
         br
         nav.navbar.navbar-default

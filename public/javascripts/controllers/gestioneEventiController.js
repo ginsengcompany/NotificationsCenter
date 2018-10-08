@@ -40,6 +40,30 @@ $(document).ready(function () {
             $('#eliminaNota').prop('disabled', false);
         }
     } );
+    function format ( d ) {
+        // `d` is the original data object for the row
+        if (d.informazioni === null || d.informazioni === undefined){
+            return '<table cellpadding="50" cellspacing="20" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td style="font-weight: bold;">Url Evento: </td>' +
+                '<td>' + d.url_evento +'</td>' +
+                '<td style="font-weight: bold;">Descrizione: </td>' +
+                '<td>' + d.descrizione + '</td>' +
+                '</tr>' +
+                '</table>';
+        }else {
+            return '<table cellpadding="50" cellspacing="20" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td style="font-weight: bold;">Informazioni: </td>' +
+                '<td>' + d.informazioni + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="font-weight: bold;">Descrizione: </td>' +
+                '<td>' + d.descrizione + '</td>' +
+                '</tr>' +
+                '</table>';
+        }
+    }
 
     $('#tabellaEventi tbody').on('click', 'td.details-control', function () {
         let  tr = $(this).closest('tr');
@@ -104,7 +128,8 @@ let  datiEvento = {
     'relatori' : undefined ,
     'descrizione' : undefined ,
     'immagine' : undefined,
-    'tipo' : undefined
+    'tipo' : undefined,
+    'url_evento': undefined
 };
 
 function encodeImageFileAsURL(element) {
@@ -316,6 +341,7 @@ function addEvento(){
     datiEvento.informazioni = $('#informazioniEvento2').val();
     datiEvento.relatori = $('#relatoriEvento2').val();
     datiEvento.descrizione = $('#descrizioneEvento2').val();
+    datiEvento.url_evento = $('#urlEvento').val();
     datiEvento.tipo = 1;
 
     if (
@@ -326,7 +352,8 @@ function addEvento(){
         (datiEvento.luogo === null || datiEvento.luogo === undefined || datiEvento.luogo === '') ||
         (datiEvento.informazioni === null || datiEvento.informazioni === undefined || datiEvento.informazioni === '') ||
         (datiEvento.relatori === null || datiEvento.relatori === undefined || datiEvento.relatori === '') ||
-        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '')
+        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '') ||
+        (datiEvento.url_evento === null || datiEvento.url_evento === undefined || datiEvento.url_evento ==='')
     ) {
         $("#myModal3").on("show", function () {
             $("#myModal3 a.btn").on("click", function (e) {
@@ -371,6 +398,8 @@ function addEvento(){
                 $('#dataEvento2').val('');
                 $('#dataEventoFine2').val('');
                 $('#caricaFoto2').val('');
+                $('#urlEvento').val('');
+
 
             },
             faliure: function (data) {
@@ -498,7 +527,6 @@ function updateNota(){
                 $('#eliminaNota').prop('disabled', true);
 
             }
-
         },
         faliure: function(data) {
 
@@ -523,6 +551,12 @@ function switchTable() {
                 cache: false
             },
             columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
                 { "data": "titolo" },
                 { "data": "sottotitolo" },
                 { "data": "luogo"},
@@ -536,10 +570,7 @@ function switchTable() {
                     let  d = new Date(data);
                     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                 }},
-                { "data": "informazioni" },
                 { "data": "relatori"},
-                { "data": "descrizione"}
-
             ]
         } );
 
@@ -561,6 +592,12 @@ function switchTable() {
                 cache: false
             },
             columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
                 { "data": "titolo" },
                 { "data": "sottotitolo" },
                 { "data": "luogo", "visible": false },
@@ -574,10 +611,7 @@ function switchTable() {
                     let  d = new Date(data);
                     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
                 }, "visible": false },
-                { "data": "informazioni", "visible": false },
-                { "data": "relatori", "visible": false },
-                { "data": "descrizione"}
-
+                { "data": "relatori", "visible": false }
             ]
         } );
 

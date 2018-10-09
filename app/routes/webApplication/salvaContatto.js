@@ -24,16 +24,16 @@ router.post('/',function (req, res, next) {
             let queryPostContatto = "INSERT INTO "+multiUser.data[i].tb_contatti+" " +
                 "(nome, cognome, specializzazione, provincia, mail, username, password, numero_telefono, interessi, pec)" +
                 "VALUES (" +
-                "'" + datiContatto.nome        +"', " +
-                "'" + datiContatto.cognome   +"', " +
-                "'" + datiContatto.specializzazione         +"', " +
-                "'" + datiContatto.provincia  +"', " +
-                "'" + datiContatto.mail      +"', " +
+                "'" + datiContatto.nome                                 +"', " +
+                "'" + datiContatto.cognome                              +"', " +
+                "'" + datiContatto.specializzazione                     +"', " +
+                "'" + datiContatto.provincia                            +"', " +
+                "'" + datiContatto.mail                                 +"', " +
                 "'" + organizzazione + '-' + datiContatto.username      +"', " + // la username viene sempre preceduta dal codice organizzazione
-                "'" + datiContatto.password      +"', " +
-                "'" + datiContatto.numero_telefono      +"', " +
-                "'" + datiContatto.interesse      +"', " +
-                "'" + datiContatto.pec   +"')";
+                "'" + datiContatto.password                             +"', " +
+                "'" + datiContatto.numero_telefono                      +"', " +
+                "'" + datiContatto.interesse                            +"', " +
+                "'" + datiContatto.pec                                  +"')";
 
             const query = client.query(queryPostContatto);
 

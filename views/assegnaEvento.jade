@@ -3,225 +3,281 @@ html(lang='en')
     head
         title Notifications Center
         meta(charset='utf-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-        link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
-        link(rel='stylesheet', href='stylesheets/dataTables.bootstrap.min.css')
-        link(rel='stylesheet', href='https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css')
-        link(rel='stylesheet', href='stylesheets/bootstrap.css')
-        link(rel='stylesheet', href='stylesheets/bootstrap-tokenfield.min.css')
-        link(rel='stylesheet', href='stylesheets/tokenfield-typeahead.min.css')
-        link(rel='stylesheet', href='stylesheets/reset.css')
-        link(rel='stylesheet', href='stylesheets/style.css')
-        link(rel='stylesheet', href='stylesheets/main.css')
-        style(type='text/css').
-            .back-link a {
-                color: #4ca340;
-                text-decoration: none;
-                border-bottom: 1px #4ca340 solid;
-            }
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(http-equiv='x-ua-compatible', content='ie=edge')
+        title Notifications Center
+        // Font Awesome
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
+        // Bootstrap core CSS
+        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+        link(rel='stylesheet', href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css')
+        // Material Design Bootstrap
+        link(href='stylesheets/mdb.min.css', rel='stylesheet')
+        link(rel='icon', type='image/png', href='images/ico.png')
+    body.hidden-sn.mdb-skin
+        // Double navigation
+        header
+            // Sidebar navigation
+            #slide-out.side-nav.sn-bg-4.mdb-sidenav
+                ul.custom-scrollbar.list-unstyled(style='max-height:100vh;')
+                    // Logo
+                    li
+                        .logo-wrapper.waves-light
+                            a(href='/home')
+                                img.img-fluid.flex-center(src='/images/intestazionemail.png')
+                    // /. Logo
+                    // Social
+                    li
+                        ul.social
+                            li
+                                a.icons-sm.fb-ic(href='#')
+                                    i.fa.fa-facebook
+                            li
+                                a.icons-sm.pin-ic(href='#')
+                                    i.fa.fa-pinterest
+                            li
+                                a.icons-sm.gplus-ic(href='#')
+                                    i.fa.fa-google-plus
+                            li
+                                a.icons-sm.tw-ic(href='#')
+                                    i.fa.fa-twitter
+                    // /Social
+                    // Side navigation links
+                    li
+                        ul.collapsible.collapsible-accordion
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/home')
+                                    i.fa.fa-envelope-o
+                                    |  Home
+                                // Esempio aggiunta voci sottomenu
+                                //    i.fa.fa-angle-down.rotate-icon
+                                //.collapsible-body
+                                //    ul
+                                //        li
+                                //            a(href='/home') Notifications Center
+                                //        li
+                                //            a(href='/gestioneInteressi') Interessi
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneInteressi')
+                                    i.fa.fa-chevron-right
+                                    |  Interessi
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneContatto')
+                                    i.fa.fa-hand-pointer-o
+                                    |  Anagrafica
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneEventi')
+                                    i.fa.fa-eye
+                                    |  Eventi
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/assegnaEvento')
+                                    i.fa.fa-eye
+                                    |  Invio Notifiche
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneNotifiche')
+                                    i.fa.fa-eye
+                                    |  Gestione Report
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/logout')
+                                    i.fa.fa-envelope-o
+                                    |  Logout
+                .sidenav-bg.mask-strong
+            // /. Sidebar navigation
+            // Navbar
+            nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav
+                // SideNav slide-out button
+                .float-left
+                    a.button-collapse(href='#', data-activates='slide-out')
+                        i.fa.fa-bars
+                // Breadcrumb
+                .breadcrumb-dn.mr-auto
+                    p Material Design for Bootstrap
+                ul.nav.navbar-nav.nav-flex-icons.ml-auto
+                    li.nav-item
+                        a.nav-link
+                            i.fa.fa-envelope
+                            span.clearfix.d-none.d-sm-inline-block Contact
+                    li.nav-item
+                        a.nav-link
+                            i.fa.fa-comments-o
+                            span.clearfix.d-none.d-sm-inline-block Support
+                    li.nav-item
+                        a.nav-link
+                            i.fa.fa-user
+                            span.clearfix.d-none.d-sm-inline-block Account
+                    li.nav-item.dropdown
+                        a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                            | Dropdown
+                        .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+                            a.dropdown-item(href='#') Action
+                            a.dropdown-item(href='#') Another action
+                            a.dropdown-item(href='#') Something else here
+            // /.Navbar
+            // /.Double navigation
+            // Main Layout
+            // TO DO VA gestita la progress bar se sefrve
+            //.progress.md-progress(style='height: 20px')
+            //    .progress-bar(role='progressbar', style='width: 25%; height: 20px', aria-valuenow='25', aria-valuemin='0', aria-valuemax='100')
 
-            .back-link a:hover,
-            .back-link a:focus {
-                color: #408536;
-                text-decoration: none;
-                border-bottom: 1px #408536 solid;
-            }
+            main
 
-            h1 {
-                height: 100%;
-                /* The html and body elements cannot have any padding or margin. */
-                margin: 0;
-                font-size: 14px;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 32px;
-                margin-bottom: 3px;
-            }
+                // Central Modal Medium Info
+                #myModal.modal.fade.left(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                    .modal-dialog.modal-notify.modal-info.modal-side.modal-top-left(role='document')
+                        // Content
+                        .modal-content
+                            // Header
+                            .modal-header
+                                p.heading.lead Informazioni
+                                button.close(type='button', data-dismiss='modal', aria-label='Chiudi')
+                                    span.white-text(aria-hidden='true') ×
+                            // Body
+                            .modal-body
+                                h1 Utente già notificato!
+                            // Footer
+                            .modal-footer.justify-content-center
+                // Central Modal Medium Info
 
-            .entry-header {
-                text-align: left;
-                margin: 0 auto 50px auto;
-                width: 80%;
-                max-width: 978px;
-                position: relative;
-                z-index: 10001;
-            }
+                #myModal1.modal.fade
+                    .modal-dialog
+                        .modal-content
+                            // dialog body
+                            .modal-body
+                                button.close(type='button', data-dismiss='modal') ×
+                                h1 Invio!
+                                .row
+                                    .col-md-12
+                                        h3#myHeader Caricamento In Corso...
+                                            br
+                                            .progress.progress-striped.active.page-progress-bar
+                                                .progress-bar(style='width: 100%;')
+                                                    | Attendere Prego
 
-            #demo-content {
-                padding-top: 100px;
-            }
-        script(src='javascripts/modernizr.js')
-        script(src='javascripts/jquery-2.1.1.js')
-        script(src='javascripts/main.js')
-        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
-        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-        script(src='javascripts/datatables.min.js')
-        script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js')
-        script(src='https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js')
-        script(src='https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap.min.js')
-        script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
-        script(src='javascripts/dataTables.buttons.min.js')
-        script(src='javascripts/dataTables.select.min.js')
-        script(src='javascripts/bootstrap-tokenfield.min.js')
+                .container-fluid.mt-5
+                    .jumbotron
+                        h1.h1-reponsive.mb-3.blue-text
+                            strong Gestione Invio Notifiche
 
+                    .row
+                        .col-sm-4
+                            h3 Scegli un'opzione :
+                    .row
+                        .col-sm-2
+                            h4 Invia Evento
+                            .material-switch
+                                input#invioEvento(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
+                                label.label-success(for='invioEvento')
+                        .col-sm-2
+                            h4 Invia Nota Informativa
+                            .material-switch
+                                input#invioNotainformativa(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
+                                label.label-success(for='invioNotainformativa')
+                    br
+                    hr
+                    .row#hideInfo
+                        .col-sm-12
+                            .alert.alert-danger
+                                strong Info!
+                                |  Selezionare solo un'opzione.
+                    .container-fluid#conteinerHideModalita
+                        .row
+                            .col-sm-4
+                                h3 Seleziona modalità di comunicazione
+                            .col-sm-2
+                            .col-sm-4
+                                h3 Seleziona modalità d'interesse
+                        .row
+                            .col-sm-2
+                                h4 Push Notifications
+                                .material-switch
+                                    input#invioPush(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                                    label.label-success(for='invioPush')
+                            .col-sm-2
+                                h4 E-mail
+                                .material-switch
+                                    input#invioEmail(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                                    label.label-success(for='invioEmail')
+                            .col-sm-2
+                                h4 SMS
+                                .material-switch
+                                    input#invioSms(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
+                                    label.label-success(for='invioSms')
+                            .col-md-6
+                                label.cols-sm-2.control-label(for='interessi') Interessi
+                                .cols-sm-10
+                                    .input-group
+                                        span.input-group-addon
+                                            i.fa.fa-hashtag(aria-hidden='true')
+                                        input#interessi.form-control(type='text', name='interessi', placeholder='Interessi', onchange='switchTable();')
+                    br
+                    .container-fluid#conteinerHideEvento
+                        .row
+                            .col-sm-4
+                                h3 Seleziona L'evento
+                            .col-sm-6.pull-right
+                                h3 Seleziona i contatti
+                    .row
+                        .col-sm-6.table-responsive
+                            table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                                thead
+                                    tr
+                                        th
+                                        th Titolo Evento
+                                        th Sottotitolo Evento
+                                        th Luogo
+                                        th Data Inizio
+                                        th Data Fine
+                                        th Relatori
+                        .col-sm-6.table-responsive
+                            table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                                thead
+                                    tr
+                                        th id
+                                        th Username
+                                        th Cognome
+                                        th Nome
+                                        th Professione
+                                        th Residenza
 
-    body
-        header.cd-header
-            a.cd-3d-nav-trigger
-                | Menu
-                span
-        nav.cd-3d-nav-container
-            ul.cd-3d-nav
-                li
-                    a(href='/home') Notifications Center
-                li
-                    a(href='/gestioneInteressi') Interessi
-                li
-                    a(href='/gestioneContatto') Anagrafica
-                li
-                    a(href='/gestioneEventi') Eventi
-                li.cd-selected
-                    a(href='/assegnaEvento') Invio Notifiche
-                li
-                    a(href='/gestioneNotifiche') Gestione Report
-                li
-                    a(href='/chatOperatoreSMS') Chat
-                li
-                    a(href='/logout') Logout
-        br
-        #loader-wrapper
-            #loader
-            .loader-section.section-left
-            .loader-section.section-right
-        block myContainer
-        .container-fluid
-            .jumbotron
-                .row
-                    h1(style='text-align: center;') Gestione Invio Notifiche
+                    br
+                    .container-fluid
+                        .row
+                            .col-sm-2.pull-right
+                                button#SalvaDati.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='salvaDati();') Invia
+                            .col-sm-2.pull-right
+                                button#SelezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='selezionaTutti();') Seleziona Tutti
+                            .col-sm-2.pull-right
+                                button#DeselezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='deselezionaTutti();') Deseleziona Tutti
 
-            #myModal.modal.fade
-                .modal-dialog
-                    .modal-content
-                        // dialog body
-                        .modal-body
-                            button.close(type='button', data-dismiss='modal') ×
-                            h1 Utente già notificato!
-                        // dialog buttons
-                        .modal-footer
+                            br
 
-            #myModal1.modal.fade
-                .modal-dialog
-                    .modal-content
-                        // dialog body
-                        .modal-body
-                            button.close(type='button', data-dismiss='modal') ×
-                            h1 Invio!
-                            .row
-                                .col-md-12
-                                    h3#myHeader Caricamento In Corso...
-                                        br
-                                        .progress.progress-striped.active.page-progress-bar
-                                            .progress-bar(style='width: 100%;')
-                                                | Attendere Prego
-
-            .row
-                .col-sm-4
-                    h3 Scegli un'opzione :
-            .row
-                .col-sm-2
-                    h4 Invia Evento
-                    .material-switch
-                        input#invioEvento(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
-                        label.label-success(for='invioEvento')
-                .col-sm-2
-                    h4 Invia Nota Informativa
-                    .material-switch
-                        input#invioNotainformativa(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
-                        label.label-success(for='invioNotainformativa')
-            br
-            hr
-            .row#hideInfo
-                .col-sm-12
-                    .alert.alert-danger
-                        strong Info!
-                        |  Selezionare solo un'opzione.
-            .container-fluid#conteinerHideModalita
-                .row
-                    .col-sm-4
-                        h3 Seleziona modalità di comunicazione
-                    .col-sm-2
-                    .col-sm-4
-                        h3 Seleziona modalità d'interesse
-                .row
-                    .col-sm-2
-                        h4 Push Notifications
-                        .material-switch
-                            input#invioPush(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
-                            label.label-success(for='invioPush')
-                    .col-sm-2
-                        h4 E-mail
-                        .material-switch
-                            input#invioEmail(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
-                            label.label-success(for='invioEmail')
-                    .col-sm-2
-                        h4 SMS
-                        .material-switch
-                            input#invioSms(name='someSwitchOption001', type='checkbox', checked=true, onchange='switchTable();')
-                            label.label-success(for='invioSms')
-                    .col-md-6
-                        label.cols-sm-2.control-label(for='interessi') Interessi
-                        .cols-sm-10
-                            .input-group
-                                span.input-group-addon
-                                    i.fa.fa-hashtag(aria-hidden='true')
-                                input#interessi.form-control(type='text', name='interessi', placeholder='Interessi', onchange='switchTable();')
-            br
-            .container-fluid#conteinerHideEvento
-                .row
-                    .col-sm-4
-                        h3 Seleziona L'evento
-                    .col-sm-6.pull-right
-                        h3 Seleziona i contatti
-            .row
-                .col-sm-6.table-responsive
-                    table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
-                        thead
-                            tr
-                                th
-                                th Titolo Evento
-                                th Sottotitolo Evento
-                                th Luogo
-                                th Data Inizio
-                                th Data Fine
-                                th Relatori
-                .col-sm-6.table-responsive
-                    table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
-                        thead
-                            tr
-                                th id
-                                th Username
-                                th Cognome
-                                th Nome
-                                th Professione
-                                th Residenza
-
-            br
-            .container-fluid
-                .row
-                    .col-sm-2.pull-right
-                        button#SalvaDati.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='salvaDati();') Invia
-                    .col-sm-2.pull-right
-                        button#SelezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='selezionaTutti();') Seleziona Tutti
-                    .col-sm-2.pull-right
-                        button#DeselezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='deselezionaTutti();') Deseleziona Tutti
-            br
-        nav.navbar.navbar-default
-            .container-fluid
-                .row
-                    a(target='_blank', href='http://www.ak12srl.it/', style="float:right; padding-top:8px")
-                        img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
-                    h5(style="float:right; padding-top:18px") © Copyright 2018 - AK-12. All Rights Reserved.
-    block myScript
-        script(src="javascripts/controllers/assegnaEventoController.js")
+            // Footer
+            footer.page-footer.font-small.mdb-skin
+                // Copyright
+                .footer-copyright.text-center.py-3
+                    | © Copyright 2018 - AK-12. All Rights Reserved:
+                    a(target='_blank', href='http://www.ak12srl.it/')
+                        // TO DO: inserire immagine con scritta bianca
+                        //img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
+                // Copyright
+            // Footer
+            // Main Layout
+            // SCRIPTS
+            // JQuery
+            script(type='text/javascript', src='javascripts/jquery-3.3.1.min.js')
+            // Popper
+            script(type='text/javascript', src='javascripts/popper.min.js')
+            // Bootstrap core JavaScript
+            script(src='javascripts/bootstrap.min.js')
+            // MDB core JavaScript
+            script(type='text/javascript', src='javascripts/mdb.min.js')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+            script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+            script(src='javascripts/modernizr.js')
+            script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+            script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
+            // TO DO: Credo non serva a nulla
+            script(src="javascripts/controllers/assegnaEventoController.js")
+            script.
+                // SideNav Initialization
+                $(".button-collapse").sideNav();

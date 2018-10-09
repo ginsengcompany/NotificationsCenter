@@ -60,21 +60,21 @@ function  openModalUpdate() {
     });
     arrayInteressi = ids1;
 
-    $("#myModal1").on("show", function () {
-        $("#myModal1 a.btn").on("click", function (e) {
+    $("#modalModificaInteressi").on("show", function () {
+        $("#modalModificaInteressi a.btn").on("click", function (e) {
             console.log("button pressed");
-            $("#myModal1").modal('hide');
+            $("#modalModificaInteressi").modal('hide');
         });
     });
-    $("#myModal1").on("hide", function () {
-        $("#myModal1 a.btn").off("click");
+    $("#modalModificaInteressi").on("hide", function () {
+        $("#modalModificaInteressi a.btn").off("click");
     });
 
-    $("#myModal1").on("hidden", function () {
-        $("#myModal1").remove();
+    $("#modalModificaInteressi").on("hidden", function () {
+        $("#modalModificaInteressi").remove();
     });
 
-    $("#myModal1").modal({
+    $("#modalModificaInteressi").modal({
         "backdrop": "static",
         "keyboard": true,
         "show": true
@@ -86,21 +86,21 @@ function  openModalUpdate() {
 
 function  openModalAdd() {
 
-    $("#myModal2").on("show", function () {
-        $("#myModal2 a.btn").on("click", function (e) {
+    $("#modalAggiungiInteressi").on("show", function () {
+        $("#modalAggiungiInteressi a.btn").on("click", function (e) {
             console.log("button pressed");
-            $("#myModal2").modal('hide');
+            $("#modalAggiungiInteressi").modal('hide');
         });
     });
-    $("#myModal2").on("hide", function () {
-        $("#myModal2 a.btn").off("click");
+    $("#modalAggiungiInteressi").on("hide", function () {
+        $("#modalAggiungiInteressi a.btn").off("click");
     });
 
-    $("#myModal2").on("hidden", function () {
-        $("#myModal2").remove();
+    $("#modalAggiungiInteressi").on("hidden", function () {
+        $("#modalAggiungiInteressi").remove();
     });
 
-    $("#myModal2").modal({
+    $("#modalAggiungiInteressi").modal({
         "backdrop": "static",
         "keyboard": true,
         "show": true
@@ -130,7 +130,7 @@ function updateInteresse(){
 
             if(data.errore===false){
 
-                $("#myModal1").modal('hide');
+                $("#modalModificaInteressi").modal('hide');
                 $('#modificaInteresse').prop('disabled', true);
                 $('#eliminaInteresse').prop('disabled', true);
                 tabInteressi.ajax.reload();
@@ -142,7 +142,6 @@ function updateInteresse(){
 
         }
     });
-
 }
 
 function eliminaInteresse(){
@@ -165,9 +164,7 @@ function eliminaInteresse(){
                 tabInteressi.ajax.reload();
                 $('#modificaInteresse').prop('disabled', true);
                 $('#eliminaInteresse').prop('disabled', true);
-
             }
-
         },
         faliure: function(data) {
 
@@ -189,7 +186,7 @@ function addInteresse(){
         contentType: 'application/json',
         success: function(data) {
 
-            $('#myModal2').modal('hide');
+            $('#modalAggiungiInteressi').modal('hide');
             $('#modificaInteresse').prop('disabled', true);
             $('#eliminaInteresse').prop('disabled', true);
             tabInteressi.ajax.reload();

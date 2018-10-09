@@ -28,7 +28,7 @@ router.post('/',function (req, res, next) {
                     result.addRow(row);
                 });
 
-                let queryPostMatricola = "SELECT * FROM "+multiUser.data[i].tb_contatti+" WHERE username='"+ username +"' AND password='"+ password +"'";
+                let queryPostMatricola = "SELECT * FROM " + multiUser.data[i].tb_contatti+" WHERE username='"+ username +"' AND password='"+ password +"'";
 
                 const query = client.query(queryPostMatricola);
 
@@ -41,10 +41,10 @@ router.post('/',function (req, res, next) {
                     let final = JSON.parse(myOjb);
                     if(final.length > 0){
                         client.end();
-                        return res.send(true);
+                        return res.send({status: true, final});
                     }else{
                         client.end();
-                        return res.send(false);
+                        return res.send({status: false, messaggio: "Errore!"});
                     }
                 });
             }

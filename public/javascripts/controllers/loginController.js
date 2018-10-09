@@ -1,4 +1,4 @@
-$.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js", function(){
+/*$.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js", function(){
     particlesJS('particles-js',
         {
             "particles": {
@@ -117,7 +117,7 @@ $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles
         }
     );
 
-});
+});*/
 
 let datiLogin = {
     'email' : undefined ,
@@ -153,22 +153,23 @@ function loginEffettuatoConSuccesso(){
         contentType: 'application/json',
         success: function(data) {
 
+
             if(data.errore===true){
-                $("#myModal1").on("show", function () {
-                    $("#myModal1 a.btn").on("click", function (e) {
+                $("#modalErroreLogin").on("show.bs.modal", function () {
+                    $("#modalErroreLogin a.btn").on("click", function (e) {
                         console.log("button pressed");
-                        $("#myModal1").modal('hide');
+                        $("#modalErroreLogin").modal('hide');
                     });
                 });
-                $("#myModal1").on("hide", function () {
-                    $("#myModal1 a.btn").off("click");
+                $("#modalErroreLogin").on("hide.bs.modal", function () {
+                    $("#modalErroreLogin a.btn").off("click");
                 });
 
-                $("#myModal1").on("hidden", function () {
-                    $("#myModal1").remove();
+                $("#modalErroreLogin").on("hidden", function () {
+                    $("#modalErroreLogin").remove();
                 });
 
-                $("#myModal1").modal({
+                $("#modalErroreLogin").modal({
                     "backdrop": "static",
                     "keyboard": true,
                     "show": true

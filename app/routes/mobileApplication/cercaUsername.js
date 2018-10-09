@@ -18,9 +18,9 @@ router.post('/',function (req, res, next) {
 
     for(let i=0;i<multiUser.data.length;i++){
 
-            if(multiUser.data[i].cod_org===organizzazione){
+            if(multiUser.data[i].cod_org === organizzazione){
 
-                let queryPostToken = "UPDATE "+multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE username='"+ username +"' AND password='"+password+"'";
+                let queryPostToken = "UPDATE " + multiUser.data[i].tb_contatti+" SET token='"+token+"' WHERE username='"+ username +"' AND password='"+password+"'";
 
                 const query1 = client.query(queryPostToken);
 
@@ -39,7 +39,7 @@ router.post('/',function (req, res, next) {
                 query.on("end", function (result) {
                     let myOjb = JSON.stringify(result.rows, null, "    ");
                     let final = JSON.parse(myOjb);
-                    if(final.length>0){
+                    if(final.length > 0){
                         client.end();
                         return res.send(true);
                     }else{

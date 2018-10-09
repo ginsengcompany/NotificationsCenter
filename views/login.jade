@@ -1,87 +1,103 @@
 doctype html
 html(lang='en')
     head
-        title Notifications Center
+        // Required meta tags always come first
         meta(charset='utf-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-        link(rel='stylesheet', href='stylesheets/main.css')
-        style(type='text/css').
-            .back-link a {
-                color: #4ca340;
-                text-decoration: none;
-                border-bottom: 1px #4ca340 solid;
-            }
-
-            .back-link a:hover,
-            .back-link a:focus {
-                color: #408536;
-                text-decoration: none;
-                border-bottom: 1px #408536 solid;
-            }
-
-            h1 {
-                height: 100%;
-                /* The html and body elements cannot have any padding or margin. */
-                margin: 0;
-                font-size: 14px;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 32px;
-                margin-bottom: 3px;
-            }
-
-            .entry-header {
-                text-align: left;
-                margin: 0 auto 50px auto;
-                width: 80%;
-                max-width: 978px;
-                position: relative;
-                z-index: 10001;
-            }
-
-            #demo-content {
-                padding-top: 100px;
-            }
-        link(rel='stylesheet', href='stylesheets/bootstrap.css')
-        script(src='javascripts/modernizr.js')
-        script(src='javascripts/jquery-2.1.1.js')
-        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
-        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(http-equiv='x-ua-compatible', content='ie=edge')
+        title Notifications Center
+        // Font Awesome
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
+        // Bootstrap core CSS
+        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+        // Material Design Bootstrap
+        link(href='stylesheets/mdb.min.css', rel='stylesheet')
+        link(rel='icon', type='image/png', href='images/ico.png')
     body
-        #particles-js
-        #loader-wrapper
-            #loader
-            .loader-section.section-left
-            .loader-section.section-right
-        #login-box.container
+        // Main Layout
+        main
+            // Central Modal Medium Success
+            #modalErroreLogin.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalErroreLogin', aria-hidden='true')
+                .modal-dialog.modal-notify.modal-danger(role='document')
+                    // Content
+                    .modal-content
+                        // Header
+                        .modal-header
+                            p.heading.lead Attenzione
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span.white-text(aria-hidden='true') ×
+                        // Body
+                        .modal-body
+                            .text-center
+                                i.fa.fa-check.fa-4x.mb-3.animated.rotateIn
+                                p
+                                    | Impossibile Accedere Utente non Autorizzato!
+                        // Footer
+                        .modal-footer.justify-content-center
+                            a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
 
             #myModal1.modal.fade
                 .modal-dialog.modal-sm
                     .modal-content
                         // dialog body
-                        .modal-body
-                            button.close(type='button', data-dismiss='modal') ×
-                            h3 Impossibile Accedere Utente non Autorizzato!
-                        // dialog buttons
+
                         .modal-footer
-            .row
-                .col-md-12
-                    .card.card-container
-                        img#logoOrdine.img-responsive(src='images/intestazionemail.png', style='margin:0 auto; border-radius: 25px;' )
-            .row
-                .col-sm-12.form-group
-                span#reauth-email.reauth-email
-                input#inputEmail.form-control(type='email', placeholder='Username', required='', autofocus='')
-                br
-                input#inputPassword.form-control(type='password', placeholder='Password', required='')
-                br
-                button.btn.btn-lg.btn-primary.btn-block(onclick='loginEffettuatoConSuccesso();') Login
-        br
-        br
-        br
-        br
-    block myScript
-        script(src="javascripts/controllers/loginController.js")
+            .main-wrapper
+                .container-fluid.mt-5
+                    .row.mt-5.text-left
+                        .col-lg-4.col-md-6.mb-4
+
+                        // Grid column
+                        .col-lg-4.col-md-6.mb-4
+                            section.form-elegant
+                                // Form without header
+                                .card
+                                    .card-body.mx-4
+                                        // Header
+                                        .text-center
+                                            h3.dark-grey-text.mb-5
+                                                strong Sign in
+                                        // Body
+                                        .md-form
+                                            input#inputEmail.form-control(type='text')
+                                            label(for='inputEmail') Inserire username
+                                        .md-form.pb-3
+                                            input#inputPassword.form-control(type='password')
+                                            label(for='inputPassword') Inserire password
+                                            p.font-small.blue-text.d-flex.justify-content-end
+                                                | Forgot
+                                                a.blue-text.ml-1(href='#')  Password?
+                                        .text-center.mb-3
+                                            button.btn.blue-gradient.btn-block.btn-rounded.z-depth-1a.waves-effect.waves-light(type='button', onclick='loginEffettuatoConSuccesso();') Sign in
+                                        p.font-small.dark-grey-text.text-right.d-flex.justify-content-center.mb-3.pt-2  or Sign in with:
+                                        .row.my-3.d-flex.justify-content-center
+                                            // Facebook
+                                            button.btn.btn-white.btn-rounded.mr-md-3.z-depth-1a.waves-effect.waves-light(type='button')
+                                                i.fa.fa-facebook.blue-text.text-center
+                                            // Twitter
+                                            button.btn.btn-white.btn-rounded.mr-md-3.z-depth-1a.waves-effect.waves-light(type='button')
+                                                i.fa.fa-twitter.blue-text
+                                            // Google +
+                                            button.btn.btn-white.btn-rounded.z-depth-1a.waves-effect.waves-light(type='button')
+                                                i.fa.fa-google-plus.blue-text
+                                    // Footer
+                                    .modal-footer.mx-5.pt-3.mb-1
+                                        p.font-small.grey-text.d-flex.justify-content-end
+                                            | Not a member?
+                                            a.blue-text.ml-1(href='#')  Sign Up
+                            .col-lg-4.col-md-6.mb-4
+            // Main Layout
+            // SCRIPTS
+            // JQuery
+            script(type='text/javascript', src='javascripts/jquery-3.3.1.min.js')
+            // Popper
+            script(type='text/javascript', src='javascripts/popper.min.js')
+            // Bootstrap core JavaScript
+            script(src='javascripts/bootstrap.min.js')
+            // MDB core JavaScript
+            script(type='text/javascript', src='javascripts/mdb.min.js')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+            script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+            script(src='javascripts/modernizr.js')
+            // Tooltips
+            script(src="javascripts/controllers/loginController.js")

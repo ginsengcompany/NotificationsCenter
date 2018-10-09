@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
             "data": final
         };
 
-        if(jsonFinale.data.length===1){
+        if(jsonFinale.data.length ===1){
 
             client.end();
             return res.json({errore:false,id:jsonFinale.data[0]});

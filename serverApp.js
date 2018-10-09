@@ -107,7 +107,8 @@ let services = {
 
 let soapServer = new soap.SoapServer();
 soapServer.addService('Service.svc', services.Service.BasicHttpBinding_IService);
-soapServer.listen(1337, '192.168.125.25');
+soapServer.listen(1337, '192.168.125.33');
+//soapServer.listen(1337, '192.168.125.25');
 
 
 let  salvaEvento = require('./app/routes/webApplication/salvaEvento');
@@ -384,6 +385,50 @@ cron.schedule('0 0 0 * * *', function(){
 
 
 });*/
+
+// Sta anche commentata la tiro fuori per verifica momentaneamente
+cron.schedule('16 *!/1 * * * *', function(){
+
+    const options = {
+        url: 'http://localhost:3000/getCountNotifiche',
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+    };
+
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            let  data = [];
+            data.push(body);
+
+            let  contaTot = JSON.parse(data[0]);
+            console.log(contaTot);
+            if(parseInt(contaTot.count)>0){
+                request({
+                    url: 'http://localhost:3000/invioNotifica',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Accept-Charset': 'utf-8'
+                    },
+                    json: true,
+                    body: contaTot
+                }, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+
+                    }else{
+                        console.log('Errore');
+                    }
+                })
+            }
+            else {
+
+            }
+        }
+    })
+});
 
 require('./routes/routes.js')(app);
 

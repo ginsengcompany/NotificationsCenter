@@ -171,28 +171,28 @@ html(lang='en')
                             .modal-footer.d-flex.justify-content-center
                                 button.btn.btn-primary.btn-block(type='button', onclick='addInteresse();') Salva
 
-                .container-fluid.mt-5
+                .container-fluid.mx-auto
                     // Jumbotron
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text
                             strong Gestione Interessi
-                    .row
-                        .col-sm-2
-                            button#AggiungiInteresse.btn.btn-primary.btn-lg(onclick='openModalAdd();') Aggiungi Interesse
-                        .col-sm-2
-                            button#modificaInteresse.btn.btn-primary.btn-lg(onclick='openModalUpdate();') Modifica Interesse
-                        .col-sm-2
-                            button#eliminaInteresse.btn.btn-primary.btn-lg(onclick='eliminaInteresse();') Elimina Interesse
-                    br
-                    .row
-                        .col-sm-12.table-responsive
-                            table#tabellaInteressi.table.table-striped.table-bordered(width='100%', cellspacing='0')
-                                thead
-                                    tr
-                                        th id
-                                        th Interesse
-                                        th Descrizione
-                    br
+                .row.mx-3
+                    .col-sm-2
+                        button#AggiungiInteresse.btn.btn-primary.btn-lg(onclick='openModalAdd();') Aggiungi Interesse
+                    .col-sm-2
+                        button#modificaInteresse.btn.btn-primary.btn-lg(onclick='openModalUpdate();') Modifica Interesse
+                    .col-sm-2
+                        button#eliminaInteresse.btn.btn-primary.btn-lg(onclick='eliminaInteresse();') Elimina Interesse
+                br
+                .row.mx-3
+                    .col-sm-12.table-responsive
+                        table#tabellaInteressi.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                            thead
+                                tr
+                                    th id
+                                    th Interesse
+                                    th Descrizione
+                br
 
             // Footer
             footer.page-footer.font-small.mdb-skin

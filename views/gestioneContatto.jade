@@ -309,12 +309,12 @@ html(lang='en')
                             .modal-footer.justify-content-center
                                 a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
 
-                .container-fluid.mt-5
+                .container-fluid.mx-auto
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text
                             strong Gestione Contatti
 
-                .row
+                .row.mx-3
                     .col-sm-2
                         button#aggiungiUtente.btn.btn-primary.btn-lg(onclick='openModal2();') Aggiungi Contatto
                     .col-sm-2
@@ -322,7 +322,7 @@ html(lang='en')
                     .col-sm-2
                         button#eliminaUtente.btn.btn-primary.btn-lg(onclick='eliminaUtente();') Elimina Contatto
                 br
-                .row
+                .row.mx-3
                     .col-sm-12.table-responsive
                         table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
                             thead

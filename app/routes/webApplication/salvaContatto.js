@@ -29,7 +29,7 @@ router.post('/',function (req, res, next) {
                 "'" + datiContatto.specializzazione         +"', " +
                 "'" + datiContatto.provincia  +"', " +
                 "'" + datiContatto.mail      +"', " +
-                "'" + organizzazione + datiContatto.username      +"', " + // la username viene sempre preceduta dal codice organizzazione
+                "'" + organizzazione + '-' + datiContatto.username      +"', " + // la username viene sempre preceduta dal codice organizzazione
                 "'" + datiContatto.password      +"', " +
                 "'" + datiContatto.numero_telefono      +"', " +
                 "'" + datiContatto.interesse      +"', " +

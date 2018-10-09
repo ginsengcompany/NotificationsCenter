@@ -28,25 +28,27 @@ html(lang='en')
                     // Social
                     li
                         ul.social
-                            li
-                                a.icons-sm.fb-ic(href='#')
-                                    i.fa.fa-facebook
-                            li
-                                a.icons-sm.pin-ic(href='#')
-                                    i.fa.fa-pinterest
-                            li
-                                a.icons-sm.gplus-ic(href='#')
-                                    i.fa.fa-google-plus
-                            li
-                                a.icons-sm.tw-ic(href='#')
-                                    i.fa.fa-twitter
+                            h5 Notifications Center
+                            // TO DO: se non serve elimina
+                            //li
+                            //    a.icons-sm.fb-ic(href='#')
+                            //        i.fa.fa-facebook
+                            //li
+                            //    a.icons-sm.pin-ic(href='#')
+                            //        i.fa.fa-pinterest
+                            //li
+                            //    a.icons-sm.gplus-ic(href='#')
+                            //        i.fa.fa-google-plus
+                            //li
+                            //    a.icons-sm.tw-ic(href='#')
+                            //        i.fa.fa-twitter
                     // /Social
                     // Side navigation links
                     li
                         ul.collapsible.collapsible-accordion
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/home')
-                                    i.fa.fa-envelope-o
+                                    i.fa.fa-home
                                     |  Home
                                 // Esempio aggiunta voci sottomenu
                                 //    i.fa.fa-angle-down.rotate-icon
@@ -58,27 +60,27 @@ html(lang='en')
                                 //            a(href='/gestioneInteressi') Interessi
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneInteressi')
-                                    i.fa.fa-chevron-right
+                                    i.fa.fa-universal-access
                                     |  Interessi
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneContatto')
-                                    i.fa.fa-hand-pointer-o
+                                    i.fa.fa-user
                                     |  Anagrafica
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneEventi')
-                                    i.fa.fa-eye
+                                    i.fa.fa-calendar
                                     |  Eventi
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/assegnaEvento')
-                                    i.fa.fa-eye
+                                    i.fa.fa-bell
                                     |  Invio Notifiche
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneNotifiche')
-                                    i.fa.fa-eye
+                                    i.fa.fa-file-excel-o
                                     |  Gestione Report
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/logout')
-                                    i.fa.fa-envelope-o
+                                    i.fa.fa-sign-out
                                     |  Logout
                 .sidenav-bg.mask-strong
             // /. Sidebar navigation
@@ -92,25 +94,31 @@ html(lang='en')
                 .breadcrumb-dn.mr-auto
                     p Material Design for Bootstrap
                 ul.nav.navbar-nav.nav-flex-icons.ml-auto
-                    li.nav-item
-                        a.nav-link
-                            i.fa.fa-envelope
-                            span.clearfix.d-none.d-sm-inline-block Contact
-                    li.nav-item
-                        a.nav-link
-                            i.fa.fa-comments-o
-                            span.clearfix.d-none.d-sm-inline-block Support
-                    li.nav-item
-                        a.nav-link
-                            i.fa.fa-user
-                            span.clearfix.d-none.d-sm-inline-block Account
+                    // TO DO: Eliminare se non serve
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-envelope
+                    //        span.clearfix.d-none.d-sm-inline-block Contact
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-comments-o
+                    //        span.clearfix.d-none.d-sm-inline-block Support
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-user
+                    //        span.clearfix.d-none.d-sm-inline-block Account
                     li.nav-item.dropdown
                         a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                             | Dropdown
                         .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
-                            a.dropdown-item(href='#') Action
-                            a.dropdown-item(href='#') Another action
-                            a.dropdown-item(href='#') Something else here
+                            a.dropdown-item(href='/home') Home
+                            a.dropdown-item(href='/gestioneInteressi') Interessi
+                            a.dropdown-item(href='/gestioneContatto') Anagrafica
+                            a.dropdown-item(href='/gestioneEventi') Eventi
+                            a.dropdown-item(href='/assegnaEvento') Invio Notifiche
+                            a.dropdown-item(href='/gestioneNotifiche') Gestione Report
+                            a.dropdown-item(href='/logout') Logout
+
             // /.Navbar
             // /.Double navigation
             // Main Layout

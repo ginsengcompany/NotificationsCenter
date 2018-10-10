@@ -142,6 +142,7 @@ let  invioNotifica = require('./app/routes/webApplication/invioNotifica');
 let  checkNotifica = require('./app/routes/webApplication/checkNotifica');
 let  getCountNotifiche = require('./app/routes/webApplication/getCountNotifiche');
 let  getListaOrganizzazione = require('./app/routes/mobileApplication/getListaOrganizzazione');
+let  modificaContatto = require('./app/routes/mobileApplication/modificaContatto');
 let  getNotificheMaster = require('./app/routes/mobileApplication/getNotificheMaster');
 let  prelievoInvioXML = require('./app/routes/webApplication/prelievoInvioXML');
 let  loginMaster = require('./app/routes/mobileApplication/loginMaster');
@@ -164,7 +165,7 @@ let getListaMessaggi = require('./app/routes/webApplication/getListaMessaggi');
 
 function checkAuth (req, res, next) {
 
-    if ((req.url === '/home'|| req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/gestioneEventi' || req.url === '/gestioneContatto' || req.url === '/chatOperatoreSMS' || req.url === '/gestioneInteressi')
+    if ((req.url === '/home'|| req.url === '/assegnaEvento' || req.url === '/gestioneNotifiche' || req.url === '/gestioneEventi' || req.url === '/gestioneNote' || req.url === '/gestioneContatto' || req.url === '/chatOperatoreSMS' || req.url === '/gestioneInteressi')
         && (!req.session || !req.session.authenticated)) {
         res.render('login', { status: 403 });
         return;
@@ -481,6 +482,7 @@ app.use('/getUpdateNota',getUpdateNota);
 app.use('/getNotificheNota',getNotificheNota);
 app.use('/insertMessageChat',insertMessageChat);
 app.use('/getListaMessaggi',getListaMessaggi);
+app.use('/modificaContatto',modificaContatto);
 
 
 let swaggerUi = require('swagger-ui-express');

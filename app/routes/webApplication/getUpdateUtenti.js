@@ -31,7 +31,8 @@ router.post('/',function (req, res, next) {
                 "password='" + datiUpdateOrDelete.password + "', " +
                 "interessi='" + datiUpdateOrDelete.interessi + "', " +
                 "numero_telefono='" + datiUpdateOrDelete.telefono + "', " +
-                "pec='" + datiUpdateOrDelete.pec + "' " +
+                "pec='" + datiUpdateOrDelete.pec + "', " +
+                "attivo=" + datiUpdateOrDelete.attivo + " " +
                 "WHERE _id=" + datiUpdateOrDelete._id;
 
             const query = client.query(queryUpdateOrDelete1);

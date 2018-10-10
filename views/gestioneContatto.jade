@@ -188,6 +188,14 @@ html(lang='en')
                                     .md-form.col-md-6
                                         label.cols-sm-4.control-label.active(for='interessi') Gestione Interessi
                                         button#AggiungiInteresse.btn.btn-primary(type='button', onclick='openModalAdd();') Aggiungi Interesse
+                                .row
+                                    .md-form.col-md-6
+                                        .switch
+                                            label
+                                                | Utente Non Attivo
+                                                input#utenteAttivo(type='checkbox')
+                                                span.lever
+                                                | Utente Attivo
                             // dialog buttons
                             .modal-footer.d-flex.justify-content-center
                                 button.btn.btn-primary.btn-block(type='button', onclick='updateUtente();') Salva
@@ -251,6 +259,14 @@ html(lang='en')
                                     .md-form.col-md-6
                                         label.cols-sm-4.control-label.active(for='interessi') Gestione Interessi
                                         button#AggiungiInteresse.btn.btn-primary(onclick='openModalAdd();') Aggiungi Interesse
+                                .row
+                                    .md-form.col-md-6
+                                        .switch
+                                            label
+                                                | Utente Non Attivo
+                                                input#utenteAttivo2(type='checkbox')
+                                                span.lever
+                                                | Utente Attivo
                                 .row
                                     .col-md-4
                                         h5 * Campi Obbligatori.
@@ -344,7 +360,7 @@ html(lang='en')
                 br
 
             // Footer
-            footer.page-footer.font-small.mdb-skin
+            footer.page-footer.font-small.mdb-skin.fixed-bottom
                 // Copyright
                 .footer-copyright.text-center.py-3
                     | © Copyright 2018 - AK-12. All Rights Reserved:

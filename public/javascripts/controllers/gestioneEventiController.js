@@ -173,7 +173,6 @@ function  openModal() {
     $('#dataEvento').val(convertDate(arrayEventi[0].data));
     $('#dataEventoFine').val(convertDate(arrayEventi[0].data_fine));
     $('#luogoEvento').val(arrayEventi[0].luogo);
-    $('#urlEvento').val(arrayEventi[0].url_evento);
     $('#informazioniEvento').val(arrayEventi[0].informazioni);
     $('#relatoriEvento').val(arrayEventi[0].relatori);
     $('#descrizioneEvento').val(arrayEventi[0].descrizione);
@@ -188,7 +187,6 @@ function updateEvento(){
     datiEvento.data = $('#dataEvento').val();
     datiEvento.dataFine = $('#dataEventoFine').val();
     datiEvento.luogo = $('#luogoEvento').val();
-    datiEvento.url_evento = $('#urlEvento').val();
     datiEvento.informazioni = $('#informazioniEvento').val();
     datiEvento.relatori = $('#relatoriEvento').val();
     datiEvento.descrizione = $('#descrizioneEvento').val();

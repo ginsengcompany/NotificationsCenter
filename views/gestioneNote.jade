@@ -10,11 +10,12 @@ html(lang='en')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
         // Bootstrap core CSS
         link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
-        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
         // Material Design Bootstrap
         link(href='stylesheets/mdb.min.css', rel='stylesheet')
         link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
         link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
+        link(href='stylesheets/custom.css', rel='stylesheet')
         link(rel='icon', type='image/png', href='images/ico.png')
     body.hidden-sn.mdb-skin
         // Double navigation
@@ -70,9 +71,16 @@ html(lang='en')
                                     i.fa.fa-user
                                     |  Anagrafica
                             li
-                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneEventi')
-                                    i.fa.fa-calendar
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-calendar-o
                                     |  Eventi
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='/gestioneEventi') Gestione Eventi
+                                        li
+                                            a.waves-effect(href='/gestioneNote') Gestione Note
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/assegnaEvento')
                                     i.fa.fa-bell
@@ -117,7 +125,8 @@ html(lang='en')
                             a.dropdown-item(href='/home') Home
                             a.dropdown-item(href='/gestioneInteressi') Interessi
                             a.dropdown-item(href='/gestioneContatto') Anagrafica
-                            a.dropdown-item(href='/gestioneEventi') Eventi
+                            a.dropdown-item(href='/gestioneEventi') Gestione Eventi
+                            a.dropdown-item(href='/gestioneNote') Gestione Note
                             a.dropdown-item(href='/assegnaEvento') Invio Notifiche
                             a.dropdown-item(href='/gestioneNotifiche') Gestione Report
                             a.dropdown-item(href='/logout') Logout

@@ -69,9 +69,16 @@ html(lang='en')
                                     i.fa.fa-user
                                     |  Anagrafica
                             li
-                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneEventi')
-                                    i.fa.fa-calendar
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-calendar-o
                                     |  Eventi
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='/gestioneEventi') Gestione Eventi
+                                        li
+                                            a.waves-effect(href='/gestioneNote') Gestione Note
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/assegnaEvento')
                                     i.fa.fa-bell
@@ -116,7 +123,8 @@ html(lang='en')
                             a.dropdown-item(href='/home') Home
                             a.dropdown-item(href='/gestioneInteressi') Interessi
                             a.dropdown-item(href='/gestioneContatto') Anagrafica
-                            a.dropdown-item(href='/gestioneEventi') Eventi
+                            a.dropdown-item(href='/gestioneEventi') Gestione Eventi
+                            a.dropdown-item(href='/gestioneNote') Gestione Note
                             a.dropdown-item(href='/assegnaEvento') Invio Notifiche
                             a.dropdown-item(href='/gestioneNotifiche') Gestione Report
                             a.dropdown-item(href='/logout') Logout

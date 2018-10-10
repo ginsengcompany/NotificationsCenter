@@ -15,13 +15,6 @@ let  datiEvento = {
     'url_evento': undefined
 };
 
-function convertDate(inputFormat) {
-    function pad(s) { return (s < 10) ? '0' + s : s; }
-    let  d = new Date(inputFormat);
-    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-}
-
-
 $(document).ready(function () {
 
     tabEventi = $('#tabellaNote').DataTable( {
@@ -111,15 +104,6 @@ $(document).ready(function () {
         }
     } );
 });
-
-function encodeImageFileAsURL(element) {
-    let  file = element.files[0];
-    let  reader = new FileReader();
-    reader.onloadend = function() {
-        datiEvento['immagine']= reader.result;
-    };
-    reader.readAsDataURL(file);
-}
 
 function openModal4(){
     $("#myModal4").on("show", function () {
@@ -276,6 +260,37 @@ function updateNota(){
                 $('#eliminaNota').prop('disabled', true);
 
             }
+        },
+        faliure: function(data) {
+
+        }
+    });
+
+}
+
+function eliminaEvento(){
+
+    let  ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+        return item;
+    });
+    arrayEventi = ids1;
+
+    $.ajax({
+        url: '/getDeleteEventi',
+        type: 'POST',
+        data: JSON.stringify(arrayEventi),
+        cache: false,
+        contentType: 'application/json',
+        success: function(data) {
+
+            if(data.errore===false){
+
+                tabEventi.ajax.reload();
+                $('#modificaEvento').prop('disabled', true);
+                $('#eliminaEvento').prop('disabled', true);
+
+            }
+
         },
         faliure: function(data) {
 

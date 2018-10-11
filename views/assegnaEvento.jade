@@ -168,12 +168,12 @@ html(lang='en')
                         .col-3
                             h4 Invia Evento
                             label.bs-switch(for='invioEvento')
-                                input#invioEvento(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
+                                input#invioEvento(name='someSwitchOption001', type='checkbox', autocomplete='off' onchange='switchTable1();')
                                 span.slider.round
                         .col-3
                             h4 Invia Nota Informativa
                             label.bs-switch(for='invioNotainformativa')
-                                input#invioNotainformativa(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
+                                input#invioNotainformativa(name='someSwitchOption001', type='checkbox', autocomplete='off' onchange='switchTable1();')
                                 span.slider.round
                     br
                     hr
@@ -246,7 +246,7 @@ html(lang='en')
 
                 br
                 .container-fluid
-                    .row
+                    .row.d-flex.flex-row-reverse
                         .col-sm-2.pull-right
                             button#SalvaDati.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='salvaDati();') Invia
                         .col-sm-2.pull-right

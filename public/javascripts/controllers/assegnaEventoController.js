@@ -3,9 +3,9 @@ let arrayEventi = {};
 
 $(function() {
     moment.locale('it');
-    $('#invioPush').prop('checked',true);
-    $('#invioEmail').prop('checked',true);
-    $('#invioSms').prop('checked',true);
+    $('#invioPush').prop('checked',false);
+    $('#invioEmail').prop('checked',false);
+    $('#invioSms').prop('checked',false);
     $('#tabellaUtenti').dataTable().fnClearTable();
 });
 
@@ -406,6 +406,8 @@ let successMessage = function(idUtente,idEvento,tipo,tipoEvento){
         "tipoEvento" : tipoEvento
     };
 
+    console.log(tipo);
+
     $.ajax({
         url: '/salvaStatoNotifiche',
         type: 'POST',
@@ -590,30 +592,15 @@ function salvaDati(){
     arrayEventi = ids1;
 
     for(let i=0; i<arrayUtenti.length; i++){
-
-        let tipo = '';
         let idUtente = arrayUtenti[i]._id;
         let idEvento = arrayEventi[0]._id;
         let tipoEvento =  arrayEventi[0].tipo;
 
-        if(arrayUtenti[i].token){
-
-            tipo = 'Push Notifications';
-            successMessage(idUtente,idEvento,tipo,tipoEvento);
-
-        }
-        else if(arrayUtenti[i].mail){
-
-            tipo = 'E-mail';
-            successMessage(idUtente,idEvento,tipo,tipoEvento);
-
-        }
-        else if(arrayUtenti[i].numero_telefono){
-
-            tipo = 'SMS';
-            successMessage(idUtente,idEvento,tipo,tipoEvento);
-
-        }
+        if(arrayUtenti[i].token && $('#invioPush').prop('checked'))
+            successMessage(idUtente,idEvento,'Push Notifications',tipoEvento);
+        if(arrayUtenti[i].mail && $('#invioEmail').prop('checked'))
+            successMessage(idUtente,idEvento,'E-mail',tipoEvento);
+        if(arrayUtenti[i].numero_telefono &&  $('#invioSms').prop('checked'))
+            successMessage(idUtente,idEvento,'SMS',tipoEvento);
     }
-
 }

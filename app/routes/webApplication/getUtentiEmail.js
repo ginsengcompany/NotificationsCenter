@@ -24,11 +24,11 @@ router.post('/',function (req, res, next) {
 
             if(datiNotNotifica.interesse){
 
-                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (mail <> '' OR mail <> null) AND interessi LIKE '%"+datiNotNotifica.interesse+"%'";
+                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (mail <> '' OR mail <> null) AND interessi LIKE '%"+datiNotNotifica.interesse+"%' AND A.attivo = 'true'";
 
             }else{
 
-                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (mail <> '' OR mail <> null)";
+                queryPostEvento = "SELECT * from "+multiUser.data[i].tb_contatti+" A WHERE  NOT EXISTS (SELECT _id_utente FROM  "+multiUser.data[i].tb_notifiche+" B WHERE  A._id = B._id_utente AND B._id_evento='"+datiNotNotifica.idEvento+"') AND (mail <> '' OR mail <> null) AND A.attivo = 'true'";
 
             }
 

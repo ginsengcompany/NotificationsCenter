@@ -33,7 +33,7 @@ function getUtentiNotNotifica (){
         return item;
     });
     arrayEventi = ids1;
-
+    console.log(arrayEventi);
     datiNotNotifica = {
         "idEvento" : arrayEventi[0]._id
     };
@@ -488,6 +488,7 @@ function switchTable1() {
                 method: "GET",
                 cache: false
             },
+            "order": [[ 4, "desc" ]],
             columns: [
                 {
                     "className":      'details-control',
@@ -528,6 +529,7 @@ function switchTable1() {
                 method: "GET",
                 cache: false
             },
+            "order": [[ 4, "desc" ]],
             columns: [
                 {
                     "className":      'details-control',

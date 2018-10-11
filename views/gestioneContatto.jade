@@ -1,366 +1,400 @@
 doctype html
 html(lang='en')
     head
-        title Notifications Center
+        // Required meta tags always come first
         meta(charset='utf-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-        link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
-        link(rel='stylesheet', href='stylesheets/dataTables.bootstrap.min.css')
-        link(rel='stylesheet', href='https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css')
-        link(rel='stylesheet', href='stylesheets/bootstrap.css')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(http-equiv='x-ua-compatible', content='ie=edge')
+        title Notifications Center
+        // Font Awesome
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
+        // Bootstrap core CSS
+        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+        // Material Design Bootstrap
+        link(href='stylesheets/mdb.min.css', rel='stylesheet')
+        link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
+        link(href='stylesheets/custom.css', rel='stylesheet')
         link(rel='stylesheet', href='stylesheets/bootstrap-tokenfield.min.css')
         link(rel='stylesheet', href='stylesheets/tokenfield-typeahead.min.css')
-        link(rel='stylesheet', href='stylesheets/reset.css')
-        link(rel='stylesheet', href='stylesheets/style.css')
-        link(rel='stylesheet', href='stylesheets/main.css')
-        link(rel='stylesheet', href='stylesheets/style.css')
-        style(type='text/css').
-            .back-link a {
-                color: #4ca340;
-                text-decoration: none;
-                border-bottom: 1px #4ca340 solid;
-            }
+        link(rel='icon', type='image/png', href='images/ico.png')
+    body.hidden-sn.mdb-skin
+        // Double navigation
+        header
+            // Sidebar navigation
+            #slide-out.side-nav.sn-bg-4.mdb-sidenav
+                ul.custom-scrollbar.list-unstyled(style='max-height:100vh;')
+                    // Logo
+                    li
+                        .logo-wrapper.waves-light
+                            a(href='/home')
+                                img.img-fluid.flex-center(src='/images/intestazionemail.png')
+                    // /. Logo
+                    // Social
+                    li
+                        ul.social
+                            h5 Notifications Center
+                            // TO DO: se non serve elimina
+                            //li
+                            //    a.icons-sm.fb-ic(href='#')
+                            //        i.fa.fa-facebook
+                            //li
+                            //    a.icons-sm.pin-ic(href='#')
+                            //        i.fa.fa-pinterest
+                            //li
+                            //    a.icons-sm.gplus-ic(href='#')
+                            //        i.fa.fa-google-plus
+                            //li
+                            //    a.icons-sm.tw-ic(href='#')
+                            //        i.fa.fa-twitter
+                    // /Social
+                    // Side navigation links
+                    li
+                        ul.collapsible.collapsible-accordion
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/home')
+                                    i.fa.fa-home
+                                    |  Home
+                                // Esempio aggiunta voci sottomenu
+                                //    i.fa.fa-angle-down.rotate-icon
+                                //.collapsible-body
+                                //    ul
+                                //        li
+                                //            a(href='/home') Notifications Center
+                                //        li
+                                //            a(href='/gestioneInteressi') Interessi
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneInteressi')
+                                    i.fa.fa-universal-access
+                                    |  Interessi
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneContatto')
+                                    i.fa.fa-user
+                                    |  Anagrafica
+                            li
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-calendar-o
+                                    |  Eventi
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='/gestioneEventi') Gestione Eventi
+                                        li
+                                            a.waves-effect(href='/gestioneNote') Gestione Note
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/assegnaEvento')
+                                    i.fa.fa-bell
+                                    |  Invio Notifiche
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneNotifiche')
+                                    i.fa.fa-file-excel-o
+                                    |  Gestione Report
+                            li
+                                a.collapsible-header.waves-effect.arrow-ra(href='/logout')
+                                    i.fa.fa-sign-out
+                                    |  Logout
+                .sidenav-bg.mask-strong
+            // /. Sidebar navigation
+            // Navbar
+            nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav
+                // SideNav slide-out button
+                .float-left
+                    a.button-collapse(href='#', data-activates='slide-out')
+                        i.fa.fa-bars
+                // Breadcrumb
+                .breadcrumb-dn.mr-auto
+                    p Material Design for Bootstrap
+                ul.nav.navbar-nav.nav-flex-icons.ml-auto
+                    // TO DO: Eliminare se non serve
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-envelope
+                    //        span.clearfix.d-none.d-sm-inline-block Contact
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-comments-o
+                    //        span.clearfix.d-none.d-sm-inline-block Support
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-user
+                    //        span.clearfix.d-none.d-sm-inline-block Account
+                    li.nav-item.dropdown
+                        a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                            | Dropdown
+                        .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+                            a.dropdown-item(href='/home') Home
+                            a.dropdown-item(href='/gestioneInteressi') Interessi
+                            a.dropdown-item(href='/gestioneContatto') Anagrafica
+                            a.dropdown-item(href='/gestioneEventi') Gestine Eventi
+                            a.dropdown-item(href='/gestioneNote') Gestione Note
+                            a.dropdown-item(href='/assegnaEvento') Invio Notifiche
+                            a.dropdown-item(href='/gestioneNotifiche') Gestione Report
+                            a.dropdown-item(href='/logout') Logout
+            // /.Navbar
+            // /.Double navigation
+            // Main Layout
+            // TO DO VA gestita la progress bar se sefrve
+            //.progress.md-progress(style='height: 20px')
+            //    .progress-bar(role='progressbar', style='width: 25%; height: 20px', aria-valuenow='25', aria-valuemin='0', aria-valuemax='100')
 
-            .back-link a:hover,
-            .back-link a:focus {
-                color: #408536;
-                text-decoration: none;
-                border-bottom: 1px #408536 solid;
-            }
-
-            h1 {
-                height: 100%;
-                /* The html and body elements cannot have any padding or margin. */
-                margin: 0;
-                font-size: 14px;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 32px;
-                margin-bottom: 3px;
-            }
-
-            .entry-header {
-                text-align: left;
-                margin: 0 auto 50px auto;
-                width: 80%;
-                max-width: 978px;
-                position: relative;
-                z-index: 10001;
-            }
-
-            #demo-content {
-                padding-top: 100px;
-            }
-        script(src='javascripts/modernizr.js')
-        script(src='javascripts/jquery-2.1.1.js')
-        script(src='javascripts/main.js')
-        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
-        script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
-        script(src='javascripts/datatables.min.js')
-        script(src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js')
-        script(src='https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js')
-        script(src='https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap.min.js')
-        script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
-        script(src='javascripts/dataTables.buttons.min.js')
-        script(src='javascripts/dataTables.select.min.js')
-        script(src='javascripts/bootstrap-tokenfield.min.js')
-    body
-        header.cd-header
-            a.cd-3d-nav-trigger
-                | Menu
-                span
-        nav.cd-3d-nav-container
-            ul.cd-3d-nav
-                li
-                    a(href='/home') Notifications Center
-                li
-                    a(href='/gestioneInteressi') Interessi
-                li.cd-selected
-                    a(href='/gestioneContatto') Anagrafica
-                li
-                    a(href='/gestioneEventi') Eventi
-                li
-                    a(href='/assegnaEvento') Invio Notifiche
-                li
-                    a(href='/gestioneNotifiche') Gestione Report
-                li
-                    a(href='/chatOperatoreSMS') Chat
-                li
-                    a(href='/logout') Logout
-        #loader-wrapper
-            #loader
-            .loader-section.section-left
-            .loader-section.section-right
-        br
-        block myContainer
-        .container-fluid
-            .jumbotron
-                .row
-                    h1(style='text-align: center;') Gestione Contatti
-
-            #myModal1.modal.fade
-                .modal-dialog.modal-lg
-                    .modal-content
-                        // dialog body
-                        .modal-header
-                            button.close(type='button', data-dismiss='modal') ×
-                            h2.modal-title Modifica Contatto
-                        .modal-body
-                            .row
-                                .col-md-4.form-group
-                                    label.cols-sm-4.control-label(for='username') Username
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-user(aria-hidden='true')
-                                            input#username.form-control(type='text', name='username', placeholder='Username')
-                                .col-md-4.form-group
-                                    label.cols-sm-4.control-label(for='password') Password
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-key(aria-hidden='true')
-                                            input#password.form-control(type='text', name='password', placeholder='Password')
-                                .col-md-4.form-group
-                                    label.cols-sm-2.control-label(for='specializzazione') Professione
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-briefcase(aria-hidden='true')
-                                            input#specializzazione.form-control(type='text', name='specializzazione', placeholder='Specializzazione')
-                            .row
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='nome') Nome
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-user(aria-hidden='true')
-                                            input#nome.form-control(type='text', name='nome', placeholder='Nome')
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='cognome') Cognome
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-user(aria-hidden='true')
-                                            input#cognome.form-control(type='text', name='cognome', placeholder='cognome')
-                            .row
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='provincia') Residenza
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-map-marker(aria-hidden='true')
-                                            input#provincia.form-control(type='text', name='provincia', placeholder='residenza')
-                                .col-md-6.form-group
-                                    label.cols-sm-4.control-label(for='mail') Mail
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-envelope-o(aria-hidden='true')
-                                            input#mail.form-control(type='text', name='mail', placeholder='e-mail')
-                            .row
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='telefono') Numero di Telefono
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-phone(aria-hidden='true')
-                                            input#telefono.form-control(type='number', name='telefono', placeholder='Numero di Telefono')
-                                .col-md-6.form-group
-                                    label.cols-sm-4.control-label(for='pec') PEC
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-envelope-o(aria-hidden='true')
-                                            input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
-                            .row
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='interessi') Interessi
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-hashtag(aria-hidden='true')
-                                            input#interessi.form-control(type='number', name='interessi', placeholder='Interessi')
-                                .col-md-4.form-group
-                                    label.cols-sm-2.control-label(for='interessi') Gestione Interessi
-                                    button#AggiungiInteresse.btn.btn-primary.btn-lg(onclick='openModalAdd();') Aggiungi Interesse
-
-                        // dialog buttons
-                        .modal-footer
-                            button.btn.btn-primary.btn-block(type='button', onclick='updateUtente();') Salva
+            main
+                // MODAL MODIFICA CONTATTO
+                #myModal1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalModificaContatto', aria-hidden='true')
+                    .modal-dialog.modal-lg(role='document')
+                        .modal-content
+                            // dialog body
+                            .modal-header.text-center
+                                h4.modal-title.w-100.font-weight-bold Modifica Contatto
+                                    button.close(type='button', data-dismiss='modal', aria-label='Chiudi')
+                                        span(aria-hidden='true') ×
+                            .modal-body.mx-3
+                                .row
+                                    .md-form.col-md-4
+                                        i.fa.fa-user.prefix(aria-hidden='true')
+                                        input#username.form-control(type='text', name='username', placeholder='Username')
+                                        label(data-error='wrong', data-success='right', for='username') Username
+                                    .md-form.col-md-4
+                                        i.fa.fa-key.prefix(aria-hidden='true')
+                                        input#password.form-control(type='text', name='password', placeholder='Password')
+                                        label(data-error='wrong', data-success='right', for='password') Password
+                                    .md-form.col-md-4
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        input#specializzazione.form-control(type='text', name='specializzazione', placeholder='Specializzazione')
+                                        label.cols-sm-2.control-label(for='specializzazione') Professione
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-user.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='nome') Nome
+                                        input#nome.form-control(type='text', name='nome', placeholder='Nome')
+                                    .md-form.col-md-6
+                                        i.fa.fa-user.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='cognome') Cognome
+                                        input#cognome.form-control(type='text', name='cognome', placeholder='cognome')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-map-marker.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='provincia') Residenza
+                                        input#provincia.form-control(type='text', name='provincia', placeholder='residenza')
+                                    .md-form.col-md-6
+                                        i.fa.fa-envelope-o.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='mail') Mail
+                                        input#mail.form-control(type='text', name='mail', placeholder='e-mail')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-phone.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='telefono') Numero di Telefono
+                                        input#telefono.form-control(type='number', name='telefono', placeholder='Numero di Telefono')
+                                    .md-form.col-md-6
+                                        i.fa.fa-envelope-o.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='pec') PEC
+                                        input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-hashtag.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label.active(for='interessi') Interessi
+                                        input#interessi.form-control(type='number', name='interessi', placeholder='Interessi')
+                                    .md-form.col-md-6
+                                        label.cols-sm-4.control-label.active(for='interessi') Gestione Interessi
+                                        button#AggiungiInteresse.btn.btn-primary(type='button', onclick='openModalAdd();') Aggiungi Interesse
+                                .row
+                                    .md-form.col-md-6
+                                        .switch
+                                            label
+                                                | Utente Non Attivo
+                                                input#utenteAttivo(type='checkbox')
+                                                span.lever
+                                                | Utente Attivo
+                            // dialog buttons
+                            .modal-footer.d-flex.justify-content-center
+                                button.btn.btn-primary.btn-block(type='button', onclick='updateUtente();') Salva
 
 
-            #myModal2.modal.fade
-                .modal-dialog.modal-lg             
-                    .modal-content
-                        // dialog body
-                        .modal-header
-                            button.close(type='button', data-dismiss='modal') ×
-                            h2.modal-title Aggiungi Contatto
-                        .modal-body
-                            .row
-                                .col-md-4.form-group
-                                    label.cols-sm-4.control-label(for='username2') Username *
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-user(aria-hidden='true')
-                                            input#username2.form-control(type='text', name='username2', placeholder='Username')
-                                .col-md-4.form-group
-                                    label.cols-sm-4.control-label(for='password2') Password *
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-key(aria-hidden='true')
-                                            input#password2.form-control(type='text', name='password2', placeholder='Password')
-                                .col-md-4.form-group
-                                    label.cols-sm-2.control-label(for='specializzazione2') Professione *
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-briefcase(aria-hidden='true')
-                                            input#specializzazione2.form-control(type='text', name='specializzazione2', placeholder='Specializzazione')
-                            .row
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='nome2') Nome *
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-user(aria-hidden='true')
-                                            input#nome2.form-control(type='text', name='nome2', placeholder='Nome')
-                                .col-md-6.form-group
-                                     label.cols-sm-2.control-label(for='cognome2') Cognome *
-                                     .cols-sm-10
-                                         .input-group
-                                             span.input-group-addon
-                                                 i.fa.fa-user(aria-hidden='true')
-                                             input#cognome2.form-control(type='text', name='cognome2', placeholder='cognome')
-                            .row
-                                .col-md-6.form-group
-                                     label.cols-sm-2.control-label(for='provincia2') Residenza *
-                                     .cols-sm-10
-                                         .input-group
-                                             span.input-group-addon
-                                                 i.fa.fa-map-marker(aria-hidden='true')
-                                             input#provincia2.form-control(type='text', name='provincia2', placeholder='residenza')
-                                .col-md-6.form-group
-                                     label.cols-sm-4.control-label(for='mail2') Mail
-                                     .cols-sm-10
-                                         .input-group
-                                             span.input-group-addon
-                                                 i.fa.fa-envelope-o(aria-hidden='true')
-                                             input#mail2.form-control(type='text', name='mail2', placeholder='e-mail')
-                            .row
-                                .col-md-6.form-group
-                                     label.cols-sm-2.control-label(for='telefono2') Numero di Telefono
-                                     .cols-sm-10
-                                         .input-group
-                                             span.input-group-addon
-                                                 i.fa.fa-phone(aria-hidden='true')
-                                             input#telefono2.form-control(type='number', name='telefono2', placeholder='Numero di Telefono')
-                                .col-md-6.form-group
-                                     label.cols-sm-4.control-label(for='pec2') PEC
-                                     .cols-sm-10
-                                         .input-group
-                                             span.input-group-addon
-                                                 i.fa.fa-envelope-o(aria-hidden='true')
-                                             input#pec2.form-control(type='text', name='pec2', placeholder='posta elettronica certificata')
-                            .row
-                                .col-md-6.form-group
-                                    label.cols-sm-2.control-label(for='interessi2') Interessi
-                                    .cols-sm-10
-                                        .input-group
-                                            span.input-group-addon
-                                                i.fa.fa-hashtag(aria-hidden='true')
-                                            input#interessi2.form-control(type='text', name='interessi2', placeholder='Interessi')
-                                .col-md-4.form-group
-                                    label.cols-sm-2.control-label(for='interessi') Gestione Interessi
-                                    button#AggiungiInteresse.btn.btn-primary.btn-lg(onclick='openModalAdd();') Aggiungi Interesse
-                            .row
-                                .col-md-4
-                                    h5 * Campi Obbligatori.
-                        // dialog buttons
-                        .modal-footer
-                            button.btn.btn-primary.btn-block(type='button', onclick='AddUtente();') Salva
-            #myModal3.modal.fade
-                .modal-dialog
-                    .modal-content
-                        // dialog body
-                        .modal-body
-                            button.close(type='button', data-dismiss='modal') ×
-                            h1 Inserire i campi obbligatori!
-                        // dialog buttons
-                        .modal-footer
-            #myModal5.modal.fade
-                .modal-dialog
-                    .modal-content
-                        // dialog body
-                        .modal-body
-                            button.close(type='button', data-dismiss='modal') ×
-                            h1 Username già Esistente
-                        // dialog buttons
-                        .modal-footer
-            #myModal4.modal.fade
-                .modal-dialog
-                    .modal-content
-                        // dialog body
-                        .modal-header
-                            button.close(type='button', data-dismiss='modal') ×
-                            h2.modal-title Aggiungi Interesse
-                        .modal-body
+                // MODAL AGGIUNGI CONTATTO
+                #myModal2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalAggiungiContatto', aria-hidden='true')
+                    .modal-dialog.modal-lg(role='document')
+                        .modal-content
+                            // dialog body
+                            .modal-header.text-center
+                                h4.modal-title.w-100.font-weight-bold Aggiungi Contatto
+                                    button.close(type='button', data-dismiss='modal', aria-label='Chiudi')
+                                        span(aria-hidden='true') ×
+                            .modal-body.mx-3
+                                .row
+                                    .md-form.col-md-4
+                                        i.fa.fa-user.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='username2') Username *
+                                        input#username2.form-control(type='text', name='username2', placeholder='Username')
+                                    .md-form.col-md-4
+                                        i.fa.fa-key.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='password2') Password *
+                                        input#password2.form-control(type='text', name='password2', placeholder='Password')
+                                    .md-form.col-md-4
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='specializzazione2') Professione *
+                                        input#specializzazione2.form-control(type='text', name='specializzazione2', placeholder='Specializzazione')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-user.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='nome2') Nome *
+                                        input#nome2.form-control(type='text', name='nome2', placeholder='Nome')
+                                    .md-form.col-md-6
+                                        i.fa.fa-user.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='cognome2') Cognome *
+                                        input#cognome2.form-control(type='text', name='cognome2', placeholder='cognome')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-map-marker.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='provincia2') Residenza *
+                                        input#provincia2.form-control(type='text', name='provincia2', placeholder='residenza')
+                                    .md-form.col-md-6
+                                        i.fa.fa-envelope-o.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='mail2') Mail
+                                        input#mail2.form-control(type='text', name='mail2', placeholder='e-mail')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-phone.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='telefono2') Numero di Telefono
+                                        input#telefono2.form-control(type='number', name='telefono2', placeholder='Numero di Telefono')
+                                    .md-form.col-md-6
+                                        i.fa.fa-envelope-o.prefix(aria-hidden='true')
+                                        label.cols-sm-4.control-label(for='pec2') PEC
+                                        input#pec2.form-control(type='text', name='pec2', placeholder='posta elettronica certificata')
+                                .row
+                                    .md-form.col-md-6
+                                        i.fa.fa-hashtag.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label.active(for='interessi2') Interessi
+                                        input#interessi2.form-control(type='text', name='interessi2', placeholder='Interessi')
+                                    .md-form.col-md-6
+                                        label.cols-sm-4.control-label.active(for='interessi') Gestione Interessi
+                                        button#AggiungiInteresse.btn.btn-primary(onclick='openModalAdd();') Aggiungi Interesse
+                                .row
+                                    .md-form.col-md-6
+                                        .switch
+                                            label
+                                                | Utente Non Attivo
+                                                input#utenteAttivo2(type='checkbox')
+                                                span.lever
+                                                | Utente Attivo
+                                .row
+                                    .col-md-4
+                                        h5 * Campi Obbligatori.
+                            // dialog buttons
+                            .modal-footer
+                                button.btn.btn-primary.btn-block(type='button', onclick='AddUtente();') Salva
 
-                            .row
-                                .col-sm-12
-                                    .row
-                                        .col-sm-6.form-group
-                                            label.cols-sm-4.control-label(for='interesse4') Interesse
-                                                .cols-sm-10
-                                                    .input-group
-                                                        span.input-group-addon
-                                                            i.fa.fa-hashtag(aria-hidden='true')
-                                                        input#interesse4.form-control(type='text', name='interesse2', placeholder='Interesse')
-                                        .col-sm-6.form-group
-                                            label.cols-sm-2.control-label(for='descrizione4') Descrizione
-                                                .cols-sm-10
-                                                    .input-group
-                                                        span.input-group-addon
-                                                            i.fa.fa-server(aria-hidden='true')
-                                                        textarea#descrizione4.form-control(type='text', name='descrizione2', placeholder='Descrizione')
-                        // dialog buttons
-                        .modal-footer
-                            button.btn.btn-default.btn-block(type='button', onclick='addInteresse();') Salva
-            .row
-                .col-sm-2
-                    button#aggiungiUtente.btn.btn-primary.btn-lg(onclick='openModal2();') Aggiungi Contatto
-                .col-sm-2
-                    button#modificaUtente.btn.btn-primary.btn-lg(onclick='openModal();') Modifica Contatto
-                .col-sm-2
-                    button#eliminaUtente.btn.btn-primary.btn-lg(onclick='eliminaUtente();') Elimina Contatto
-            br
-            .row
-                .col-sm-12.table-responsive
-                    table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
-                        thead
-                            tr
-                                th Username
-                                th password
-                                th Cognome
-                                th Nome
-                                th Professione
-                                th Residenza
-                                th Mail
-                                th Numero Telefono
-                                th PEC
-                                th interessi
+                #myModal3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalCampiMancanti', aria-hidden='true')
+                    .modal-dialog.modal-notify.modal-danger(role='document')
+                        .modal-content
+                            // Header
+                            .modal-header
+                                p.heading.lead Attenzione
+                                button.close(type='button', data-dismiss='modal', aria-label='modalCampiMancanti')
+                                    span.white-text(aria-hidden='true') ×
+                            // dialog body
+                            .modal-body
+                                .text-center
+                                    h4 Inserire i campi obbligatori!
+                            // dialog buttons
+                            .modal-footer.justify-content-center
+                                a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
 
-            br
-        nav.navbar.navbar-default
-            .container-fluid
-                .row
-                    a(target='_blank', href='http://www.ak12srl.it/', style="float:right; padding-top:8px")
-                        img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
-                    h5(style="float:right; padding-top:18px") © Copyright 2018 - AK-12. All Rights Reserved.
-            block myScript
-                script(src="javascripts/controllers/gestioneContattoController.js")
+                #myModal4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalAggiungiInteressi', aria-hidden='true')
+                    .modal-dialog(role='document')
+                        .modal-content
+                            // dialog body
+                            .modal-header
+                                h4.modal-title.w-100.font-weight-bold Aggiungi Interesse
+                                    button.close(type='button', data-dismiss='modal', aria-label='modalAggiungiInteressi')
+                                        span(aria-hidden='true') ×
+                            // Body
+                            .modal-body.mx-3
+                                .md-form.mb-4
+                                    i.fa.fa-hashtag(aria-hidden='true')
+                                    input#interesse4.form-control.validate(type='text', name='interesse4', placeholder='Interesse')
+                                    label(data-error='wrong', data-success='right', for='interesse4') Interesse
+                                .md-form.mb-4
+                                    i.fa.fa-server(aria-hidden='true')
+                                    input#descrizione4.form-control.validate(type='text', name='descrizione4', placeholder='Descrizione')
+                                    label(data-error='wrong', data-success='right', for='descrizione4') Descrizione
+                            // dialog buttons
+                            .modal-footer.d-flex.justify-content-center
+                                button.btn.btn-primary.btn-block(type='button', onclick='addInteresse();') Salva
+
+                #myModal5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalUsernameEsistente', aria-hidden='true')
+                    .modal-dialog.modal-notify.modal-danger(role='document')
+                        .modal-content
+                            // Header
+                            .modal-header
+                                p.heading.lead Attenzione
+                                button.close(type='button', data-dismiss='modal', aria-label='modalUsernameEsistente')
+                                    span.white-text(aria-hidden='true') ×
+                            // dialog body
+                            .modal-body
+                                .text-center
+                                    h4 Username già Esistente
+                            // dialog buttons
+                            .modal-footer.justify-content-center
+                                a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
+
+                .container-fluid.mx-auto
+                    .jumbotron
+                        h1.h1-reponsive.mb-3.blue-text
+                            strong Gestione Contatti
+
+                .row.mx-3
+                    .col-sm-2
+                        button#aggiungiUtente.btn.btn-primary.btn-lg(onclick='openModal2();') Aggiungi Contatto
+                    .col-sm-2
+                        button#modificaUtente.btn.btn-primary.btn-lg(onclick='openModal();') Modifica Contatto
+                    .col-sm-2
+                        button#eliminaUtente.btn.btn-primary.btn-lg(onclick='eliminaUtente();') Elimina Contatto
+                br
+                .row.mx-3
+                    .col-sm-12.table-responsive
+                        table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                            thead
+                                tr
+                                    th Username
+                                    th password
+                                    th Cognome
+                                    th Nome
+                                    th Professione
+                                    th Residenza
+                                    th Mail
+                                    th Numero Telefono
+                                    th PEC
+                                    th interessi
+
+                br
+
+            // Footer
+            footer.page-footer.font-small.mdb-skin.fixed-bottom
+                // Copyright
+                .footer-copyright.text-center.py-3
+                    | © Copyright 2018 - AK-12. All Rights Reserved:
+                    a(target='_blank', href='http://www.ak12srl.it/')
+                        // TO DO: inserire immagine con scritta bianca
+                        //img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
+                // Copyright
+            // Footer
+            // Main Layout
+            // SCRIPTS
+            // JQuery
+            script(type='text/javascript', src='javascripts/jquery-3.3.1.min.js')
+            // Popper
+            script(type='text/javascript', src='javascripts/popper.min.js')
+            // Bootstrap core JavaScript
+            script(src='javascripts/bootstrap.min.js')
+            // MDB core JavaScript
+            script(type='text/javascript', src='javascripts/mdb.min.js')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
+            script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
+            script(src='javascripts/modernizr.js')
+            script(src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+            script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
+            script(src="javascripts/bootstrap-tokenfield.min.js")
+            // TO DO: Credo non serva a nulla
+            script(src="javascripts/controllers/gestioneContattoController.js")
+            script.
+                // SideNav Initialization
+                $(".button-collapse").sideNav();

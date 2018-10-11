@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
     head
-        title Notifications Center
+        // Required meta tags always come first
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
         meta(http-equiv='x-ua-compatible', content='ie=edge')
@@ -10,11 +10,13 @@ html(lang='en')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
         // Bootstrap core CSS
         link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
-        link(rel='stylesheet', href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css')
-        link(rel="stylesheet", href="stylesheets/bootstrap-tokenfield.min.css")
-        link(rel="stylesheet", href="stylesheets/tokenfield-typeahead.min.css")
+        link(href='stylesheets/custom.css', rel='stylesheet')
         // Material Design Bootstrap
         link(href='stylesheets/mdb.min.css', rel='stylesheet')
+        link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
+        link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
+        link(rel='stylesheet', href='stylesheets/bootstrap-tokenfield.min.css')
+        link(rel='stylesheet', href='stylesheets/tokenfield-typeahead.min.css')
         link(rel='icon', type='image/png', href='images/ico.png')
     body.hidden-sn.mdb-skin
         // Double navigation
@@ -31,25 +33,27 @@ html(lang='en')
                     // Social
                     li
                         ul.social
-                            li
-                                a.icons-sm.fb-ic(href='#')
-                                    i.fa.fa-facebook
-                            li
-                                a.icons-sm.pin-ic(href='#')
-                                    i.fa.fa-pinterest
-                            li
-                                a.icons-sm.gplus-ic(href='#')
-                                    i.fa.fa-google-plus
-                            li
-                                a.icons-sm.tw-ic(href='#')
-                                    i.fa.fa-twitter
+                            h5 Notifications Center
+                            // TO DO: se non serve elimina
+                            //li
+                            //    a.icons-sm.fb-ic(href='#')
+                            //        i.fa.fa-facebook
+                            //li
+                            //    a.icons-sm.pin-ic(href='#')
+                            //        i.fa.fa-pinterest
+                            //li
+                            //    a.icons-sm.gplus-ic(href='#')
+                            //        i.fa.fa-google-plus
+                            //li
+                            //    a.icons-sm.tw-ic(href='#')
+                            //        i.fa.fa-twitter
                     // /Social
                     // Side navigation links
                     li
                         ul.collapsible.collapsible-accordion
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/home')
-                                    i.fa.fa-envelope-o
+                                    i.fa.fa-home
                                     |  Home
                                 // Esempio aggiunta voci sottomenu
                                 //    i.fa.fa-angle-down.rotate-icon
@@ -61,27 +65,34 @@ html(lang='en')
                                 //            a(href='/gestioneInteressi') Interessi
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneInteressi')
-                                    i.fa.fa-chevron-right
+                                    i.fa.fa-universal-access
                                     |  Interessi
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneContatto')
-                                    i.fa.fa-hand-pointer-o
+                                    i.fa.fa-user
                                     |  Anagrafica
                             li
-                                a.collapsible-header.waves-effect.arrow-ra(href='/gestioneEventi')
-                                    i.fa.fa-eye
+                                a.collapsible-header.waves-effect.arrow-r
+                                    i.fa.fa-calendar-o
                                     |  Eventi
+                                    i.fa.fa-angle-down.rotate-icon
+                                .collapsible-body
+                                    ul
+                                        li
+                                            a.waves-effect(href='/gestioneEventi') Gestione Eventi
+                                        li
+                                            a.waves-effect(href='/gestioneNote') Gestione Note
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/assegnaEvento')
-                                    i.fa.fa-eye
+                                    i.fa.fa-bell
                                     |  Invio Notifiche
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/gestioneNotifiche')
-                                    i.fa.fa-eye
+                                    i.fa.fa-file-excel-o
                                     |  Gestione Report
                             li
                                 a.collapsible-header.waves-effect.arrow-ra(href='/logout')
-                                    i.fa.fa-envelope-o
+                                    i.fa.fa-sign-out
                                     |  Logout
                 .sidenav-bg.mask-strong
             // /. Sidebar navigation
@@ -95,25 +106,31 @@ html(lang='en')
                 .breadcrumb-dn.mr-auto
                     p Material Design for Bootstrap
                 ul.nav.navbar-nav.nav-flex-icons.ml-auto
-                    li.nav-item
-                        a.nav-link
-                            i.fa.fa-envelope
-                            span.clearfix.d-none.d-sm-inline-block Contact
-                    li.nav-item
-                        a.nav-link
-                            i.fa.fa-comments-o
-                            span.clearfix.d-none.d-sm-inline-block Support
-                    li.nav-item
-                        a.nav-link
-                            i.fa.fa-user
-                            span.clearfix.d-none.d-sm-inline-block Account
+                    // TO DO: Eliminare se non serve
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-envelope
+                    //        span.clearfix.d-none.d-sm-inline-block Contact
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-comments-o
+                    //        span.clearfix.d-none.d-sm-inline-block Support
+                    //li.nav-item
+                    //    a.nav-link
+                    //        i.fa.fa-user
+                    //        span.clearfix.d-none.d-sm-inline-block Account
                     li.nav-item.dropdown
                         a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                             | Dropdown
                         .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
-                            a.dropdown-item(href='#') Action
-                            a.dropdown-item(href='#') Another action
-                            a.dropdown-item(href='#') Something else here
+                            a.dropdown-item(href='/home') Home
+                            a.dropdown-item(href='/gestioneInteressi') Interessi
+                            a.dropdown-item(href='/gestioneContatto') Anagrafica
+                            a.dropdown-item(href='/gestioneEventi') Gestione Eventi
+                            a.dropdown-item(href='/gestioneNote') Gestione Note
+                            a.dropdown-item(href='/assegnaEvento') Invio Notifiche
+                            a.dropdown-item(href='/gestioneNotifiche') Gestione Report
+                            a.dropdown-item(href='/logout') Logout
             // /.Navbar
             // /.Double navigation
             // Main Layout
@@ -183,7 +200,7 @@ html(lang='en')
                                 strong Info!
                                 |  Selezionare solo un'opzione.
 
-                .container-fluid#conteinerHideModalita
+                .container-fluid.mx-3#conteinerHideModalita
                     .row
                         .col-sm-4
                             h3 Seleziona modalità di comunicazione
@@ -215,13 +232,15 @@ html(lang='en')
                                             i.fa.fa-hashtag(aria-hidden='true')
                                     input#interessi.form-control(type='text', placeholder='Interessi', aria-describedby='basic-addon1', name='interessi', onchange='switchTable();')
                 br
+
                 .container-fluid#conteinerHideEvento
                     .row
-                        .col-sm-4
+                        .col-sm-6
                             h3 Seleziona L'evento
-                        .col-sm-6.pull-right
+                        .col-sm-6
                             h3 Seleziona i contatti
-                .row
+
+                .row.mx-2
                     .col-sm-6.table-responsive
                         table#tabellaEventi.table.table-striped.table-bordered(width='100%', cellspacing='0')
                             thead
@@ -245,6 +264,7 @@ html(lang='en')
                                     th Residenza
 
                 br
+
                 .container-fluid
                     .row.d-flex.flex-row-reverse
                         .col-sm-2.pull-right
@@ -254,10 +274,12 @@ html(lang='en')
                         .col-sm-2.pull-right
                             button#DeselezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='deselezionaTutti();') Deseleziona Tutti
 
-                        br
+                br
+                br
+                br
 
             // Footer
-            footer.page-footer.font-small.mdb-skin
+            footer.page-footer.font-small.mdb-skin.fixed-bottom
                 // Copyright
                 .footer-copyright.text-center.py-3
                     | © Copyright 2018 - AK-12. All Rights Reserved:

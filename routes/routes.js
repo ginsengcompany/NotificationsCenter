@@ -27,6 +27,10 @@ module.exports = function (app) {
         res.render('gestioneEventi');
     });
 
+    app.get('/gestioneNote', function (req, res, next) {
+        res.render('gestioneNote');
+    });
+
     app.get('/gestioneContatto', function (req, res, next) {
         res.render('gestioneContatto');
     });

@@ -10,8 +10,11 @@ html(lang='en')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
         // Bootstrap core CSS
         link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
         // Material Design Bootstrap
         link(href='stylesheets/mdb.min.css', rel='stylesheet')
+        link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
+        link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
         link(href='stylesheets/custom.css', rel='stylesheet')
         link(rel='icon', type='image/png', href='images/ico.png')
     body.hidden-sn.mdb-skin
@@ -24,7 +27,7 @@ html(lang='en')
                     li
                         .logo-wrapper.waves-light
                             a(href='/home')
-                                img.img-fluid.flex-center(src='/images/#{logo_org}.jpg')
+                                img.img-fluid.flex-center(src='/images/intestazionemail.png')
                     // /. Logo
                     // Social
                     li
@@ -122,11 +125,11 @@ html(lang='en')
                             a.dropdown-item(href='/home') Home
                             a.dropdown-item(href='/gestioneInteressi') Interessi
                             a.dropdown-item(href='/gestioneContatto') Anagrafica
-                            a.dropdown-item(href='/gestioneEventi') Eventi
+                            a.dropdown-item(href='/gestioneEventi') Gestione Eventi
+                            a.dropdown-item(href='/gestioneNote') Gestione Note
                             a.dropdown-item(href='/assegnaEvento') Invio Notifiche
                             a.dropdown-item(href='/gestioneNotifiche') Gestione Report
                             a.dropdown-item(href='/logout') Logout
-
             // /.Navbar
             // /.Double navigation
             // Main Layout
@@ -135,35 +138,116 @@ html(lang='en')
             //    .progress-bar(role='progressbar', style='width: 25%; height: 20px', aria-valuenow='25', aria-valuemin='0', aria-valuemax='100')
 
             main
-                .container-fluid.mt-auto
-                    // Jumbotron
+                // AGGIUNGI NOTA
+                #myModal4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalAggiungiNota', aria-hidden='true')
+                    .modal-dialog.modal-lg(role='document')
+                        .modal-content
+                            .modal-header.text-center
+                                h4.modal-title.w-100.font-weight-bold Aggiungi Nota Informativa
+                                    button.close(type='button', data-dismiss='modal', aria-label='Chiudi')
+                                        span(aria-hidden='true') ×
+                            .modal-body.mx-3
+                                .row
+                                    // Titolo evento
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='titoloEvento4') Titolo Nota
+                                        input#titoloEvento4.form-control(type='text', placeholder='Titolo Nota')
+                                .row
+                                    // Sottotitolo
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='sottotitoloEvento4') Sottotitolo Nota
+                                        input#sottotitoloEvento4.form-control(type='text', placeholder='Sottotitolo Nota')
+                                .row
+                                    .md-form.col-md-12
+                                        label.cols-sm-2.control-label.active(for='descrizioneEvento4') Descrizione Nota:
+                                        textarea#descrizioneEvento4.form-control(rows='4', maxlength='2000', placeholder='Descrizione...')
+                                .row
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='urlEvento4') Url Evento
+                                        input#urlEvento4.form-control(type='text', placeholder='Url Evento')
+                            // dialog buttons
+                            .modal-footer
+                                button.btn.btn-primary.btn-block(type='button', onclick='addNota();') Salva
+
+                // MODIFICA NOTA INFORMATIVA
+                #myModal5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalModificaNota', aria-hidden='true')
+                    .modal-dialog.modal-lg(role='document')
+                        .modal-content
+                            .modal-header.text-center
+                                h4.modal-title.w-100.font-weight-bold Modifica Nota Informativa
+                                    button.close(type='button', data-dismiss='modal', aria-label='Chiudi')
+                                        span(aria-hidden='true') ×
+                            .modal-body.mx-3
+                                .row
+                                    // Titolo evento
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='titoloEvento5') Titolo Nota
+                                        input#titoloEvento5.form-control(type='text', placeholder='Titolo Nota')
+                                    // Sottotitolo
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='sottotitoloEvento5') Sottotitolo Nota
+                                        input#sottotitoloEvento5.form-control(type='text', placeholder='Sottotitolo Nota')
+                                .row
+                                    .md-form.col-md-12
+                                        label.cols-sm-2.control-label(for='descrizioneEvento5') Descrizione Nota:
+                                        textarea#descrizioneEvento5.form-control(rows='4', maxlength='2000', placeholder='Descrizione Nota')
+                                .row
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='urlEvento5') Url Evento
+                                        input#urlEvento5.form-control(type='text', placeholder='Url Evento')
+                            // dialog buttons
+                            .modal-footer
+                                button.btn.btn-primary.btn-block(type='button', onclick='updateNota();') Salva
+
+
+                // MODAL WARNING
+                #myModal6.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalCampiMancanti', aria-hidden='true')
+                    .modal-dialog.modal-notify.modal-danger(role='document')
+                        .modal-content
+                            // Header
+                            .modal-header
+                                p.heading.lead Attenzione
+                                button.close(type='button', data-dismiss='modal', aria-label='modalCampiMancanti')
+                                    span.white-text(aria-hidden='true') ×
+                            // dialog body
+                            .modal-body
+                                .text-center
+                                    h4 Inserire tutti i campi!
+                            // dialog buttons
+                            .modal-footer.justify-content-center
+                                a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
+
+                .container-fluid.mx-auto
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text
-                            strong Benvenuto in Notifications Center!
-                        p.lead
-                            | Sistema di notifiche multicanale.
-                        hr.my-4
-                        p
-                            | Organizzazione:
-                            | "#{name}"
-                        p.lead
-                            //a.btn.aqua-gradient.btn-lg(href='#', role='button') Learn more
-                    // Jumbotron
-                .row.mx-5
+                            strong Gestione Nota Informativa
 
-                .row.mx-5
-                    .col-2
-
-                    .col-8
-                        .text-center
-                            img.rounded(style='width: 30%;', src='images/ico.png')
-                    .col-2
-                .row.mx-5
+                hr
+                .container-fluid#conteinerHideNota
+                    .row
+                        .col-sm-2
+                            button#aggiungiNota.btn.btn-primary(onclick='openModal4();') Aggiungi Nota Informativa
+                        .col-sm-2
+                            button#modificaNota.btn.btn-primary(onclick='openModal5();') Modifica Nota Informativa
+                        .col-sm-2
+                            button#eliminaNota.btn.btn-primary(onclick='eliminaEvento();') Elimina Nota Informativa
+                br
+                .row.mx-3
+                    .col-sm-12.table-responsive
+                        table#tabellaNote.table.table-striped.table-bordered(width='100%', cellspacing='0')
+                            thead
+                                tr
+                                    th
+                                    th Titolo Nota
+                                    th Sottotitolo
 
                 br
-                br
-                br
-
             // Footer
             footer.page-footer.font-small.mdb-skin.fixed-bottom
                 // Copyright
@@ -187,8 +271,13 @@ html(lang='en')
             script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
             script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
             script(src='javascripts/modernizr.js')
+            script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+            script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
+            script(src="javascripts/bootstrap-tokenfield.min.js")
+            script(src="javascripts/dataTables.buttons.min.js")
+            script(src="javascripts/dataTables.select.min.js")
             // TO DO: Credo non serva a nulla
-            //script(src='javascripts/controllers/indexController.js')
+            script(src="javascripts/controllers/gestioneNoteController.js")
             script.
                 // SideNav Initialization
                 $(".button-collapse").sideNav();

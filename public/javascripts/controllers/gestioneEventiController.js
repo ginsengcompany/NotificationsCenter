@@ -1,16 +1,19 @@
-let  arrayEventi = {};
+let arrayEventi = {};
 
 function convertDate(inputFormat) {
-    function pad(s) { return (s < 10) ? '0' + s : s; }
-    let  d = new Date(inputFormat);
-    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+    function pad(s) {
+        return (s < 10) ? '0' + s : s;
+    }
+
+    let d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
 }
 
 
 $(document).ready(function () {
-    setTimeout(function(){
+    setTimeout(function () {
         $('body').addClass('loaded');
-        $('h1').css('color','#222222');
+        $('h1').css('color', '#222222');
     }, 900);
 
     $('#hideInfo').hide();
@@ -23,8 +26,8 @@ $(document).ready(function () {
     $('#tabellaEventi').dataTable().hide();
     $('#tabellaEventi').dataTable().fnDestroy();
     $('#tabellaEventi').dataTable().fnClearTable();
-    $('#tabellaEventi tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
+    $('#tabellaEventi tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
             $('#modificaEvento').prop('disabled', true);
             $('#eliminaEvento').prop('disabled', true);
@@ -39,19 +42,20 @@ $(document).ready(function () {
             $('#modificaNota').prop('disabled', false);
             $('#eliminaNota').prop('disabled', false);
         }
-    } );
-    function format ( d ) {
+    });
+
+    function format(d) {
         // `d` is the original data object for the row
-        if (d.informazioni === null || d.informazioni === undefined){
+        if (d.informazioni === null || d.informazioni === undefined) {
             return '<table cellpadding="50" cellspacing="20" border="0" style="padding-left:50px;">' +
                 '<tr>' +
                 '<td style="font-weight: bold;">Url Evento: </td>' +
-                '<td>' + d.url_evento +'</td>' +
+                '<td>' + d.url_evento + '</td>' +
                 '<td style="font-weight: bold;">Descrizione: </td>' +
                 '<td>' + d.descrizione + '</td>' +
                 '</tr>' +
                 '</table>';
-        }else {
+        } else {
             return '<table cellpadding="50" cellspacing="20" border="0" style="padding-left:50px;">' +
                 '<tr>' +
                 '<td style="font-weight: bold;">Informazioni: </td>' +
@@ -66,40 +70,40 @@ $(document).ready(function () {
     }
 
     $('#tabellaEventi tbody').on('click', 'td.details-control', function () {
-        let  tr = $(this).closest('tr');
-        let  row = tabEventi.row( tr );
+        let tr = $(this).closest('tr');
+        let row = tabEventi.row(tr);
 
-        if ( row.child.isShown() ) {
+        if (row.child.isShown()) {
             // This row is already open - close it
             row.child.hide();
             tr.removeClass('shown');
         }
         else {
             // Open this row
-            row.child( format(row.data()) ).show();
+            row.child(format(row.data())).show();
             tr.addClass('shown');
         }
-    } );
+    });
 });
 
 function bs_input_file() {
     $(".input-file").before(
-        function() {
-            if ( ! $(this).prev().hasClass('input-ghost') ) {
-                let  element = $("<input type='file' class='input-ghost' onchange='encodeImageFileAsURL(this)' style='visibility:hidden; height:0'>");
-                element.attr("name",$(this).attr("name"));
-                element.change(function(){
+        function () {
+            if (!$(this).prev().hasClass('input-ghost')) {
+                let element = $("<input type='file' class='input-ghost' onchange='encodeImageFileAsURL(this)' style='visibility:hidden; height:0'>");
+                element.attr("name", $(this).attr("name"));
+                element.change(function () {
                     element.next(element).find('input').val((element.val()).split('\\').pop());
                 });
-                $(this).find("button.btn-choose").click(function(){
+                $(this).find("button.btn-choose").click(function () {
                     element.click();
                 });
-                $(this).find("button.btn-reset").click(function(){
+                $(this).find("button.btn-reset").click(function () {
                     element.val(null);
                     $(this).parents(".input-file").find('input').val('');
                 });
-                $(this).find('input').css("cursor","pointer");
-                $(this).find('input').mousedown(function() {
+                $(this).find('input').css("cursor", "pointer");
+                $(this).find('input').mousedown(function () {
                     $(this).parents('.input-file').prev().click();
                     return false;
                 });
@@ -109,41 +113,94 @@ function bs_input_file() {
     );
 }
 
-$(function() {
+$(function () {
     bs_input_file();
-    $('#dataEvento').datepicker({ dateFormat: 'dd/mm/yy' }).css('z-index', 100000000);
-    $('#dataEventoFine').datepicker({ dateFormat: 'dd/mm/yy' }).css('z-index', 100000000);
-    $('#dataEvento2').datepicker({ dateFormat: 'dd/mm/yy' }).css('z-index', 100000000);
-    $('#dataEventoFine2').datepicker({ dateFormat: 'dd/mm/yy' }).css('z-index', 100000000);
+    //$('#dataEvento').datepicker({dateFormat: 'dd/mm/yy'}).css('z-index', 100000000);
+    //$('#dataEventoFine').datepicker({dateFormat: 'dd/mm/yy'}).css('z-index', 100000000);
+    //$('#dataEvento2').datepicker({dateFormat: 'dd/mm/yy'}).css('z-index', 100000000);
+    //$('#dataEventoFine2').datepicker({dateFormat: 'dd/mm/yy'}).css('z-index', 100000000);
+
+    var dateFormat = "dd-mm-yy",
+        dataEvento = $("#dataEvento")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 2,
+                dateFormat: 'dd-mm-yy'
+            })
+            .on("change", function () {
+                dataEventoFine.datepicker("option", "minDate", getDate(this));
+            }),
+        dataEventoFine = $("#dataEventoFine").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 2,
+            dateFormat: 'dd-mm-yy'
+        })
+            .on("change", function () {
+                dataEvento.datepicker("option", "maxDate", getDate(this));
+            });
+
+    var dateFormat2 = "dd-mm-yy",
+        dataEvento2 = $("#dataEvento2")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 2,
+                dateFormat: 'dd-mm-yy'
+            })
+            .on("change", function () {
+                dataEventoFine2.datepicker("option", "minDate", getDate(this));
+            }),
+        dataEventoFine2 = $("#dataEventoFine2").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 2,
+            dateFormat: 'dd-mm-yy'
+        })
+            .on("change", function () {
+                dataEvento2.datepicker("option", "maxDate", getDate(this));
+            });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+            console.log(date);
+        } catch (error) {
+            date = null;
+        }
+        return date;
+    }
 });
 
-let  datiEvento = {
-    '_id' : undefined,
-    'titolo' : undefined ,
-    'sottotitolo' : undefined ,
-    'data' : undefined ,
-    'dataFine' : undefined ,
-    'luogo' : undefined ,
-    'informazioni' : undefined ,
-    'relatori' : undefined ,
-    'descrizione' : undefined ,
-    'immagine' : undefined,
-    'tipo' : undefined,
+let datiEvento = {
+    '_id': undefined,
+    'titolo': undefined,
+    'sottotitolo': undefined,
+    'data': undefined,
+    'dataFine': undefined,
+    'luogo': undefined,
+    'informazioni': undefined,
+    'relatori': undefined,
+    'descrizione': undefined,
+    'immagine': undefined,
+    'tipo': undefined,
     'url_evento': undefined
 };
 
 function encodeImageFileAsURL(element) {
-    let  file = element.files[0];
-    let  reader = new FileReader();
-    reader.onloadend = function() {
-        datiEvento['immagine']= reader.result;
+    let file = element.files[0];
+    let reader = new FileReader();
+    reader.onloadend = function () {
+        datiEvento['immagine'] = reader.result;
     };
     reader.readAsDataURL(file);
 }
 
-function  openModal() {
+function openModal() {
 
-    let  ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
@@ -177,9 +234,10 @@ function  openModal() {
     $('#relatoriEvento').val(arrayEventi[0].relatori);
     $('#descrizioneEvento').val(arrayEventi[0].descrizione);
     $('#caricaFoto').val(arrayEventi[0].immagine);
+    $('#urlEvento').val(arrayEventi[0].url_evento);
 }
 
-function updateEvento(){
+function updateEvento() {
 
     datiEvento._id = arrayEventi[0]._id;
     datiEvento.titolo = $('#titoloEvento').val();
@@ -190,9 +248,9 @@ function updateEvento(){
     datiEvento.informazioni = $('#informazioniEvento').val();
     datiEvento.relatori = $('#relatoriEvento').val();
     datiEvento.descrizione = $('#descrizioneEvento').val();
-    //datiEvento.immagine = $('#caricaFoto').val();
-    console.log(datiEvento.immagine);
-
+    datiEvento.url_evento = $('#urlEvento').val();
+    datiEvento.immagine = $('#caricaFoto').val();
+    console.log(datiEvento);
 
     $.ajax({
         url: '/getUpdateEventi',
@@ -200,16 +258,16 @@ function updateEvento(){
         data: JSON.stringify(datiEvento),
         cache: false,
         contentType: 'application/json',
-        success: function(data) {
+        success: function (data) {
 
-            if(data.errore===false){
+            if (data.errore === false) {
 
                 $("#myModal1").modal('hide');
                 tabEventi.ajax.reload();
                 $('#modificaEvento').prop('disabled', true);
                 $('#eliminaEvento').prop('disabled', true);
 
-            }else if(data.errore===true){
+            } else if (data.errore === true) {
 
                 $("#myModal1").modal('hide');
                 alert('Data INIZIO / Data Fine non corretta usare il formato (GG/MM/AAAA)');
@@ -217,16 +275,16 @@ function updateEvento(){
             }
 
         },
-        faliure: function(data) {
+        faliure: function (data) {
 
         }
     });
 
 }
 
-function eliminaEvento(){
+function eliminaEvento() {
 
-    let  ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
@@ -237,9 +295,9 @@ function eliminaEvento(){
         data: JSON.stringify(arrayEventi),
         cache: false,
         contentType: 'application/json',
-        success: function(data) {
+        success: function (data) {
 
-            if(data.errore===false){
+            if (data.errore === false) {
 
                 tabEventi.ajax.reload();
                 $('#modificaEvento').prop('disabled', true);
@@ -248,14 +306,14 @@ function eliminaEvento(){
             }
 
         },
-        faliure: function(data) {
+        faliure: function (data) {
 
         }
     });
 
 }
 
-function openModal2(){
+function openModal2() {
     $("#myModal2").on("show", function () {
         $("#myModal2 a.btn").on("click", function (e) {
             console.log("button pressed");
@@ -277,7 +335,7 @@ function openModal2(){
     });
 }
 
-function openModal4(){
+function openModal4() {
     $("#myModal4").on("show", function () {
         $("#myModal4 a.btn").on("click", function (e) {
             console.log("button pressed");
@@ -299,9 +357,9 @@ function openModal4(){
     });
 }
 
-function openModal5(){
+function openModal5() {
 
-    let  ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
+    let ids1 = $.map(tabEventi.rows('.selected').data(), function (item) {
         return item;
     });
     arrayEventi = ids1;
@@ -332,7 +390,7 @@ function openModal5(){
 
 }
 
-function addEvento(){
+function addEvento() {
     datiEvento.titolo = $('#titoloEvento2').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento2').val();
     datiEvento.data = $('#dataEvento2').val();
@@ -341,8 +399,9 @@ function addEvento(){
     datiEvento.informazioni = $('#informazioniEvento2').val();
     datiEvento.relatori = $('#relatoriEvento2').val();
     datiEvento.descrizione = $('#descrizioneEvento2').val();
-    datiEvento.url_evento = $('#urlEvento').val();
+    datiEvento.url_evento = $('#urlEvento2').val();
     datiEvento.tipo = 1;
+    console.log(datiEvento);
 
     if (
         (datiEvento.titolo === null || datiEvento.titolo === undefined || datiEvento.titolo === '') ||
@@ -353,7 +412,7 @@ function addEvento(){
         (datiEvento.informazioni === null || datiEvento.informazioni === undefined || datiEvento.informazioni === '') ||
         (datiEvento.relatori === null || datiEvento.relatori === undefined || datiEvento.relatori === '') ||
         (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '') ||
-        (datiEvento.url_evento === null || datiEvento.url_evento === undefined || datiEvento.url_evento ==='')
+        (datiEvento.url_evento === null || datiEvento.url_evento === undefined || datiEvento.url_evento === '')
     ) {
         $("#myModal3").on("show", function () {
             $("#myModal3 a.btn").on("click", function (e) {
@@ -398,7 +457,7 @@ function addEvento(){
                 $('#dataEvento2').val('');
                 $('#dataEventoFine2').val('');
                 $('#caricaFoto2').val('');
-                $('#urlEvento').val('');
+                $('#urlEvento2').val('');
 
 
             },
@@ -427,7 +486,7 @@ function addEvento(){
     }
 }
 
-function addNota(){
+function addNota() {
     datiEvento.titolo = $('#titoloEvento4').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento4').val();
     datiEvento.descrizione = $('#descrizioneEvento4').val();
@@ -503,7 +562,7 @@ function addNota(){
     }
 }
 
-function updateNota(){
+function updateNota() {
 
     datiEvento._id = arrayEventi[0]._id;
     datiEvento.titolo = $('#titoloEvento5').val();
@@ -517,9 +576,9 @@ function updateNota(){
         data: JSON.stringify(datiEvento),
         cache: false,
         contentType: 'application/json',
-        success: function(data) {
+        success: function (data) {
 
-            if(data.errore===false){
+            if (data.errore === false) {
 
                 $("#myModal5").modal('hide');
                 tabEventi.ajax.reload();
@@ -528,7 +587,7 @@ function updateNota(){
 
             }
         },
-        faliure: function(data) {
+        faliure: function (data) {
 
         }
     });
@@ -537,54 +596,65 @@ function updateNota(){
 
 function switchTable() {
 
-    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===false){
+    if ($('#invioEvento').prop('checked') === true && $('#invioNotainformativa').prop('checked') === false) {
         $('#conteinerHideNota').hide();
         $('#hideInfo').hide();
         $('#tabellaEventi').dataTable().show();
         $('#tabellaEventi').dataTable().fnDestroy();
         $('#conteinerHideEvento').show();
-        tabEventi = $('#tabellaEventi').DataTable( {
+        tabEventi = $('#tabellaEventi').DataTable({
             ajax: "/getEventi",
             responsive: true,
             ajaxSettings: {
                 method: "GET",
                 cache: false
             },
+            "order": [[ 4, "desc" ]],
             columns: [
                 {
-                    "className":      'details-control',
-                    "orderable":      false,
-                    "data":           null,
+                    "className": 'details-control',
+                    "orderable": false,
+                    "data": null,
                     "defaultContent": ''
                 },
-                { "data": "titolo" },
-                { "data": "sottotitolo" },
-                { "data": "luogo"},
-                { "data": "data" , "render": function (data) {
-                    function pad(s) { return (s < 10) ? '0' + s : s; }
-                    let  d = new Date(data);
-                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-                }},
-                { "data": "data_fine" , "render": function (data) {
-                    function pad(s) { return (s < 10) ? '0' + s : s; }
-                    let  d = new Date(data);
-                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-                }},
-                { "data": "relatori"},
+                {"data": "titolo"},
+                {"data": "sottotitolo"},
+                {"data": "luogo"},
+                {
+                    "data": "data", "render": function (data) {
+                    function pad(s) {
+                        return (s < 10) ? '0' + s : s;
+                    }
+
+                    let d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                }
+                },
+                {
+                    "data": "data_fine", "render": function (data) {
+                    function pad(s) {
+                        return (s < 10) ? '0' + s : s;
+                    }
+
+                    let d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                }
+                },
+                {"data": "relatori"},
             ]
-        } );
+        });
 
 
     }
 
-    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===true){
+    if ($('#invioEvento').prop('checked') === false && $('#invioNotainformativa').prop('checked') === true) {
         $('#hideInfo').hide();
         $('#tabellaEventi').dataTable().show();
         $('#tabellaEventi').dataTable().fnDestroy();
         $('#conteinerHideEvento').hide();
         $('#conteinerHideNota').show();
 
-        tabEventi = $('#tabellaEventi').DataTable( {
+        tabEventi = $('#tabellaEventi').DataTable({
             ajax: "/getNota",
             responsive: true,
             ajaxSettings: {
@@ -593,33 +663,42 @@ function switchTable() {
             },
             columns: [
                 {
-                    "className":      'details-control',
-                    "orderable":      false,
-                    "data":           null,
+                    "className": 'details-control',
+                    "orderable": false,
+                    "data": null,
                     "defaultContent": ''
                 },
-                { "data": "titolo" },
-                { "data": "sottotitolo" },
-                { "data": "luogo", "visible": false },
-                { "data": "data" , "render": function (data) {
-                    function pad(s) { return (s < 10) ? '0' + s : s; }
-                    let  d = new Date(data);
-                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-                }, "visible": false },
-                { "data": "data_fine" , "render": function (data) {
-                    function pad(s) { return (s < 10) ? '0' + s : s; }
-                    let  d = new Date(data);
-                    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-                }, "visible": false },
-                { "data": "relatori", "visible": false }
-            ]
-        } );
+                {"data": "titolo"},
+                {"data": "sottotitolo"},
+                {"data": "luogo", "visible": false},
+                {
+                    "data": "data", "render": function (data) {
+                    function pad(s) {
+                        return (s < 10) ? '0' + s : s;
+                    }
 
+                    let d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                }, "visible": false
+                },
+                {
+                    "data": "data_fine", "render": function (data) {
+                    function pad(s) {
+                        return (s < 10) ? '0' + s : s;
+                    }
+
+                    let d = new Date(data);
+                    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                }, "visible": false
+                },
+                {"data": "relatori", "visible": false}
+            ]
+        });
 
 
     }
 
-    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===false){
+    if ($('#invioEvento').prop('checked') === false && $('#invioNotainformativa').prop('checked') === false) {
         $('#conteinerHideEvento').hide();
         $('#conteinerHideNota').hide();
         $('#hideInfo').hide();
@@ -628,7 +707,7 @@ function switchTable() {
         $('#tabellaEventi').dataTable().fnClearTable();
     }
 
-    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===true){
+    if ($('#invioEvento').prop('checked') === true && $('#invioNotainformativa').prop('checked') === true) {
 
         $('#conteinerHideNota').hide();
         $('#conteinerHideEvento').hide();

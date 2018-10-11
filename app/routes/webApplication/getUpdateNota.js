@@ -24,7 +24,8 @@ router.post('/',function (req, res, next) {
                     "UPDATE "+multiUser.data[i].tb_eventi+" SET " +
                     "titolo='" + datiUpdateOrDelete.titolo + "', " +
                     "sottotitolo='" + datiUpdateOrDelete.sottotitolo + "', " +
-                    "descrizione='" + datiUpdateOrDelete.descrizione + "' " +
+                    "descrizione='" + datiUpdateOrDelete.descrizione + "', " +
+                    "url_evento='" + datiUpdateOrDelete.url_evento + "' " +
                     "WHERE _id=" + datiUpdateOrDelete._id;
 
                 const query = client.query(queryUpdateOrDelete1);

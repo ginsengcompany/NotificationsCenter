@@ -55,9 +55,6 @@ $(document).ready(function () {
                         event.preventDefault();
                 });
             });
-
-
-
         },
         faliure: function(data) {
 
@@ -181,7 +178,7 @@ function  openModal() {
     $('#telefono').val(arrayUtenti[0].numero_telefono);
     $('#pec').val(arrayUtenti[0].pec);
     $('#interessi').tokenfield('setTokens', arrayUtenti[0].interessi);
-
+    $("#utenteAttivo").prop( "checked", arrayUtenti[0].attivo);
 }
 
 datiUtente = {
@@ -195,7 +192,8 @@ datiUtente = {
     "mail" : undefined,
     "telefono" : undefined,
     "pec" : undefined,
-    "interessi" : undefined
+    "interessi" : undefined,
+    "attivo" : undefined
 }
 
 function updateUtente(){
@@ -211,6 +209,8 @@ function updateUtente(){
     datiUtente.telefono = $('#telefono').val();
     datiUtente.pec = $('#pec').val();
     datiUtente.interessi = $('#interessi').tokenfield('getTokensList');
+    datiUtente.attivo = $("#utenteAttivo").is(":checked") ? "TRUE" : "FALSE";
+    console.log(datiUtente);
 
 
     $.ajax({
@@ -294,6 +294,7 @@ function AddUtente(){
     datiContatto.numero_telefono = $('#telefono2').val();
     datiContatto.pec = $('#pec2').val();
     datiContatto.interesse = $('#interessi2').val();
+    datiContatto.attivo = $("#utenteAttivo").is(":checked") ? "TRUE" : "FALSE";
 
     if (
         (datiContatto.nome === null || datiContatto.nome === undefined || datiContatto.nome === '' || datiContatto.nome === "") ||
@@ -348,6 +349,8 @@ function AddUtente(){
                     $('#telefono2').val('');
                     $('#pec2').val('');
                     $('#interessi2').val('');
+                    $('#utenteAttivo2').val('');
+
                 }
 
 

@@ -10,10 +10,13 @@ html(lang='en')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
         // Bootstrap core CSS
         link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
         // Material Design Bootstrap
         link(href='stylesheets/mdb.min.css', rel='stylesheet')
+        link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
+        link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
         link(rel='icon', type='image/png', href='images/ico.png')
-    body
+    body.hidden-sn.mdb-skin
         // Main Layout
         main
             // Central Modal Errore nella Login
@@ -81,6 +84,16 @@ html(lang='en')
                                             a.blue-text.ml-1(href='#')  Sign Up
                             .col-lg-4.col-md-6.mb-4
             // Main Layout
+            // Footer
+            footer.page-footer.font-small.mdb-skin.fixed-bottom
+                // Copyright
+                .footer-copyright.text-center.py-3
+                    | © Copyright 2018 - AK-12. All Rights Reserved:
+                    a(target='_blank', href='http://www.ak12srl.it/')
+                        // TO DO: inserire immagine con scritta bianca
+                        //img(src='images/ak12.png', alt='Company Logo', width='70', height='30')
+                // Copyright
+            // Footer
             // SCRIPTS
             // JQuery
             script(type='text/javascript', src='javascripts/jquery-3.3.1.min.js')

@@ -15,6 +15,7 @@ html(lang='en')
         link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
         link(href='stylesheets/custom.css', rel='stylesheet')
         link(rel='stylesheet', href='stylesheets/bootstrap-tokenfield.min.css')
+        link(rel="stylesheet" href="stylesheets/tokenfield-typeahead.min.css")
         link(rel='stylesheet', href='stylesheets/tokenfield-typeahead.min.css')
         link(rel='icon', type='image/png', href='images/ico.png')
     body.hidden-sn.mdb-skin
@@ -139,7 +140,7 @@ html(lang='en')
 
             main
                 // MODAL MODIFICA CONTATTO
-                #myModal1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalModificaContatto', aria-hidden='true')
+                #myModal1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalModificaContatto', aria-hidden='true', style='overflow: visible !important;')
                     .modal-dialog.modal-lg(role='document')
                         .modal-content
                             // dialog body
@@ -147,7 +148,7 @@ html(lang='en')
                                 h4.modal-title.w-100.font-weight-bold Modifica Contatto
                                     button.close(type='button', data-dismiss='modal', aria-label='Chiudi')
                                         span(aria-hidden='true') ×
-                            .modal-body.mx-3
+                            .modal-body.mx-3(style='overflow-y: visible !important;')
                                 .row
                                     .md-form.col-md-4
                                         i.fa.fa-user.prefix(aria-hidden='true')
@@ -190,11 +191,11 @@ html(lang='en')
                                         input#pec.form-control(type='text', name='pec', placeholder='posta elettronica certificata')
                                 .row
                                     .md-form.col-md-6
-                                        i.fa.fa-hashtag.prefix(aria-hidden='true')
+                                        //i.fa.fa-hashtag.prefix(aria-hidden='true')
                                         label.cols-sm-2.control-label.active(for='interessi') Interessi
-                                        input#interessi.form-control(type='number', name='interessi', placeholder='Interessi')
+                                        input#interessi.form-control(type='text', name='interessi', placeholder='Interessi')
                                     .md-form.col-md-6
-                                        label.cols-sm-4.control-label.active(for='interessi') Gestione Interessi
+                                        label.cols-sm-4.control-label.active(for='AggiungiInteresse') Gestione Interessi
                                         button#AggiungiInteresse.btn.btn-primary(type='button', onclick='openModalAdd();') Aggiungi Interesse
                                 .row
                                     .md-form.col-md-6
@@ -261,11 +262,11 @@ html(lang='en')
                                         input#pec2.form-control(type='text', name='pec2', placeholder='posta elettronica certificata')
                                 .row
                                     .md-form.col-md-6
-                                        i.fa.fa-hashtag.prefix(aria-hidden='true')
+                                        //i.fa.fa-hashtag.prefix(aria-hidden='true')
                                         label.cols-sm-2.control-label.active(for='interessi2') Interessi
                                         input#interessi2.form-control(type='text', name='interessi2', placeholder='Interessi')
                                     .md-form.col-md-6
-                                        label.cols-sm-4.control-label.active(for='interessi') Gestione Interessi
+                                        label.cols-sm-4.control-label.active(for='AggiungiInteresse') Gestione Interessi
                                         button#AggiungiInteresse.btn.btn-primary(onclick='openModalAdd();') Aggiungi Interesse
                                 .row
                                     .md-form.col-md-6
@@ -276,8 +277,8 @@ html(lang='en')
                                                 span.lever
                                                 | Utente Attivo
                                 .row
-                                    .col-md-4
-                                        h5 * Campi Obbligatori.
+                                    .md-form.col-md-6
+                                        h4 * Campi Obbligatori.
                             // dialog buttons
                             .modal-footer
                                 button.btn.btn-primary.btn-block(type='button', onclick='AddUtente();') Salva
@@ -309,7 +310,7 @@ html(lang='en')
                             // Body
                             .modal-body.mx-3
                                 .md-form.mb-4
-                                    i.fa.fa-hashtag(aria-hidden='true')
+                                    //i.fa.fa-hashtag(aria-hidden='true')
                                     input#interesse4.form-control.validate(type='text', name='interesse4', placeholder='Interesse')
                                     label(data-error='wrong', data-success='right', for='interesse4') Interesse
                                 .md-form.mb-4
@@ -355,7 +356,7 @@ html(lang='en')
                             thead
                                 tr
                                     th Username
-                                    th password
+                                    th Password
                                     th Cognome
                                     th Nome
                                     th Professione
@@ -363,7 +364,7 @@ html(lang='en')
                                     th Mail
                                     th Numero Telefono
                                     th PEC
-                                    th interessi
+                                    th Interessi
 
                 br
 

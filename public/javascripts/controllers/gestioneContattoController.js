@@ -1,10 +1,6 @@
 let arrayUtenti = {};
 
 $(document).ready(function () {
-    setTimeout(function(){
-        $('body').addClass('loaded');
-        $('h1').css('color','#222222');
-    }, 900);
 
     $.ajax({
         url: '/getInteressi',
@@ -17,8 +13,8 @@ $(document).ready(function () {
 
             for(let i =0;i<data.data.length;i++){
 
-
                 let input = data.data[i].interesse + " - " + data.data[i].descrizione;
+                console.log(input + ' ecco');
 
                 arrayTokenField.push(input);
 

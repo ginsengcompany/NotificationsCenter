@@ -157,6 +157,7 @@ function openModal5(){
     $('#titoloEvento5').val(arrayEventi[0].titolo);
     $('#sottotitoloEvento5').val(arrayEventi[0].sottotitolo);
     $('#descrizioneEvento5').val(arrayEventi[0].descrizione);
+    $('#urlEvento5').val(arrayEventi[0].url_evento);
 
 }
 
@@ -164,12 +165,14 @@ function addNota(){
     datiEvento.titolo = $('#titoloEvento4').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento4').val();
     datiEvento.descrizione = $('#descrizioneEvento4').val();
+    datiEvento.url_evento = $('#urlEvento4').val();
     datiEvento.tipo = 2;
 
     if (
         (datiEvento.titolo === null || datiEvento.titolo === undefined || datiEvento.titolo === '') ||
         (datiEvento.sottotitolo === null || datiEvento.sottotitolo === undefined || datiEvento.sottotitolo === '') ||
-        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '')
+        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '') ||
+        (datiEvento.url_evento === null || datiEvento.url_evento === undefined || datiEvento.url_evento === '')
     ) {
         $("#myModal6").on("show", function () {
             $("#myModal6 a.btn").on("click", function (e) {
@@ -208,6 +211,7 @@ function addNota(){
                 $('#titoloEvento4').val('');
                 $('#sottotitoloEvento4').val('');
                 $('#descrizioneEvento4').val('');
+                $('#urlEvento4').val('');
 
 
             },
@@ -242,7 +246,7 @@ function updateNota(){
     datiEvento.titolo = $('#titoloEvento5').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento5').val();
     datiEvento.descrizione = $('#descrizioneEvento5').val();
-
+    datiEvento.url_evento = $('#urlEvento5').val();
 
     $.ajax({
         url: '/getUpdateNota',

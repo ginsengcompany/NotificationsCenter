@@ -163,6 +163,11 @@ html(lang='en')
                                     .md-form.col-md-12
                                         label.cols-sm-2.control-label.active(for='descrizioneEvento4') Descrizione Nota:
                                         textarea#descrizioneEvento4.form-control(rows='4', maxlength='2000', placeholder='Descrizione...')
+                                .row
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='urlEvento4') Url Evento
+                                        input#urlEvento4.form-control(type='text', placeholder='Url Evento')
                             // dialog buttons
                             .modal-footer
                                 button.btn.btn-primary.btn-block(type='button', onclick='addNota();') Salva
@@ -191,6 +196,11 @@ html(lang='en')
                                     .md-form.col-md-12
                                         label.cols-sm-2.control-label(for='descrizioneEvento5') Descrizione Nota:
                                         textarea#descrizioneEvento5.form-control(rows='4', maxlength='2000', placeholder='Descrizione Nota')
+                                .row
+                                    .md-form.col-md-12
+                                        i.fa.fa-briefcase.prefix(aria-hidden='true')
+                                        label.cols-sm-2.control-label(for='urlEvento5') Url Evento
+                                        input#urlEvento5.form-control(type='text', placeholder='Url Evento')
                             // dialog buttons
                             .modal-footer
                                 button.btn.btn-primary.btn-block(type='button', onclick='updateNota();') Salva
@@ -235,7 +245,7 @@ html(lang='en')
                                 tr
                                     th
                                     th Titolo Nota
-                                    th Descrizione
+                                    th Sottotitolo
 
                 br
             // Footer

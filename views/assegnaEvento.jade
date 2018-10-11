@@ -177,28 +177,28 @@ html(lang='en')
                         h1.h1-reponsive.mb-3.blue-text
                             strong Gestione Invio Notifiche
 
-                .row.mx-5
-                    .col-sm-4
-                        h3.h3-reponsive.mb-3.blue-text
-                            strong Scegli un'opzione :
-                .row.mx-5
-                    .col-3
-                        h4 Invia Evento
-                        label.bs-switch(for='invioEvento')
-                            input#invioEvento(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
-                            span.slider.round
-                    .col-3
-                        h4 Invia Nota Informativa
-                        label.bs-switch(for='invioNotainformativa')
-                            input#invioNotainformativa(name='someSwitchOption001', type='checkbox', checked=false, onchange='switchTable1();')
-                            span.slider.round
-                br
-                hr
-                .row#hideInfo
-                    .col-sm-12
-                        .alert.alert-danger
-                            strong Info!
-                            |  Selezionare solo un'opzione.
+                    .row
+                        .col-sm-4
+                            h3.h3-reponsive.mb-3.blue-text
+                                strong Scegli un'opzione :
+                    .row
+                        .col-3
+                            h4 Invia Evento
+                            label.bs-switch(for='invioEvento')
+                                input#invioEvento(name='someSwitchOption001', type='checkbox', autocomplete='off' onchange='switchTable1();')
+                                span.slider.round
+                        .col-3
+                            h4 Invia Nota Informativa
+                            label.bs-switch(for='invioNotainformativa')
+                                input#invioNotainformativa(name='someSwitchOption001', type='checkbox', autocomplete='off' onchange='switchTable1();')
+                                span.slider.round
+                    br
+                    hr
+                    .row#hideInfo
+                        .col-sm-12
+                            .alert.alert-danger
+                                strong Info!
+                                |  Selezionare solo un'opzione.
 
                 .container-fluid.mx-3#conteinerHideModalita
                     .row
@@ -264,14 +264,18 @@ html(lang='en')
                                     th Residenza
 
                 br
-                .row.mx-2
-                    .col-sm-6
-                    .col-sm-2
-                        button#SalvaDati.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='salvaDati();') Invia
-                    .col-sm-2
-                        button#SelezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='selezionaTutti();') Seleziona Tutti
-                    .col-sm-2
-                        button#DeselezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='deselezionaTutti();') Deseleziona Tutti
+
+                .container-fluid
+                    .row.d-flex.flex-row-reverse
+                        .col-sm-2.pull-right
+                            button#SalvaDati.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='salvaDati();') Invia
+                        .col-sm-2.pull-right
+                            button#SelezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='selezionaTutti();') Seleziona Tutti
+                        .col-sm-2.pull-right
+                            button#DeselezionaTutti.btn.btn-primary.btn-lg.pull-right.btn-block(onclick='deselezionaTutti();') Deseleziona Tutti
+
+                br
+                br
                 br
 
             // Footer

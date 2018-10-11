@@ -609,6 +609,7 @@ function switchTable() {
                 method: "GET",
                 cache: false
             },
+            "order": [[ 4, "desc" ]],
             columns: [
                 {
                     "className": 'details-control',

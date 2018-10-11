@@ -210,7 +210,7 @@ html(lang='en')
                             .modal-footer
                                 button.btn.btn-primary.btn-block(type='button', onclick='updateEvento();') Salva
 
-
+                // AGGIUNGI EVENTO
                 #myModal2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalAggiungiEvento', aria-hidden='true')
                     .modal-dialog.modal-lg(role='document')
                         .modal-content
@@ -283,6 +283,7 @@ html(lang='en')
                             .modal-footer
                                 button.btn.btn-primary.btn-block(type='button', onclick='addEvento();') Salva
 
+                // ALERT ERRORE RIEMPIMENTO
                 #myModal3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalCampiMancanti', aria-hidden='true')
                     .modal-dialog.modal-notify.modal-danger(role='document')
                         .modal-content
@@ -299,32 +300,17 @@ html(lang='en')
                             .modal-footer.justify-content-center
                                 a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
 
+
                 .container-fluid.mx-auto
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text
-                            strong Gestione Evento / Nota Informativa
+                            strong Gestione Evento
 
                 .row.mx-3
                     .col-sm-4
                         h3.h3-reponsive.mb-3.blue-text
                             strong Scegli un'opzione :
-                .row.mx-3
-                    .col-3
-                        h4 Evento
-                        label.bs-switch(for='invioEvento')
-                            input#invioEvento(name='someSwitchOption001', type='checkbox', autocomplete='off' onchange='switchTable();')
-                            span.slider.round
-                    .col-3
-                        h4 Nota Informativa
-                        label.bs-switch(for='invioNotainformativa')
-                            input#invioNotainformativa(name='someSwitchOption001', type='checkbox', autocomplete='off' onchange='switchTable();')
-                            span.slider.round
-                br
-                .row.mx-3#hideInfo
-                    .col-sm-12
-                        .alert.alert-danger
-                            strong Info!
-                            |  Selezionare solo un'opzione.
+
                 hr
                 .container-fluid.mx-3#conteinerHideEvento
                     .row
@@ -334,14 +320,6 @@ html(lang='en')
                             button#modificaEvento.btn.btn-primary(onclick='openModal();') Modifica Evento
                         .col-sm-2
                             button#eliminaEvento.btn.btn-primary(onclick='eliminaEvento();') Elimina Evento
-                .container-fluid#conteinerHideNota
-                    .row
-                        .col-sm-2
-                            button#aggiungiNota.btn.btn-primary(onclick='openModal4();') Aggiungi Nota Informativa
-                        .col-sm-2
-                            button#modificaNota.btn.btn-primary(onclick='openModal5();') Modifica Nota Informativa
-                        .col-sm-2
-                            button#eliminaNota.btn.btn-primary(onclick='eliminaEvento();') Elimina Nota Informativa
                 br
                 .row.mx-3
                     .col-sm-12.table-responsive

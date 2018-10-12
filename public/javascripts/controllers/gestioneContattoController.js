@@ -1,6 +1,28 @@
 let arrayUtenti = {};
+let arrayInteressi = [];
 
 $(document).ready(function () {
+    $('.mdb-select').material_select();
+    $.ajax({
+        url: '/getInteressi',
+        type: 'GET',
+        cache: false,
+        contentType: 'application/json',
+        success: function(data) {
+            let arrayTokenField =[];
+
+            for(let i =0;i<data.data.length;i++){
+                arrayInteressi[i].id = data.data[i]._id;
+                arrayInteressi[i].descrizione = data.data[i].descrizione;
+                arrayInteressi[i].interesse = data.data[i].interesse;
+                let input = data.data[i].interesse + " - " + data.data[i].descrizione;
+                console.log(input + ' ecco');
+                $('#selectInt').append('<option value="' + data.data[i]._id + '">' + data.data[i].descrizione + ' ' + data.data[i].interesse + '</option>')
+            }
+        },
+        faliure: function(data) {
+        }
+    });
 
     $.ajax({
         url: '/getInteressi',

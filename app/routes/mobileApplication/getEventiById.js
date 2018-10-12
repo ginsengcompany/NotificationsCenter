@@ -20,10 +20,11 @@ router.post('/',function (req, res, next) {
         if (multiUser.data[i].cod_org === organizzazione) {
 
             let queryPostEventyById =
-                "SELECT A.*,C.* FROM " + multiUser.data[i].tb_contatti+" " +
+                "SELECT B._id_utente, B._id_evento,C.url_evento, B.confermato, B.eliminato,C.titolo,C.sottotitolo,C.data,C.luogo,C.informazioni,C.relatori,C.descrizione,C.immagine,C.tipo FROM "
+                + multiUser.data[i].tb_contatti+" " +
                 "A INNER JOIN "+multiUser.data[i].tb_notifiche+" B ON A._id=B._id_utente INNER JOIN "+multiUser.data[i].tb_eventi+" C ON C._id = B._id_evento " +
                 "WHERE " +
-                "A.username = '"+ username +"' AND A.token = '"+ token +"' AND B.eliminato = '" + eliminato + "' GROUP BY A._id,C._id;";
+                "A.username = '"+ username +"' AND A.token = '"+ token +"' AND B.eliminato = '" + eliminato + "' GROUP BY C._id , B._id, B._id_utente, B._id_evento;";
 
             const query = client.query(queryPostEventyById);
 

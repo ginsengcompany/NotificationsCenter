@@ -40,12 +40,12 @@ router.post('/',function (req, res, next) {
                     "UPDATE "+multiUser.data[i].tb_eventi+" SET " +
                     "titolo='" + datiUpdateOrDelete.titolo + "', " +
                     "sottotitolo='" + datiUpdateOrDelete.sottotitolo + "', " +
-                    "data='" + moment().format(datiUpdateOrDelete.data) + "', " +
+                    "data='" + moment(data_inizio).format() + "', " +
                     "luogo='" + datiUpdateOrDelete.luogo + "', " +
                     "informazioni='" + datiUpdateOrDelete.informazioni + "', " +
                     "relatori='" + datiUpdateOrDelete.relatori + "', " +
                     "descrizione='" + datiUpdateOrDelete.descrizione + "', " +
-                    "data_fine='" + moment().format(datiUpdateOrDelete.dataFine) + "', " +
+                    "data_fine='" + moment(data_fine).format() + "', " +
                     "immagine='" + replaceAll("'", "`",datiUpdateOrDelete.immagine)  + "', " +
                     "url_evento='" + datiUpdateOrDelete.url_evento + "' " +
                     "WHERE _id=" + datiUpdateOrDelete._id;

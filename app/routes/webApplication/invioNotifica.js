@@ -53,7 +53,7 @@ function posyQuery(indice,datiTab) {
                 if(datiEmail.arrayEventi && datiEmail.arrayUtenti){
                     let restKey = 'OTM3ZGZiOGUtZjNiYS00YTAxLWFjYmMtMDRjN2I2NjE5MWE2';
                     let appID = 'b560b667-aa97-4980-a740-c8fc7925e208';
-                    let message = 'Hai una nuova notizia entra subito nell`app per scoprire!';
+                    let message = 'Nuovo evento: ' + datiEmail.arrayEventi.titolo;
                     let device  = datiEmail.arrayUtenti.token;
 
                     const options = {

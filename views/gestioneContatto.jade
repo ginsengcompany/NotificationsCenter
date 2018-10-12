@@ -199,6 +199,13 @@ html(lang='en')
                                         button#AggiungiInteresse.btn.btn-primary(type='button', onclick='openModalAdd();') Aggiungi Interesse
                                 .row
                                     .md-form.col-md-6
+                                        select#selectInt.mdb-select.md-form(multiple='')
+                                            option(value='', disabled='', selected='') Seleziona gli interessi
+                                        label Interessi
+                                        button.btn-save.btn.btn-primary.btn-sm Salva
+
+                                .row
+                                    .md-form.col-md-6
                                         .switch
                                             label
                                                 | Utente Non Attivo
@@ -268,6 +275,13 @@ html(lang='en')
                                     .md-form.col-md-6
                                         label.cols-sm-4.control-label.active(for='AggiungiInteresse') Gestione Interessi
                                         button#AggiungiInteresse.btn.btn-primary(onclick='openModalAdd();') Aggiungi Interesse
+
+                                .row
+                                    .md-form.col-md-6
+                                        select#selectInt2.mdb-select.md-form(multiple='')
+                                            option(value='', disabled='', selected='') Seleziona gli interessi
+                                        label Interessi
+                                        button.btn-save.btn.btn-primary.btn-sm Salva
                                 .row
                                     .md-form.col-md-6
                                         .switch

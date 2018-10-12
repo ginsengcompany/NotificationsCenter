@@ -31,22 +31,13 @@ $(document).ready(function () {
             {"data": "luogo"},
             {
                 "data": "data", "render": function (data) {
-                function pad(s) {
-                    return (s < 10) ? '0' + s : s;
-                }
 
-                let d = new Date(data);
-                return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                return moment(data).format("DD/MM/YYYY");
             }
             },
             {
                 "data": "data_fine", "render": function (data) {
-                function pad(s) {
-                    return (s < 10) ? '0' + s : s;
-                }
-
-                let d = new Date(data);
-                return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                return moment(data).format("DD/MM/YYYY");
             }
             },
             {"data": "relatori"},
@@ -89,6 +80,9 @@ $(document).ready(function () {
                 '<tr>' +
                 '<td style="font-weight: bold;">Descrizione: </td>' +
                 '<td>' + d.descrizione + '</td>' +
+                '</tr>' +
+                '<td style="font-weight: bold;">Url evento: </td>' +
+                '<td>' + d.url_evento + '</td>' +
                 '</tr>' +
                 '</table>';
         }
@@ -263,7 +257,6 @@ function openModal() {
 }
 
 function updateEvento() {
-
     datiEvento._id = arrayEventi[0]._id;
     datiEvento.titolo = $('#titoloEvento').val();
     datiEvento.sottotitolo = $('#sottotitoloEvento').val();
@@ -275,7 +268,6 @@ function updateEvento() {
     datiEvento.descrizione = $('#descrizioneEvento').val();
     datiEvento.url_evento = $('#urlEvento').val();
     datiEvento.immagine = $('#caricaFoto').val();
-    console.log(datiEvento);
 
     $.ajax({
         url: '/getUpdateEventi',
@@ -341,7 +333,6 @@ function eliminaEvento() {
 function openModal2() {
     $("#myModal2").on("show", function () {
         $("#myModal2 a.btn").on("click", function (e) {
-            console.log("button pressed");
             $("#myModal2").modal('hide');
         });
     });
@@ -372,7 +363,6 @@ function addEvento() {
     datiEvento.descrizione = $('#descrizioneEvento2').val();
     datiEvento.url_evento = $('#urlEvento2').val();
     datiEvento.tipo = 1;
-    console.log(datiEvento);
 
     if (
         (datiEvento.titolo === null || datiEvento.titolo === undefined || datiEvento.titolo === '') ||
@@ -387,7 +377,6 @@ function addEvento() {
     ) {
         $("#myModal3").on("show", function () {
             $("#myModal3 a.btn").on("click", function (e) {
-                console.log("button pressed");
                 $("#myModal3").modal('hide');
             });
         });
@@ -406,6 +395,7 @@ function addEvento() {
         });
     }
     else {
+        console.log(datiEvento);
         $.ajax({
             url: '/salvaEvento',
             type: 'POST',
@@ -433,7 +423,6 @@ function addEvento() {
             faliure: function (data) {
                 $("#myModal3").on("show", function () {
                     $("#myModal3 a.btn").on("click", function (e) {
-                        console.log("button pressed");
                         $("#myModal3").modal('hide');
                     });
                 });

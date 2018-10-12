@@ -10,10 +10,16 @@ let connectionPostgres = function () {
 
 router.post('/',function (req, res, next) {
     let datiEvento = req.body;
-    let dataInizio = datiEvento.data.date;
-    let dataIni = moment(dataInizio).format();
-    let dataFine = datiEvento.dataFine.date;
-    let dataFin = moment(dataFine).format();
+    let dd1 = datiEvento.data.substr(0,2);
+    let mm1 = datiEvento.data.substr(3,2);
+    let yy1 = datiEvento.data.substr(6,10);
+    let dd2 = datiEvento.dataFine.substr(0,2);
+    let mm2 = datiEvento.dataFine.substr(3,2);
+    let yy2 = datiEvento.dataFine.substr(6,10);
+    let data_inizio = yy1+'-'+mm1+'-'+dd1;
+    let data_fine = yy2+'-'+mm2+'-'+dd2;
+    let dataIni = moment(data_inizio).format();
+    let dataFin = moment(data_fine).format();
 
     function replaceAll (search, replacement, string) {
         let target = string;

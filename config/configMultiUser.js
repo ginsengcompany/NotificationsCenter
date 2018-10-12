@@ -18,6 +18,7 @@ let multiUser3 = {
     // TO DO: cambiare
     // cod_org: 'OPICE',
     cod_org: 'ord_inf_caserta',
+    logo_org: 'logo-OPICE.jpg',
     descrizione: 'Ordine Degli Infermieri',
     tb_interessi: 'tb_interessi_ordine_infermieri_caserta',
     tb_contatti: 'tb_contatti_ordine_infermieri_caserta',

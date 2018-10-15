@@ -76,7 +76,12 @@ $(document).ready(function () {
             {"data": "numero_telefono"},
             {"data": "pec"},
             {"data": "interessi"}
-        ]
+        ],
+        "rowCallback": function( row, data, index ) {
+            if (data.attivo === false) {
+                $('td', row).css('background-color', 'Red');
+            }
+        }
     });
 
     $('#tabellaUtenti tbody').on('click', 'tr', function () {

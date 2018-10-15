@@ -109,12 +109,18 @@ function switchTable() {
         $('#tabellaNotifiche').dataTable().fnDestroy();
 
         tabNotifiche = $('#tabellaNotifiche').DataTable({
+            // eliminare se non serve in cima
+            orderCellsTop: true,
+            // eliminare se non serve la formattazione con bottoni in cima
+            dom: 'Bfrtip',
             initComplete: function () {
                 this.api().columns([4, 5, 7]).every(function () {
                     let column = this;
                     var select = $('<select class="mdb-select"><option value="" selected disabled></option></select>');
                     select.material_select('destroy');
-                    select.appendTo($(column.footer()).empty())
+                    // Prima era in questo modo
+                    //select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('change', function () {
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
@@ -132,7 +138,9 @@ function switchTable() {
                     let column = this;
                     var select = $('<select class="mdb-select"><option value="" selected disabled></option></select>');
                     select.material_select('destroy');
-                    select.appendTo($(column.footer()).empty())
+                    // Prima
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('change', function () {
 
                             let val = $.fn.dataTable.util.escapeRegex(
@@ -160,9 +168,10 @@ function switchTable() {
                     let column = this;
                     var select = $('<select class="mdb-select"><option value="" selected disabled></option></select>');
                     select.material_select('destroy');
-                    select.appendTo($(column.footer()).empty())
+                    // Prima
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('change', function () {
-
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
@@ -186,7 +195,8 @@ function switchTable() {
                 this.api().columns([6]).every(function () {
                     let that = this;
                     var select = $('<input class="md-form" type="text" id="dataSearch" placeholder="Ricerca"/>');
-                    select.appendTo($(that.footer()).empty())
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that
@@ -246,13 +256,11 @@ function switchTable() {
                         function pad(s) {
                             return (s < 10) ? '0' + s : s;
                         }
-
                         let d = new Date(data);
                         return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
                     } else {
                         return 'Non Disponibile';
                     }
-
                 }
                 },
                 {"data": "tipo"},
@@ -264,7 +272,6 @@ function switchTable() {
                     if (data === false) {
                         return '<h4><span class="badge badge-warning">Non Inoltrato</span></h4>';
                     }
-
                 }
                 },
                 {
@@ -321,7 +328,8 @@ function switchTable() {
                     let column = this;
                     var select = $('<select class="mdb-select"><option value=""></option></select>');
                     select.material_select('destroy');
-                    select.appendTo($(column.footer()).empty())
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('change', function () {
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
@@ -341,7 +349,8 @@ function switchTable() {
                     let column = this;
                     var select = $('<select class="mdb-select" style="width: 80px"><option value=""></option></select>');
                     select.material_select('destroy');
-                    select.appendTo($(column.footer()).empty())
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('change', function () {
 
                             let val = $.fn.dataTable.util.escapeRegex(
@@ -370,7 +379,8 @@ function switchTable() {
                     let column = this;
                     var select = $('<select class="mdb-select" style="width: 150px"><option value=""></option></select>');
                     select.material_select('destroy');
-                        select.appendTo($(column.footer()).empty())
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('change', function () {
 
                             let val = $.fn.dataTable.util.escapeRegex(
@@ -397,7 +407,8 @@ function switchTable() {
                 this.api().columns([6]).every(function () {
                     let that = this;
                     var select = $('<input class="md-form" type="text" id="dataSearch" placeholder="Ricerca" />');
-                    select.appendTo($(that.footer()).empty())
+                    // select.appendTo($(column.footer()).empty())
+                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
                         .on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that

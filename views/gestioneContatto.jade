@@ -121,7 +121,7 @@ html(lang='en')
                     //        span.clearfix.d-none.d-sm-inline-block Account
                     li.nav-item.dropdown
                         a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                            | Dropdown
+                            | Menu Rapido
                         .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
                             a.dropdown-item(href='/home') Home
                             a.dropdown-item(href='/gestioneInteressi') Interessi
@@ -194,13 +194,9 @@ html(lang='en')
                                         //i.fa.fa-hashtag.prefix(aria-hidden='true')
                                         label.cols-sm-2.control-label.active(for='interessi') Interessi
                                         input#interessi.form-control(type='text', name='interessi', placeholder='Interessi')
-                                .row
                                     .md-form.col-md-6
-                                        select#selectInt.mdb-select.md-form(multiple='')
-                                            option(value='0', disabled='', selected='') Seleziona gli interessi
-                                        label Interessi
-                                        button.btn-save.btn.btn-primary.btn-sm Salva
-
+                                        label.cols-sm-4.control-label.active(for='AggiungiInteresse') Gestione Interessi
+                                        button#AggiungiInteresse.btn.btn-primary(type='button', onclick='openModalAdd();') Aggiungi Interesse
                                 .row
                                     .md-form.col-md-6
                                         .switch
@@ -269,12 +265,9 @@ html(lang='en')
                                         //i.fa.fa-hashtag.prefix(aria-hidden='true')
                                         label.cols-sm-2.control-label.active(for='interessi2') Interessi
                                         input#interessi2.form-control(type='text', name='interessi2', placeholder='Interessi')
-                                .row
                                     .md-form.col-md-6
-                                        select#selectInt2.mdb-select.md-form(multiple='')
-                                            option(value='', disabled='', selected='') Seleziona gli interessi
-                                        label Interessi
-                                        button.btn-save.btn.btn-primary.btn-sm Salva
+                                        label.cols-sm-4.control-label.active(for='AggiungiInteresse') Gestione Interessi
+                                        button#AggiungiInteresse.btn.btn-primary(onclick='openModalAdd();') Aggiungi Interesse
                                 .row
                                     .md-form.col-md-6
                                         .switch
@@ -305,6 +298,28 @@ html(lang='en')
                             // dialog buttons
                             .modal-footer.justify-content-center
                                 a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
+
+                #myModal4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalAggiungiInteressi', aria-hidden='true')
+                    .modal-dialog(role='document')
+                        .modal-content
+                            // dialog body
+                            .modal-header
+                                h4.modal-title.w-100.font-weight-bold Aggiungi Interesse
+                                    button.close(type='button', data-dismiss='modal', aria-label='modalAggiungiInteressi')
+                                        span(aria-hidden='true') ×
+                            // Body
+                            .modal-body.mx-3
+                                .md-form.mb-4
+                                    //i.fa.fa-hashtag(aria-hidden='true')
+                                    input#interesse4.form-control.validate(type='text', name='interesse4', placeholder='Interesse')
+                                    label(data-error='wrong', data-success='right', for='interesse4') Interesse
+                                .md-form.mb-4
+                                    i.fa.fa-server(aria-hidden='true')
+                                    input#descrizione4.form-control.validate(type='text', name='descrizione4', placeholder='Descrizione')
+                                    label(data-error='wrong', data-success='right', for='descrizione4') Descrizione
+                            // dialog buttons
+                            .modal-footer.d-flex.justify-content-center
+                                button.btn.btn-primary.btn-block(type='button', onclick='addInteresse();') Salva
 
                 #myModal5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalUsernameEsistente', aria-hidden='true')
                     .modal-dialog.modal-notify.modal-danger(role='document')
@@ -384,3 +399,4 @@ html(lang='en')
             script.
                 // SideNav Initialization
                 $(".button-collapse").sideNav();
+

@@ -1,23 +1,21 @@
-$(document).ready(function() {
-    setTimeout(function(){
-        $('body').addClass('loaded');
-        $('h1').css('color','#222222');
-    }, 900);
+// Sostituisco form-control con browser-default
+// $('#selectInt').append('<option value="' + data.data[i]._id + '">' + data.data[i].descrizione + ' ' + data.data[i].interesse + '</option>')
+$(document).ready(function () {
     $('#hideInfo').hide();
     $('#conteinerHideEvento').hide();
     $('#tabellaNotifiche').dataTable().hide();
     $('#tabellaNotifiche').dataTable().fnDestroy();
     $('#tabellaNotifiche').dataTable().fnClearTable();
-} );
+});
 
-let datiSwitch= {
+let datiSwitch = {
     'confermato': true,
     'eliminato': false,
     '_id_utente': '',
     '_id_evento': ''
 };
 
-let datiSwitch1= {
+let datiSwitch1 = {
     'confermato': false,
     'eliminato': true,
     '_id_utente': '',
@@ -26,12 +24,12 @@ let datiSwitch1= {
 
 function switchConfermatoEmail(dataSwitch) {
 
-    $('#tabellaNotifiche tbody').on( 'click', 'button', function () {
-        let dati = tabNotifiche.row( $(this).parents('tr') ).data();
+    $('#tabellaNotifiche tbody').on('click', 'button', function () {
+        let dati = tabNotifiche.row($(this).parents('tr')).data();
         switchConfermatoEmail(dati);
-    } );
+    });
 
-    if(dataSwitch!== undefined){
+    if (dataSwitch !== undefined) {
         datiSwitch._id_utente = dataSwitch._id_utente;
         datiSwitch._id_evento = dataSwitch._id_evento;
         $.ajax({
@@ -40,16 +38,16 @@ function switchConfermatoEmail(dataSwitch) {
             data: JSON.stringify(datiSwitch),
             cache: false,
             contentType: 'application/json',
-            success: function(data) {
+            success: function (data) {
 
-                if(data.errore===false){
+                if (data.errore === false) {
 
                     tabNotifiche.ajax.reload();
 
                 }
 
             },
-            faliure: function(data) {
+            faliure: function (data) {
 
             }
         });
@@ -59,12 +57,12 @@ function switchConfermatoEmail(dataSwitch) {
 
 function switchEliminatoEmail(dataSwitch) {
 
-    $('#tabellaNotifiche tbody').on( 'click', 'button', function () {
-        let dati = tabNotifiche.row( $(this).parents('tr') ).data();
+    $('#tabellaNotifiche tbody').on('click', 'button', function () {
+        let dati = tabNotifiche.row($(this).parents('tr')).data();
         switchEliminatoEmail(dati);
-    } );
+    });
 
-    if(dataSwitch!== undefined){
+    if (dataSwitch !== undefined) {
         datiSwitch1._id_utente = dataSwitch._id_utente;
         datiSwitch1._id_evento = dataSwitch._id_evento;
         $.ajax({
@@ -73,16 +71,16 @@ function switchEliminatoEmail(dataSwitch) {
             data: JSON.stringify(datiSwitch1),
             cache: false,
             contentType: 'application/json',
-            success: function(data) {
+            success: function (data) {
 
-                if(data.errore===false){
+                if (data.errore === false) {
 
                     tabNotifiche.ajax.reload();
 
                 }
 
             },
-            faliure: function(data) {
+            faliure: function (data) {
 
             }
         });
@@ -90,115 +88,115 @@ function switchEliminatoEmail(dataSwitch) {
 
 }
 
-function exportExcel(){
+function exportExcel() {
     tabNotifiche.buttons('.buttons-excel').trigger();
 }
 
-function exportPdf(){
+function exportPdf() {
     tabNotifiche.buttons('.buttons-pdf').trigger();
 }
 
-function exportStampa(){
+function exportStampa() {
     tabNotifiche.buttons('.buttons-print').trigger();
 }
 
 function switchTable() {
 
-    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===false){
+    if ($('#invioEvento').prop('checked') === true && $('#invioNotainformativa').prop('checked') === false) {
         $('#hideInfo').hide();
         $('#conteinerHideEvento').show();
         $('#tabellaNotifiche').dataTable().show();
-        $('#tabellaNotifiche').dataTable().fnDestroy();;
+        $('#tabellaNotifiche').dataTable().fnDestroy();
 
-        tabNotifiche = $('#tabellaNotifiche').DataTable( {
-            initComplete:  function (){
-                this.api().columns([4,5,7]).every( function () {
+        tabNotifiche = $('#tabellaNotifiche').DataTable({
+            initComplete: function () {
+                this.api().columns([4, 5, 7]).every(function () {
                     let column = this;
-                    let select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
+                    var select = $('<select class="mdb-select"><option value="" selected disabled></option></select>');
+                    select.material_select('destroy');
+                    select.appendTo($(column.footer()).empty())
+                        .on('change', function () {
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
-
                             column
-                                .search( val ? '^'+val+'$' : '', true, false )
+                                .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
-                        } );
-
-                    column.data().unique().sort().each( function ( d, j ) {
-                        select.append( '<option value="'+d+'">'+d+'</option>' )
-                    } );
+                        });
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>');
+                        select.material_select();
+                    });
                 });
-                this.api().columns([9,10]).every( function () {
+                this.api().columns([9, 10]).every(function () {
                     let column = this;
-                    let select = $('<select class="form-control" style="width: 80px"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
-
-                            let val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search( val  )
-                                .draw();
-                        } );
-
-                    column.data().unique().sort().each( function ( d, j ) {
-                        if(d===true){
-                            d='Si';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
-                        }
-                        if(d===false){
-                            d='No';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
-                        }
-
-                    } );
-
-                });
-                this.api().columns([8]).every( function () {
-                    let column = this;
-                    let select = $('<select class="form-control" style="width: 150px"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
+                    var select = $('<select class="mdb-select"><option value="" selected disabled></option></select>');
+                    select.material_select('destroy');
+                    select.appendTo($(column.footer()).empty())
+                        .on('change', function () {
 
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
 
                             column
-                                .search( val  )
+                                .search(val)
                                 .draw();
-                        } );
+                        });
 
-                    column.data().unique().sort().each( function ( d, j ) {
-                        if(d===true){
-                            d='Inoltrato';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                    column.data().unique().sort().each(function (d, j) {
+                        if (d === true) {
+                            d = 'Si';
+                            select.append('<option value="' + d + '">' + d + '</option>');
                         }
-                        if(d===false){
-                            d='Non Inviato';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        if (d === false) {
+                            d = 'No';
+                            select.append('<option value="' + d + '">' + d + '</option>');
                         }
-
-                    } );
+                        select.material_select();
+                    });
                 });
-                this.api().columns([6]).every( function () {
+                this.api().columns([8]).every(function () {
+                    let column = this;
+                    var select = $('<select class="mdb-select"><option value="" selected disabled></option></select>');
+                    select.material_select('destroy');
+                    select.appendTo($(column.footer()).empty())
+                        .on('change', function () {
+
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        if (d === true) {
+                            d = 'Inoltrato';
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        }
+                        if (d === false) {
+                            d = 'Non Inviato';
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        }
+                        select.material_select();
+                    });
+                });
+                this.api().columns([6]).every(function () {
                     let that = this;
-                    let select = $('<input class="form-control" type="text" id="dataSearch" placeholder="Ricerca" />')
-                        .appendTo( $(that.footer()).empty() )
-                        .on( 'keyup change', function () {
-                            if ( that.search() !== this.value ) {
+                    var select = $('<input class="md-form" type="text" id="dataSearch" placeholder="Ricerca"/>');
+                    select.appendTo($(that.footer()).empty())
+                        .on('keyup change', function () {
+                            if (that.search() !== this.value) {
                                 that
-                                    .search( this.value )
+                                    .search(this.value)
                                     .draw();
                             }
-                        } );
+                        });
                 });
             },
-            search: { "caseInsensitive": false },
+            search: {"caseInsensitive": false},
             ajax: "/getNotifiche",
             buttons: [
                 {
@@ -236,35 +234,43 @@ function switchTable() {
                 cache: false
             },
             columns: [
-                { "data": "_id", "visible": false },
-                { "data": "username" },
-                { "data": "cognome" },
-                { "data": "nome" },
-                { "data": "specializzazione" },
-                { "data": "titolo" },
-                { "data": "data_invio" , "render": function (data) {
-                    if(data!=='1969-12-31T23:00:00.000Z'){
-                        function pad(s) { return (s < 10) ? '0' + s : s; }
+                {"data": "_id", "visible": false},
+                {"data": "username"},
+                {"data": "cognome"},
+                {"data": "nome"},
+                {"data": "specializzazione"},
+                {"data": "titolo"},
+                {
+                    "data": "data_invio", "render": function (data) {
+                    if (data !== '1969-12-31T23:00:00.000Z') {
+                        function pad(s) {
+                            return (s < 10) ? '0' + s : s;
+                        }
+
                         let d = new Date(data);
-                        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-                    }else {
+                        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                    } else {
                         return 'Non Disponibile';
                     }
 
-                }},
-                { "data": "tipo" },
-                { "data": "stato" , "render": function (data) {
+                }
+                },
+                {"data": "tipo"},
+                {
+                    "data": "stato", "render": function (data) {
                     if (data === true) {
-                        return '<h3 class="label label-success label-medium">Inoltrato</h3>';
+                        return '<h4><span class="badge badge-success">Inoltrato</span></h4>';
                     }
                     if (data === false) {
-                        return '<h3 class="label label-danger label-medium">Non Inviato</h3>';
+                        return '<h4><span class="badge badge-warning">Non Inoltrato</span></h4>';
                     }
 
-                }},
-                { "data": "confermato" , "render": function (data, type) {
+                }
+                },
+                {
+                    "data": "confermato", "render": function (data, type) {
                     let color = 'black';
-                    if(type === 'export') {
+                    if (type === 'export') {
                         if (data === false) {
                             return type === 'export' ? data = 'No' : data;
                         }
@@ -272,130 +278,136 @@ function switchTable() {
                             return type === 'export' ? data = 'Si' : data;
                         }
                     }
-                    if (data===false) {
+                    if (data === false) {
                         return '<button type="button" class="btn btn-danger btn-sm" id="btnConferma" onclick="switchConfermatoEmail();">No - Clicca per Confermare</button>';
                     }
-                    if (data===true) {
-                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    if (data === true) {
+                        return '<h4><span class="badge badge-success">Si</span></h4>';
                     }
-                }},
-                { "data": "eliminato" , "render": function (data, type) {
+                }
+                },
+                {
+                    "data": "eliminato", "render": function (data, type) {
                     let color = 'black';
-                    if(type === 'export'){
-                        if (data===false) {
+                    if (type === 'export') {
+                        if (data === false) {
                             return type === 'export' ? data = 'No' : data;
                         }
-                        if (data===true) {
+                        if (data === true) {
                             return type === 'export' ? data = 'Si' : data;
                         }
                     }
-                    if (data===false) {
+                    if (data === false) {
                         return '<button type="button" class="btn btn-danger btn-sm" id="btnElimina" onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button>';
                     }
-                    if (data===true) {
-                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    if (data === true) {
+                        return '<h4><span class="badge badge-success">Si</span></h4>';
                     }
-                }}
+                }
+                }
             ]
-        } );
-
+        });
     }
 
-    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===true){
+    if ($('#invioEvento').prop('checked') === false && $('#invioNotainformativa').prop('checked') === true) {
         $('#hideInfo').hide();
         $('#conteinerHideEvento').show();
         $('#tabellaNotifiche').dataTable().show();
         $('#tabellaNotifiche').dataTable().fnDestroy();
 
-        tabNotifiche = $('#tabellaNotifiche').DataTable( {
-            initComplete:  function (){
-                this.api().columns([4,5,7]).every( function () {
+        tabNotifiche = $('#tabellaNotifiche').DataTable({
+            initComplete: function () {
+                this.api().columns([4, 5, 7]).every(function () {
                     let column = this;
-                    let select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
+                    var select = $('<select class="mdb-select"><option value=""></option></select>');
+                    select.material_select('destroy');
+                    select.appendTo($(column.footer()).empty())
+                        .on('change', function () {
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
 
                             column
-                                .search( val ? '^'+val+'$' : '', true, false )
+                                .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
-                        } );
+                        });
 
-                    column.data().unique().sort().each( function ( d, j ) {
-                        select.append( '<option value="'+d+'">'+d+'</option>' )
-                    } );
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                        select.material_select();
+                    });
                 });
-                this.api().columns([9,10]).every( function () {
+                this.api().columns([9, 10]).every(function () {
                     let column = this;
-                    let select = $('<select class="form-control" style="width: 80px"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
-
-                            let val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search( val  )
-                                .draw();
-                        } );
-
-                    column.data().unique().sort().each( function ( d, j ) {
-                        if(d===true){
-                            d='Si';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
-                        }
-                        if(d===false){
-                            d='No';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
-                        }
-
-                    } );
-
-                });
-                this.api().columns([8]).every( function () {
-                    let column = this;
-                    let select = $('<select class="form-control" style="width: 150px"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
+                    var select = $('<select class="mdb-select" style="width: 80px"><option value=""></option></select>');
+                    select.material_select('destroy');
+                    select.appendTo($(column.footer()).empty())
+                        .on('change', function () {
 
                             let val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
 
                             column
-                                .search( val  )
+                                .search(val)
                                 .draw();
-                        } );
+                        });
 
-                    column.data().unique().sort().each( function ( d, j ) {
-                        if(d===true){
-                            d='Inoltrato';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                    column.data().unique().sort().each(function (d, j) {
+                        if (d === true) {
+                            d = 'Si';
+                            select.append('<option value="' + d + '">' + d + '</option>');
                         }
-                        if(d===false){
-                            d='Non Inviato';
-                            select.append( '<option value="'+d+'">'+d+'</option>' );
+                        if (d === false) {
+                            d = 'No';
+                            select.append('<option value="' + d + '">' + d + '</option>');
                         }
+                        select.material_select();
+                    });
 
-                    } );
                 });
-                this.api().columns([6]).every( function () {
+                this.api().columns([8]).every(function () {
+                    let column = this;
+                    var select = $('<select class="mdb-select" style="width: 150px"><option value=""></option></select>');
+                    select.material_select('destroy');
+                        select.appendTo($(column.footer()).empty())
+                        .on('change', function () {
+
+                            let val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        if (d === true) {
+                            d = 'Inoltrato';
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        }
+                        if (d === false) {
+                            d = 'Non Inviato';
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        }
+                        select.material_select();
+                    });
+                });
+                this.api().columns([6]).every(function () {
                     let that = this;
-                    let select = $('<input class="form-control" type="text" id="dataSearch" placeholder="Ricerca" />')
-                        .appendTo( $(that.footer()).empty() )
-                        .on( 'keyup change', function () {
-                            if ( that.search() !== this.value ) {
+                    var select = $('<input class="md-form" type="text" id="dataSearch" placeholder="Ricerca" />');
+                    select.appendTo($(that.footer()).empty())
+                        .on('keyup change', function () {
+                            if (that.search() !== this.value) {
                                 that
-                                    .search( this.value )
+                                    .search(this.value)
                                     .draw();
                             }
-                        } );
+                        });
                 });
             },
-            search: { "caseInsensitive": false },
+            search: {"caseInsensitive": false},
             ajax: "/getNotificheNota",
             buttons: [
                 {
@@ -433,35 +445,43 @@ function switchTable() {
                 cache: false
             },
             columns: [
-                { "data": "_id", "visible": false },
-                { "data": "username" },
-                { "data": "cognome" },
-                { "data": "nome" },
-                { "data": "specializzazione" },
-                { "data": "titolo" },
-                { "data": "data_invio" , "render": function (data) {
-                    if(data!=='1969-12-31T23:00:00.000Z'){
-                        function pad(s) { return (s < 10) ? '0' + s : s; }
+                {"data": "_id", "visible": false},
+                {"data": "username"},
+                {"data": "cognome"},
+                {"data": "nome"},
+                {"data": "specializzazione"},
+                {"data": "titolo"},
+                {
+                    "data": "data_invio", "render": function (data) {
+                    if (data !== '1969-12-31T23:00:00.000Z') {
+                        function pad(s) {
+                            return (s < 10) ? '0' + s : s;
+                        }
+
                         let d = new Date(data);
-                        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-                    }else {
+                        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+                    } else {
                         return 'Non Disponibile';
                     }
 
-                }},
-                { "data": "tipo" },
-                { "data": "stato" , "render": function (data) {
+                }
+                },
+                {"data": "tipo"},
+                {
+                    "data": "stato", "render": function (data) {
                     if (data === true) {
-                        return '<h3 class="label label-success label-medium">Inoltrato</h3>';
+                        return '<h4><span class="badge badge-success">Inoltrato</span></h4>';
                     }
                     if (data === false) {
-                        return '<h3 class="label label-danger label-medium">Non Inviato</h3>';
+                        return '<h4><span class="badge badge-warning">Non Inviato</span></h4>';
                     }
 
-                }},
-                { "data": "confermato" , "render": function (data, type) {
+                }
+                },
+                {
+                    "data": "confermato", "render": function (data, type) {
                     let color = 'black';
-                    if(type === 'export') {
+                    if (type === 'export') {
                         if (data === false) {
                             return type === 'export' ? data = 'No' : data;
                         }
@@ -469,36 +489,38 @@ function switchTable() {
                             return type === 'export' ? data = 'Si' : data;
                         }
                     }
-                    if (data===false) {
+                    if (data === false) {
                         return '<button type="button" class="btn btn-danger btn-sm" id="btnConferma" onclick="switchConfermatoEmail();">No - Clicca per Confermare</button>';
                     }
-                    if (data===true) {
-                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    if (data === true) {
+                        return '<h4><span class="badge badge-success">Si</span></h4>';
                     }
-                }},
-                { "data": "eliminato" , "render": function (data, type) {
+                }
+                },
+                {
+                    "data": "eliminato", "render": function (data, type) {
                     let color = 'black';
-                    if(type === 'export'){
-                        if (data===false) {
+                    if (type === 'export') {
+                        if (data === false) {
                             return type === 'export' ? data = 'No' : data;
                         }
-                        if (data===true) {
+                        if (data === true) {
                             return type === 'export' ? data = 'Si' : data;
                         }
                     }
-                    if (data===false) {
+                    if (data === false) {
                         return '<button type="button" class="btn btn-danger btn-sm" id="btnElimina" onclick="switchEliminatoEmail();">No - Clicca per Eliminare</button>';
                     }
-                    if (data===true) {
-                        return '<h3 class="label label-success label-medium">Si</h3>';
+                    if (data === true) {
+                        return '<h4><span class="badge badge-success">Si</span></h4>';
                     }
-                }}
+                }
+                }
             ]
-        } );
-
+        });
     }
 
-    if($('#invioEvento').prop('checked')===false && $('#invioNotainformativa').prop('checked')===false){
+    if ($('#invioEvento').prop('checked') === false && $('#invioNotainformativa').prop('checked') === false) {
         $('#hideInfo').hide();
         $('#conteinerHideEvento').hide();
         $('#tabellaNotifiche').dataTable().hide();
@@ -506,7 +528,7 @@ function switchTable() {
         $('#tabellaNotifiche').dataTable().fnClearTable();
     }
 
-    if($('#invioEvento').prop('checked')===true && $('#invioNotainformativa').prop('checked')===true){
+    if ($('#invioEvento').prop('checked') === true && $('#invioNotainformativa').prop('checked') === true) {
 
         $('#hideInfo').show();
         $('#conteinerHideEvento').hide();

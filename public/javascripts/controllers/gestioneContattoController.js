@@ -1,43 +1,7 @@
 let arrayUtenti = {};
-let arrayInteressi = [];
-
-/*for(let i =0;i<data.data.length;i++){
-    arrayInteressi[i].id = data.data[i]._id;
-    arrayInteressi[i].descrizione = data.data[i].descrizione;
-    arrayInteressi[i].interesse = data.data[i].interesse;
-    let input = data.data[i].interesse + " - " + data.data[i].descrizione;
-    $('#selectInt').append('<option value="' + data.data[i]._id + '">' + data.data[i].descrizione + ' ' + data.data[i].interesse + '</option>')
-}*/
 
 $(document).ready(function () {
-    $('.mdb-select').material_select();
-
     $.ajax({
-        url: '/getInteressi',
-        type: 'GET',
-        cache: false,
-        contentType: 'application/json',
-        success: function(data) {
-            arrayInteressi = [];
-            for(let i =0;i<data.data.length;i++){
-                var interesse = {
-                    id : '',
-                    descrizione : '',
-                    interesse: ''
-                };
-                interesse.id = data.data[i]._id;
-                interesse.descrizione = data.data[i].descrizione;
-                interesse.interesse = data.data[i].interesse;
-                arrayInteressi.push(interesse);
-            }
-            console.log(arrayInteressi);
-        },
-        faliure: function(data) {
-
-        }
-    });
-
-    /*$.ajax({
         url: '/getInteressi',
         type: 'GET',
         cache: false,
@@ -90,8 +54,7 @@ $(document).ready(function () {
         faliure: function(data) {
 
         }
-    });*/
-
+    });
     $('#modificaUtente').prop('disabled', true);
     $('#eliminaUtente').prop('disabled', true);
 
@@ -112,18 +75,7 @@ $(document).ready(function () {
             {"data": "mail"},
             {"data": "numero_telefono"},
             {"data": "pec"},
-            //{"data": "interessi"}
-            // Visualizzo il JSON Obj in forma di stringa ma dalla GET resta un JSON Obj
-            {
-                "data": "interessi", "render": function (data) {
-                let stringaInteressi = "";
-                for(let i =0;i<data.length;i++) {
-                    stringaInteressi = stringaInteressi + data[i].descrizione + "-" + data[i].interesse + ",";
-                }
-                stringaInteressi = stringaInteressi.substring(0, stringaInteressi.length-1);
-                return stringaInteressi;
-                }
-            }
+            {"data": "interessi"}
         ]
     });
 
@@ -181,16 +133,6 @@ function  openModal2() {
     });
 }
 
-function resetSelect()
-{
-    $('#selectInt')
-        .empty()
-        .append('<option selected="", value="0", disabled="">Seleziona gli interessi</option>');
-    $('#selectInt').material_select('destroy');
-    $('#selectInt').val();
-    $('#selectInt').material_select();
-}
-
 function  openModal() {
 
     let ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
@@ -228,17 +170,8 @@ function  openModal() {
     $('#mail').val(arrayUtenti[0].mail);
     $('#telefono').val(arrayUtenti[0].numero_telefono);
     $('#pec').val(arrayUtenti[0].pec);
+    $('#interessi').tokenfield('setTokens', arrayUtenti[0].interessi);
 
-    resetSelect();
-    for(let i = 0; i < arrayInteressi.length; i++){
-        $('#selectInt').append(
-            '<option value="' + arrayInteressi[i].id + '">'
-            + arrayInteressi[i].descrizione + '-' + arrayInteressi[i].interesse
-            + '</option>'
-        );
-    }
-
-    //$('#interessi').val(arrayUtenti[0].interessi);
     if (arrayUtenti[0].attivo === true || arrayUtenti[0].attivo === 'true')
         $("#utenteAttivo").prop("checked", true);
     else
@@ -258,7 +191,7 @@ datiUtente = {
     "pec" : undefined,
     "interessi" : undefined,
     "attivo" : undefined
-}
+};
 
 function updateUtente(){
 
@@ -356,7 +289,7 @@ function AddUtente(){
     datiContatto.numero_telefono = $('#telefono2').val();
     datiContatto.pec = $('#pec2').val();
     datiContatto.interesse = $('#interessi2').val();
-    datiContatto.attivo = $("#utenteAttivo").is(":checked") ? "TRUE" : "FALSE";
+    datiContatto.attivo = $("#utenteAttivo2").is(":checked") ? true : false;
 
     if (
         (datiContatto.nome === null || datiContatto.nome === undefined || datiContatto.nome === '' || datiContatto.nome === "") ||
@@ -384,8 +317,7 @@ function AddUtente(){
             "keyboard": true,
             "show": true
         });
-    }
-    else {
+    } else {
         $.ajax({
             url: '/salvaContatto',
             type: 'POST',
@@ -411,9 +343,7 @@ function AddUtente(){
                     $('#pec2').val('');
                     $('#interessi2').val('');
                     $('#utenteAttivo2').val('');
-
                 }
-
 
                 if(data ===false){
 
@@ -435,9 +365,7 @@ function AddUtente(){
                         "keyboard": true,
                         "show": true
                     });
-
                 }
-
             },
             faliure: function (data) {
                 $("#myModal3").on("show", function () {
@@ -461,4 +389,61 @@ function AddUtente(){
             }
         });
     }
+}
+
+function  openModalAdd() {
+
+    $("#myModal4").on("show", function () {
+        $("#myModal4 a.btn").on("click", function (e) {
+            console.log("button pressed");
+            $("#myModal4").modal('hide');
+        });
+    });
+
+    $("#myModal4").on("hide", function () {
+        $("#myModal4 a.btn").off("click");
+    });
+
+    $("#myModal4").on("hidden", function () {
+        $("#myModal4").remove();
+    });
+
+    $("#myModal4").modal({
+        "backdrop": "static",
+        "keyboard": true,
+        "show": true
+    });
+}
+
+datiInteressi = {
+    "_id" : undefined,
+    "interesse" : undefined,
+    "descrizione" : undefined
+};
+
+function addInteresse(){
+
+    datiInteressi.interesse = $('#interesse4').val();
+    datiInteressi.descrizione = $('#descrizione4').val();
+
+    $.ajax({
+        url: '/getAddInteressi',
+        type: 'POST',
+        data: JSON.stringify(datiInteressi),
+        cache: false,
+        contentType: 'application/json',
+        success: function(data) {
+
+            $('#myModal4').modal('hide');
+
+            $('#interesse4').val('');
+            $('#descrizione4').val('');
+
+            window.location.reload(true);
+        },
+        faliure: function(data) {
+
+        }
+    });
+
 }

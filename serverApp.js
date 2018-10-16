@@ -30,6 +30,7 @@ app.use(session({secret: "Shh, its a secret!",saveUninitialized: false, resave: 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(express.static(__dirname + 'public'));
 
 
@@ -114,6 +115,7 @@ soapServer.listen(1337, '192.168.125.14');
 let  salvaEvento = require('./app/routes/webApplication/salvaEvento');
 let  getEventi  = require('./app/routes/webApplication/getEventi');
 let  cercaUsername  = require('./app/routes/mobileApplication/cercaUsername');
+let  getEventiData = require('./app/routes/webApplication/getEventiData');
 let  getUtenti = require('./app/routes/webApplication/getUtenti');
 let  salvaContatto = require('./app/routes/webApplication/salvaContatto');
 let  getEventiById = require('./app/routes/mobileApplication/getEventiById');
@@ -483,6 +485,7 @@ app.use('/getNotificheNota',getNotificheNota);
 app.use('/insertMessageChat',insertMessageChat);
 app.use('/getListaMessaggi',getListaMessaggi);
 app.use('/modificaContatto',modificaContatto);
+app.use('/getEventiData',getEventiData);
 
 
 let swaggerUi = require('swagger-ui-express');

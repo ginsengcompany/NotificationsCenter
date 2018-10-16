@@ -31,17 +31,17 @@ function posyQuery(indice,datiTab) {
     var client = connectionPostgres();
 
 
-    queryPostEvento = "SELECT * FROM "+datiTab.tb_eventi+" WHERE _id="+indice._id_evento;
-    queryPostUtente = "SELECT * FROM "+datiTab.tb_contatti+" WHERE _id="+indice._id_utente;
+    let queryPostEvento = "SELECT * FROM "+datiTab.tb_eventi+" WHERE _id="+indice._id_evento;
+    let queryPostUtente = "SELECT * FROM "+datiTab.tb_contatti+" WHERE _id="+indice._id_utente;
 
-    const query1 = client.query(queryPostEvento);
+    let query1 = client.query(queryPostEvento);
 
     query1.on("row", function (row, result) {
         result.addRow(row);
         let myOjb = JSON.stringify(result.rows, null, "    ");
         datiEmail.arrayEventi = JSON.parse(myOjb)[0];
 
-        const query2 = client.query(queryPostUtente);
+        let query2 = client.query(queryPostUtente);
 
         query2.on("row", function (row, result) {
             result.addRow(row);

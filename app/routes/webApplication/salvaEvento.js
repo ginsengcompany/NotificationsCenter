@@ -33,7 +33,10 @@ router.post('/',function (req, res, next) {
     for(let i=0;i<multiUser.data.length;i++) {
 
         if (multiUser.data[i].cod_org === organizzazione) {
-
+            if(datiEvento.immagine === undefined)
+                datiEvento.immagine = '';
+            if(datiEvento.url_evento === undefined)
+                datiEvento.url_evento = '';
             let queryPostEvento = "INSERT INTO "+multiUser.data[i].tb_eventi+" " +
                 "(titolo, sottotitolo, data, data_fine, luogo, informazioni, relatori, descrizione, tipo, immagine, url_evento)" +
                 "VALUES (" +

@@ -161,16 +161,18 @@ html(lang='en')
                     .modal-dialog
                         .modal-content
                             // dialog body
-                            .modal-body
+                            .modal-header
+                                p.heading.lead Informazioni
                                 button.close(type='button', data-dismiss='modal') ×
-                                h1 Invio!
-                                .row
-                                    .col-md-12
-                                        h3#myHeader Caricamento In Corso...
-                                            br
-                                            .progress.progress-striped.active.page-progress-bar
-                                                .progress-bar(style='width: 100%;')
-                                                    | Attendere Prego
+                                    span.white-text(aria-hidden='true') ×
+                                        // Body
+                            .modal-body
+                                .text-center
+                                 h4 Invio notifiche completato!
+                                        // Footer
+                            .modal-footer.justify-content-center
+                                a.btn.btn-primary(type='button', data-dismiss='modal')
+                                    | Ok
                 #myModal3.modal.fade.left(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
                     .modal-dialog(role='document')
                         // Content
@@ -182,7 +184,8 @@ html(lang='en')
                                     span.white-text(aria-hidden='true') ×
                             // Body
                             .modal-body
-                                h1 Devi selezionare almeno un evento, un utente e una modalità di invio!
+                                .text-center
+                                h4 Devi selezionare almeno un evento, un utente e una modalità di invio!
                             // Footer
                             .modal-footer.justify-content-center
                                 a.btn.btn-primary(type='button', data-dismiss='modal')

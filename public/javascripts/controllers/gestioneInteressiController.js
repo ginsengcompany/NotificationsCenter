@@ -86,6 +86,8 @@ function  openModalUpdate() {
 
 function  openModalAdd() {
 
+    $("#interesse2").val('');
+    $("#descrizione2").val('');
     $("#modalAggiungiInteressi").on("show", function () {
         $("#modalAggiungiInteressi a.btn").on("click", function (e) {
             console.log("button pressed");
@@ -119,29 +121,32 @@ function updateInteresse(){
     datiInteressi._id = arrayInteressi[0]._id;
     datiInteressi.interesse = $('#interesse').val();
     datiInteressi.descrizione = $('#descrizione').val();
+    if(datiInteressi.interesse === '' || datiInteressi.descrizione )
+        alert("Riempi i campi richiesti");
+    else {
+        $.ajax({
+            url: '/getUpdateInteressi',
+            type: 'POST',
+            data: JSON.stringify(datiInteressi),
+            cache: false,
+            contentType: 'application/json',
+            success: function (data) {
 
-    $.ajax({
-        url: '/getUpdateInteressi',
-        type: 'POST',
-        data: JSON.stringify(datiInteressi),
-        cache: false,
-        contentType: 'application/json',
-        success: function(data) {
+                if (data.errore === false) {
 
-            if(data.errore===false){
+                    $("#modalModificaInteressi").modal('hide');
+                    $('#modificaInteresse').prop('disabled', true);
+                    $('#eliminaInteresse').prop('disabled', true);
+                    tabInteressi.ajax.reload();
 
-                $("#modalModificaInteressi").modal('hide');
-                $('#modificaInteresse').prop('disabled', true);
-                $('#eliminaInteresse').prop('disabled', true);
-                tabInteressi.ajax.reload();
+                }
+
+            },
+            faliure: function (data) {
 
             }
-
-        },
-        faliure: function(data) {
-
-        }
-    });
+        });
+    }
 }
 
 function eliminaInteresse(){
@@ -177,25 +182,27 @@ function addInteresse(){
 
     datiInteressi.interesse = $('#interesse2').val();
     datiInteressi.descrizione = $('#descrizione2').val();
+    if(datiInteressi.interesse === '' || datiInteressi.descrizione === '')
+        alert("Riempi i campi richiesti");
+    else {
+        $.ajax({
+            url: '/getAddInteressi',
+            type: 'POST',
+            data: JSON.stringify(datiInteressi),
+            cache: false,
+            contentType: 'application/json',
+            success: function (data) {
 
-    $.ajax({
-        url: '/getAddInteressi',
-        type: 'POST',
-        data: JSON.stringify(datiInteressi),
-        cache: false,
-        contentType: 'application/json',
-        success: function(data) {
-
-            $('#modalAggiungiInteressi').modal('hide');
-            $('#modificaInteresse').prop('disabled', true);
-            $('#eliminaInteresse').prop('disabled', true);
-            tabInteressi.ajax.reload();
+                $('#modalAggiungiInteressi').modal('hide');
+                $('#modificaInteresse').prop('disabled', true);
+                $('#eliminaInteresse').prop('disabled', true);
+                tabInteressi.ajax.reload();
 
 
-        },
-        faliure: function(data) {
+            },
+            faliure: function (data) {
 
-        }
-    });
-
+            }
+        });
+    }
 }

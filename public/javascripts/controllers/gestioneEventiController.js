@@ -362,6 +362,7 @@ function addEvento() {
     datiEvento.relatori = $('#relatoriEvento2').val();
     datiEvento.descrizione = $('#descrizioneEvento2').val();
     datiEvento.url_evento = $('#urlEvento2').val();
+    datiEvento.immagine = $('#caricaFoto2').val();
     datiEvento.tipo = 1;
 
     if (
@@ -372,27 +373,9 @@ function addEvento() {
         (datiEvento.luogo === null || datiEvento.luogo === undefined || datiEvento.luogo === '') ||
         (datiEvento.informazioni === null || datiEvento.informazioni === undefined || datiEvento.informazioni === '') ||
         (datiEvento.relatori === null || datiEvento.relatori === undefined || datiEvento.relatori === '') ||
-        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '') ||
-        (datiEvento.url_evento === null || datiEvento.url_evento === undefined || datiEvento.url_evento === '')
+        (datiEvento.descrizione === null || datiEvento.descrizione === undefined || datiEvento.descrizione === '')
     ) {
-        $("#myModal3").on("show", function () {
-            $("#myModal3 a.btn").on("click", function (e) {
-                $("#myModal3").modal('hide');
-            });
-        });
-        $("#myModal3").on("hide", function () {
-            $("#myModal3 a.btn").off("click");
-        });
-
-        $("#myModal3").on("hidden", function () {
-            $("#myModal3").remove();
-        });
-
-        $("#myModal3").modal({
-            "backdrop": "static",
-            "keyboard": true,
-            "show": true
-        });
+        alert("Inserire tutti i campi!");
     }
     else {
         console.log(datiEvento);

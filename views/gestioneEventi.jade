@@ -283,7 +283,7 @@ html(lang='en')
                                 button.btn.btn-primary.btn-block(type='button', onclick='addEvento();') Salva
 
                 // ALERT ERRORE RIEMPIMENTO
-                #myModal3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalCampiMancanti', aria-hidden='true')
+                #myModal3.modal.fade.left(tabindex='-1', role='dialog', aria-labelledby='modalCampiMancanti', aria-hidden='true')
                     .modal-dialog.modal-notify.modal-danger(role='document')
                         .modal-content
                             // Header
@@ -297,9 +297,8 @@ html(lang='en')
                                     h4 Inserire tutti i campi!
                             // dialog buttons
                             .modal-footer.justify-content-center
-                                a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal') Ok
-
-
+                                a.btn.btn-outline-primary.waves-effect(type='button', data-dismiss='modal')
+                                    | Ok
                 .container-fluid.mx-auto
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text

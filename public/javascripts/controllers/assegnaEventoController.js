@@ -3,7 +3,6 @@ let arrayEventi = {};
 let eventi;
 $('#conteinerHideData').hide();
 $('#titoloSeleziona').hide();
-$('#divButton').hide();
 
 $(function() {
     moment.locale('it');
@@ -58,13 +57,6 @@ function getUtentiNotNotifica (){
             { "data": "specializzazione" },
             { "data": "provincia" }
         ]
-    });
-    tabUtenti.on( 'select', function () {
-        $('#divButton').show();
-    });
-
-    tabUtenti.on( 'deselect', function () {
-        $('#divButton').hide();
     });
     something();
 }
@@ -529,6 +521,7 @@ function switchTable1() {
         dateFormat: 'dd/mm/yy',
         onSelect: function (dateText, inst) {
             if (dateText) {
+                $('#conteinerHideModalita').show();
                 $('#titoloSeleziona').show();
                 $.ajax({
                     type: "POST",
@@ -538,7 +531,6 @@ function switchTable1() {
                     success: function (data, textStatus, jqXHR) {
                         if ($('#invioEvento').prop('checked') === true && $('#invioNotainformativa').prop('checked') === false) {
                             $('#hideInfo').hide();
-                            $('#conteinerHideModalita').hide();
                             $('#tabellaEventi').dataTable().show();
                             $('#tabellaEventi').dataTable().fnDestroy();
                             $('#conteinerHideEvento').show();
@@ -604,7 +596,6 @@ function switchTable1() {
 
     if ($('#invioEvento').prop('checked') === false && $('#invioNotainformativa').prop('checked') === true) {
         $('#hideInfo').hide();
-        $('#conteinerHideModalita').hide();
         $('#tabellaEventi').dataTable().show();
         $('#tabellaEventi').dataTable().fnDestroy();
         $('#conteinerHideEvento').show();
@@ -806,9 +797,10 @@ function salvaDati(){
         return item;
     });
     arrayEventi = ids1;
-    if(!arrayUtenti.length || !arrayEventi.length || $('#invioPush').prop('checked')=== false || $('#invioEmail').prop('checked')=== false || $('#invioSms').prop('checked')=== false ){
+    if($('#invioPush').prop('checked') === false && $('#invioEmail').prop('checked') === false && $('#invioSms').prop('checked') === false)
         $('#myModal3').modal('show');
-    }
+    if(!arrayUtenti.length || !arrayEventi.length)
+        $('#myModal3').modal('show');
 
     for(let i=0; i<arrayUtenti.length; i++){
         let idUtente = arrayUtenti[i]._id;

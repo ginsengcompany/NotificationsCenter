@@ -108,7 +108,7 @@ let services = {
 
 let soapServer = new soap.SoapServer();
 soapServer.addService('Service.svc', services.Service.BasicHttpBinding_IService);
-soapServer.listen(1337, '192.168.125.14');
+soapServer.listen(1337, '192.168.125.33');
 //soapServer.listen(1337, '192.168.125.25');
 
 
@@ -390,7 +390,7 @@ cron.schedule('0 0 0 * * *', function(){
 });*/
 
 // Sta anche commentata la tiro fuori per verifica momentaneamente
-cron.schedule('16 *!/1 * * * *', function(){
+/*cron.schedule('16 *!/1 * * * *', function(){
 
     const options = {
         url: 'http://localhost:3000/getCountNotifiche',
@@ -431,7 +431,7 @@ cron.schedule('16 *!/1 * * * *', function(){
             }
         }
     })
-});
+});*/
 
 require('./routes/routes.js')(app);
 

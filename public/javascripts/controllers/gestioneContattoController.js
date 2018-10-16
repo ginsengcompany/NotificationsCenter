@@ -1,24 +1,6 @@
 let arrayUtenti = {};
 
 $(document).ready(function () {
-    $('.mdb-select').material_select();
-    $.ajax({
-        url: '/getInteressi',
-        type: 'GET',
-        cache: false,
-        contentType: 'application/json',
-        success: function(data) {
-
-            for(let i =0;i<data.data.length;i++){
-                let input = data.data[i].interesse + " - " + data.data[i].descrizione;
-                console.log(input + ' ecco');
-                $('#selectInt').append('<option value="' + data.data[i]._id + '">' + data.data[i].descrizione + ' ' + data.data[i].interesse + '</option>')
-            }
-        },
-        faliure: function(data) {
-        }
-    });
-
     $.ajax({
         url: '/getInteressi',
         type: 'GET',
@@ -73,7 +55,6 @@ $(document).ready(function () {
 
         }
     });
-
     $('#modificaUtente').prop('disabled', true);
     $('#eliminaUtente').prop('disabled', true);
 
@@ -95,8 +76,13 @@ $(document).ready(function () {
             {"data": "numero_telefono"},
             {"data": "pec"},
             {"data": "interessi"}
-
-        ]
+        ],
+        "rowCallback": function( row, data, index ) {
+            if (data.attivo === false) {
+                $('td', row).css('background-color', 'Red');
+                $('td', row).css('color', 'White');
+            }
+        }
     });
 
     $('#tabellaUtenti tbody').on('click', 'tr', function () {
@@ -134,10 +120,10 @@ function  openModal2() {
 
     $("#myModal2").on("show", function () {
         $("#myModal2 a.btn").on("click", function (e) {
-            console.log("button pressed");
             $("#myModal2").modal('hide');
         });
     });
+
     $("#myModal2").on("hide", function () {
         $("#myModal2 a.btn").off("click");
     });
@@ -151,7 +137,6 @@ function  openModal2() {
         "keyboard": true,
         "show": true
     });
-
 }
 
 function  openModal() {
@@ -159,14 +144,15 @@ function  openModal() {
     let ids1 = $.map(tabUtenti.rows('.selected').data(), function (item) {
         return item;
     });
+
     arrayUtenti = ids1;
 
     $("#myModal1").on("show", function () {
         $("#myModal1 a.btn").on("click", function (e) {
-            console.log("button pressed");
             $("#myModal1").modal('hide');
         });
     });
+
     $("#myModal1").on("hide", function () {
         $("#myModal1 a.btn").off("click");
     });
@@ -191,7 +177,11 @@ function  openModal() {
     $('#telefono').val(arrayUtenti[0].numero_telefono);
     $('#pec').val(arrayUtenti[0].pec);
     $('#interessi').tokenfield('setTokens', arrayUtenti[0].interessi);
-    $("#utenteAttivo").prop( "checked", arrayUtenti[0].attivo);
+
+    if (arrayUtenti[0].attivo === true || arrayUtenti[0].attivo === 'true')
+        $("#utenteAttivo").prop("checked", true);
+    else
+        $("#utenteAttivo").prop("checked", false);
 }
 
 datiUtente = {
@@ -207,7 +197,7 @@ datiUtente = {
     "pec" : undefined,
     "interessi" : undefined,
     "attivo" : undefined
-}
+};
 
 function updateUtente(){
 
@@ -222,9 +212,7 @@ function updateUtente(){
     datiUtente.telefono = $('#telefono').val();
     datiUtente.pec = $('#pec').val();
     datiUtente.interessi = $('#interessi').tokenfield('getTokensList');
-    datiUtente.attivo = $("#utenteAttivo").is(":checked") ? "TRUE" : "FALSE";
-    console.log(datiUtente);
-
+    datiUtente.attivo = $("#utenteAttivo").is(":checked") ? true : false;
 
     $.ajax({
         url: '/getUpdateUtenti',
@@ -307,7 +295,7 @@ function AddUtente(){
     datiContatto.numero_telefono = $('#telefono2').val();
     datiContatto.pec = $('#pec2').val();
     datiContatto.interesse = $('#interessi2').val();
-    datiContatto.attivo = $("#utenteAttivo").is(":checked") ? "TRUE" : "FALSE";
+    datiContatto.attivo = $("#utenteAttivo2").is(":checked") ? true : false;
 
     if (
         (datiContatto.nome === null || datiContatto.nome === undefined || datiContatto.nome === '' || datiContatto.nome === "") ||
@@ -319,7 +307,6 @@ function AddUtente(){
     ) {
         $("#myModal3").on("show", function () {
             $("#myModal3 a.btn").on("click", function (e) {
-                console.log("button pressed");
                 $("#myModal3").modal('hide');
             });
         });
@@ -336,8 +323,7 @@ function AddUtente(){
             "keyboard": true,
             "show": true
         });
-    }
-    else {
+    } else {
         $.ajax({
             url: '/salvaContatto',
             type: 'POST',
@@ -363,15 +349,12 @@ function AddUtente(){
                     $('#pec2').val('');
                     $('#interessi2').val('');
                     $('#utenteAttivo2').val('');
-
                 }
-
 
                 if(data ===false){
 
                     $("#myModal5").on("show", function () {
                         $("#myModal5 a.btn").on("click", function (e) {
-                            console.log("button pressed");
                             $("#myModal5").modal('hide');
                         });
                     });
@@ -388,14 +371,11 @@ function AddUtente(){
                         "keyboard": true,
                         "show": true
                     });
-
                 }
-
             },
             faliure: function (data) {
                 $("#myModal3").on("show", function () {
                     $("#myModal3 a.btn").on("click", function (e) {
-                        console.log("button pressed");
                         $("#myModal3").modal('hide');
                     });
                 });
@@ -415,7 +395,6 @@ function AddUtente(){
             }
         });
     }
-
 }
 
 function  openModalAdd() {
@@ -426,6 +405,7 @@ function  openModalAdd() {
             $("#myModal4").modal('hide');
         });
     });
+
     $("#myModal4").on("hide", function () {
         $("#myModal4 a.btn").off("click");
     });
@@ -439,7 +419,6 @@ function  openModalAdd() {
         "keyboard": true,
         "show": true
     });
-
 }
 
 datiInteressi = {
@@ -467,9 +446,6 @@ function addInteresse(){
             $('#descrizione4').val('');
 
             window.location.reload(true);
-
-
-
         },
         faliure: function(data) {
 

@@ -10,7 +10,6 @@ html(lang='en')
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
         // Bootstrap core CSS
         link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
-        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
         // Material Design Bootstrap
         link(href='stylesheets/mdb.min.css', rel='stylesheet')
         link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
@@ -103,7 +102,7 @@ html(lang='en')
                         i.fa.fa-bars
                 // Breadcrumb
                 .breadcrumb-dn.mr-auto
-                    p Material Design for Bootstrap
+                    p #{name}
                 ul.nav.navbar-nav.nav-flex-icons.ml-auto
                     // TO DO: Eliminare se non serve
                     //li.nav-item
@@ -120,7 +119,7 @@ html(lang='en')
                     //        span.clearfix.d-none.d-sm-inline-block Account
                     li.nav-item.dropdown
                         a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                            | Dropdown
+                            | Menu Rapido
                         .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
                             a.dropdown-item(href='/home') Home
                             a.dropdown-item(href='/gestioneInteressi') Interessi
@@ -305,6 +304,11 @@ html(lang='en')
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text
                             strong Gestione Evento
+                        p.lead
+                            | Crea gli eventi a cui invitare i membri della tua organizzazione.
+                        hr.my-4
+                        p
+                            | Ogni evento è dettagliabile e modificabile.
 
                 .row.mx-3
                     .col-sm-4
@@ -348,7 +352,9 @@ html(lang='en')
             // Main Layout
             // SCRIPTS
             // JQuery
-            script(type='text/javascript', src='javascripts/jquery-3.3.1.min.js')
+
+
+            script(type='text/javascript', src='https://code.jquery.com/jquery-3.3.1.js')
             // Popper
             script(type='text/javascript', src='javascripts/popper.min.js')
             // Bootstrap core JavaScript
@@ -358,7 +364,8 @@ html(lang='en')
             script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js')
             script(src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js')
             script(src='javascripts/modernizr.js')
-            script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+            script(src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+            script(src='https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js')
             script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
             script(src="javascripts/bootstrap-tokenfield.min.js")
             script(src="javascripts/dataTables.buttons.min.js")

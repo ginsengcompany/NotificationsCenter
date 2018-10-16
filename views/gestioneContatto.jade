@@ -14,8 +14,8 @@ html(lang='en')
         link(href='stylesheets/mdb.min.css', rel='stylesheet')
         link(rel="stylesheet", type="text/css", href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css")
         link(href='stylesheets/custom.css', rel='stylesheet')
+        link(rel='stylesheet', href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/ui-lightness/jquery-ui.css', type='text/css', media='all')
         link(rel='stylesheet', href='stylesheets/bootstrap-tokenfield.min.css')
-        link(rel="stylesheet" href="stylesheets/tokenfield-typeahead.min.css")
         link(rel='stylesheet', href='stylesheets/tokenfield-typeahead.min.css')
         link(rel='icon', type='image/png', href='images/ico.png')
     body.hidden-sn.cyan-skin
@@ -104,7 +104,7 @@ html(lang='en')
                         i.fa.fa-bars
                 // Breadcrumb
                 .breadcrumb-dn.mr-auto
-                    p Material Design for Bootstrap
+                    p #{name}
                 ul.nav.navbar-nav.nav-flex-icons.ml-auto
                     // TO DO: Eliminare se non serve
                     //li.nav-item
@@ -262,9 +262,17 @@ html(lang='en')
                                         input#pec2.form-control(type='text', name='pec2', placeholder='posta elettronica certificata')
                                 .row
                                     .md-form.col-md-6
-                                        //i.fa.fa-hashtag.prefix(aria-hidden='true')
+                                        i.fa.fa-hashtag.prefix(aria-hidden='true')
                                         label.cols-sm-2.control-label.active(for='interessi2') Interessi
                                         input#interessi2.form-control(type='text', name='interessi2', placeholder='Interessi')
+                                    //.col-md-6
+                                    //    label.cols-sm-6.control-label(for='interessi2') Interessi
+                                    //    .cols-sm-10
+                                    //        .input-group.mb-3
+                                    //            .input-group-prepend
+                                    //                span#basic-addon1.input-group-addon
+                                    //                    i.fa.fa-hashtag(aria-hidden='true')
+                                    //            input#interessi2.form-control(type='text', placeholder='Interessi', aria-describedby='basic-addon1', name='interessi2')
                                     .md-form.col-md-6
                                         label.cols-sm-4.control-label.active(for='AggiungiInteresse') Gestione Interessi
                                         button#AggiungiInteresse.btn.btn-primary(onclick='openModalAdd();') Aggiungi Interesse
@@ -341,6 +349,11 @@ html(lang='en')
                     .jumbotron
                         h1.h1-reponsive.mb-3.blue-text
                             strong Gestione Contatti
+                        p.lead
+                            | Crea una rubrica inserendo le generalità dei contatti appartenenti alla tua organizzazione.
+                        hr.my-4
+                        p
+                            | Ti ricordiamo che i contatti vanno abilitati per poter utilizzare l'app.
 
                 .row.mx-3
                     .col-sm-2
@@ -350,6 +363,10 @@ html(lang='en')
                     .col-sm-2
                         button#eliminaUtente.btn.btn-primary.btn-lg(onclick='eliminaUtente();') Elimina Contatto
                 br
+                .row.ml-4
+                    h4
+                        | Nota:
+                        span.badge.red Contatti non abilitati
                 .row.mx-3
                     .col-sm-12.table-responsive
                         table#tabellaUtenti.table.table-striped.table-bordered(width='100%', cellspacing='0')
@@ -394,6 +411,8 @@ html(lang='en')
             script(src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
             script(src='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js', type='text/javascript')
             script(src="javascripts/bootstrap-tokenfield.min.js")
+            script(src="javascripts/dataTables.buttons.min.js")
+            script(src="javascripts/dataTables.select.min.js")
             // TO DO: Credo non serva a nulla
             script(src="javascripts/controllers/gestioneContattoController.js")
             script.

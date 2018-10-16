@@ -80,6 +80,7 @@ $(document).ready(function () {
         "rowCallback": function( row, data, index ) {
             if (data.attivo === false) {
                 $('td', row).css('background-color', 'Red');
+                $('td', row).css('color', 'White');
             }
         }
     });

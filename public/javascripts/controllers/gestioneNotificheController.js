@@ -194,16 +194,15 @@ function switchTable() {
                 });
                 this.api().columns([6]).every(function () {
                     let that = this;
-                    var select = $('<input class="md-form" type="text" id="dataSearch" placeholder="Ricerca"/>');
-                    // select.appendTo($(column.footer()).empty())
-                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
-                        .on('keyup change', function () {
-                            if (that.search() !== this.value) {
+                    let select = $('<input class="form-control" type="text" id="dataSearch" placeholder="Ricerca"/>')
+                        .appendTo( $('#searchBar').empty() )
+                        .on( 'keyup change', function () {
+                            if ( that.search() !== this.value ) {
                                 that
-                                    .search(this.value)
+                                    .search( this.value )
                                     .draw();
                             }
-                        });
+                        } );
                 });
             },
             search: {"caseInsensitive": false},
@@ -323,6 +322,10 @@ function switchTable() {
         $('#tabellaNotifiche').dataTable().fnDestroy();
 
         tabNotifiche = $('#tabellaNotifiche').DataTable({
+            // eliminare se non serve in cima
+            orderCellsTop: true,
+            // eliminare se non serve la formattazione con bottoni in cima
+            dom: 'Bfrtip',
             initComplete: function () {
                 this.api().columns([4, 5, 7]).every(function () {
                     let column = this;
@@ -406,16 +409,17 @@ function switchTable() {
                 });
                 this.api().columns([6]).every(function () {
                     let that = this;
-                    var select = $('<input class="md-form" type="text" id="dataSearch" placeholder="Ricerca" />');
                     // select.appendTo($(column.footer()).empty())
-                    select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
-                        .on('keyup change', function () {
-                            if (that.search() !== this.value) {
+                    //select.appendTo($("#tabellaNotifiche thead tr:eq(1) th").eq(column.index()-1).empty())
+                    let select = $('<input class="form-control" type="text" id="dataSearch" placeholder="Ricerca"/>')
+                        .appendTo( $('#searchBar').empty() )
+                        .on( 'keyup change', function () {
+                            if ( that.search() !== this.value ) {
                                 that
-                                    .search(this.value)
+                                    .search( this.value )
                                     .draw();
                             }
-                        });
+                        } );
                 });
             },
             search: {"caseInsensitive": false},
